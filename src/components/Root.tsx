@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Navbar from './Navbar'
 import { Outlet, useNavigate } from 'react-router-dom'
+import Footer from './Footer'
 
 const Root = () => {
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ const Root = () => {
     <>
     <Navbar/>
     <Outlet/>
+    <Footer/>
     </>
   )
 }

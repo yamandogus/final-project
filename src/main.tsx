@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './components/Root'
-import Page1 from './components/Page1'
+import Page1 from './pages/Page1'
+import "./styles/evryStyles.scss"
+import Page2 from './pages/Page2'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,10 @@ const router = createBrowserRouter([
         index: true,
         path: "/Page1",
         element: <Page1/>
+      },
+      {
+        path:'/Page2',
+        element: <Page2/>
       }
     ]
   }
