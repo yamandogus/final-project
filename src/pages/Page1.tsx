@@ -2,6 +2,7 @@ import { Box, Button, Card, Container, Grid, Rating, Stack, Typography } from "@
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link } from "react-router-dom";
+import CokSatanlar from "../components/CokSatanlar";
 const Page1 = () => {
   return (
     <>
@@ -23,7 +24,9 @@ const Page1 = () => {
               PROTEİN
             </Typography>
             <Button variant='contained' sx={{ position: 'absolute', bottom: 8, right: 8 }}>
-              İNCELE
+              <Link to={"/Page3"} style={{textDecoration:'none', color:'white'}}>
+              İNCELE              
+              </Link>
             </Button>
           </Card>
         </Grid>
@@ -103,7 +106,7 @@ const Page1 = () => {
             <Typography className="head" variant="h6" sx={{ position: 'absolute', top: 20, right: 8, fontWeight:'bolder'  }}>
               TÜM <br /> ÜRÜNLER
             </Typography>
-            <Button variant='contained' sx={{ position: 'absolute', bottom: 8, right: 8 }}>
+            <Button variant='contained' sx={{ position: 'absolute', bottom: 8, right: 8}}>
               İNCELE
             </Button>
           </Card>
@@ -111,75 +114,7 @@ const Page1 = () => {
         </Grid>
       </Container>
       </Box>
-      <Box>
-        <Typography
-          sx={{
-            mt: 1,
-            mb:2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          variant="h5"
-        >
-          ÇOK SATANLAR
-        </Typography>
-        <Container>
-  <Grid container>
-    <Grid item xs={12} sm={2}>
-      <Link to="/Page2">
-      <img src="/images/6card/pg1.jpeg" alt="" />
-      </Link>
-      <Typography sx={{fontWeight: "bolder", mb:2}} className="text">WHEY PROTEIN</Typography>
-      <p className="spanText">EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-    <Grid item xs={12} sm={2}>
-      <img src="/images/6card/pg2.jpeg" alt="" />
-      <Typography sx={{fontWeight: "bolder", mb:1}} className="text">FITNESS PAKETİ</Typography>
-      <p>EN POPÜLER ÜRÜNLER BİR ARADA</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-    <Grid item xs={12} sm={2}>
-      <img src="/images/6card/pg3.jpeg" alt="" />
-      <Typography sx={{fontWeight: "bolder", mb:1}} className="text">GÜNLÜK VİTAMİN PAKETİ</Typography>
-      <p>EN SIK TÜKETİLEN TAKVİYELER</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-    <Grid item xs={12} sm={2}>
-      <img src="/images/6card/pg4.jpeg" alt="" />
-      <Typography sx={{fontWeight: "bolder", mb:1}} className="text">PRE-WORKOUT SUPREME</Typography>
-      <p>ANTRENMAN ÖNCESİ TAKVİYESİ</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-    <Grid item xs={12} sm={2}>
-      <img src="/images/6card/pg5.jpeg" alt="" />
-      <Typography sx={{fontWeight: "bolder", mb:1}} className="text">CREAM OF RICE</Typography>
-      <p>EN LEZZETLİ PİRİNÇ <br /> KREMASI</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-    <Grid item xs={12} sm={2}>
-      <img src="/images/6card/pg6.jpeg" alt="" />
-      <Typography sx={{fontWeight: "bolder", mb:1}} className="text">CREATINE</Typography>
-      <p>EN POPÜLER SPORCU
-      TAKVİYESİ</p>
-      <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-    </Grid>
-  </Grid>
-</Container>
-      </Box>
+        <CokSatanlar/>
       <Box sx={{mt:3}}>
         <img width="100%" src="/images/6card/box3.png" alt="" />
       </Box>

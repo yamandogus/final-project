@@ -5,6 +5,7 @@ import Root from './components/Root'
 import Page1 from './pages/Page1'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
+import Page3 from './pages/Page3'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path:'/Page2',
         element: <Page2/>
+      },
+      {
+        path:'/Page3',
+        element: <Page3/>
       }
     ]
   }

@@ -5,12 +5,14 @@ import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, Menu, MenuItem, Stack } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,6 +56,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
       <AppBar
@@ -68,7 +80,9 @@ function Navbar() {
           >
             <Toolbar>
               <Typography variant="h6" component="div">
+                <Link to={'/page1'} style={{textDecoration:'none', fontWeight:'bolder', color:'black'}}>
                 OJS <br /> NUTRITION
+                </Link>
               </Typography>
             </Toolbar>
 
@@ -87,9 +101,18 @@ function Navbar() {
                 variant="outlined"
                 color="inherit"
                 startIcon={<PersonIcon />}
+                onClick={handleClick}
               >
                 Hesap
               </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Hesabım</MenuItem>
+                <MenuItem onClick={handleClose}>Kayıt Ol</MenuItem>
+              </Menu>
               <Button
                 variant="outlined"
                 color="inherit"

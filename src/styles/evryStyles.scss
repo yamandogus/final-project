@@ -1,5 +1,7 @@
 
-@use "./Page1/page1";
+@use "./Pages/page1";
+@use "./Pages//page2";
+@use "./Pages//page3";
 
 *{
     margin: 0;

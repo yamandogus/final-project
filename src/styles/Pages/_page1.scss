@@ -16,3 +16,9 @@ p{
 .pic2Border{
     border-bottom: 1px solid black;
 }
+
+
+.imgSpan:hover{
+    transform: scale(1.05);
+    transition: all 0.5s;
+}
