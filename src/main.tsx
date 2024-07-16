@@ -6,6 +6,8 @@ import Page1 from './pages/Page1'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
 import Page3 from './pages/Page3'
+import MyAccount from './Account/MyAccount'
+import SingUp from './Account/SingUp'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
       {
         path:'/Page3',
         element: <Page3/>
+      },
+      {
+        path:'/MyAccount',
+        element:<MyAccount/>
+      },
+      {
+        path:'SingUp',
+        element:<SingUp/>
       }
     ]
   }

@@ -93,6 +93,7 @@ function Navbar() {
               <StyledInputBase
                 placeholder="Aradığınız ürünü yazın…"
                 inputProps={{ "aria-label": "search" }}
+
               />
             </Search>
 
@@ -110,8 +111,10 @@ function Navbar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Hesabım</MenuItem>
-                <MenuItem onClick={handleClose}>Kayıt Ol</MenuItem>
+                <MenuItem onClick={handleClose}><Link className="accountLink" to={'MyAccount'}>Hesabım</Link></MenuItem>
+                <MenuItem onClick={handleClose}><Link className="accountLink"  to={'SingUp'}>
+                Kayıt Ol
+                </Link></MenuItem>
               </Menu>
               <Button
                 variant="outlined"

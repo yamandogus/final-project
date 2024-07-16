@@ -1,7 +1,9 @@
-
 @use "./Pages/page1";
 @use "./Pages//page2";
 @use "./Pages//page3";
+@use "./Navbar//navbar";
+@use "./Account//myAccount";
+@use "./Account//singUp";
 
 *{
     margin: 0;

@@ -1,148 +1,126 @@
-import { Box, Button, Container, Grid, Rating, Stack, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Box, Button, Container, Grid, Rating, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const CokSatanlar = () => {
   return (
-    <>
-      <Box>
-        <Typography
-          sx={{
-            mt: 1,
-            mb: 2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          variant="h5"
-        >
-          ÇOK SATANLAR
-        </Typography>
-        <Container>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <Link to="/Page2">
-                <img src="/images/6card/pg1.jpeg" alt="" />
-              </Link>
-              <Typography sx={{ fontWeight: "bolder", mb: 2 }} className="text">
+    <Box>
+      <Typography
+        sx={{
+          mt: 1,
+          mb: 2,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        variant="h5"
+      >
+        ÇOK SATANLAR
+      </Typography>
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={3} lg={2} spacing={2}>
+            <Link to="/Page2">
+              <img className="responsive-image" src="/images/6card/pg1.jpeg" alt="Whey Protein" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+            </Link>
+            <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+              <Typography fontSize={16} fontWeight={'bolder'} className="text">
                 WHEY PROTEIN
               </Typography>
-              <p>EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ</p>
-              <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+              <Typography><span className='centered-span'>EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ</span></Typography>
+              <Rating name="half-rating" defaultValue={5}  readOnly />
               <Typography>10869 Yorum</Typography>
               <Typography>
                 <span style={{ fontWeight: 'bolder' }}>549 TL</span>
               </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <img src="/images/6card/pg2.jpeg" alt="" />
-              <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
-                FITNESS PAKETİ
-              </Typography>
-              <p>EN POPÜLER ÜRÜNLER BİR ARADA</p>
-              <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Stack>
-                  <Typography>7650 Yorum</Typography>
-                  <Typography>
-                    <span style={{ fontWeight: 'bolder' }}>799 TL</span>
-                    <span>  </span>
-                    <span
-                      style={{
-                        marginLeft: '10px',
-                        color: 'red',
-                        textDecorationLine: 'line-through',
-                      }}
-                    >
-                      1126 TL
-                    </span>
-                  </Typography>
-                </Stack>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <img src="/images/6card/pg3.jpeg" alt="" />
-              <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
-                GÜNLÜK VİTAMİN PAKETİ
-              </Typography>
-              <p>EN SIK TÜKETİLEN TAKVİYELER</p>
-              <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Box>
-                  <Typography>5013 Yorum</Typography>
-                  <Typography>
-                    <span style={{ fontWeight: 'bolder' }}>549 TL</span>
-                    <span>  </span>
-                    <span
-                      style={{
-                        marginLeft: '10px',
-                        color: 'red',
-                        textDecorationLine: 'line-through',
-                      }}
-                    >
-                      717 TL
-                    </span>
-                  </Typography>
-                </Box>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <img src="/images/6card/pg4.jpeg" alt="" />
-              <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
-                PRE-WORKOUT SUPREME
-              </Typography>
-              <p>ANTRENMAN ÖNCESİ TAKVİYESİ</p>
-              <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Box>
-                  <Typography>6738 Yorum</Typography>
-                  <Typography>
-                    <span style={{ fontWeight: 'bolder' }}>399 TL</span>
-                  </Typography>
-                </Box>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <img src="/images/6card/pg5.jpeg" alt="" />
-              <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
-                CREAM OF RICE
-              </Typography>
-              <p>
-                EN LEZZETLİ PİRİNÇ <br /> KREMASI
-              </p>
-              <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Box>
-                  <Typography>5216 Yorum</Typography>
-                  <Typography>
-                    <span style={{ fontWeight: 'bolder' }}>239 TL</span>
-                  </Typography>
-                </Box>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-              <img src="/images/6card/pg6.jpeg" alt="" />
-              <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
-                CREATINE
-              </Typography>
-              <p>EN POPÜLER SPORCU TAKVİYESİ</p>
-              <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Box>
-                  <Typography>8558 Yorum</Typography>
-                  <Typography>
-                    <span style={{ fontWeight: 'bolder' }}>239 TL</span>
-                  </Typography>
-                </Box>
-              </Stack>
-            </Grid>
+            </Stack>
           </Grid>
-          <Box sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-            <Button variant='contained' color='primary' sx={{ my: 4, px: 10, fontWeight: 'bolder' }}>TÜMÜNÜ GÖR</Button>
-          </Box>
-        </Container>
-      </Box>
-    </>
-  )
+          <Grid item xs={6} md={3} lg={2}>
+            <img className="responsive-image" src="/images/6card/pg2.jpeg" alt="Fitness Paketi" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+            <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+            <Typography fontSize={16} fontWeight={'bolder'} className="text">
+              FITNESS PAKETİ
+            </Typography>
+            <Typography><span className="centered-span">EN POPÜLER ÜRÜNLER BİR ARADA</span></Typography>
+              <Rating name="half-rating" defaultValue={5}  readOnly />
+                <Typography>7650 Yorum</Typography>
+                <Typography>
+                  <span style={{ fontWeight: 'bolder' }}>799 TL</span>
+                  <span className='spanText'>
+                    1126 TL
+                  </span>
+                </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6} md={3} lg={2}>
+            <img className="responsive-image" src="/images/6card/pg3.jpeg" alt="Günlük Vitamin Paketi" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+            <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+            <Typography sx={{ fontWeight: "bolder", mb: 1 }} className="text">
+              GÜNLÜK VİTAMİN <br /> PAKETİ
+            </Typography>
+            <Typography><span className='centered-span'>EN SIK TÜKETİLEN TAKVİYELER</span></Typography>
+              <Rating name="half-rating" defaultValue={5}readOnly />       
+                <Typography>5013 Yorum</Typography>
+                <Typography>
+                  <span style={{ fontWeight: 'bolder' }}>549 TL</span>
+                  <span className='spanText'>
+                    717 TL
+                  </span>
+                </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6} md={3} lg={2}>
+            <img className="responsive-image" src="/images/6card/pg4.jpeg" alt="Pre-Workout Supreme" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+           <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+           <Typography fontSize={16} fontWeight={'bolder'}>
+              PRE-WORKOUT <br /> SUPREME
+            </Typography>
+            <Typography><span className='centered-span'>ANTRENMAN ÖNCESİ TAKVİYESİ</span></Typography>
+              <Rating name="half-rating" defaultValue={5} readOnly />
+                <Typography>6738 Yorum</Typography>
+                <Typography>
+                  <span style={{ fontWeight: 'bolder' }}>399 TL</span>
+                </Typography>
+           </Stack>
+          </Grid>
+          <Grid item xs={6} md={3} lg={2}>
+            <img className="responsive-image" src="/images/6card/pg5.jpeg" alt="Cream of Rice" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+           <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+           <Typography fontSize={16} fontWeight={'bolder'}className="text">
+              CREAM OF RICE
+            </Typography>
+              <Typography><span className='centered-span'>EN LEZZETLİ PİRİNÇ <br /> KREMASI</span></Typography>
+            <Stack spacing={1}>
+              <Rating name="half-rating" defaultValue={5} readOnly />
+              <Box>
+                <Typography>5216 Yorum</Typography>
+                <Typography>
+                  <span style={{ fontWeight: 'bolder' }}>239 TL</span>
+                </Typography>
+              </Box>
+            </Stack>
+           </Stack>
+          </Grid>
+          <Grid item xs={6} md={3} lg={2}>
+            <img className="responsive-image" src="/images/6card/pg6.jpeg" alt="Creatine" style={{ maxWidth: '100%', display: 'block', margin: 'auto' }} />
+            <Stack direction={'column'} sx={{ alignItems: 'center' }}>
+            <Typography fontSize={16} fontWeight={'bolder'} className="text">
+              CREATINE
+            </Typography>
+            <Typography><span className='centered-span'>EN POPÜLER SPORCU TAKVİYESİ</span></Typography>         
+              <Rating name="half-rating" defaultValue={5} readOnly />
+                <Typography>8558 Yorum</Typography>
+                <Typography>
+                  <span style={{ fontWeight: 'bolder' }}>239 TL</span>
+                </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 4 }}>
+          <Button variant='contained' color='primary' sx={{ px: 10, fontWeight: 'bolder' }}>TÜMÜNÜ GÖR</Button>
+        </Box>
+      </Container>
+    </Box>
+  );
 }
 
-export default CokSatanlar
+export default CokSatanlar;

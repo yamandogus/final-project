@@ -12,7 +12,7 @@ const Footer = () => {
             OJS <br /> NUTRITION
           </Typography>
           <Stack direction={'column'} spacing={1}>
-            <Link href="#" color="inherit" underline="none">İletişim</Link>
+            <Link href="/Contact" color="inherit" underline="none">İletişim</Link>
             <Link href="#" color="inherit" underline="none">Hakkımızda</Link>
             <Link href="#" color="inherit" underline="none">Sıkça Sorulan Sorular</Link>
             <Link href="#" color="inherit" underline="none">KVKK</Link>
