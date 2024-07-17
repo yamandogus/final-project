@@ -6,7 +6,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
-import CokSatanlar from '../components/CokSatanlar';
+import CokSatanlar from '../components/CokSat/CokSatanlar';
 import Yorumlar from '../components/Yorumlar';
 
 
@@ -111,22 +111,24 @@ function Page2() {
         <Typography sx={{ border: "1px solid black", py:2,px:5, borderRadius: "4px" }}>1.6 KG <br /> 64 servis</Typography>
         <Typography sx={{ border: "1px solid black", py:2,px:5,  borderRadius: "4px" }}>1.6KG X 2 ADET <br /> 128 servis</Typography>
       </Stack>
-      <Stack direction={'row'} spacing={40} sx={{my:2}}>
-      <span style={{fontWeight:'bolder', fontSize:"30px"}}>549 TL</span>
+      <Stack direction={'row'} spacing={35} sx={{my:3}}>
+      <span style={{fontWeight:'bolder', fontSize:"30px",fontFamily:'sans-serif'}}>549 TL</span>
       <Typography>
         34.31 TL /Servis
       </Typography>
       </Stack>
       <Stack 
-      sx={{my:3}} direction={'row'} spacing={30}>
+      sx={{my:3}} direction={'row'} spacing={15}>
        <Box sx={{border: "1px solid black", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <button style={{height:"100%", width:"20px", border:"none"}}>-</button>
-        <span style={{margin: "0 10px",fontSize:"20px"}}>1</span>
+        <span style={{margin: "0 10px",fontSize:"20px",padding:'50'}}>1</span>
         <button style={{height:"100%", width:"20px",border:"none"}}>+</button>
         </Box> 
-        <Button sx={{px:8}} variant='contained' color='warning' startIcon={<ShoppingCartCheckoutIcon/>}>SEPETE EKLE</Button>
+        <Button sx={{px:8, backgroundColor:'black', color:'white','&:hover':{
+          backgroundColor:'black'
+        }}} variant='contained'  startIcon={<ShoppingCartCheckoutIcon/>}>SEPETE EKLE</Button>
       </Stack>
-      <Stack sx={{borderBottom:"1px solid black", pb:2, mb:2}} direction={'row'} spacing={10}>
+      <Stack sx={{borderBottom:"1px solid black", pb:2, mb:2}} direction={'row'} spacing={5}>
         <Typography> <LocalShippingIcon 
           sx={{mr:1}}
           fontSize='large'

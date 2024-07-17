@@ -13,6 +13,7 @@ import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -102,6 +103,7 @@ function Navbar() {
                 variant="outlined"
                 color="inherit"
                 startIcon={<PersonIcon />}
+                endIcon={<ArrowDropDownIcon/>}
                 onClick={handleClick}
               >
                 Hesap
@@ -117,9 +119,10 @@ function Navbar() {
                 </Link></MenuItem>
               </Menu>
               <Button
+                className="buttonBef"
                 variant="outlined"
                 color="inherit"
-                startIcon={<ShoppingCartIcon />}
+                startIcon={<ShoppingCartIcon sx={{fontSize:30, mx:1}} />}
               >
                 Sepet
               </Button>
@@ -128,8 +131,9 @@ function Navbar() {
         </Container>
         <Box>
           <Stack
+            display={'flex'}
             direction="row"
-            spacing={2}
+            spacing={10}
             sx={{
               backgroundColor: "black",
               color: "white",

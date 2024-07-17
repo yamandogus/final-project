@@ -2,7 +2,7 @@ import { Box, Button, Card, Container, Grid, Rating, Stack, Typography } from "@
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link } from "react-router-dom";
-import CokSatanlar from "../components/CokSatanlar";
+import CokSatanlar from "../components/CokSat/CokSatanlar";
 
 const Page1 = () => {
   return (

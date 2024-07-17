@@ -1,15 +1,19 @@
+.buttonBef {
+    position: relative; 
+}
 
 
-
-
-
-
-
-
-
-
-
-.accountLink{
-    text-decoration: none;
-    color: black;
-} 
+.buttonBef::before{
+    position: absolute;
+    content: "0";
+    text-align: center;
+    height: 18px;
+    width: 18px;
+    line-height: 20px;
+    color: white;
+    margin-right: 50px;
+    margin-bottom: 15px;
+    background-color: #ED2727;
+    display: inline-block;
+    border-radius: 50%;
+}

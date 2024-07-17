@@ -8,6 +8,7 @@ import Page2 from './pages/Page2'
 import Page3 from './pages/Page3'
 import MyAccount from './Account/MyAccount'
 import SingUp from './Account/SingUp'
+import ContactUs from './Account/ContactUs'
 
 const router = createBrowserRouter([
   {
@@ -32,8 +33,12 @@ const router = createBrowserRouter([
         element:<MyAccount/>
       },
       {
-        path:'SingUp',
+        path:'/SingUp',
         element:<SingUp/>
+      },
+      {
+        path:'/ContactUs',
+        element:<ContactUs/>
       }
     ]
   }
