@@ -1,7 +1,7 @@
 import { Grid, Rating, Stack, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-interface ProductProps {
+export interface ProductProps {
     name: string;
     image: string;
     description: string;

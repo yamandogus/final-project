@@ -2,13 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './components/Root'
-import Page1 from './pages/Page1'
+import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
 import Page3 from './pages/Page3'
-import MyAccount from './Account/MyAccount'
-import SingUp from './Account/SingUp'
-import ContactUs from './Account/ContactUs'
+import MyAccount from './components/Account/MyAccount'
+import SingUp from './components/Account/SingUp'
+import ContactUs from './FootherDetails/ContactUs'
+import AboutUs from './FootherDetails/AboutUs'
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       {
         index: true,
         path: "/Page1",
-        element: <Page1/>
+        element: <Home/>
       },
       {
         path:'/Page2',
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path:'/ContactUs',
         element:<ContactUs/>
+      },
+      {
+        path:"/AboutUs",
+        element:<AboutUs/>
       }
     ]
   }
