@@ -10,6 +10,7 @@ import MyAccount from './components/Account/MyAccount'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherDetails/ContactUs'
 import AboutUs from './FootherDetails/AboutUs'
+import SSS from './FootherDetails/SSS'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path:"/AboutUs",
         element:<AboutUs/>
+      },
+      {
+        path:"/SSS",
+        element:<SSS/>
       }
     ]
   }

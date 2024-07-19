@@ -14,7 +14,7 @@ const Footer = () => {
         <Stack direction={'column'} spacing={1}>
           <Link to='/ContactUs' style={{ textDecoration: 'none', color: 'inherit' }}>İletişim</Link>
           <Link to='/AboutUs' style={{ textDecoration: 'none', color: 'inherit' }}>Hakkımızda</Link>
-          <Link to='/FAQ' style={{ textDecoration: 'none', color: 'inherit' }}>Sıkça Sorulan Sorular</Link>
+          <Link to='/SSS' style={{ textDecoration: 'none', color: 'inherit' }}>Sıkça Sorulan Sorular</Link>
           <Link to='/KVKK' style={{ textDecoration: 'none', color: 'inherit' }}>KVKK</Link>
           <Link to='/Principles' style={{ textDecoration: 'none', color: 'inherit' }}>Çalışma İlkelerimiz</Link>
           <Link to='/SalesAgreement' style={{ textDecoration: 'none', color: 'inherit' }}>Satış Sözleşmesi</Link>
