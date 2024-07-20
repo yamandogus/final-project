@@ -22,16 +22,15 @@ const MyAccount = () => {
               <Stack
                 direction={"column"}
                 spacing={3}
-                sx={{ textAlign: "left" }}
               >
-                <Typography className="hesapLink">
+                <Typography variant='subtitle1' className="hesapLink">
                   <ContactMailIcon sx={{ mr: 1, fontSize: 30 }} /> Hesap
                   Bilgilerim
                 </Typography>
-                <Typography className="hesapLink">
+                <Typography variant='subtitle1' className="hesapLink">
                   <ShoppingBagIcon sx={{ mr: 1, fontSize: 30 }} /> Siparişlerim
                 </Typography>
-                <Typography className="hesapLink">
+                <Typography variant='subtitle1' className="hesapLink">
                   <LocationOnIcon sx={{ mr: 1, fontSize: 30 }} /> Adreslerim
                 </Typography>
               </Stack>

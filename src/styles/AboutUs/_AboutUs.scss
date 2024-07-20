@@ -1,0 +1,7 @@
+.aboutUs{
+    max-width: 100%!important;
+    flex-basis: 100%!important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+}

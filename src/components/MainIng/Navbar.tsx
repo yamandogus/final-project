@@ -115,13 +115,13 @@ function Navbar() {
               >
                 <MenuItem onClick={handleClose}><Link className="accountLink" to={'MyAccount'}>Hesabım</Link></MenuItem>
                 <MenuItem onClick={handleClose}><Link className="accountLink"  to={'SingUp'}>
-                Kayıt Ol
+                Üye Ol
                 </Link></MenuItem>
               </Menu>
               <Button
                 className="buttonBef"
-                variant="outlined"
-                color="inherit"
+                variant='contained'
+                sx={{backgroundColor:'gray', px:4,'&:hover':{backgroundColor:'gray'}}}
                 startIcon={<ShoppingCartIcon sx={{fontSize:30, mx:1}} />}
               >
                 Sepet

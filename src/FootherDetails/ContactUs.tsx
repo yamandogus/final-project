@@ -2,7 +2,7 @@ import { Box, Button, Container, FormControl, Grid, Stack, TextField, Typography
 
 const ContactUs = () => {
   return (
-    <Container sx={{ my: 10 , width:750}}>
+    <Container maxWidth='sm' sx={{ my: 10}}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h5" fontWeight="bold" sx={{ marginBottom: 3, textAlign:'center', }}>
@@ -52,8 +52,8 @@ const ContactUs = () => {
         </Grid>
         <Grid item xs={12}>
           <Stack sx={{textAlign:'center'}} spacing={3}>
-            <Typography >Aynı gün kargo hafta içi 16:00, Cumartesi ise 11:00' a kadar verilen siparişler icin geçerlidir. Siparişler kargoya verilince e-posta ve sms ile bilgilendirme yapılır.</Typography>
-            <Typography>Telefon ile 0850 303 29 89 numarasını arayarak da bizlere sesli mesaj bırakabilirsiniz . Sesli mesajlarınıza hafta içi saat 09:00-17:00 arasında dönüş sağlanmaktadır.</Typography>
+            <Typography variant='subtitle2'>Aynı gün kargo hafta içi 16:00, Cumartesi ise <strong>11:00</strong>' a kadar verilen siparişler icin geçerlidir. Siparişler kargoya verilince e-posta ve sms ile bilgilendirme yapılır.</Typography>
+            <Typography variant='subtitle2'>Telefon ile <strong>0850 303 29 89</strong> numarasını arayarak da bizlere sesli mesaj bırakabilirsiniz . Sesli mesajlarınıza hafta içi saat <strong>09:00-17:00</strong> arasında dönüş sağlanmaktadır.</Typography>
           </Stack>
         </Grid>
       </Grid>

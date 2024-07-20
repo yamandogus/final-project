@@ -9,6 +9,7 @@ import {Container, Typography } from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import ContactUs from './ContactUs';
 
 
 
@@ -81,16 +82,18 @@ const SSS = () => {
     <Box sx={{my:3}}>
       <Container>
       <TabContext value={value}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ mb:2, borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="Genel" value="1" sx={{ textTransform: 'none' }} />
-              <Tab  label="Ürünler" value="2" sx={{ textTransform: 'none', mx:2 }} />
-              <Tab label="Kargo" value="3" sx={{ textTransform: 'none' }} />
+              <Tab label="Genel" value="1" sx={{ textTransform: 'none',color:'black', fontWeight:'bolder', backgroundColor:'#E5E5E5', ml:1,}} />
+              <Tab  label="Ürünler" value="2" sx={{ textTransform: 'none',color:'black', mx:2 ,fontWeight:'bolder', backgroundColor:'#E5E5E5'}} />
+              <Tab label="Kargo" value="3" sx={{ textTransform: 'none',color:'black', fontWeight:'bolder', backgroundColor:'#E5E5E5' }} />
             </TabList>
           </Box>
 
-        <TabPanel value="1">
+       <Box >
+       <TabPanel value="1">
           <Typography variant='subtitle1' sx={{fontWeight:'bolder', my:2, display:'flex', alignItems:'center'}}> <CreditCardIcon color='primary' sx={{mr:1}}/> GENEL</Typography>
+          <Box sx={{backgroundColor:'#E5E5E5', padding:1}} >
           {questions.map((question, index)=> (
             <Accordions
             key={index}
@@ -98,10 +101,12 @@ const SSS = () => {
             details={question.details}
             />
           ))}
+          </Box>
      
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel value="2" >
         <Typography variant='subtitle1' sx={{fontWeight:'bolder', my:2, display:'flex', alignItems:'center'}}> <ShoppingCartIcon color='primary' sx={{mr:1}}/> ÜRÜNLER</Typography>
+        <Box sx={{backgroundColor:'#E5E5E5', padding:1}}>
         {questions.map((question, index)=> (
             <Accordions
             key={index}
@@ -109,19 +114,24 @@ const SSS = () => {
             details={question.details}
             />
           ))}
+        </Box>
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel value="3" >
         <Typography variant='subtitle1' sx={{fontWeight:'bolder', my:2, display:'flex', alignItems:'center'}}> <LocalShippingIcon color='primary' sx={{mr:1}}/> KARGO</Typography>
-        {questions.map((question, index)=> (
+          <Box sx={{backgroundColor:'#E5E5E5', padding:1}}>
+          {questions.map((question, index)=> (
             <Accordions
             key={index}
             title={question.title}
             details={question.details}
             />
           ))}
+          </Box>
         </TabPanel>
+       </Box>
       </TabContext>
       </Container>
+      <ContactUs/>
     </Box>
     
     </>

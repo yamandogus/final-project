@@ -1,8 +1,10 @@
-import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Rating, Stack, Typography } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import CokSatanlar from "../components/CokSat/CokSatanlar";
-import HomeComp from "../components/HomePage/HomeComp";
+import CokSatanlar from '../components/CokSat/CokSatanlar';
+import HomeComp from '../components/HomePage/HomeComp';
+import SliderComponent from '../components/UseBlaze/SliderComponent';
+
 const products = [
   {
     name: 'PROTEİN',
@@ -53,20 +55,20 @@ const Home = () => {
   return (
     <>
       <Box>
-        <img style={{ maxWidth: "100%", height: "auto" }} src="/images/sec-urunler/img/pageImg1.jpeg" alt="" />
+        <img style={{ width: '100%', height: 'auto' }} src="/images/sec-urunler/img/pageImg1.jpeg" alt="" />
       </Box>
       <Container sx={{ boxShadow: 'none', border: 'none', p: 2, pt: 5 }}>
         <Grid container spacing={3}>
-        {products.map((product, index)=>(
-          <HomeComp
-            key={index}
-            name={product.name}
-            image={product.image}
-            description={product.description}
-            review={product.review}
-            link={product.link}
-          />
-        ))}
+          {products.map((product, index) => (
+            <HomeComp
+              key={index}
+              name={product.name}
+              image={product.image}
+              description={product.description}
+              review={product.review}
+              link={product.link}
+            />
+          ))}
         </Grid>
       </Container>
       <CokSatanlar />
@@ -79,40 +81,23 @@ const Home = () => {
             <Typography>GERÇEK MÜŞTERİ YORUMLARI</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Stack direction='row'>
-              <Rating sx={{ ml: 10 }} name="half-rating" defaultValue={5} readOnly/>
-              <Typography sx={{ ml: 2 }}>198453 Yorum  <KeyboardArrowLeftIcon /><ChevronRightIcon />  </Typography>
+            <Stack direction="row">
+              <Rating sx={{ ml: 10 }} name="half-rating" defaultValue={5} readOnly />
+              <Typography sx={{ ml: 2 }}>
+                198453 Yorum <KeyboardArrowLeftIcon />
+                <ChevronRightIcon />
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
       </Box>
       <Box>
-        <Container sx={{ my: 5 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={3}>
-              <Typography variant='subtitle2'>03/05/24</Typography>
-              <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-              <Typography>Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Typography variant='subtitle2'>03/05/24</Typography>
-              <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-              <Typography>Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Typography variant='subtitle2'>03/05/24</Typography>
-              <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-              <Typography>Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Typography variant='subtitle2'>03/05/24</Typography>
-              <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-              <Typography>Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.</Typography>
-            </Grid>
-          </Grid>
+        <Container sx={{my: 5, overflow: 'hidden' }}>
+        <SliderComponent />
+
         </Container>
       </Box>
-      <Box sx={{ backgroundColor: "#222222", color: "white", py: 6 }}>
+      <Box sx={{ backgroundColor: '#222222', color: 'white', py: 6 }}>
         <Container>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -120,14 +105,13 @@ const Home = () => {
                 <Rating sx={{ ml: 10 }} name="half-rating" defaultValue={5} readOnly />
                 <Typography>(140.000+)</Typography>
               </Stack>
-              <Typography variant='h5'>LABORATUVAR TESTLİ ÜRÜNLER <br /> AYNI GÜN & ÜCRETSİZ KARGO <br /> MEMNUNİYET GARANTİSİ</Typography>
+              <Typography variant="h5">
+                LABORATUVAR TESTLİ ÜRÜNLER <br /> AYNI GÜN & ÜCRETSİZ KARGO <br /> MEMNUNİYET GARANTİSİ
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography sx={{ mt: 5 }}>
-                200.000'den fazla ürün yorumumuza dayanarak,
-                ürünlerimizi seveceğinize eminiz. Eğer herhangi
-                bir sebeple memnun kalmazsan, bizimle iletişime
-                geçtiğinde çözüme kavuşturacağız.
+                200.000'den fazla ürün yorumumuza dayanarak, ürünlerimizi seveceğinize eminiz. Eğer herhangi bir sebeple memnun kalmazsan, bizimle iletişime geçtiğinde çözüme kavuşturacağız.
               </Typography>
             </Grid>
           </Grid>

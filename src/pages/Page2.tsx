@@ -7,7 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import CokSatanlar from '../components/CokSat/CokSatanlar';
-import Yorumlar from '../components/Yorumlar';
+import Yorumlar from '../components/Comments/Yorumlar';
 
 
 function Page2() {
@@ -290,7 +290,7 @@ function Page2() {
           </Stack>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Stack direction={"column"} spacing={2}>
+          <Stack direction={"column"}>
             {[
               { value: 5, count: 9284, sliderValue: 90 },
               { value: 4, count: 1316, sliderValue: 50 },

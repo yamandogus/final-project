@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root from './components/Root'
+import Root from './components/MainIng/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'

@@ -12,8 +12,10 @@
   "dependencies": {
     "@mui/lab": "5.0.0-alpha.172",
     "@mui/styles": "^5.16.2",
+    "blaze-slider": "^1.9.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-material-ui-carousel": "^3.4.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

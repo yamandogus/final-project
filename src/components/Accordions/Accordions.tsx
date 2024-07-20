@@ -8,7 +8,7 @@ interface qestionData{
 const Accordions = ({title, details}: qestionData) => {
   return (
     <>
-     <Accordion>
+     <Accordion sx={{mb:1}}>
         <AccordionSummary
           expandIcon={<ArrowDownwardIcon />}
           aria-controls="panel1-content"
