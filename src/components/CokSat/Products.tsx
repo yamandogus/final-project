@@ -20,6 +20,7 @@ const ProductCard = ({
   price,
   discountedPrice,
 }: ProductProps) => {
+  
   return (
     <>
       <Grid item xs={6} md={4} lg={2}>
