@@ -11,7 +11,7 @@ export interface ProductProps {
   discountedPrice?: number | null;
 }
 
-const ProductCard = ({
+const Protein = ({
   name,
   image,
   description,
@@ -22,16 +22,16 @@ const ProductCard = ({
 }: ProductProps) => {
 
   const calculateDiscount = (price: number, discountedPrice: number) =>{
-    return Math.round((discountedPrice - price )/ price * 100)
+    return Math.round((discountedPrice-price) / price * 100)
   }
   
   return (
     <>
-      <Grid item xs={6} md={4} lg={2}>
+      <Grid item xs={6} md={4} lg={3}>
         <Link style={{position:'relative'}} to={`/Page2`}>
           {discountedPrice && (
             <Stack className="discount">
-                  <strong style={{fontSize:'15px'}}>%{calculateDiscount(price, discountedPrice)} </strong> İNDİRİM
+                  <strong style={{fontSize:'16px'}}>%{calculateDiscount(price, discountedPrice)} </strong>İNDİRİM
             </Stack>
           )}
           <img
@@ -64,4 +64,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default Protein;

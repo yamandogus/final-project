@@ -5,12 +5,12 @@ import Root from './components/MainIng/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
-import Page3 from './pages/Page3'
 import MyAccount from './components/Account/MyAccount'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherDetails/ContactUs'
 import AboutUs from './FootherDetails/AboutUs'
 import SSS from './FootherDetails/SSS'
+import ProteinPage from './pages/ProteinPage'
 
 const router = createBrowserRouter([
   {
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
         element: <Page2/>
       },
       {
-        path:'/Page3',
-        element: <Page3/>
+        path:'/ProteinPage',
+        element: <ProteinPage/>
       },
       {
         path:'/MyAccount',

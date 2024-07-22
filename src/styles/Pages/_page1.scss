@@ -24,8 +24,19 @@ p{
     transition: all 0.5s;
 }
 
-.incBtn{
+
+.discount{
+    position: absolute;
+    top: -0.100rem;
+    right: -0.01rem;
+    padding: 5px;
+    width: 50px;
+    font-weight: bolder;
     color: white;
-    text-decoration: none;
-    padding: 0 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(237, 39, 39, 1);
+    font-size: 11px;
 }

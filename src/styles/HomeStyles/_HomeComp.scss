@@ -1,0 +1,38 @@
+
+
+@media (min-width: 600px) and (max-width: 912px) {
+    .nameComp{
+        display: inline;
+        font-size: 17px!important;
+    }
+    .homeConmtImg{
+        width: 233px!important;
+        height: 127px!important;
+    }
+    .cardTyp{
+        height: 127px!important;
+    }
+    .buttonComp{
+        width: 73px;
+        height: 20px;
+    }
+  }
+
+  @media (max-width: 599px){
+    .nameComp{
+        display: inline;
+        font-size: 13px!important;
+    }
+    .homeConmtImg{
+        width: 150px!important;
+        height: 96px!important;
+    }
+    .cardTyp{
+        height: 96px!important;
+    }
+    .buttonComp{
+        width: 50px;
+        height: 20px;
+        font-size: 11px!important;
+    }
+  }

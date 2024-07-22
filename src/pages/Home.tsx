@@ -11,42 +11,48 @@ const products = [
     image: '/images/sec-urunler/img/urun1.jpeg',
     description: 'Protein ürünleri',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:"rgba(126,160,162,1)",
   },
   {
-    name: 'VİTA - MİNLER',
+    name: `VİTA -MİNLER`,
     image: '/images/sec-urunler/img/urun2.jpeg',
     description: 'Vitamin ürünleri',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:'rgba(253, 232, 215, 1)',
   },
   {
     name: 'SAĞLIK',
     image: '/images/sec-urunler/img/urun3.jpeg',
     description: 'Sağlık ürünleri',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:'rgba(204, 203, 198, 1)',
   },
   {
     name: 'SPOR GIDALARI',
     image: '/images/sec-urunler/img/urun4.jpeg',
     description: 'Spor gıdaları',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:'rgba(217, 216, 211, 1)',
   },
   {
     name: 'GIDA',
     image: '/images/sec-urunler/img/urun5.jpeg',
     description: 'Gıda ürünleri',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:'rgba(114, 180, 206, 1)',
   },
   {
     name: 'TÜM ÜRÜNLER',
     image: '/images/6card/news.png',
     description: 'Tüm ürünler',
     review: 'İNCELE',
-    link: '/Page3'
+    link: '/ProteinPage',
+    bg:'rgb(168, 213, 232)',
   }
 ];
 
@@ -58,7 +64,7 @@ const Home = () => {
         <img style={{ width: '100%', height: 'auto' }} src="/images/sec-urunler/img/pageImg1.jpeg" alt="" />
       </Box>
       <Container sx={{ boxShadow: 'none', border: 'none', p: 2, pt: 5 }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           {products.map((product, index) => (
             <HomeComp
               key={index}
@@ -67,6 +73,7 @@ const Home = () => {
               description={product.description}
               review={product.review}
               link={product.link}
+              bg={product.bg}
             />
           ))}
         </Grid>

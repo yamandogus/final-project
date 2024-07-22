@@ -81,12 +81,11 @@ function Navbar() {
           >
             <Toolbar>
               <Typography variant="h6" component="div">
-                <Link to={'/page1'} style={{textDecoration:'none', fontWeight:'bolder', color:'black'}}>
-                OJS <br /> NUTRITION
+                <Link to={'/page1'}>
+                  <img width={160} src="/images/Logo/Logo1.png" alt="" />
                 </Link>
               </Typography>
             </Toolbar>
-
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -94,10 +93,8 @@ function Navbar() {
               <StyledInputBase
                 placeholder="Aradığınız ürünü yazın…"
                 inputProps={{ "aria-label": "search" }}
-
               />
             </Search>
-
             <Stack direction="row" spacing={2}>
               <Button
                 variant="outlined"
