@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import ProductCard from './Products';
 
 const products = [
@@ -89,9 +89,6 @@ const CokSatanlar = () => {
             />
           ))}
         </Grid>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 4 }}>
-          <Button variant='contained' color='primary' sx={{ px: 10, fontWeight: 'bolder' }}>TÜMÜNÜ GÖR</Button>
-        </Box>
       </Container>
     </Box>
   );
