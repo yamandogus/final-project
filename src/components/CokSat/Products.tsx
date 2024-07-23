@@ -41,7 +41,15 @@ const ProductCard = ({
             style={{ maxWidth: "100%", display: "block", margin: "auto" }}
           />
         </Link>
-        <Stack direction={"column"} sx={{ alignItems: "center" }}>
+        <Stack 
+        direction={"column"} 
+        textAlign={'center'} 
+        sx={{
+          alignItems:'center',
+          fontStyle:'rgba(136, 136, 136, 1)'
+        }}
+        
+        >
           <Typography fontSize={16} fontWeight={"bolder"} className="text">
             {name}
           </Typography>
@@ -53,7 +61,7 @@ const ProductCard = ({
           <Typography>
             <span style={{ fontWeight: "bolder" }}>{price} TL</span>
             {discountedPrice && (
-              <span className="spanText">
+              <span className="spanText" style={{fontWeight:'bolder', fontSize:15}}>
                 {discountedPrice} TL <br />
               </span>
             )}

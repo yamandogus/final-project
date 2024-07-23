@@ -84,23 +84,23 @@ const Home = () => {
       </Box>
       <Box sx={{ mt: 3 }} className="pic2Border">
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Typography>GERÇEK MÜŞTERİ YORUMLARI</Typography>
+          <Grid item xs={12} md={6} textAlign={'center'}>
+            GERÇEK MÜŞTERİ YORUMLARI
           </Grid>
-          <Grid item xs={6}>
-            <Stack direction="row">
-              <Rating sx={{ ml: 10 }} name="half-rating" defaultValue={5} readOnly />
-              <Typography sx={{ ml: 2 }}>
-                198453 Yorum <KeyboardArrowLeftIcon />
+          <Grid item xs={12} md={6} textAlign={'center'}>
+             <Typography>
+              <Rating name="half-rating" defaultValue={5} readOnly />
+                <span style={{textDecoration:'underline',margin:'0 4px'}}>198543 Yorum</span>
+                <KeyboardArrowLeftIcon />
                 <ChevronRightIcon />
               </Typography>
-            </Stack>
           </Grid>
         </Grid>
       </Box>
       <Box>
         <Container sx={{my: 5, overflow: 'hidden' }}>
-        <SliderComponent />
+        <SliderComponent
+        />
 
         </Container>
       </Box>

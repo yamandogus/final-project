@@ -1,65 +1,32 @@
-import "blaze-slider/dist/blaze.css";
-import { useBlazeSlider } from "./UseBlazeSlider";
-import { Grid, Typography } from "@mui/material";
+import BlazeSlider from 'blaze-slider';
+import { useEffect, useRef } from 'react';
+import 'blaze-slider/dist/blaze.css'
+
 
 const SliderComponent = () => {
-  const { sliderElRef } = useBlazeSlider();
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      new BlazeSlider(sliderRef.current);
+    }
+  }, []);
 
   return (
-    <div className="blaze-slider" ref={sliderElRef}>
+    <div className="blaze-slider">
       <div className="blaze-container">
-        <div className="blaze-track">
-          <div className="blaze-slide">
-            {" "}
-            <Grid container spacing={2}>
-              {Array(4)
-                .fill("")
-                .map((_, index) => (
-                  <Grid sx={{px:1}} item xs={12} sm={6} md={3} key={index}>
-                    <Typography variant="subtitle2">03/05/24</Typography>
-                    <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-                    <Typography>
-                      Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor
-                      insanı teşekkürler.
-                    </Typography>
-                  </Grid>
-                ))}
-            </Grid>
+        <div className="blaze-track-container">
+          <div className="blaze-track">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
           </div>
-          <div className="blaze-slide">
-            {" "}
-            <Grid container spacing={2}>
-              {Array(4)
-                .fill("")
-                .map((_, index) => (
-                  <Grid item xs={12} sm={6} md={3} key={index}>
-                    <Typography variant="subtitle2">03/05/24</Typography>
-                    <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-                    <Typography>
-                      Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor
-                      insanı teşekkürler.
-                    </Typography>
-                  </Grid>
-                ))}
-            </Grid>
-          </div>
-          <div className="blaze-slide">
-            {" "}
-            <Grid container spacing={2}>
-              {Array(4)
-                .fill("")
-                .map((_, index) => (
-                  <Grid item xs={12} sm={6} md={3} key={index}>
-                    <Typography variant="subtitle2">03/05/24</Typography>
-                    <Typography variant="h6">Beğendim gayet güzeldi</Typography>
-                    <Typography>
-                      Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor
-                      insanı teşekkürler.
-                    </Typography>
-                  </Grid>
-                ))}
-            </Grid>
-          </div>
+        </div>
+        <div className="my-structure">
+          <button className="blaze-prev" aria-label="Go to previous slide"></button>
+          <div className="blaze-pagination"></div>
+          <button className="blaze-next" aria-label="Go to next slide"></button>
         </div>
       </div>
     </div>
@@ -67,3 +34,4 @@ const SliderComponent = () => {
 };
 
 export default SliderComponent;
+
