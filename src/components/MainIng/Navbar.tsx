@@ -2,10 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import InputBase from "@mui/material/InputBase";
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import { Box, Container, Menu, MenuItem, Stack } from "@mui/material";
+import { Box, Container,Drawer, List, ListItem,  Menu, MenuItem, Stack, Tooltip} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -14,53 +11,18 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import React from "react";
+import DrawerList from "../MyCart/DrawerList";
 
 function Navbar() {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement| null>(null);
+  const [open, setOpen] = React.useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleClick = (event: any) => {
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -86,15 +48,6 @@ function Navbar() {
                 </Link>
               </Typography>
             </Toolbar>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Aradığınız ürünü yazın…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
             <Stack direction="row" spacing={2}>
               <Button
                 variant="outlined"
@@ -120,34 +73,99 @@ function Navbar() {
                 variant='contained'
                 sx={{backgroundColor:'gray', px:4,'&:hover':{backgroundColor:'gray'}}}
                 startIcon={<ShoppingCartIcon sx={{fontSize:30, mx:1}} />}
+                onClick={toggleDrawer(true)}
               >
                 Sepet
+
               </Button>
+              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+              <DrawerList onClose={toggleDrawer(false)} />
+              </Drawer>
             </Stack>
           </Stack>
         </Container>
-        <Box>
-          <Stack
-            display={'flex'}
-            direction="row"
-            spacing={10}
+        <Box >
+          <Box
             sx={{
               backgroundColor: "black",
               color: "white",
-              py: 1,
-              px: 2,
-              justifyContent: "center",
-              alignItems: "center",
+            }}
+            >
+            <Container>
+              <List sx={{display:'flex', flexDirection:'row'}}>
+              <Tooltip
+            title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ipsum purus, bibendum sit amet vulputate eget, porta semper ligula. Donec bibendum vulputate erat, ac fringilla mi finibus nec. Donec ac dolor sed dolor porttitor blandit vel vel purus. Fusce vel malesuada ligula. Nam quis vehicula ante, eu finibus est. Proin ullamcorper fermentum orci, quis finibus massa. Nunc lobortis, massa ut rutrum ultrices, metus metus finibus ex, sit amet facilisis neque enim sed neque. Quisque accumsan metus vel maximus consequat. Suspendisse lacinia tellus a libero volutpat maximus.
+
+"
+            slotProps={{
+              popper: {
+                modifiers: [
+                  {
+                    name: 'offset',
+                    options: {
+                      offset: [10, 5],
+                    },
+                  },
+                ],
+                style:{
+                  width:'80vw'
+                }
+              },
+              tooltip:{
+                sx:{
+                  padding:3,
+                  backgroundColor:'red',
+                  width:'80vw',
+                  height:'auto',
+                  maxWidth:'none'
+                }
+              }
             }}
           >
-            <Button color="inherit">Protein</Button>
-            <Button color="inherit">Spor Gıdaları</Button>
-            <Button color="inherit">Sağlık</Button>
-            <Button color="inherit">Gıda</Button>
-            <Button color="inherit">Vitamin</Button>
-            <Button color="inherit">Tüm Ürünler</Button>
-          </Stack>
-          <Stack
+         <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Protein</ListItem>
+          </Tooltip>
+          
+              
+              <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Spor Gıdaları</ListItem>
+              <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Sağlık</ListItem>
+              <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Gıda</ListItem>
+              <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Vitamin</ListItem>
+              <Tooltip
+            title='text'
+            slotProps={{
+              popper: {
+                modifiers: [
+                  {
+                    name: 'offset',
+                    options: {
+                      offset: [10, 5],
+                    },
+                  },
+                ],
+                style:{
+                  width:'80vw'
+                }
+              },
+              tooltip:{
+                sx:{
+                  padding:3,
+                  backgroundColor:'gray',
+                  color:'black',
+                  width:'80vw',
+                  height:'auto',
+                  maxWidth:'none'
+                }
+              }
+            }}
+          >
+              <ListItem sx={{ flex: 1, justifyContent: 'center' }} color="inherit">Tüm Ürünler</ListItem>
+      
+          </Tooltip>
+              </List>
+          </Container>
+          </Box>
+       <Box>
+       <Stack
             direction="row"
             sx={{
               backgroundColor: "white",
@@ -183,6 +201,7 @@ function Navbar() {
               <strong>GÜVENLİ ALIŞVERİŞ</strong> - 1.000.000 + MUTLU ALIŞVERİŞ
             </Typography>
           </Stack>
+       </Box>
         </Box>
       </AppBar>
     </>
