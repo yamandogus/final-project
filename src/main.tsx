@@ -5,7 +5,7 @@ import Root from './components/MainIng/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
-import MyAccount from './components/Account/MyAccount'
+import AccountHomePage from './components/Account/AccountHomePage'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherDetails/ContactUs'
 import AboutUs from './FootherDetails/AboutUs'
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/MyAccount',
-        element:<MyAccount/>
+        element:<AccountHomePage/>
       },
       {
         path:'/SingUp',

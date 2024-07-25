@@ -1,42 +1,11 @@
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
+import { Box, Grid, Stack, Typography } from "@mui/material"
 
-const MyAccount = () => {
+const Olderdest = () => {
   return (
     <>
-      <Box>
-        <Container sx={{ mt: 10 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
-              <Typography
-                sx={{
-                  fontSize: 25,
-                  fontWeight: "bolder",
-                  marginBottom: 4,
-                }}
-              >
-                HESABIM
-              </Typography>
-              <Stack
-                direction={"column"}
-                spacing={3}
-              >
-                <Typography variant='subtitle1' className="hesapLink">
-                  <ContactMailIcon sx={{ mr: 1, fontSize: 30 }} /> Hesap
-                  Bilgilerim
-                </Typography>
-                <Typography variant='subtitle1' className="hesapLink">
-                  <ShoppingBagIcon sx={{ mr: 1, fontSize: 30 }} /> Siparişlerim
-                </Typography>
-                <Typography variant='subtitle1' className="hesapLink">
-                  <LocationOnIcon sx={{ mr: 1, fontSize: 30 }} /> Adreslerim
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography sx={{ pb: 3 }} variant="h4">
+        <Grid container>
+            <Grid item xs={12} md={8}>
+            <Typography sx={{ pb: 3 }} variant="h4">
                 Sipariş Teslim Edildi
               </Typography>
               <Typography
@@ -90,13 +59,8 @@ const MyAccount = () => {
                 <Typography>HJ2192904051</Typography>
               </Stack>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              md={3}
-              sx={{ mt: 16, borderTop: "1px solid black" }}
-            >
-              <Stack
+            <Grid item xs={12} md={4}>
+            <Stack
                 direction={"column"}
                 spacing={1}
                 sx={{ borderBottom: "1px solid black", pb: 2, mb: 3 }}
@@ -176,11 +140,9 @@ const MyAccount = () => {
                 <Typography variant="subtitle2">Satış Sözleşmesi</Typography>
               </Stack>
             </Grid>
-          </Grid>
-        </Container>
-      </Box>
+        </Grid>
     </>
-  );
-};
+  )
+}
 
-export default MyAccount;
+export default Olderdest
