@@ -1,43 +1,29 @@
-import React from 'react';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-interface DrawerListProps {
-  onClose: () => void;
-}
 
-const cart = false
 
-const DrawerList: React.FC<DrawerListProps> = ({ onClose }) => {
+const cart = true
+
+const DrawerList = () => {
   return (
-    <Box sx={{ width: 350 }} role="presentation" onClick={onClose}>
+    <Box sx={{ width: 350 }} role="presentation" onClick={(e)=> e.stopPropagation()}>
       <Typography sx={{fontWeight:'bolder', fontSize:18}}>SEPETİM</Typography>
       <Divider />
- 
-      {!cart ? <Typography>Sepet Boş</Typography>:<Typography>Sepet Dolu</Typography>}
-
-
-    <Stack textAlign={'center'} position={'relative'}>
-       
-        <Link to={'#'} style={{
-            color:'white',
-            textDecoration:'none',
-        }}>DEVAM ET 
-       <Button variant='contained'
+      {!cart ? <Typography>Sepet Boş</Typography>:<Typography>Sepet Boş</Typography>} 
+    <Stack marginBottom={1} textAlign={'center'} position={'absolute'} bottom={0} >
+      <Typography variant='subtitle2' fontWeight={'bolder'} textAlign={'end'} mr={5}>Toplam 499 TL</Typography>
+       <Button href='' variant='contained'
         sx={{
-            marginBottom:-150,
             px:10,
-            mx:3,
+            mx:5,
             backgroundColor:'black',
             '&:hover':{backgroundColor:'black'}
         }}
         onClick={(e)=> e.stopPropagation()}
         >
         DEVAM ET <ArrowRightIcon/>
-
         </Button>
-        </Link>
     </Stack>
     </Box>
   );

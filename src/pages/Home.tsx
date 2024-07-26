@@ -3,6 +3,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CokSatanlar from '../components/CokSat/CokSatanlar';
 import HomeComp from '../components/HomePage/HomeComp';
+import SliderComponent from '../components/UseBlaze/SliderComponent';
 
 const products = [
   {
@@ -98,7 +99,7 @@ const Home = () => {
       </Box>
       <Box>
         <Container sx={{my: 5, overflow: 'hidden' }}>
-
+          <SliderComponent/>
         </Container>
       </Box>
       <Box sx={{ backgroundColor: '#222222', color: 'white', py: 6 }}>

@@ -28,11 +28,12 @@ interface ListItemProps {
   listitem: string;
   title: string;
   tooltipContent:React.ReactNode;
+  
 }
 
 const listItemsData: ListItemProps[] = [
   {
-    listitem: 'protein',
+    listitem: 'PROTEİN',
     title: 'Protein',
     tooltipContent: (
       <Typography>
@@ -41,7 +42,7 @@ const listItemsData: ListItemProps[] = [
     ),
   },
   {
-    listitem: 'spor-gidalari',
+    listitem: 'SPOR GIDALARI',
     title: 'Spor Gıdaları',
     tooltipContent: (
       <Typography>
@@ -50,7 +51,7 @@ const listItemsData: ListItemProps[] = [
     ),
   },
   {
-    listitem: 'saglik',
+    listitem: 'SAĞLIK',
     title: 'Sağlık',
     tooltipContent: (
       <Typography>
@@ -59,7 +60,7 @@ const listItemsData: ListItemProps[] = [
     ),
   },
   {
-    listitem: 'gida',
+    listitem: 'GIDA',
     title: 'Gıda',
     tooltipContent: (
       <Typography>
@@ -68,7 +69,7 @@ const listItemsData: ListItemProps[] = [
     ),
   },
   {
-    listitem: 'vitamin',
+    listitem: 'VİTAMİN',
     title: 'Vitamin',
     tooltipContent: (
       <Typography>
@@ -77,7 +78,7 @@ const listItemsData: ListItemProps[] = [
     ),
   },
   {
-    listitem: 'tum-urunler',
+    listitem: 'TÜM ÜRÜNLER',
     title: 'Tüm Ürünler',
     tooltipContent: (
       <Typography>
@@ -89,7 +90,7 @@ const listItemsData: ListItemProps[] = [
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -161,7 +162,7 @@ function Navbar() {
                 Sepet
               </Button>
               <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-                <DrawerList onClose={toggleDrawer(false)} />
+                <DrawerList/>
               </Drawer>
             </Stack>
           </Stack>
@@ -196,7 +197,8 @@ function Navbar() {
                       tooltip: {
                         sx: {
                           padding: 3,
-                          backgroundColor: "gray",
+                          color:'black',
+                          backgroundColor: "rgb(255, 255, 255)",
                           width: "auto",
                           height: "auto",
                           maxWidth: "none",

@@ -1,7 +1,20 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import React, { ChangeEvent, useState } from 'react';
 
+const Informations: React.FC = () => {
+  const [focusPhone, setFocusPhone] = useState(false);
+  const [phone, setPhone] = useState<string>('');
+  const [phoneError, setPhoneError] = useState(false);
 
-const Informations = () => {
+  const handlePhone = (value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (typeof value === 'string') {
+      setFocusPhone(true);
+      setPhone(value);
+      setPhoneError(false);
+    }
+  };
+
   return (
     <>
       <Typography fontWeight='bolder' variant='subtitle1'>
@@ -25,34 +38,37 @@ const Informations = () => {
           />
         </Grid>
         <Grid item xs={12}>
-        <TextField
+          <MuiPhoneNumber 
+            key="autofocus_issue_112"
+            defaultCountry="tr"
             fullWidth
-            label="Telefon"
-            required
-            placeholder="+90 (555) 555-5555"
-            inputProps={{
-              pattern: "\\+\\d{1,3} \\(\\d{3}\\) \\d{3}-\\d{4}", 
-              title: "Telefon numarası formatı: +90 (555) 555-5555"
-            }}
+            variant="outlined"
+            label="Telefon Numarası"
+            name="phone"
+            value={phone}
+            onChange={handlePhone}
+            error={phoneError}
+            helperText={phoneError && "Invalid phone number"}
+            autoFocus={focusPhone}
           />
         </Grid>
         <Grid item xs={12}>
-            <TextField
+          <TextField
             type='email'
             label="Email"
             required
             fullWidth
-            />
+          />
         </Grid>
         <Grid item xs={12} textAlign='end'>
-            <Button
+          <Button
             variant='contained'
             sx={{
                 py:1,
                 backgroundColor:'black',
                 '&:hover':{backgroundColor:'black'}
             }}
-            >Kaydet</Button>
+          >Kaydet</Button>
         </Grid>
       </Grid>
     </>
@@ -60,4 +76,5 @@ const Informations = () => {
 };
 
 export default Informations;
+
 
