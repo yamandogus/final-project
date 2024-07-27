@@ -2,6 +2,13 @@
     position: relative; 
 }
 
+.accountLink{
+    text-decoration: none;
+    color: black;
+    &:hover{
+        color: blue;
+    }
+}
 
 .buttonBef::before{
     position: absolute;

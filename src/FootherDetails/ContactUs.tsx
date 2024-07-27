@@ -13,19 +13,19 @@ const ContactUs = () => {
 
         <Grid item xs={12} md={6}>
           <FormControl fullWidth>
-            <TextField id="filled-basic" label="Adınız" variant="filled" size="small" required />
+            <TextField id="filled-basic" label="Adınız" variant='outlined' size="medium" required />
           </FormControl>
         </Grid>
 
         <Grid item xs={12} md={6}>
           <FormControl fullWidth>
-            <TextField id="filled-basic" label="Soyadınız" variant="filled" size="small" required/>
+            <TextField id="filled-basic" label="Soyadınız" variant='outlined' size="medium" required/>
           </FormControl>
         </Grid>
 
         <Grid item xs={12}>
           <FormControl fullWidth>
-            <TextField id="filled-basic" label="E-posta" variant="filled" size="small" required />
+            <TextField id="filled-basic" label="E-posta" variant='outlined' size="medium" required />
           </FormControl>
         </Grid>
 
@@ -36,7 +36,7 @@ const ContactUs = () => {
               label="Mesajınız"
               multiline
               rows={4}
-              variant="filled"
+              variant='outlined'
               fullWidth
               sx={{ mt: 2 }}
             />

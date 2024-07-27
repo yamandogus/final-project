@@ -7,6 +7,7 @@ const Addresses:React.FC = () => {
     const [focusPhone, setFocusPhone] = useState(false)
     const [phone, setPhone] =  useState<string>("")
     const [phoneError, setPhoneError] = useState(false)
+    const [isAddressSaved, setIsAddressSaved] = useState(false)
 
     const handlePhone = (value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         if(typeof value ==="string"){ console.log(value);
@@ -17,9 +18,17 @@ const Addresses:React.FC = () => {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleAddressSubmit = (e:any) =>{
+        e.preventDefault();
+        setIsAddressSaved(true)
+    } 
+
   return (
     <>
-        <Box mb={10}>
+        <Box>
+            {!isAddressSaved ? (
+                <Box mb={10}>
             <Box mb={5}>
                 <Typography fontWeight='bolder' variant="subtitle1">Adres Oluştur</Typography>
                 <Stack sx={{
@@ -95,6 +104,7 @@ const Addresses:React.FC = () => {
                     </Grid>
                     <Grid item xs={12} textAlign={'end'}>
                         <Button
+                        onClick={handleAddressSubmit}
                         variant='contained'
                         sx={{
                             py:1,
@@ -105,6 +115,16 @@ const Addresses:React.FC = () => {
                     </Grid>
                 </Grid>
         </Box>
+            ):
+            (
+              <>
+                <p>Adres eklendi</p>
+                <a onClick={()=> setIsAddressSaved(false)} >Adres Ekle</a>
+              </>
+            )
+            }
+        </Box>
+        
     </>
   )
 }

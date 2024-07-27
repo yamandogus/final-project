@@ -11,6 +11,7 @@ import ContactUs from './FootherDetails/ContactUs'
 import AboutUs from './FootherDetails/AboutUs'
 import SSS from './FootherDetails/SSS'
 import ProteinPage from './pages/ProteinPage'
+import Login from './components/Account/Login'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path:'/MyAccount',
         element:<AccountHomePage/>
+      },
+      {
+        path:"/Login",
+        element:<Login/>
       },
       {
         path:'/SingUp',

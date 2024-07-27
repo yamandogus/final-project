@@ -1,0 +1,24 @@
+.test{
+    border: none;
+    display: block;
+    background-color: rgba(34, 34, 34, 1);
+    .accordion{
+        background-color: rgba(34, 34, 34, 1);
+        color: white;
+        border: none;
+    }
+}
+@media(max-width: 767px){
+    .footer1{
+        display: none,
+    }
+    .test{
+        display: block,
+    }
+}
+
+@media(min-width: 768px){
+    .test{
+        display: none,
+    }
+}

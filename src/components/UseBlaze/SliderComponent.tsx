@@ -22,10 +22,10 @@ const SliderComponent = () => {
             <div className="blaze-container">
               <div className="blaze-track-container">
                 <div className="blaze-track">
-                  <div>1</div>
-                  <div>2</div>
-                  <div>3</div>
-                  <div>4</div>
+                  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quidem quae cupiditate voluptas illum hic culpa assumenda corrupti soluta nulla?</div>
+                  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id!</div>
+                  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                  <div>Lorem ipsum dolor sit amet consectetur adipisicing.</div>
                 </div>
               </div>
             </div>

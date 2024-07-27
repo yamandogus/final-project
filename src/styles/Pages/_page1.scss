@@ -39,4 +39,12 @@ p{
     align-items: center;
     background-color: rgba(237, 39, 39, 1);
     font-size: 11px;
+    @media(max-width:478px) {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        font-size: 9px;
+        top: -0.1500rem;
+        left: 6.203rem;
+    }
 }

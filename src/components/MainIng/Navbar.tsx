@@ -6,11 +6,14 @@ import {
   Box,
   Container,
   Drawer,
+  IconButton,
+  InputAdornment,
   List,
   ListItem,
   Menu,
   MenuItem,
   Stack,
+  TextField,
   Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -23,6 +26,7 @@ import { useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
 import DrawerList from "../MyCart/DrawerList";
+import SearchIcon from '@mui/icons-material/Search';
 
 interface ListItemProps {
   listitem: string;
@@ -122,6 +126,20 @@ function Navbar() {
                 </Link>
               </Typography>
             </Toolbar>
+            <Stack direction={'row'}>
+              <TextField size='small'
+              placeholder="Lütfen bir ürün arayınız"
+              InputProps={{
+                endAdornment:(
+                  <InputAdornment position="end">
+                    <IconButton edge='end'>
+                      <SearchIcon/>
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+              /> 
+            </Stack>
             <Stack direction="row" spacing={2}>
               <Button
                 variant="outlined"
@@ -140,6 +158,11 @@ function Navbar() {
                 <MenuItem onClick={handleClose}>
                   <Link className="accountLink" to={"MyAccount"}>
                     Hesabım
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link className="accountLink" to={"Login"}>
+                    Üye Girişi
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
