@@ -30,9 +30,9 @@ const AccountHomePage = () => {
             <Grid item xs={12} md={3} textAlign={'center'}>
                <Typography fontWeight={'bolder'} variant='h5' textAlign={'center'}> HESABIM</Typography>
               <List>
-                <ListItem onClick={()=> setActiveSation('accountInfo') }><ContactMailIcon sx={{mr:1}}/>Hesap Bilgilerim</ListItem>
-                <ListItem onClick={()=> setActiveSation('olders') }><ShoppingBagIcon sx={{mr:1}}/>Siparişlerim</ListItem>
-                <ListItem onClick={()=> setActiveSation('addresses') }><LocationOnIcon sx={{mr:1}}/>Adreslerim</ListItem>
+                <ListItem className="accountLink" onClick={()=> setActiveSation('accountInfo') }><ContactMailIcon sx={{mr:1}}/>Hesap Bilgilerim</ListItem>
+                <ListItem className="accountLink" onClick={()=> setActiveSation('olders') }><ShoppingBagIcon sx={{mr:1}}/>Siparişlerim</ListItem>
+                <ListItem className="accountLink" onClick={()=> setActiveSation('addresses') }><LocationOnIcon sx={{mr:1}}/>Adreslerim</ListItem>
               </List>
             </Grid>
             <Grid item xs={12} md={9}>

@@ -61,7 +61,7 @@ const Home = () => {
   return (
     <>
       <Box>
-        <img style={{ width: '100%', height: 'auto' }} src="/images/sec-urunler/img/pageImg1.jpeg" alt="" />
+        <img className='creatineImg' style={{ width: '100%', height: 'auto' }} src="/images/sec-urunler/img/pageImg1.jpeg" alt="" />
       </Box>
       <Container sx={{ boxShadow: 'none', border: 'none', p: 2, pt: 5 }}>
         <Grid container spacing={2}>
@@ -79,8 +79,8 @@ const Home = () => {
         </Grid>
       </Container>
       <CokSatanlar />
-      <Box sx={{ mt: 3 }}>
-        <img width="100%" src="/images/6card/box3.png" alt="" />
+      <Box sx={{ mt: 3 }} position={'relative'}>
+        <img className='homePage2' width="100%" src="/images/6card/box3.png" alt="" />
       </Box>
       <Box sx={{ mt: 3 }} className="pic2Border">
         <Grid container spacing={2}>

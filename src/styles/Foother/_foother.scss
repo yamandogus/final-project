@@ -22,3 +22,11 @@
         display: none,
     }
 }
+
+.footerLink{
+    text-decoration: none;
+    color: rgba(153, 153, 153, 1);
+    &:hover{
+        color: white;
+    }
+}

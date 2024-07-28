@@ -48,9 +48,9 @@ const Footer: React.FC = () => {
       <Stack direction={"column"} spacing={1}>
         {Links.map((link) => (
           <Link
+            className="footerLink"
             key={link.to}
             to={link.to}
-            style={{ textDecoration: "none", color: "rgba(153, 153, 153, 1)"}}
           >
             <Typography variant="subtitle2">{link.label}</Typography>
           </Link>
