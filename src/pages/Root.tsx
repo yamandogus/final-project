@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar/Navbar'
 import { Outlet, useNavigate} from 'react-router-dom'
-import Footer from './Footer'
+import Footer from '../components/Footer/Footer'
 
 const Root = () => {
   const navigate = useNavigate()

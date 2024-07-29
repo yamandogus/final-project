@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root from './components/MainIng/Root'
+import Root from './pages/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import Page2 from './pages/Page2'
-import AccountHomePage from './components/Account/AccountHomePage'
+import AccountHomePage from './pages/AccountHomePage'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherDetails/ContactUs'
 import AboutUs from './FootherDetails/AboutUs'

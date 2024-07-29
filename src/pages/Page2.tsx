@@ -92,12 +92,9 @@ function Page2() {
       .querySelectorAll<HTMLDivElement>(".checkbox-div")
       .forEach((div) => {
         div.addEventListener("click", () => {
-          console.log("tıklandı");
-
           const checkbox =
             div.querySelector<HTMLInputElement>(".checkbox-input");
           if (checkbox) {
-            console.log("ife girdi");
             checkbox.checked = !checkbox.checked;
             div.classList.toggle("selected", checkbox.checked);
           }
@@ -235,14 +232,6 @@ function Page2() {
                   </div>
                 </Grid>
               </Grid>
-              {/* <Stack spacing={3} direction={'row'}>
-        <Typography sx={{ border: "1px solid black", py:2,px:5, borderRadius: "4px", textAlign:"center" }}>400G <br /> 16 servis</Typography>
-        <Typography sx={{ border: "1px solid black", py:2,px:5, borderRadius: "4px" }}>1.6 KG <br /> 64 servis</Typography>
-        <Box position={'relative'}>
-          <Stack className='discounted'>%6 İNDİRİM</Stack>
-          <Typography sx={{ border: "1px solid black", py:2,px:5,  borderRadius: "4px" }}>1.6KG X 2 ADET <br /> 128 servis</Typography>
-        </Box>
-      </Stack> */}
               <Stack direction={"row"} spacing={35} sx={{ my: 3 }}>
                 <span
                   style={{

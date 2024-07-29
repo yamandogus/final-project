@@ -3,9 +3,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { useState } from "react";
-import Informations from "./Informations/Informations";
-import Addresses from "./Addresses/Addresses";
-import Orders from "./Orders/Orders";
+import Informations from "../components/Account/Informations/Informations";
+import Addresses from "../components/Account/Addresses/Addresses";
+import Orders from "../components/Account/Orders/Orders";
 
 
 const AccountHomePage = () => {
@@ -19,6 +19,8 @@ const AccountHomePage = () => {
        return <Orders/>
       case 'addresses':
        return <Addresses/>
+       case 'orders':
+       return <Orders/>
     }
   }
 
