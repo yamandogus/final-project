@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-import Navbar from '../components/Navbar/Navbar'
+import Navbar from '../Layout/Navbar'
 import { Outlet, useNavigate} from 'react-router-dom'
-import Footer from '../components/Footer/Footer'
+import Footer from '../Layout/Footer'
 
 const Root = () => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    navigate("/Page1")
+    navigate("/Home")
   },[])
   return (
     <>

@@ -28,7 +28,7 @@ const ProductCard = ({
   return (
     <>
       <Grid item xs={6} md={4} lg={2}>
-        <Link style={{position:'relative'}} to={`/Page2`}>
+        <Link style={{position:'relative'}} to={`/ProductsDetails`}>
           {discountedPrice && (
             <Stack className="discount">
                   <strong style={{fontSize:'15px'}}>%{calculateDiscount(price, discountedPrice)} </strong> İNDİRİM

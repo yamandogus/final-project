@@ -6,7 +6,7 @@ import {
   Box,
   Container,
   Drawer,
-  IconButton,
+  FormGroup,
   InputAdornment,
   List,
   ListItem,
@@ -18,16 +18,12 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import GppGoodIcon from "@mui/icons-material/GppGood";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
-import DrawerList from "../MyCart/DrawerList";
-import SearchIcon from "@mui/icons-material/Search";
-import SecondNavbar from "./secondNav/SecondNavbar";
+import DrawerList from "../components/MyCart/DrawerList";
+import SecondNavbar from "./SecondNavbar";
 interface ListItemProps {
   listitem: string;
   title: string;
@@ -122,25 +118,45 @@ function Navbar() {
             >
               <Toolbar>
                 <Typography variant="h6" component="div">
-                  <Link to={"/page1"}>
+                  <Link to={"/Home"}>
                     <img width={160} src="/images/Logo/Logo1.png" alt="" />
                   </Link>
                 </Typography>
               </Toolbar>
               <Stack direction={"row"}>
-                <TextField
-                  size="small"
-                  placeholder="Lütfen bir ürün arayınız"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton edge="end">
-                          <SearchIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                <FormGroup>
+                  <TextField
+                    size="small"
+                    placeholder="Lütfen bir ürün arayınız"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Box
+                            component={"button"}
+                            sx={{
+                              height: 39,
+                              px: 3,
+                              backgroundColor: "rgba(145, 145, 145, 1)",
+                              border: "none",
+                              borderRadius: "0 4px 4px 0",
+                              cursor: "pointer",
+                              color: "white",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            Ara
+                          </Box>
+                        </InputAdornment>
+                      ),
+                      sx: {
+                        width:350,
+                        paddingRight: 0,
+                      },
+                    }}
+                  />
+                </FormGroup>
               </Stack>
               <Stack direction="row" spacing={2}>
                 <Button
@@ -204,7 +220,7 @@ function Navbar() {
               }}
             >
               <Container>
-                <List sx={{ display: "flex", flexDirection: "row" }}>
+              <List  sx={{display:'flex', flexDirection:'row', gap:8}}>
                   {listItemsData.map((list, index) => (
                     <Tooltip
                       key={index}
@@ -236,7 +252,7 @@ function Navbar() {
                       }}
                     >
                       <ListItem
-                        sx={{ flex: 1, justifyContent: "center" }}
+                        sx={{ flex: 1, justifyContent: "center", fontSize:13,}}
                         color="inherit"
                       >
                         {list.listitem.toUpperCase()}
@@ -246,53 +262,12 @@ function Navbar() {
                 </List>
               </Container>
             </Box>
-            <Box>
-              <Stack
-                direction="row"
-                sx={{
-                  backgroundColor: "white",
-                  color: "black",
-                  py: 1,
-                  px: 6,
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontSize: 12, display: "flex", alignItems: "center" }}
-                >
-                  <Box component="span" sx={{ marginRight: 1 }}>
-                    <LocalShippingIcon />
-                  </Box>
-                  <strong>AYNI GÜN KARGO</strong> -16.00'DAN SONRA ÖNCEKİ
-                  SİPARİŞLERDE
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 12, display: "flex", alignItems: "center" }}
-                >
-                  <Box component="span" sx={{ marginRight: 1 }}>
-                    <InsertEmoticonIcon />
-                  </Box>
-                  <strong>ÜCRETSİZ KARGO</strong> - 100 TL ÜZERİ SİPARİŞLERDE
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 12, display: "flex", alignItems: "center" }}
-                >
-                  <Box component="span" sx={{ marginRight: 1 }}>
-                    <GppGoodIcon />
-                  </Box>
-                  <strong>GÜVENLİ ALIŞVERİŞ</strong> - 1.000.000 + MUTLU
-                  ALIŞVERİŞ
-                </Typography>
-              </Stack>
-            </Box>
           </Box>
         </AppBar>
       </Box>
-      <SecondNavbar/>
+      <SecondNavbar />
     </>
   );
 }
-
 
 export default Navbar;

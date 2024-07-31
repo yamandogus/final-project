@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
-import { ProductProps } from '../components/CokSat/Products';
+import { ProductProps } from '../components/Bestseller/Products';
 import Protein from '../components/Protein/Protein';
 import { Link } from 'react-router-dom';
 
@@ -116,7 +116,7 @@ const productsProtein: ProductProps[] = [
   }
 ];
 
-const Page3 = () => {
+const ProteinPage = () => {
 
   return (
     <>
@@ -152,4 +152,4 @@ const Page3 = () => {
   )
 }
 
-export default Page3
+export default ProteinPage

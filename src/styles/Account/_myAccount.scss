@@ -10,3 +10,17 @@ cursor: pointer;
 .textBottom{
     margin-top: 30px;
 }
+
+@media (max-width: 599px){
+    .myAccountMbLink{
+        display: flex;
+        flex-direction: row;
+        font-size: x-small;
+    }
+    .momileIcon{
+        margin-right: 5px!important;     
+    }
+    .accountLink{
+        font-weight: 600;
+    }
+}

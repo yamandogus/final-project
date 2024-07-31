@@ -99,14 +99,12 @@ const Footer: React.FC = () => {
           </Grid>
         </Container>
       </Box>
-      <Box>
-        <Box className="test" sx={{backgroundColor:'rgba(34, 34, 34, 1)'}}>
-        <Container >
-        <Accordion className="accordion">
+        <Box className="test" sx={{backgroundColor:'rgb(34, 34, 34)'}}>
+        <Container style={{border:'none !important'}} >
+        <Accordion 
+        sx={{"&:before":{backgroundColor:'transparent'}}}
+        className="accordion">
         <AccordionSummary
-          sx={{
-            border:'none'
-          }}
           aria-controls="panel1-content"
           id="panel1-header"
         >
@@ -116,7 +114,9 @@ const Footer: React.FC = () => {
         {renderLink(contactLinks)}
         </AccordionDetails>
       </Accordion>
-      <Accordion className="accordion">
+      <Accordion
+      sx={{"&:before":{backgroundColor:'transparent'}}}
+      className="accordion">
         <AccordionSummary
           aria-controls="panel2-content"
           id="panel2-header"
@@ -127,7 +127,9 @@ const Footer: React.FC = () => {
         {renderLink(popularProductsLinks)}
         </AccordionDetails>
       </Accordion>
-      <Accordion className="accordion">
+      <Accordion 
+      sx={{"&:before":{backgroundColor:'transparent'}}}
+      className="accordion">
         <AccordionSummary
           aria-controls="panel3-content"
           id="panel3-header"
@@ -140,7 +142,6 @@ const Footer: React.FC = () => {
       </Accordion>
         </Container>
     </Box>
-      </Box>
     </>
   );
 };

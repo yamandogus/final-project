@@ -1,6 +1,5 @@
-@use "./Pages/page1";
-@use "./Pages//page2";
-@use "./Pages//page3";
+@use "./ProductsDetailts/productdetails";
+@use "./Products/products";
 @use "./Navbar//navbar";
 @use "./Account//myAccount";
 @use "./Account//singUp";
@@ -9,6 +8,8 @@
 @use "./HomeStyles/HomeComp";
 @use "./Slider/Slider";
 @use "./HomeStyles/home";
+
+
 *{
     margin: 0;
     padding: 0;

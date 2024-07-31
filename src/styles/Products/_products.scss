@@ -1,4 +1,22 @@
-.text{
+.responsive-image{
+    width: 90%;
+    height: auto; 
+    object-fit: cover; 
+    @media(max-width:478px) {
+      width: 70%;
+    } 
+}
+.centered-span {
+    text-align: center;
+    font-size: 10px;
+  }
+  .spanText{
+    color: red;
+    font-size: small;
+    text-decoration: line-through;
+  }
+
+  .text{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,9 +31,6 @@ p{
     justify-content: center;
     align-items: center;
     font-size: small;
-}
-.pic2Border{
-    border-bottom: 1px solid black;
 }
 
 

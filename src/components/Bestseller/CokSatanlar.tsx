@@ -64,11 +64,8 @@ const CokSatanlar = () => {
     <Box>
       <Typography
         sx={{
-          mt: 1,
-          mb: 2,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          my:3,
+          textAlign:'center'
         }}
         variant="h5"
       >

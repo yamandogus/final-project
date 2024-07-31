@@ -17,10 +17,10 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import StarIcon from "@mui/icons-material/Star";
-import CokSatanlar from "../components/CokSat/CokSatanlar";
+import CokSatanlar from "../components/Bestseller/CokSatanlar";
 import Yorumlar from "../components/Comments/Yorumlar";
-import LastWiew from "../components/CokSat/LastWiew";
-import { useEffect } from "react";
+import LastWiew from "../components/Bestseller/LastWiew";
+import { useEffect, useState } from "react";
 import Aroma from "../components/Aroma/Aroma";
 
 const products = [
@@ -86,7 +86,9 @@ const products = [
   },
 ];
 
-function Page2() {
+function ProductsDetails() {
+  const [count, setCount] = useState<number>(0)
+
   useEffect(() => {
     document
       .querySelectorAll<HTMLDivElement>(".checkbox-div")
@@ -232,8 +234,10 @@ function Page2() {
                   </div>
                 </Grid>
               </Grid>
-              <Stack direction={"row"} spacing={35} sx={{ my: 3 }}>
-                <span
+              <Stack direction={'row'}  sx={{ display:'flex',justifyContent:'space-between'}} >
+                  <>
+                  <Box>
+                  <span
                   style={{
                     fontWeight: "bolder",
                     fontSize: "30px",
@@ -242,7 +246,11 @@ function Page2() {
                 >
                   549 TL
                 </span>
+                  </Box>
+                  </>
+                <Box>
                 <Typography>34.31 TL /Servis</Typography>
+                </Box>
               </Stack>
               <Stack sx={{ my: 3 }} direction={"row"} spacing={2}>
                 <Box
@@ -254,6 +262,7 @@ function Page2() {
                   }}
                 >
                   <button
+                    onClick={()=>setCount(count - 1)}
                     style={{ height: "100%", width: "20px", border: "none" }}
                   >
                     -
@@ -265,9 +274,10 @@ function Page2() {
                       padding: "50",
                     }}
                   >
-                    1
+                    {count}
                   </span>
                   <button
+                  onClick={()=> setCount(count + 1)}
                     style={{ height: "100%", width: "20px", border: "none" }}
                   >
                     +
@@ -291,20 +301,20 @@ function Page2() {
               <Stack
                 sx={{ borderBottom: "1px solid black", pb: 2, mb: 2 }}
                 direction={"row"}
-                spacing={5}
+                display={'flex'}
               >
                 <Typography>
                   {" "}
-                  <LocalShippingIcon sx={{ mr: 1 }} fontSize="large" />
+                  <LocalShippingIcon  fontSize="large" />
                   Aynı Gün <br /> Ücretsiz Kargo
                 </Typography>
                 <Typography>
-                  <VerifiedUserIcon sx={{ mr: 1 }} fontSize="large" />
+                  <VerifiedUserIcon  fontSize="large" />
                   750.000+ <br />
                   Mutlu Müşteri
                 </Typography>
                 <Typography>
-                  <FactCheckIcon sx={{ mr: 1 }} fontSize="large" />
+                  <FactCheckIcon  fontSize="large" />
                   Memnuniyet <br />
                   Garantisi
                 </Typography>
@@ -373,11 +383,8 @@ function Page2() {
       <Box sx={{ my: 6 }}>
         <Typography
           sx={{
-            mt: 1,
-            mb: 2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            my:3,
+            textAlign:'center'
           }}
           variant="h5"
         >
@@ -481,4 +488,4 @@ function Page2() {
   );
 }
 
-export default Page2;
+export default ProductsDetails;

@@ -18,6 +18,9 @@
     .firstNavbar{
         display: none;
     }
+    .sliderRek{
+        display: none;
+    }
     .secondNavbar{
         display: block;
     }
@@ -35,3 +38,7 @@
         height: 210px!important;
     }
   }
+
+  .pic2Border{
+    border-bottom: 1px solid black;
+}

@@ -7,11 +7,13 @@ const Comments1 = ({rating,name,date,comment,shortComment}:CommentProp) => {
     <>
         <Grid container spacing={2} className='gridYrm'>
         <Grid item xs={12}>
-        <Stack direction={'column'} spacing={2} >
-          <Stack direction={'row'} >
-            <Rating defaultValue={rating} sx={{mr:2}} readOnly icon={<StarIcon />} emptyIcon={<span />} />   
-           <Typography><strong>{name}</strong></Typography>
-           <Typography align='left'><strong>{date}</strong></Typography>
+        <Stack direction={'column'} spacing={2}>
+          <Stack direction={'row'} sx={{display:'flex', justifyContent:'space-between'}}>
+           <Stack direction={'row'}>
+           <Rating defaultValue={rating} sx={{mr:2}} readOnly icon={<StarIcon />} emptyIcon={<span />} />   
+           <Typography><strong id='span'>{name}</strong></Typography>
+           </Stack>
+           <Typography ><strong>{date}</strong></Typography>
           </Stack>
           <Typography variant='subtitle1'><strong>{comment}</strong></Typography>
           <Typography variant='subtitle2'>{shortComment}</Typography>

@@ -4,12 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './pages/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
-import Page2 from './pages/Page2'
+import ProductsDetails from './pages/ProductDetails'
 import AccountHomePage from './pages/AccountHomePage'
 import SingUp from './components/Account/SingUp'
-import ContactUs from './FootherDetails/ContactUs'
-import AboutUs from './FootherDetails/AboutUs'
-import SSS from './FootherDetails/SSS'
+import ContactUs from './FootherPages/ContactUs'
+import AboutUs from './FootherPages/AboutUs'
+import SSS from './FootherPages/SSS'
 import ProteinPage from './pages/ProteinPage'
 import Login from './components/Account/Login'
 
@@ -20,12 +20,12 @@ const router = createBrowserRouter([
     children:[
       {
         index: true,
-        path: "/Page1",
+        path: "/Home",
         element: <Home/>
       },
       {
-        path:'/Page2',
-        element: <Page2/>
+        path:'/ProductsDetails',
+        element: <ProductsDetails/>
       },
       {
         path:'/ProteinPage',
