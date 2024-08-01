@@ -8,6 +8,7 @@ import {
   InputAdornment,
   List,
   ListItem,
+  Stack,
   TextField,
   Toolbar,
   Typography,
@@ -61,10 +62,16 @@ const Links: LinksProps[] = [
 ];
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);
+  const [cartOpen, setCardOpen] = useState(false)
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  const toggleDrawer2 = (newOpen: boolean) => () => {
+    setCardOpen(newOpen);
+  };
+
   const DrawerList = (
     <Box sx={{ width: 250 }}>
       <List>
@@ -73,7 +80,7 @@ const SecondNavbar = () => {
             key={link.id}
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Link className="mobileNvlink" to={link.link ?`/${link.link}`: "#"}><Typography sx={{fontWeight:700}}>{link.name}</Typography></Link>
+            <Link className="mobileNvlink" onClick={link.link ? toggleDrawer(false): toggleDrawer(true)} to={link.link ?`/${link.link}`: "#"}><Typography sx={{fontWeight:700}}>{link.name}</Typography></Link>
             {link.icon}
           </ListItem>
         ))}
@@ -89,9 +96,35 @@ const SecondNavbar = () => {
     </Box>
   );
 
-  const MyCart = (newOpen : boolean) => () => {
-    
-  }
+  const MyCart= (
+      <Box width={250} position={'relative'} height={'100%'}>
+        <Typography sx={{fontWeight:'bolder'}}>SEPETİM</Typography>
+        <Divider/>
+       
+        <Stack sx={
+          {
+            position:'absolute', 
+            bottom: 0,
+             width:'100%',
+             p:2
+         }} >
+          <Typography variant='subtitle2' textAlign={'end'} mr={5} fontWeight={'bolder'}>Toplam: 499 TL</Typography>
+        <Button
+        sx={
+          {
+            width:'100%',
+            px:10,
+            marginBottom:3,
+            backgroundColor:'black',
+            '&:hover':{backgroundColor:'black'}
+          }
+        }
+        variant='contained'
+        >SEPETİM</Button>
+        </Stack>
+
+      </Box>
+  )
   return (
     <>
       <Box sx={{ flexGrow: 1 }} component={"div"} className="secondNavbar">
@@ -117,7 +150,7 @@ const SecondNavbar = () => {
                 <img width={130} src="/images/Logo/Logo1.png" alt="" />
               </Link>
             </Typography>
-            <Button className="shoppingCart">
+            <Button onClick={toggleDrawer2(true)} className="shoppingCart">
               <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
             </Button>
           </Toolbar>
@@ -145,13 +178,13 @@ const SecondNavbar = () => {
         </Box>
       </Box>
       <Drawer
-      PaperProps={{
-        sx:{
-
-        }
-      }}
       open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
+      </Drawer>
+      <Drawer
+        anchor="right"
+       open={cartOpen} onClose={toggleDrawer2(false)}>
+        {MyCart}
       </Drawer>
     </>
   );

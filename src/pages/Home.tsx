@@ -1,6 +1,4 @@
 import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import CokSatanlar from "../components/Bestseller/CokSatanlar";
 import HomeComp from "../components/HomePage/HomeComp";
 import SliderComponent from "../components/UseBlaze/SliderComponent";
@@ -130,24 +128,7 @@ const Home = () => {
           src="/images/6card/box3.png"
           alt=""
         />
-      </Box>
-      <Box sx={{ mt: 3 }} className="pic2Border">
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} textAlign={"center"}>
-            GERÇEK MÜŞTERİ YORUMLARI
-          </Grid>
-          <Grid item xs={12} md={6} textAlign={"center"}>
-            <Typography>
-              <Rating name="half-rating" defaultValue={5} readOnly />
-              <span style={{ textDecoration: "underline", margin: "0 4px" }}>
-                198543 Yorum
-              </span>
-              <KeyboardArrowLeftIcon />
-              <ChevronRightIcon />
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+      </Box>   
       <Box>
         <Container sx={{ my: 5, overflow: "hidden" }}>
           <SliderComponent />
