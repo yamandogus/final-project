@@ -34,7 +34,7 @@ const LastWiew = ({title, description, rating, reviews, price, discountedPrice, 
         />
       </Link>
       <Stack direction={"column"} sx={{ alignItems: "center" }}>
-        <Typography fontSize={16} fontWeight={"bolder"} className="text">
+        <Typography fontSize={13} fontWeight={"bolder"} className="text">
           {title}
         </Typography>
         <Typography>

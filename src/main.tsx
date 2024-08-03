@@ -12,6 +12,7 @@ import AboutUs from './FootherPages/AboutUs'
 import SSS from './FootherPages/SSS'
 import ProteinPage from './pages/ProteinPage'
 import Login from './components/Account/Login'
+import PaymentPage from './pages/PaymentPage'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,9 @@ const router = createBrowserRouter([
       {
         path:"/SSS",
         element:<SSS/>
+      },{
+        path:"/PaymentPage",
+        element:<PaymentPage/>
       }
     ]
   }

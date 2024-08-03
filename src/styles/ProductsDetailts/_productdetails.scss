@@ -2,6 +2,12 @@
     max-width: 100%;
     height: auto;
 }
+
+@media(max-width:498px){
+    .pageTwoImg{
+        width: 100%;
+    }
+}
 .gridYrm{
     background-color: #F7F7F7;
     padding: 20px;
@@ -78,4 +84,36 @@
 .checkbox-div.selected {
     border-color: rgba(33, 38, 171, 1);
     border-width: 4px;
+}
+
+.countButton{
+    height:100%;
+    border: none;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    border: d1px solid rgba(221, 221, 221, 1);
+} 
+
+.countCart{
+    margin: 5px 14px;
+    display: flex;
+    text-align: center;
+}
+
+.ShoppinAdButton{
+    padding: 15px 0!important;
+    width: 400px;
+    &:hover{
+        background-color: #000!important;
+    }
+}
+
+.countDiv{
+    width: 100px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(221, 221, 221, 1);
 }

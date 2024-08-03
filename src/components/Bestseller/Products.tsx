@@ -27,7 +27,7 @@ const ProductCard = ({
   
   return (
     <>
-      <Grid item xs={6} md={4} lg={2}>
+      <Grid item xs={6} md={4} lg={2} marginBottom={3}>
         <Link style={{position:'relative'}} to={`/ProductsDetails`}>
           {discountedPrice && (
             <Stack className="discount">
@@ -56,7 +56,7 @@ const ProductCard = ({
           <Typography>
             <span className="centered-span">{description}</span>
           </Typography>
-          <Rating name="half-rating" defaultValue={rating} readOnly />
+          <Rating className="half-rating" name="half-rating" defaultValue={rating} readOnly />
           <Typography>{reviews} Yorum</Typography>
           <Typography>
             <span style={{ fontWeight: "bolder" }}>{price} TL</span>

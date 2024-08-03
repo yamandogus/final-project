@@ -1,7 +1,4 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Container,
@@ -15,13 +12,29 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import StarIcon from "@mui/icons-material/Star";
 import CokSatanlar from "../components/Bestseller/CokSatanlar";
 import Yorumlar from "../components/Comments/Yorumlar";
 import LastWiew from "../components/Bestseller/LastWiew";
 import { useEffect, useState } from "react";
 import Aroma from "../components/Aroma/Aroma";
+import Accordions from "../components/Accordions/Accordions";
+
+const accordionData = [
+  {
+    title: "ÖZELLİKLER",
+    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
+  },
+  {
+    title: "BESİN İÇERİKLERİ",
+    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
+  },
+  {
+    title: "KULLANIM ŞEKLİ",
+    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
+  }
+];
+
 
 const products = [
   {
@@ -116,37 +129,40 @@ function ProductsDetails() {
                 src="/images/page2/c93a810b179e49b1b092f231efc186ee.jpeg"
                 alt=""
               />
+              <Box component={'div'} className="mobileAccordion">
+                {accordionData.map((accordion)=>(
+                  <Accordions
+                  title={accordion.title}
+                  details={accordion.details}
+                  />
+                ))}
+              </Box>
             </Grid>
             <Grid
               item
               sm={12}
               md={6}
-              container
-              direction="column"
-              alignItems="flex-start"
             >
-              <Box>
+                <Box>
                 <Typography variant="h4" fontWeight={"bolder"}>
                   WHEY PROTEIN
                 </Typography>
-                <Typography>EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ</Typography>
+                <Typography variant="subtitle1">EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ</Typography>
+                </Box>
+                <Box>
                 <Rating
                   size="small"
                   name="half-rating"
                   defaultValue={5}
-                  precision={0.5}
+                  readOnly
                 />
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{
-                    my: 2,
-                    borderBottom: "1px solid rgba(221, 221, 221, 1)",
-                    pb: 2,
-                  }}
+                </Box>
+                <Box
+                component={'div'}
+                sx={{my:1}}
                 >
                   <Button
-                    sx={{ borderRadius: 5 }}
+                    sx={{ borderRadius: 5,mr:2 }}
                     variant="contained"
                     color="inherit"
                   >
@@ -159,9 +175,9 @@ function ProductsDetails() {
                   >
                     GLUTENSİZ
                   </Button>
-                </Stack>
-              </Box>
-              <Typography sx={{ fontWeight: "bolder", my: 1 }}>
+                </Box>
+
+              <Typography variant="subtitle1" sx={{ fontWeight: "bolder", my: 1 }}>
                 AROMA:
               </Typography>
               <Grid container spacing={2} width={"calc(100% + 16px)"}>
@@ -196,7 +212,7 @@ function ProductsDetails() {
                   <Aroma aroma={"Çilek"} color="rgba(214, 31, 51, 1)" />
                 </Grid>
               </Grid>
-              <Typography sx={{ fontWeight: "bolder", my: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bolder", my: 1 }}>
                 BOYUT :
               </Typography>
               <Grid container spacing={2}>
@@ -234,77 +250,38 @@ function ProductsDetails() {
                   </div>
                 </Grid>
               </Grid>
-              <Stack direction={'row'}  sx={{ display:'flex',justifyContent:'space-between'}} >
-                  <>
-                  <Box>
-                  <span
-                  style={{
-                    fontWeight: "bolder",
-                    fontSize: "30px",
-                    fontFamily: "sans-serif",
-                  }}
-                >
-                  549 TL
-                </span>
-                  </Box>
-                  </>
+              <Box sx={{display:"flex", justifyContent:'space-between',my:3}}>
                 <Box>
-                <Typography>34.31 TL /Servis</Typography>
-                </Box>
-              </Stack>
-              <Stack sx={{ my: 3 }} direction={"row"} spacing={2}>
-                <Box
-                  sx={{
-                    border: "1px solid black",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <button
-                    onClick={()=>setCount(count - 1)}
-                    style={{ height: "100%", width: "20px", border: "none" }}
-                  >
-                    -
-                  </button>
-                  <span
-                    style={{
-                      margin: "0 10px",
-                      fontSize: "20px",
-                      padding: "50",
-                    }}
-                  >
-                    {count}
+                  <span style={{fontSize:30, fontWeight:'bolder'}}>
+                    549 TL
                   </span>
-                  <button
-                  onClick={()=> setCount(count + 1)}
-                    style={{ height: "100%", width: "20px", border: "none" }}
-                  >
-                    +
-                  </button>
                 </Box>
-                <Button
-                  sx={{
-                    px: 8,
-                    backgroundColor: "black",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "black",
-                    },
-                  }}
-                  variant="contained"
-                  startIcon={<ShoppingCartCheckoutIcon />}
+                <Box>
+                  <span>
+                    34.31 TL /Servis
+                  </span>
+                </Box>
+              </Box>
+              <Box sx={{display:'flex', justifyContent:'space-between', my:3}}>
+                <Box component={'div'} className="countDiv"
                 >
-                  SEPETE EKLE
-                </Button>
-              </Stack>
+                  <button className="countButton" onClick={()=> setCount(count ? count-1 : 0)}>-</button><span className="countCart">{count}</span><button className="countButton"  onClick={()=>setCount(count+1)}>+</button>
+                </Box>
+                <Box>
+                  <Button
+                  className="ShoppinAdButton"
+                  variant='contained'
+                  sx={{backgroundColor:'black'}}
+                  ><ShoppingCartCheckoutIcon/> SEPETE EKLE</Button>
+                </Box>
+              </Box>
               <Stack
                 sx={{ borderBottom: "1px solid black", pb: 2, mb: 2 }}
                 direction={"row"}
                 display={'flex'}
+                justifyContent={'space-between'}
               >
                 <Typography>
-                  {" "}
                   <LocalShippingIcon  fontSize="large" />
                   Aynı Gün <br /> Ücretsiz Kargo
                 </Typography>
@@ -321,60 +298,14 @@ function ProductsDetails() {
               </Stack>
               <Stack sx={{ mb: 3 }}>
                 <Typography>Son Kullanma Tarihi: 07.2025</Typography>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<KeyboardArrowDownIcon />}
-                    aria-controls="panel1-content"
-                    id="panel1-header"
-                  >
-                    <Typography sx={{ fontWeight: "bolder" }}>
-                      ÖZELLİKLER
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<KeyboardArrowDownIcon />}
-                    aria-controls="panel2-content"
-                    id="panel2-header"
-                  >
-                    <Typography sx={{ fontWeight: "bolder" }}>
-                      BESİN İÇERİKLERİ
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<KeyboardArrowDownIcon />}
-                    aria-controls="panel2-content"
-                    id="panel2-header"
-                  >
-                    <Typography sx={{ fontWeight: "bolder" }}>
-                      KULLANIM ŞEKLİ
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                <Box component={'div'} className="lgAccordion">
+                {accordionData.map((accordion)=>(
+                  <Accordions
+                  title={accordion.title}
+                  details={accordion.details}
+                  />
+                ))}
+              </Box>
               </Stack>
             </Grid>
           </Grid>

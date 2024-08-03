@@ -1,0 +1,15 @@
+
+@media only screen and (min-width: 1025px) {
+    .mobileAccordion{
+        display: none!important;
+    }
+  }
+  @media only screen and (min-width: 1px) and (max-width: 1024px) {
+    .lgAccordion{
+        display: none;
+    }
+    .mobileAccordion{
+        display: block!important;
+    }
+  }
+  

@@ -72,7 +72,7 @@ const CokSatanlar = () => {
         ÇOK SATANLAR
       </Typography>
       <Container>
-        <Grid container spacing={2}>
+        <Grid container >
           {products.map((product, index)=>(
             <ProductCard
             key={index}

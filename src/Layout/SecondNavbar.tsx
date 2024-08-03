@@ -127,65 +127,63 @@ const SecondNavbar = () => {
   )
   return (
     <>
-      <Box sx={{ flexGrow: 1 }} component={"div"} className="secondNavbar">
-        <AppBar position="static">
-          <Toolbar sx={{ backgroundColor: "white", color: "black" }}>
-            <IconButton
-              onClick={toggleDrawer(true)}
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              textAlign={"center"}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              <Link to={"/Home"}>
-                <img width={130} src="/images/Logo/Logo1.png" alt="" />
-              </Link>
-            </Typography>
-            <Button onClick={toggleDrawer2(true)} className="shoppingCart">
-              <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Box>
-          <TextField
-            size="small"
-            placeholder="Aradığınız Ürünü Yazınız"
-            sx={{
-              my: 1,
-
-              width: "100%",
-            }}
-            InputProps={{
-              sx: {
-                borderRadius: 35,
-              },
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-      </Box>
-      <Drawer
-      open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-      <Drawer
-        anchor="right"
-       open={cartOpen} onClose={toggleDrawer2(false)}>
-        {MyCart}
-      </Drawer>
+<Box sx={{ flexGrow: 1 }} component={"div"} className="secondNavbar">
+  <AppBar position="static">
+    <Toolbar sx={{ backgroundColor: "white", color: "black" }}>
+      <IconButton
+        onClick={toggleDrawer(true)}
+        size="large"
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        sx={{ mr: 2 }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Typography
+        textAlign={"center"}
+        variant="h6"
+        component="div"
+        sx={{ flexGrow: 1 }}
+      >
+        <Link to={"/Home"}>
+          <img width={130} src="/images/Logo/Logo1.png" alt="" />
+        </Link>
+      </Typography>
+      <Button onClick={toggleDrawer2(true)} className="shoppingCart">
+        <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
+      </Button>
+    </Toolbar>
+  </AppBar>
+  <Box>
+    <TextField
+      className="mobileSearch"
+      size="small"
+      placeholder="Aradığınız Ürünü Yazınız"
+      sx={{
+        my: 1,
+        width: "100%",
+        maxWidth: '100%',
+      }}
+      InputProps={{
+        sx: {
+          borderRadius: 35,
+        },
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  </Box>
+</Box>
+<Drawer open={open} onClose={toggleDrawer(false)}>
+  {DrawerList}
+</Drawer>
+<Drawer anchor="right" open={cartOpen} onClose={toggleDrawer2(false)}>
+  {MyCart}
+</Drawer>
     </>
   );
 };

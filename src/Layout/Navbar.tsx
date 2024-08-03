@@ -7,6 +7,7 @@ import {
   Container,
   Drawer,
   FormGroup,
+  Grid,
   InputAdornment,
   List,
   ListItem,
@@ -35,55 +36,108 @@ const listItemsData: ListItemProps[] = [
     listitem: "PROTEİN",
     title: "Protein",
     tooltipContent: (
-      <Typography>
-        <strong>Protein:</strong> Essential for muscle growth and repair.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
   {
     listitem: "SPOR GIDALARI",
     title: "Spor Gıdaları",
     tooltipContent: (
-      <Typography>
-        <strong>Spor Gıdaları:</strong> Nutritional products for sports
-        enthusiasts.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
   {
     listitem: "SAĞLIK",
     title: "Sağlık",
     tooltipContent: (
-      <Typography>
-        <strong>Sağlık:</strong> Products for maintaining overall health.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
   {
     listitem: "GIDA",
     title: "Gıda",
     tooltipContent: (
-      <Typography>
-        <strong>Gıda:</strong> General food items.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
   {
     listitem: "VİTAMİN",
     title: "Vitamin",
     tooltipContent: (
-      <Typography>
-        <strong>Vitamin:</strong> Supplements for daily nutritional needs.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
   {
     listitem: "TÜM ÜRÜNLER",
     title: "Tüm Ürünler",
     tooltipContent: (
-      <Typography>
-        <strong>Tüm Ürünler:</strong> Browse all available products.
-      </Typography>
+      <Box>
+        <Grid container spacing={2} width={450} >
+          <Grid item xs={5} >
+            <strong>Çok Satanlar</strong>
+
+          </Grid>
+          <Grid item xs={7}>
+            SPOR GIDALARI <br /> <br />
+            Ürünler
+          </Grid>
+        </Grid>
+      </Box>
     ),
   },
 ];
@@ -243,7 +297,7 @@ function Navbar() {
                           sx: {
                             padding: 3,
                             color: "black",
-                            backgroundColor: "rgb(255, 255, 255)",
+                            backgroundColor: "rgb(238, 236, 236)",
                             width: "auto",
                             height: "auto",
                             maxWidth: "none",
