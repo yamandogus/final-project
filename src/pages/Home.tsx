@@ -16,7 +16,7 @@ const products = [
     bg: "rgba(126,160,162,1)",
   },
   {
-    name: `VİTA -MİNLER`,
+    name: `VİTA-MİNLER`,
     image: "/images/sec-urunler/img/urun2.jpeg",
     description: "Vitamin ürünleri",
     review: "İNCELE",
@@ -140,7 +140,6 @@ const Home = () => {
             <Grid item xs={12} sm={6}>
               <Stack direction={"row"} sx={{ mb: 2 }}>
                 <Rating
-                  sx={{ ml: 10 }}
                   name="half-rating"
                   defaultValue={5}
                   readOnly
