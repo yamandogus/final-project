@@ -12,7 +12,7 @@ const products = [
     image: "/images/sec-urunler/img/urun1.jpeg",
     description: "Protein ürünleri",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "#",
     bg: "rgba(126,160,162,1)",
   },
   {
@@ -20,7 +20,7 @@ const products = [
     image: "/images/sec-urunler/img/urun2.jpeg",
     description: "Vitamin ürünleri",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "#",
     bg: "rgba(253, 232, 215, 1)",
   },
   {
@@ -28,7 +28,7 @@ const products = [
     image: "/images/sec-urunler/img/urun3.jpeg",
     description: "Sağlık ürünleri",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "#",
     bg: "rgba(204, 203, 198, 1)",
   },
   {
@@ -36,7 +36,7 @@ const products = [
     image: "/images/sec-urunler/img/urun4.jpeg",
     description: "Spor gıdaları",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "#",
     bg: "rgba(217, 216, 211, 1)",
   },
   {
@@ -44,7 +44,7 @@ const products = [
     image: "/images/sec-urunler/img/urun5.jpeg",
     description: "Gıda ürünleri",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "#",
     bg: "rgba(114, 180, 206, 1)",
   },
   {
@@ -52,7 +52,7 @@ const products = [
     image: "/images/6card/news.png",
     description: "Tüm ürünler",
     review: "İNCELE",
-    link: "/ProteinPage",
+    link: "/AllProducts",
     bg: "rgb(168, 213, 232)",
   },
 ];

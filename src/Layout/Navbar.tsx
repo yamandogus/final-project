@@ -173,13 +173,14 @@ function Navbar() {
               <Toolbar>
                 <Typography variant="h6" component="div">
                   <Link to={"/Home"}>
-                    <img width={160} src="/images/Logo/Logo1.png" alt="" />
+                    <img className="navimg" width={160} src="/images/Logo/Logo1.png" alt="" />
                   </Link>
                 </Typography>
               </Toolbar>
               <Stack direction={"row"}>
                 <FormGroup>
                   <TextField
+                  className="searchInput"
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     InputProps={{
@@ -223,6 +224,7 @@ function Navbar() {
                   Hesap
                 </Button>
                 <Menu
+                  disableScrollLock
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
@@ -257,6 +259,7 @@ function Navbar() {
                   Sepet
                 </Button>
                 <Drawer
+                  disableScrollLock
                   anchor="right"
                   open={open}
                   onClose={toggleDrawer(false)}

@@ -1,36 +1,54 @@
-.accountLink {
-    cursor: pointer;
+.accountLink{
+  cursor: pointer;
+  &:hover{
+     color: black;
+     font-weight: 600;
   }
-  .accountLink:hover {
-    color: black;
-    font-weight: 600;
+}
+
+
+@media(min-width: 600px){
+  .secondNavbar{
+      display: none;
   }
-  
-  @media (min-width: 600px) {
-    .secondNavbar {
+}
+
+@media (max-width: 599px){
+ 
+  .firstNavbar{
       display: none;
-    }
   }
-  
-  @media (max-width: 599px) {
-    .firstNavbar {
+  .sliderRek{
       display: none;
-    }
-    .sliderRek {
-      display: none;
-    }
-    .secondNavbar {
+  }
+  .secondNavbar{
       display: block;
-    }
-  
-    .creatineImg,
-    .homePage2 {
+  }
+
+  .creatineImg{
+      object-position: 50% 100%;
       object-fit: cover;
       width: 100%;
-      height: 210px !important;
-    }
+      height: 210px!important;
   }
-  
-  .pic2Border {
-    border-bottom: 1px solid black;
+  .homePage2{
+      object-position: 65% 100%;
+      object-fit: cover;
+      width: 100%;
+      height: 210px!important;
   }
+}
+
+.pic2Border{
+  border-bottom: 1px solid black;
+}
+
+.countDubbleSpan{
+  display: flex;
+  justify-content: space-between;
+  span:nth-child(1){
+    font-family: "inter";
+    font-weight: 700;
+    font-size:40px;
+  }
+}

@@ -3,42 +3,41 @@ import { Link } from "react-router-dom";
 
 export interface ProductProps {
   name: string;
-  image: string;
-  description: string;
-  rating: number;
-  reviews: number;
-  price: number;
-  discountedPrice?: number | null;
+  short_explanation: string;
+  price_info: {
+    profit?: null;
+    total_price: number;
+    discounted_price?: number | null;
+    price_per_servings?: number;
+    discount_percentage?: number | null;
+  };
+  photo_src: string;
+  comment_count?: number;
+  average_star: number;
 }
 
 const Protein = ({
-  name,
-  image,
-  description,
-  rating,
-  reviews,
-  price,
-  discountedPrice,
+  name, photo_src, short_explanation, average_star, comment_count, price_info:{total_price, discounted_price}
 }: ProductProps) => {
 
-  const calculateDiscount = (price: number, discountedPrice: number) =>{
-    return Math.round((discountedPrice-price) / price * 100)
+  const calculateDiscount = (total_price: number, discountedPrice: number) =>{
+    return Math.round((discountedPrice-total_price) / total_price * 100)
   }
   
   return (
     <>
       <Grid item xs={6} md={4} lg={3}>
         <Link style={{position:'relative'}} to={`/Page2`}>
-          {discountedPrice && (
+          {discounted_price && (
             <Stack className="discount">
-                  <strong style={{fontSize:'16px'}}>%{calculateDiscount(price, discountedPrice)} </strong>İNDİRİM
+                  <strong style={{fontSize:'16px'}}>%{calculateDiscount(total_price, discounted_price)} </strong>İNDİRİM
             </Stack>
           )}
           <img
-            className="responsive-image"
-            src={image}
+           
+            src={photo_src}
             alt={name}
-            style={{ maxWidth: "100%", display: "block", margin: "auto" }}
+            style={{ maxWidth: "90%", display: "block", margin: "auto" }}
           />
         </Link>
         <Stack direction={"column"} sx={{ alignItems: "center" }}>
@@ -46,15 +45,15 @@ const Protein = ({
             {name}
           </Typography>
           <Typography>
-            <span className="centered-span">{description}</span>
+            <span className="centered-span">{short_explanation}</span>
           </Typography>
-          <Rating name="half-rating" defaultValue={rating} readOnly />
-          <Typography>{reviews} Yorum</Typography>
+          <Rating name="half-rating" defaultValue={average_star} readOnly />
+          <Typography>{comment_count} Yorum</Typography>
           <Typography>
-            <span style={{ fontWeight: "bolder" }}>{price} TL</span>
-            {discountedPrice && (
+            <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>
+            {discounted_price && (
               <span className="spanText">
-                {discountedPrice} TL <br />
+                {discounted_price} TL <br />
               </span>
             )}
           </Typography>

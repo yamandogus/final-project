@@ -1,65 +1,36 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ProductCard from './Products';
+import { useLoaderData } from 'react-router-dom';
 
-const products = [
-  {
-    name: 'Whey Protein',
-    image: '/images/6card/pg1.jpeg',
-    description: 'EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ',
-    rating: 5,
-    reviews: 10869,
-    price: 549,
-    discountedPrice: null
-  },
-  {
-    name: 'Fitness Paketi',
-    image: '/images/6card/pg2.jpeg',
-    description: 'EN POPÜLER ÜRÜNLER BİR ARADA',
-    rating: 5,
-    reviews: 7650,
-    price: 799,
-    discountedPrice: 1126
-  },
-  {
-    name: 'Günlük Vitamin Paketi',
-    image: '/images/6card/pg3.jpeg',
-    description: 'EN SIK TÜKETİLEN TAKVİYELER',
-    rating: 5,
-    reviews: 5013,
-    price: 549,
-    discountedPrice: 717
-  },
-  {
-    name: 'Pre-Workout Supreme',
-    image: '/images/6card/pg4.jpeg',
-    description: 'ANTRENMAN ÖNCESİ TAKVİYESİ',
-    rating: 5,
-    reviews: 6738,
-    price: 399,
-    discountedPrice: null
-  },
-  {
-    name: 'Cream of Rice',
-    image: '/images/6card/pg5.jpeg',
-    description: 'EN LEZZETLİ PİRİNÇ KREMASI',
-    rating: 5,
-    reviews: 5216,
-    price: 239,
-    discountedPrice: null
-  },
-  {
-    name: 'Creatine',
-    image: '/images/6card/pg6.jpeg',
-    description: 'EN POPÜLER SPORCU TAKVİYESİ',
-    rating: 5,
-    reviews: 8558,
-    price: 239,
-    discountedPrice: null
-  }
-];
+export const base_url = "https://fe1111.projects.academy.onlyjs.com/api/v1"
+const photo_url = "https://fe1111.projects.academy.onlyjs.com"
+
+interface PriceInfo {
+  profit?: null;
+  total_price: number;
+  discounted_price?: number | null;
+  price_per_servings?: number;
+  discount_percentage?: number | null;
+}
+
+interface BestsellerProps {
+  name: string;
+  short_explanation: string;
+  price_info: PriceInfo;
+  photo_src: string;
+  comment_count?: number;
+  average_star: number;
+}
+
+export async function loader() {
+    const response = await fetch(base_url + "/products/best-sellers")
+    const result = await response.json() 
+    return { products: result.data} 
+}
 
 
 const CokSatanlar = () => {
+  const {products} = useLoaderData() as {products : BestsellerProps[] }
   return (
     <Box>
       <Typography
@@ -73,16 +44,15 @@ const CokSatanlar = () => {
       </Typography>
       <Container>
         <Grid container >
-          {products.map((product, index)=>(
+          {products.map((data, index)=>(
             <ProductCard
             key={index}
-            name={product.name}
-            image={product.image}
-            description={product.description}
-            rating={product.rating}
-            reviews={product.reviews}
-            price={product.price}
-            discountedPrice={product.discountedPrice}
+            name={data.name}
+            photo_src={photo_url  +data.photo_src}
+            short_explanation={data.short_explanation.toUpperCase()}
+            average_star={data.average_star}
+            comment_count={data.comment_count}
+            price_info={data.price_info}
             />
           ))}
         </Grid>

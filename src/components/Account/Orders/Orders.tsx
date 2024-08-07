@@ -42,7 +42,7 @@ const Orders = () => {
           Siparişlerim(4)
         </Typography>
       </Box>
-      <Box sx={{ mb: 2, display:'grid',gap:5 }}>
+      <Box sx={{ display:'grid', gap:5}}>
         {orderData.map((data) =>(
             <OrdersComp
             image={data.image}

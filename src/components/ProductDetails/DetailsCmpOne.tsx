@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -11,9 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 const DetailsCmpOne = () => {
   const [classAdded, setClassAdded] = useState("");
   const [dimension, setDimension] = useState("");
+  const [count, setCount] = useState<number>(0)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setClassAdded(event.target.value);
@@ -25,7 +28,7 @@ const DetailsCmpOne = () => {
     <>
       <Box width="100%">
         <Box>
-          <Typography variant="h4">WHEY PROTEIN</Typography>
+          <Typography variant="h5" fontWeight={'bolder'}>WHEY PROTEIN</Typography>
           <Typography
             sx={{
               color: "rgba(99, 99, 99, 1)",
@@ -217,8 +220,8 @@ const DetailsCmpOne = () => {
           </FormControl>
         </Box>
         <Box>
-        <FormControl component={"fieldset"} sx={{mt:2}}>
-            <FormLabel component={"legend"}><strong>BOYUT:</strong></FormLabel>
+        <FormControl component={"fieldset"}>
+            <FormLabel component={"legend"}><strong >BOYUT:</strong></FormLabel>
             <RadioGroup
               aria-labelledby="aroma"
               name="radio-buttons-group"
@@ -258,7 +261,7 @@ const DetailsCmpOne = () => {
                     control={<Radio className="checked" />}
                     label={
                         <>
-                        1.6KG X 2 ADET <br /> 16 servis
+                        1.6KG X 2 ADET <br /> 128 servis <span className="discount6span">%6 İNDİRİM</span>
                         </>
                     }
                     />
@@ -266,6 +269,30 @@ const DetailsCmpOne = () => {
               </Grid>
             </RadioGroup>
           </FormControl>
+          <Box sx={{display:"flex", justifyContent:'space-between',my:2}}>
+                <Box>
+                  <span style={{fontSize:30, fontWeight:'bolder'}}>
+                    549 TL
+                  </span>
+                </Box>
+                <Box>
+                  <span>
+                    34.31 TL /Servis
+                  </span>
+                </Box>
+              </Box>
+              <Box sx={{display:'flex', justifyContent:'space-between', my:1}}>
+                <Box component={'div'} className="countDiv"
+                >
+                  <button className="countButton" onClick={()=> setCount(count ? count-1 : 0)}>-</button><span className="countCart">{count}</span><button className="countButton"  onClick={()=>setCount(count+1)}>+</button>
+                </Box>
+                <Box>
+                  <Button
+                  className="ShoppinAdButton"
+                  variant='contained'
+                  ><ShoppingCartCheckoutIcon/> SEPETE EKLE</Button>
+                </Box>
+              </Box>
         </Box>
       </Box>
     </>
