@@ -10,9 +10,10 @@ import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherPages/ContactUs'
 import AboutUs from './FootherPages/AboutUs'
 import SSS from './FootherPages/SSS'
-import ProteinPage from './pages/ProteinPage'
 import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
+import { loader } from './components/Bestseller/CokSatanlar'
+import AllProducts, { AllProLoader } from './pages/AllProducts'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       {
         index: true,
         path: "/Home",
+        loader:loader,
         element: <Home/>
       },
       {
@@ -29,8 +31,10 @@ const router = createBrowserRouter([
         element: <ProductsDetails/>
       },
       {
-        path:'/ProteinPage',
-        element: <ProteinPage/>
+        path:'/AllProducts',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        loader: AllProLoader as any,
+        element: <AllProducts/>
       },
       {
         path:'/MyAccount',
