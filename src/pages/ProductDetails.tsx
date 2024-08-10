@@ -9,29 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import CokSatanlar from "../components/Bestseller/CokSatanlar";
 import Yorumlar from "../components/Comments/Yorumlar";
 import LastWiew from "../components/Bestseller/LastWiew";
-import Accordions from "../components/Accordions/Accordions";
 import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
+import { Link, useLoaderData} from "react-router-dom";
+import { base_url } from "../components/Bestseller/CokSatanlar";
 
-const accordionData = [
-  {
-    title: "ÖZELLİKLER",
-    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
-  },
-  {
-    title: "BESİN İÇERİKLERİ",
-    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
-  },
-  {
-    title: "KULLANIM ŞEKLİ",
-    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget."
-  }
-];
-
-
-const products = [
+const productsDet = [
   {
     title: "WHEY PROTEIN",
     description: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
@@ -94,59 +78,27 @@ const products = [
   },
 ];
 
+export async function ProductLoader({ params }: { params: { productSlug: string } }) {
+  const { productSlug } = params;
+  const response = await fetch(base_url + `/products/${productSlug}`);
+  const result = await response.json();
+  console.log(result);
+  return { data: result.data };
+}
+
 function ProductsDetails() {
-  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: productData } = useLoaderData() as {data: any};
 
- 
-
-  return (
+   return (
     <>
-      <Box sx={{ mt: 5 }}>
-        <Container>
-          <Grid container spacing={3}>
-            <Grid item sm={12} md={6}>
-              <img
-                width={"90%"}
-                className="pageTwoImg"
-                src="/images/page2/c93a810b179e49b1b092f231efc186ee.jpeg"
-                alt=""
-              />
-              <Box component={'div'} className="mobileAccordion">
-                {accordionData.map((accordion)=>(
-                  <Accordions
-                  title={accordion.title}
-                  details={accordion.details}
-                  />
-                ))}
-              </Box>
-            </Grid>
-            <Grid
-              item
-              container
-              sm={12}
-              md={6}
-            >
-              <DetailsCmpOne/>
-              <Stack sx={{ mb: 3 }}>
-                <Typography variant='subtitle1' fontSize={11}>Son Kullanma Tarihi: 07.2025</Typography>
-                <Box component={'div'} className="lgAccordion">
-                {accordionData.map((accordion)=>(
-                  <Accordions
-                  title={accordion.title}
-                  details={accordion.details}
-                  />
-                ))}
-              </Box>
-              </Stack>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+     <pre>{JSON.stringify(productData, null, 2)}</pre>
       <Box sx={{ my: 6 }}>
+        <DetailsCmpOne />
         <Typography
           sx={{
-            my:3,
-            textAlign:'center'
+            my: 3,
+            textAlign: "center",
           }}
           variant="h5"
         >
@@ -154,7 +106,7 @@ function ProductsDetails() {
         </Typography>
         <Container>
           <Grid container>
-            {products.map((product, index) => (
+            {productsDet.map((product, index) => (
               <LastWiew
                 key={index}
                 title={product.title}
@@ -242,10 +194,27 @@ function ProductsDetails() {
         </Container>
       </Box>
       <Yorumlar />
-      <CokSatanlar />
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 4 }}>
-          <Button variant='contained' color='primary' sx={{ px: 10, fontWeight: 'bolder' }}>TÜMÜNÜ GÖR</Button>
-        </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          my: 4,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ px: 10, fontWeight: "bolder" }}
+        >
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={"/AllProducts"}
+          >
+            TÜMÜNÜ GÖR
+          </Link>
+        </Button>
+      </Box>
     </>
   );
 }

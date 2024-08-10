@@ -14,10 +14,11 @@ export interface ProductProps {
   photo_src: string;
   comment_count?: number;
   average_star: number;
+  slug: string
 }
 
 const Protein = ({
-  name, photo_src, short_explanation, average_star, comment_count, price_info:{total_price, discounted_price}
+  name, photo_src, short_explanation, average_star, comment_count, price_info:{total_price, discounted_price}, slug
 }: ProductProps) => {
 
   const calculateDiscount = (total_price: number, discountedPrice: number) =>{
@@ -27,7 +28,7 @@ const Protein = ({
   return (
     <>
       <Grid item xs={6} md={4} lg={3}>
-        <Link style={{position:'relative'}} to={`/Page2`}>
+        <Link style={{position:'relative'}} to={`/products/${slug}`}>
           {discounted_price && (
             <Stack className="discount">
                   <strong style={{fontSize:'16px'}}>%{calculateDiscount(total_price, discounted_price)} </strong>İNDİRİM

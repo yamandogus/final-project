@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './pages/Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
-import ProductsDetails from './pages/ProductDetails'
+import ProductsDetails, { ProductLoader } from './pages/ProductDetails'
 import AccountHomePage from './pages/AccountHomePage'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherPages/ContactUs'
@@ -27,8 +27,9 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path:'/ProductsDetails',
-        element: <ProductsDetails/>
+        path: "/products/:productSlug",
+        element: <ProductsDetails />,
+        loader: ProductLoader,
       },
       {
         path:'/AllProducts',

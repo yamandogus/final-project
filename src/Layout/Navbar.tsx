@@ -177,7 +177,7 @@ function Navbar() {
                   </Link>
                 </Typography>
               </Toolbar>
-              <Stack direction={"row"}>
+              <Stack className="navAs" direction="row" spacing={2}>
                 <FormGroup>
                   <TextField
                   className="searchInput"
@@ -205,6 +205,7 @@ function Navbar() {
                           </Box>
                         </InputAdornment>
                       ),
+                      className:"inputw",
                       sx: {
                         width:350,
                         paddingRight: 0,
@@ -212,8 +213,6 @@ function Navbar() {
                     }}
                   />
                 </FormGroup>
-              </Stack>
-              <Stack direction="row" spacing={2}>
                 <Button
                   variant="outlined"
                   color="inherit"
@@ -277,7 +276,7 @@ function Navbar() {
               }}
             >
               <Container>
-              <List  sx={{display:'flex', flexDirection:'row', gap:8}}>
+              <List  sx={{display:'flex', flexDirection:'row',flexWrap:'wrap'}}>
                   {listItemsData.map((list, index) => (
                     <Tooltip
                       key={index}

@@ -31,6 +31,7 @@ export async function loader() {
 
 const CokSatanlar = () => {
   const {products} = useLoaderData() as {products : BestsellerProps[] }
+  
   return (
     <Box>
       <Typography

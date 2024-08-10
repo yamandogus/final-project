@@ -16,6 +16,7 @@ interface PriceInfo {
 interface BestsellerProps {
   name: string;
   short_explanation: string;
+  slug: string;
   price_info: PriceInfo;
   photo_src: string;
   comment_count?: number;
@@ -31,6 +32,8 @@ export async function AllProLoader(page = 1) {
   const offset = getAllProducts(page ,limit)
   const response = await fetch(base_url + `/products?limit=${limit}&offset=${offset}`)
   const dataAll = await response.json()
+  console.log(dataAll);
+  
   return {products: dataAll.data.results}
 }
 
@@ -52,6 +55,7 @@ const AllProducts = () => {
             average_star={product.average_star}
             comment_count={product.comment_count}
             price_info={product.price_info}
+            slug={product.slug}
             />
           ))}
         </Grid>
