@@ -157,6 +157,8 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
   return (
     <>
       <Box component={"div"} className="firstNavbar">
@@ -276,11 +278,12 @@ function Navbar() {
               }}
             >
               <Container>
-              <List  sx={{display:'flex', flexDirection:'row',flexWrap:'wrap'}}>
+              <List sx={{display:'flex', flexDirection:'row',flexWrap:'wrap'}}>
                   {listItemsData.map((list, index) => (
                     <Tooltip
                       key={index}
                       title={list.tooltipContent}
+                      className="textDec"
                       slotProps={{
                         popper: {
                           modifiers: [
@@ -292,14 +295,14 @@ function Navbar() {
                             },
                           ],
                           style: {
-                            width: "auto",
+                            width: "45%",
                           },
                         },
                         tooltip: {
                           sx: {
                             padding: 3,
                             color: "black",
-                            backgroundColor: "rgb(238, 236, 236)",
+                            backgroundColor: "rgb(212, 211, 211)",
                             width: "auto",
                             height: "auto",
                             maxWidth: "none",
@@ -308,6 +311,7 @@ function Navbar() {
                       }}
                     >
                       <ListItem
+                        className="headLink"
                         sx={{ flex: 1, justifyContent: "center", fontSize:13,}}
                         color="inherit"
                       >

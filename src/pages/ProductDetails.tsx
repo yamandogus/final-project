@@ -78,23 +78,88 @@ const productsDet = [
   },
 ];
 
+export interface WheyIsolate {
+  id?: string;
+  name?: string;
+  slug?: string;
+  short_explanation?: string;
+  explanation?: {
+    usage?: string;
+    features?: string;
+    description?: string;
+    nutritional_content?: {
+      ingredients?: {
+        aroma?: string;
+        value?: string;
+      }[];
+      nutrition_facts?: {
+        ingredients?: {
+          name?: string;
+          amounts?: string[];
+        }[];
+        portion_sizes?: string[];
+      };
+      amino_acid_facts?: {
+        ingredients?: {
+          name?: string;
+          amounts?: string[];
+        }[];
+        portion_sizes?: string[];
+      };
+    };
+  };
+  main_category_id?: string;
+  sub_category_id?: string;
+  tags?: string[];
+  variants?: {
+    id?: string;
+    size?: {
+      gram?: number;
+      pieces?: number;
+      total_services?: number;
+    };
+    aroma?: string;
+    price?: {
+      profit?: number | null;
+      total_price?: number;
+      discounted_price?: number | null;
+      price_per_servings?: number;
+      discount_percentage?: number | null;
+    };
+    photo_src?: string;
+    is_available?: boolean;
+  }[];
+  comment_count?: number;
+  average_star?: number;
+  photo_src?: string;
+}
+
+
 export async function ProductLoader({ params }: { params: { productSlug: string } }) {
   const { productSlug } = params;
   const response = await fetch(base_url + `/products/${productSlug}`);
   const result = await response.json();
   console.log(result);
+  console.log(result.data);
   return { data: result.data };
 }
 
 function ProductsDetails() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: productData } = useLoaderData() as {data: any};
+  const { data: productData } = useLoaderData() as {data: WheyIsolate};
 
    return (
     <>
-     <pre>{JSON.stringify(productData, null, 2)}</pre>
       <Box sx={{ my: 6 }}>
-        <DetailsCmpOne />
+      <DetailsCmpOne 
+            key={productData.id}
+            short_explanation={productData.short_explanation}
+            name={productData.name}
+            average_star={productData.average_star}
+            variants={productData.variants || []}
+            explanation={productData.explanation || {}}
+            tags={productData.tags}
+          />
         <Typography
           sx={{
             my: 3,

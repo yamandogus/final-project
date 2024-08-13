@@ -15,62 +15,74 @@ import {
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Accordions from "../Accordions/Accordions";
-
-const accordionData = [
-  {
-    title: "ÖZELLİKLER",
-    details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-  },
-  {
-    title: "BESİN İÇERİKLERİ",
-    details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-  },
-  {
-    title: "KULLANIM ŞEKLİ",
-    details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-  },
-];
+import { WheyIsolate } from "../../pages/ProductDetails";
+import { photo_url } from "../Bestseller/CokSatanlar";
 
 const aromaOptions = [
   { value: "Bisküvi", label: "Büskivi", color: "rgba(230, 188, 121, 1)" },
   { value: "Çikolata", label: "Çikolata", color: "rgba(86, 50, 29, 1)" },
   { value: "Muz", label: "Muz", color: "rgba(241, 208, 24, 1)" },
-  { value: "Salted Caramel", label: "Salted Caramel", color: "rgba(182, 67, 0, 1)" },
+  {
+    value: "Salted Caramel",
+    label: "Salted Caramel",
+    color: "rgba(182, 67, 0, 1)",
+  },
   { value: "Choco Nut", label: "Choco Nut", color: "rgba(123, 63, 0, 1)" },
-  { value: "Hindistan Cevizi", label: "Hindistan Cevizi", color: "rgba(230, 188, 121, 1)" },
-  { value: "Raspberry Cheesecake", label: "Raspberry Cheesecake", color: "rgba(204, 30, 95, 1)" },
+  {
+    value: "Hindistan Cevizi",
+    label: "Hindistan Cevizi",
+    color: "rgba(230, 188, 121, 1)",
+  },
+  {
+    value: "Raspberry Cheesecake",
+    label: "Raspberry Cheesecake",
+    color: "rgba(204, 30, 95, 1)",
+  },
   { value: "Çilek", label: "Çilek", color: "rgba(204, 30, 95, 1)" },
 ];
 
 const dimensions = [
   {
     value: "400g 16 servis",
-    label:(<>400g <br />16 servis</> )
+    label: (
+      <>
+        400g <br />
+        16 servis
+      </>
+    ),
   },
   {
     value: "1.6KG",
-    label:(
+    label: (
       <>
-      1.6KG <br />64 servis
+        1.6KG <br />
+        64 servis
       </>
-    ) 
+    ),
   },
   {
     value: "1.6KG X 2 ADET",
     label: (
       <>
-        1.6KG X 2 ADET<br />
-        128 servis{" "}
-        <span className="discount6span">%6 İNDİRİM</span>
+        1.6KG X 2 ADET
+        <br />
+        128 servis <span className="discount6span">%6 İNDİRİM</span>
       </>
-    )
-  }
+    ),
+  },
 ];
 
-const DetailsCmpOne = () => {
+const DetailsCmpOne = (props: WheyIsolate) => {
+  const {
+    name,
+    id,
+    short_explanation,
+    average_star,
+    comment_count= 0,
+    explanation = {},
+    variants = [],
+    tags = [],
+  } = props;
   const [selectedAroma, setSelectedAroma] = useState<string>("");
   const [dimension, setDimension] = useState("");
   const [count, setCount] = useState<number>(0);
@@ -89,27 +101,30 @@ const DetailsCmpOne = () => {
       <Box sx={{ mt: 5 }}>
         <Container>
           <Grid container spacing={3}>
-            <Grid item sm={12} md={6}>
+            <Grid item sm={12} md={6} key={id}>
               <img
                 width={"90%"}
                 className="pageTwoImg"
-                src="/images/page2/c93a810b179e49b1b092f231efc186ee.jpeg"
+                src={photo_url + variants[0].photo_src}
                 alt=""
               />
               <Box component={"div"} className="mobileAccordion">
-                {accordionData.map((accordion) => (
-                  <Accordions
-                    title={accordion.title}
-                    details={accordion.details}
-                  />
-                ))}
+                <Accordions title={"ÖZELLİKLER"} details={explanation?.usage || " "} />
+                <Accordions
+                  title={"BESİN İÇERİĞİ"}
+                  details={explanation?.features || " "}
+                />
+                <Accordions
+                  title={"KULLANIM KOŞULLARI"}
+                  details={explanation?.description || " "}
+                />
               </Box>
             </Grid>
             <Grid item container sm={12} md={6}>
               <Box width="100%">
                 <Box>
                   <Typography variant="h5" fontWeight={"bolder"}>
-                    WHEY PROTEIN
+                    {name}
                   </Typography>
                   <Typography
                     sx={{
@@ -117,11 +132,11 @@ const DetailsCmpOne = () => {
                     }}
                     variant="subtitle2"
                   >
-                    EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ
+                    {short_explanation}
                   </Typography>
                   <Stack direction="row" spacing={2}>
-                    <Rating defaultValue={5} readOnly size="small" />
-                    <span>10869 Yorum</span>
+                    <Rating defaultValue={average_star} readOnly size="small" />
+                    <span>{comment_count} Yorum</span>
                   </Stack>
                   <Stack
                     width="100%"
@@ -130,9 +145,12 @@ const DetailsCmpOne = () => {
                     spacing={2}
                     className="choiceDiv"
                   >
-                    <button className="choiceButton">VEJETARYEN</button>
-                    <button className="choiceButton">GLUTENSİZ</button>
-                    <button></button>
+                    {tags &&
+                      tags.map((tg, index) => (
+                        <button key={index} className="choiceButton">
+                          {tg}
+                        </button>
+                      ))}
                   </Stack>
                 </Box>
                 <Box my={1}>
@@ -146,29 +164,31 @@ const DetailsCmpOne = () => {
                       onChange={handleChange}
                     >
                       <Grid container spacing={2}>
-                      {aromaOptions.map((option) => (
-                      <Grid item key={option.value}>
-                        <FormControlLabel
-                          className={`checkedForm ${
-                            selectedAroma === option.value ? "checkedDiv" : ""
-                          }`}
-                          value={option.value}
-                          control={<Radio className="checked" />}
-                          label={
-                            <Box display="flex" alignItems="center">
-                              {option.label}
-                              <span
-                                style={{
-                                  backgroundColor: option.color,
-                                }}
-                                className="labelSpan"
-                              ></span>
-                            </Box>
-                          }
-                          labelPlacement="end"
-                        />
-                      </Grid>
-                    ))}
+                        {aromaOptions.map((option) => (
+                          <Grid item key={option.value}>
+                            <FormControlLabel
+                              className={`checkedForm ${
+                                selectedAroma === option.value
+                                  ? "checkedDiv"
+                                  : ""
+                              }`}
+                              value={option.value}
+                              control={<Radio className="checked" />}
+                              label={
+                                <Box display="flex" alignItems="center">
+                                  {option.label}
+                                  <span
+                                    style={{
+                                      backgroundColor: option.color,
+                                    }}
+                                    className="labelSpan"
+                                  ></span>
+                                </Box>
+                              }
+                              labelPlacement="end"
+                            />
+                          </Grid>
+                        ))}
                       </Grid>
                     </RadioGroup>
                   </FormControl>
@@ -184,18 +204,18 @@ const DetailsCmpOne = () => {
                       onChange={handleChangeDimension}
                     >
                       <Grid container spacing={2}>
-                      {dimensions.map((dim) => (
-                        <Grid item key={dim.value}>
-                          <FormControlLabel
-                            className={`checkedForm ${
-                              dimension === dim.value ? "checkedDiv" : ""
-                            }`}
-                            value={dim.value}
-                            control={<Radio className="checked" />}
-                            label={dim.label}
-                          />
-                        </Grid>
-                      ))}
+                        {dimensions.map((dim) => (
+                          <Grid item key={dim.value}>
+                            <FormControlLabel
+                              className={`checkedForm ${
+                                dimension === dim.value ? "checkedDiv" : ""
+                              }`}
+                              value={dim.value}
+                              control={<Radio className="checked" />}
+                              label={dim.label}
+                            />
+                          </Grid>
+                        ))}
                       </Grid>
                     </RadioGroup>
                   </FormControl>
@@ -208,7 +228,7 @@ const DetailsCmpOne = () => {
                   >
                     <Box>
                       <span style={{ fontSize: 30, fontWeight: "bolder" }}>
-                        549 TL
+                        {""}TL
                       </span>
                     </Box>
                     <Box>
@@ -250,12 +270,15 @@ const DetailsCmpOne = () => {
                   Son Kullanma Tarihi: 07.2025
                 </Typography>
                 <Box component={"div"} className="lgAccordion">
-                  {accordionData.map((accordion) => (
-                    <Accordions
-                      title={accordion.title}
-                      details={accordion.details}
-                    />
-                  ))}
+                  <Accordions title={"KULLANIM ŞEKLİ"} details={explanation?.usage || " "} />
+                  <Accordions
+                    title={"BESİN İÇERİĞİ"}
+                    details={explanation?.features || " "}
+                  />
+                  <Accordions
+                    title={"AÇIKLAMA"}
+                    details={explanation?.description || " "}
+                  />
                 </Box>
               </Stack>
             </Grid>

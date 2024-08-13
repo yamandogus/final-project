@@ -14,6 +14,8 @@ const Root = () => {
   useEffect(()=>{
     navigate("/Home")
   },[navigate])
+
+
   return (
     <>
     <Navbar/>

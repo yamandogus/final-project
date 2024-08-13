@@ -3,7 +3,7 @@ import ProductCard from './Products';
 import { useLoaderData } from 'react-router-dom';
 
 export const base_url = "https://fe1111.projects.academy.onlyjs.com/api/v1"
-const photo_url = "https://fe1111.projects.academy.onlyjs.com"
+export const photo_url = "https://fe1111.projects.academy.onlyjs.com"
 
 interface PriceInfo {
   profit?: null;

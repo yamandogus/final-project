@@ -129,9 +129,9 @@ const Addresses: React.FC = () => {
                   }}
                 >
                   <Typography variant="subtitle1">Adreslerim(0)</Typography>{" "}
-                  <Typography>
+                  <Button>
                     <a onClick={() => setIsAddressSaved(false)}>Adres Ekle</a>
-                  </Typography>
+                  </Button>
                 </Box>
                 <Grid container mt={1} gap={3}>
                   <Grid item xs={12} md={4} >

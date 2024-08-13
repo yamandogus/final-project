@@ -31,7 +31,27 @@
     width: 10px;
     background-color: red;
 }
+.textDec{
+    &::after{
+        content: "❯";
+        display: inline-block;
+        margin-left: 10px !important;
+        transform: rotate(90deg);
+    }
+    &:hover{
+        cursor: pointer;
+        &::after{
+            transform: rotate(270deg) !important;
+        }
+    }
+}
 
+
+body.dimmed{
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+  
 
 /*SeconNavbar*/
 .shoppingCart{
@@ -101,3 +121,4 @@
         height: 210px!important;
     }
   }
+
