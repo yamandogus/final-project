@@ -48,7 +48,7 @@
 
 
 body.dimmed{
-    opacity: 0.5;
+    opacity: 0.7;
     transition: opacity 0.3s ease;
 }
   
@@ -79,7 +79,16 @@ body.dimmed{
 
 /*TABLET NAVBAR*/
 @media (min-width: 599px) and (max-width: 972px) {
+    .headLink{
+        padding-left: 0 !important;
+    }
+  }
 
+  .headLink{
+    transition: color 0.3s ease;
+    &:hover{
+        color: #1E90FF;
+    }
   }
 
 
@@ -121,4 +130,19 @@ body.dimmed{
         height: 210px!important;
     }
   }
+
+  .bitten { 
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.listeLi li{
+        cursor: pointer;
+        margin-top: 8px;
+        text-decoration: none;
+        list-style: none;
+    }
+.tool2{
+    margin-top: 5px;
+}
 

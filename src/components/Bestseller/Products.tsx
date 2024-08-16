@@ -35,7 +35,7 @@ name, photo_src, short_explanation, average_star, comment_count, price_info:{tot
             </Stack>
           )}
           <img
-            className="responsive-image"
+            className="responsive-image imgHover"
             src={photo_src}
             alt={name}
             style={{ maxWidth: "90%", display: "block", margin: "auto"}}

@@ -18,28 +18,6 @@ import Accordions from "../Accordions/Accordions";
 import { WheyIsolate } from "../../pages/ProductDetails";
 import { photo_url } from "../Bestseller/CokSatanlar";
 
-const aromaOptions = [
-  { value: "Bisküvi", label: "Büskivi", color: "rgba(230, 188, 121, 1)" },
-  { value: "Çikolata", label: "Çikolata", color: "rgba(86, 50, 29, 1)" },
-  { value: "Muz", label: "Muz", color: "rgba(241, 208, 24, 1)" },
-  {
-    value: "Salted Caramel",
-    label: "Salted Caramel",
-    color: "rgba(182, 67, 0, 1)",
-  },
-  { value: "Choco Nut", label: "Choco Nut", color: "rgba(123, 63, 0, 1)" },
-  {
-    value: "Hindistan Cevizi",
-    label: "Hindistan Cevizi",
-    color: "rgba(230, 188, 121, 1)",
-  },
-  {
-    value: "Raspberry Cheesecake",
-    label: "Raspberry Cheesecake",
-    color: "rgba(204, 30, 95, 1)",
-  },
-  { value: "Çilek", label: "Çilek", color: "rgba(204, 30, 95, 1)" },
-];
 
 const dimensions = [
   {
@@ -164,22 +142,22 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                       onChange={handleChange}
                     >
                       <Grid container spacing={2}>
-                        {aromaOptions.map((option) => (
-                          <Grid item key={option.value}>
+                      {variants.map((variant, index) => (
+                        <Grid item key={index}>
                             <FormControlLabel
                               className={`checkedForm ${
-                                selectedAroma === option.value
+                                selectedAroma === variant.aroma
                                   ? "checkedDiv"
                                   : ""
                               }`}
-                              value={option.value}
+                              value={variant.aroma}
                               control={<Radio className="checked" />}
                               label={
                                 <Box display="flex" alignItems="center">
-                                  {option.label}
+                                  {variant.aroma}
                                   <span
                                     style={{
-                                      backgroundColor: option.color,
+                                      backgroundColor: "variants[0].aroma",
                                     }}
                                     className="labelSpan"
                                   ></span>
@@ -188,7 +166,7 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                               labelPlacement="end"
                             />
                           </Grid>
-                        ))}
+                      ))}
                       </Grid>
                     </RadioGroup>
                   </FormControl>
@@ -232,7 +210,7 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                       </span>
                     </Box>
                     <Box>
-                      <span>34.31 TL /Servis</span>
+                      <span>{""} TL /Servis</span>
                     </Box>
                   </Box>
                   <Box
@@ -257,11 +235,9 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                         +
                       </button>
                     </Box>
-                    <Box>
                       <Button className="ShoppinAdButton" variant="contained">
-                        <ShoppingCartCheckoutIcon /> SEPETE EKLE
+                        <ShoppingCartCheckoutIcon sx={{mr:1}} /> SEPETE EKLE
                       </Button>
-                    </Box>
                   </Box>
                 </Box>
               </Box>

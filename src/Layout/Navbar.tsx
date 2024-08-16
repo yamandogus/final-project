@@ -7,7 +7,6 @@ import {
   Container,
   Drawer,
   FormGroup,
-  Grid,
   InputAdornment,
   List,
   ListItem,
@@ -20,11 +19,12 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
 import DrawerList from "../components/MyCart/DrawerList";
 import SecondNavbar from "./SecondNavbar";
+import NavbarTooltip from "../components/Navbar/NavbarTooltip";
 interface ListItemProps {
   listitem: string;
   title: string;
@@ -36,108 +36,54 @@ const listItemsData: ListItemProps[] = [
     listitem: "PROTEİN",
     title: "Protein",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+     <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
   {
     listitem: "SPOR GIDALARI",
     title: "Spor Gıdaları",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+      <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
   {
     listitem: "SAĞLIK",
     title: "Sağlık",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+      <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
   {
     listitem: "GIDA",
     title: "Gıda",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+      <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
   {
     listitem: "VİTAMİN",
     title: "Vitamin",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+      <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
   {
     listitem: "TÜM ÜRÜNLER",
     title: "Tüm Ürünler",
     tooltipContent: (
-      <Box>
-        <Grid container spacing={2} width={450} >
-          <Grid item xs={5} >
-            <strong>Çok Satanlar</strong>
-
-          </Grid>
-          <Grid item xs={7}>
-            SPOR GIDALARI <br /> <br />
-            Ürünler
-          </Grid>
-        </Grid>
-      </Box>
+      <div style={{marginTop:"40px"}}>
+      <NavbarTooltip/>
+     </div>
     ),
   },
 ];
@@ -145,10 +91,20 @@ const listItemsData: ListItemProps[] = [
 function Navbar() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-
+  const [toolOpen, setToolOpen] = useState(false)
+ 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+ useEffect(()=>{
+  const opas = document.getElementById("autlet");
+  if(toolOpen){
+    opas?.classList.add("bitten")
+  }else{
+    opas?.classList.remove("bitten")
+  }
+ })
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -158,6 +114,9 @@ function Navbar() {
     setAnchorEl(null);
   };
 
+  const toogleTool = (newOpen : boolean) =>{
+    setToolOpen(newOpen)
+  }
 
   return (
     <>
@@ -175,14 +134,19 @@ function Navbar() {
               <Toolbar>
                 <Typography variant="h6" component="div">
                   <Link to={"/Home"}>
-                    <img className="navimg" width={160} src="/images/Logo/Logo1.png" alt="" />
+                    <img
+                      className="navimg"
+                      width={160}
+                      src="/images/Logo/Logo1.png"
+                      alt=""
+                    />
                   </Link>
                 </Typography>
               </Toolbar>
               <Stack className="navAs" direction="row" spacing={2}>
                 <FormGroup>
                   <TextField
-                  className="searchInput"
+                    className="searchInput"
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     InputProps={{
@@ -207,9 +171,9 @@ function Navbar() {
                           </Box>
                         </InputAdornment>
                       ),
-                      className:"inputw",
+                      className: "inputw",
                       sx: {
-                        width:350,
+                        width: 350,
                         paddingRight: 0,
                       },
                     }}
@@ -270,7 +234,6 @@ function Navbar() {
               </Stack>
             </Stack>
           </Container>
-          <Box>
             <Box
               sx={{
                 backgroundColor: "black",
@@ -278,32 +241,33 @@ function Navbar() {
               }}
             >
               <Container>
-              <List sx={{display:'flex', flexDirection:'row',flexWrap:'wrap'}}>
+                <List
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                  }}
+                >
                   {listItemsData.map((list, index) => (
                     <Tooltip
+                      
+                      onOpen={()=> toogleTool(true) }
+                      onClose={()=> toogleTool(false)}
                       key={index}
                       title={list.tooltipContent}
                       className="textDec"
                       slotProps={{
                         popper: {
-                          modifiers: [
-                            {
-                              name: "offset",
-                              options: {
-                                offset: [0, 0],
-                              },
-                            },
-                          ],
                           style: {
-                            width: "45%",
+                            borderRadius:"10px",
+                            width: "60%",
                           },
                         },
                         tooltip: {
                           sx: {
-                            padding: 3,
+                            padding: "0 0 0 10px",
                             color: "black",
-                            backgroundColor: "rgb(212, 211, 211)",
-                            width: "auto",
+                            backgroundColor: "rgb(209, 209, 209)",
                             height: "auto",
                             maxWidth: "none",
                           },
@@ -312,7 +276,7 @@ function Navbar() {
                     >
                       <ListItem
                         className="headLink"
-                        sx={{ flex: 1, justifyContent: "center", fontSize:13,}}
+                        sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
                         color="inherit"
                       >
                         {list.listitem.toUpperCase()}
@@ -322,7 +286,6 @@ function Navbar() {
                 </List>
               </Container>
             </Box>
-          </Box>
         </AppBar>
       </Box>
       <SecondNavbar />

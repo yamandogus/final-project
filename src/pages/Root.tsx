@@ -19,7 +19,9 @@ const Root = () => {
   return (
     <>
     <Navbar/>
+    <div id='autlet'>
     <Outlet/>
+    </div>
     <Footer/>
     </>
   )

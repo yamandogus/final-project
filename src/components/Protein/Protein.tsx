@@ -35,7 +35,7 @@ const Protein = ({
             </Stack>
           )}
           <img
-           
+            className="imgHover"
             src={photo_src}
             alt={name}
             style={{ maxWidth: "90%", display: "block", margin: "auto" }}

@@ -101,3 +101,11 @@ p{
         left: 12.999rem;
     }
 }
+
+.imgHover{
+    transition: transform 0.3s ease;
+}
+
+.imgHover:hover{
+    transform: scale(1.03);
+}
