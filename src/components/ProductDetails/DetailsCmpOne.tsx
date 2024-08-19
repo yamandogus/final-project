@@ -19,36 +19,6 @@ import { WheyIsolate } from "../../pages/ProductDetails";
 import { photo_url } from "../Bestseller/CokSatanlar";
 
 
-const dimensions = [
-  {
-    value: "400g 16 servis",
-    label: (
-      <>
-        400g <br />
-        16 servis
-      </>
-    ),
-  },
-  {
-    value: "1.6KG",
-    label: (
-      <>
-        1.6KG <br />
-        64 servis
-      </>
-    ),
-  },
-  {
-    value: "1.6KG X 2 ADET",
-    label: (
-      <>
-        1.6KG X 2 ADET
-        <br />
-        128 servis <span className="discount6span">%6 İNDİRİM</span>
-      </>
-    ),
-  },
-];
 
 const DetailsCmpOne = (props: WheyIsolate) => {
   const {
@@ -62,17 +32,12 @@ const DetailsCmpOne = (props: WheyIsolate) => {
     tags = [],
   } = props;
   const [selectedAroma, setSelectedAroma] = useState<string>("");
-  const [dimension, setDimension] = useState("");
   const [count, setCount] = useState<number>(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAroma(event.target.value);
   };
-  const handleChangeDimension = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDimension(event.target.value);
-  };
+
 
   return (
     <>
@@ -83,7 +48,7 @@ const DetailsCmpOne = (props: WheyIsolate) => {
               <img
                 width={"90%"}
                 className="pageTwoImg"
-                src={photo_url + variants[0].photo_src}
+                src={photo_url + variants[0]?.photo_src}
                 alt=""
               />
               <Box component={"div"} className="mobileAccordion">
@@ -179,18 +144,17 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                     <RadioGroup
                       aria-labelledby="aroma"
                       name="radio-buttons-group"
-                      onChange={handleChangeDimension}
                     >
                       <Grid container spacing={2}>
-                        {dimensions.map((dim) => (
-                          <Grid item key={dim.value}>
+                        {variants.map((vary) => (
+                          <Grid item key={vary.id}>
                             <FormControlLabel
                               className={`checkedForm ${
-                                dimension === dim.value ? "checkedDiv" : ""
+                                vary ? "checkedDiv" : ""
                               }`}
-                              value={dim.value}
+                              value={vary.size?.gram}
                               control={<Radio className="checked" />}
-                              label={dim.label}
+                              label={vary.size?.gram+"KG  "+`${ ( variants[0].size?.total_services + " servis")}`}
                             />
                           </Grid>
                         ))}
@@ -206,11 +170,11 @@ const DetailsCmpOne = (props: WheyIsolate) => {
                   >
                     <Box>
                       <span style={{ fontSize: 30, fontWeight: "bolder" }}>
-                        {""}TL
+                        {variants[0].price?.total_price}TL
                       </span>
                     </Box>
                     <Box>
-                      <span>{""} TL /Servis</span>
+                      <span>{variants[0].size?.total_services}TL /Servis</span>
                     </Box>
                   </Box>
                   <Box

@@ -6,6 +6,9 @@ import Footer from '../Layout/Footer'
 const Root = () => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
+  const lacation = useLocation()
+
+  const isPagePayment = lacation.pathname ==="/PaymentPage"
 
   useEffect(()=>{
     window.scrollTo(0,0)
@@ -18,11 +21,12 @@ const Root = () => {
 
   return (
     <>
-    <Navbar/>
+    {!isPagePayment && <Navbar/>}
     <div id='autlet'>
     <Outlet/>
     </div>
-    <Footer/>
+    {!isPagePayment && <Footer/>}
+    
     </>
   )
 }

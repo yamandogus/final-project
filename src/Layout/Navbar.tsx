@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
@@ -36,54 +36,54 @@ const listItemsData: ListItemProps[] = [
     listitem: "PROTEİN",
     title: "Protein",
     tooltipContent: (
-     <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
   {
     listitem: "SPOR GIDALARI",
     title: "Spor Gıdaları",
     tooltipContent: (
-      <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
   {
     listitem: "SAĞLIK",
     title: "Sağlık",
     tooltipContent: (
-      <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
   {
     listitem: "GIDA",
     title: "Gıda",
     tooltipContent: (
-      <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
   {
     listitem: "VİTAMİN",
     title: "Vitamin",
     tooltipContent: (
-      <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
   {
     listitem: "TÜM ÜRÜNLER",
     title: "Tüm Ürünler",
     tooltipContent: (
-      <div style={{marginTop:"40px"}}>
-      <NavbarTooltip/>
-     </div>
+      <div style={{ marginTop: "40px" }}>
+        <NavbarTooltip />
+      </div>
     ),
   },
 ];
@@ -91,20 +91,21 @@ const listItemsData: ListItemProps[] = [
 function Navbar() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-  const [toolOpen, setToolOpen] = useState(false)
- 
+  const [toolOpen, setToolOpen] = useState(false);
+  const navigate = useNavigate();
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
- useEffect(()=>{
-  const opas = document.getElementById("autlet");
-  if(toolOpen){
-    opas?.classList.add("bitten")
-  }else{
-    opas?.classList.remove("bitten")
-  }
- })
+  useEffect(() => {
+    const opas = document.getElementById("autlet");
+    if (toolOpen) {
+      opas?.classList.add("bitten");
+    } else {
+      opas?.classList.remove("bitten");
+    }
+  });
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -114,9 +115,14 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const toogleTool = (newOpen : boolean) =>{
-    setToolOpen(newOpen)
-  }
+  const toogleTool = (newOpen: boolean) => {
+    setToolOpen(newOpen);
+  };
+
+  const handleContinue = () => {
+    setOpen(false); // Drawer'ı kapat
+    navigate("/PaymentPage"); // Yönlendirme işlemi
+  };
 
   return (
     <>
@@ -229,63 +235,62 @@ function Navbar() {
                   open={open}
                   onClose={toggleDrawer(false)}
                 >
-                  <DrawerList />
+                  <DrawerList onCountine={handleContinue} />
                 </Drawer>
               </Stack>
             </Stack>
           </Container>
-            <Box
-              sx={{
-                backgroundColor: "black",
-                color: "white",
-              }}
-            >
-              <Container>
-                <List
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {listItemsData.map((list, index) => (
-                    <Tooltip
-                      
-                      onOpen={()=> toogleTool(true) }
-                      onClose={()=> toogleTool(false)}
-                      key={index}
-                      title={list.tooltipContent}
-                      className="textDec"
-                      slotProps={{
-                        popper: {
-                          style: {
-                            borderRadius:"10px",
-                            width: "60%",
-                          },
+          <Box
+            sx={{
+              backgroundColor: "black",
+              color: "white",
+            }}
+          >
+            <Container>
+              <List
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                }}
+              >
+                {listItemsData.map((list, index) => (
+                  <Tooltip
+                    onOpen={() => toogleTool(true)}
+                    onClose={() => toogleTool(false)}
+                    key={index}
+                    title={list.tooltipContent}
+                    className="textDec"
+                    slotProps={{
+                      popper: {
+                        style: {
+                          borderRadius: "10px",
+                          width: "60%",
                         },
-                        tooltip: {
-                          sx: {
-                            padding: "0 0 0 10px",
-                            color: "black",
-                            backgroundColor: "rgb(209, 209, 209)",
-                            height: "auto",
-                            maxWidth: "none",
-                          },
+                      },
+                      tooltip: {
+                        sx: {
+                          padding: "0 0 0 10px",
+                          color: "black",
+                          backgroundColor: "rgb(209, 209, 209)",
+                          height: "auto",
+                          maxWidth: "none",
                         },
-                      }}
+                      },
+                    }}
+                  >
+                    <ListItem
+                      className="headLink"
+                      sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
+                      color="inherit"
                     >
-                      <ListItem
-                        className="headLink"
-                        sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
-                        color="inherit"
-                      >
-                        {list.listitem.toUpperCase()}
-                      </ListItem>
-                    </Tooltip>
-                  ))}
-                </List>
-              </Container>
-            </Box>
+                      {list.listitem.toUpperCase()}
+                    </ListItem>
+                  </Tooltip>
+                ))}
+              </List>
+            </Container>
+          </Box>
         </AppBar>
       </Box>
       <SecondNavbar />

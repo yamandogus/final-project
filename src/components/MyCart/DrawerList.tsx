@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Divider,Stack, Typography } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const cart = true
 
-const DrawerList = () => {
+const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
   return (
     <Box sx={{ width: 350 }} role="presentation" onClick={(e)=> e.stopPropagation()}>
       <Typography sx={{fontWeight:'bolder', fontSize:18}}>SEPETİM</Typography>
@@ -14,16 +14,19 @@ const DrawerList = () => {
       {!cart ? <Typography>Sepet Boş</Typography>:<Typography>Sepet Boş</Typography>} 
     <Stack marginBottom={1} textAlign={'center'} position={'absolute'} bottom={0} >
       <Typography variant='subtitle2' fontWeight={'bolder'} textAlign={'end'} mr={5}>Toplam 499 TL</Typography>
-       <Button href='PaymentPage' variant='contained'
+       <Button variant='contained'
         sx={{
             px:10,
             mx:5,
             backgroundColor:'black',
             '&:hover':{backgroundColor:'black'}
         }}
-        onClick={(e)=> e.stopPropagation()}
+        onClick={() => {
+          onCountine();
+        }}
         >
-        <Link style={{textDecoration:'none', color:'white'}} to={'PaymentPage'}>DEVAM ET</Link> <ArrowRightIcon/>
+        <Link onClick={onCountine} style={{textDecoration:'none', color:'white'}} to={'PaymentPage'}
+        >DEVAM ET</Link> <ArrowRightIcon/>
         </Button>
     </Stack>
     </Box>

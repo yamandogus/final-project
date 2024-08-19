@@ -145,7 +145,7 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
 }
 
 function ProductsDetails() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const { data: productData } = useLoaderData() as {data: WheyIsolate};
 
    return (

@@ -178,10 +178,10 @@ const SecondNavbar = () => {
     />
   </Box>
 </Box>
-<Drawer open={open} onClose={toggleDrawer(false)}>
+<Drawer open={open} onClose={toggleDrawer(false)} disableScrollLock>
   {DrawerList}
 </Drawer>
-<Drawer anchor="right" open={cartOpen} onClose={toggleDrawer2(false)}>
+<Drawer anchor="right" open={cartOpen} onClose={toggleDrawer2(false)} disableScrollLock>
   {MyCart}
 </Drawer>
     </>

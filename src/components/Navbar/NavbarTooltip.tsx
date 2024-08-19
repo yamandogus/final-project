@@ -62,7 +62,7 @@ const NavbarTooltip = () => {
               </Grid>
             ))}
           </Grid>
-          <Grid item xs={8} bgcolor={'rgb(178, 220, 240)'} borderRadius={"0 5px 5px 0"}>
+          <Grid item xs={8} bgcolor={'rgb(255, 255, 255)'} borderRadius={"0 5px 5px 0"}>
             <h2>SPOR GIDALARI </h2>
             <h2 className="tool2">Product 1</h2>
             <ul className="listeLi">
