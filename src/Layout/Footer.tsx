@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Stack, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Stack, styled, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 interface Link {
@@ -41,6 +41,14 @@ const categoriesLinks: Link[] = [
   { to: "/DailyVitaminPackage", label: "Günlük Vitamin Paketi" },
   { to: "/ZMA", label: "ZMA" },
 ];
+
+const FootherAccordion = styled(Accordion)({
+  border: "none",
+  boxShadow:"none",
+  "&:before": {
+    display: "none",
+  },
+})
 
 const Footer: React.FC = () => {
   const renderLink = (Links: Link[]): JSX.Element => {
@@ -99,9 +107,9 @@ const Footer: React.FC = () => {
           </Grid>
         </Container>
       </Box>
-        <Box className="test" sx={{backgroundColor:'rgb(34, 34, 34)'}}>
+        <Box className="test" sx={{backgroundColor:'#222222'}}>
         <Container style={{border:'none !important'}} >
-        <Accordion 
+        <FootherAccordion 
         sx={{"&:before":{backgroundColor:'transparent'}}}
         className="accordion">
         <AccordionSummary
@@ -113,8 +121,8 @@ const Footer: React.FC = () => {
         <AccordionDetails>
         {renderLink(contactLinks)}
         </AccordionDetails>
-      </Accordion>
-      <Accordion
+      </FootherAccordion>
+      <FootherAccordion 
       sx={{"&:before":{backgroundColor:'transparent'}}}
       className="accordion">
         <AccordionSummary
@@ -126,8 +134,8 @@ const Footer: React.FC = () => {
         <AccordionDetails>
         {renderLink(popularProductsLinks)}
         </AccordionDetails>
-      </Accordion>
-      <Accordion 
+      </FootherAccordion>
+      <FootherAccordion 
       sx={{"&:before":{backgroundColor:'transparent'}}}
       className="accordion">
         <AccordionSummary
@@ -139,7 +147,7 @@ const Footer: React.FC = () => {
         <AccordionDetails>
         {renderLink(categoriesLinks)}
         </AccordionDetails>
-      </Accordion>
+      </FootherAccordion>
         </Container>
     </Box>
     </>

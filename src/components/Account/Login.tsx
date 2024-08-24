@@ -1,6 +1,7 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography} from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [value, setValue] = React.useState('1');
@@ -72,7 +73,7 @@ const Login = () => {
               <Button sx={{backgroundColor:'black',py:1, color:'white',
               '&:hover':{backgroundColor:'black',py:1, color:'white'}
               }} >ÜYE OL</Button>
-               <Typography sx={{mt:2}} variant='subtitle1'>Zaten hesabınız var mı? <a href="">Giriş Yap</a></Typography>
+               <Typography sx={{mt:2}} variant='subtitle1'>Zaten hesabınız var mı? <Link to="/SingUp">Giriş Yap</Link></Typography>
              </FormControl>
            </Grid>
              </Grid>

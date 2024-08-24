@@ -31,12 +31,15 @@ const dummyData = [
     comments: 9,
   },
 ];
-const NavbarTooltip = () => {
+
+
+
+const NavbarPopover = () => {
   return (
     <>
-      <Box my={2}>
+      <Box >
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={5} >
             <Typography mb={2} variant="h6" fontWeight={700}>
               ÇOK SATANLAR
             </Typography>
@@ -62,8 +65,8 @@ const NavbarTooltip = () => {
               </Grid>
             ))}
           </Grid>
-          <Grid item xs={8} bgcolor={'rgb(255, 255, 255)'} borderRadius={"0 5px 5px 0"}>
-            <h2>SPOR GIDALARI </h2>
+          <Grid item xs={7} bgcolor={'rgb(255, 255, 255)'} borderRadius={"0 5px 5px 0"} >
+            <h2></h2>
             <h2 className="tool2">Product 1</h2>
             <ul className="listeLi">
               <li>Item lorem2</li>
@@ -87,4 +90,4 @@ const NavbarTooltip = () => {
   );
 };
 
-export default NavbarTooltip;
+export default NavbarPopover;

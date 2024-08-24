@@ -1,9 +1,9 @@
 .test{
     border: none;
     display: block;
-    background-color: rgba(34, 34, 34, 1);
+    background-color: #222222;
     .accordion{
-        background-color: rgba(34, 34, 34, 1);
+        background-color: #222222;
         color: white;
         border: none;
     }
@@ -19,6 +19,9 @@
 }
 
 @media(min-width: 768px){
+    .footer1{
+        padding: 5px 0;
+    }
     .test{
         display: none,
     }

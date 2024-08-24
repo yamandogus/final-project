@@ -12,19 +12,19 @@ import {
   ListItem,
   Menu,
   MenuItem,
+  Popper,
   Stack,
   TextField,
-  Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
 import DrawerList from "../components/MyCart/DrawerList";
 import SecondNavbar from "./SecondNavbar";
-import NavbarTooltip from "../components/Navbar/NavbarTooltip";
+import NavbarPopover from "../components/Navbar/NavbarPopover";
 interface ListItemProps {
   listitem: string;
   title: string;
@@ -35,79 +35,52 @@ const listItemsData: ListItemProps[] = [
   {
     listitem: "PROTEİN",
     title: "Protein",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <NavbarPopover />,
   },
   {
     listitem: "SPOR GIDALARI",
     title: "Spor Gıdaları",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <Typography>Spor Gıdaları</Typography>,
   },
   {
     listitem: "SAĞLIK",
     title: "Sağlık",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <Typography>Sağlık</Typography>,
   },
   {
     listitem: "GIDA",
     title: "Gıda",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <Typography>Gıda</Typography>,
   },
   {
     listitem: "VİTAMİN",
     title: "Vitamin",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <Typography>Vitamin</Typography>,
   },
   {
     listitem: "TÜM ÜRÜNLER",
     title: "Tüm Ürünler",
-    tooltipContent: (
-      <div style={{ marginTop: "40px" }}>
-        <NavbarTooltip />
-      </div>
-    ),
+    tooltipContent: <Typography>Tüm Ürünler</Typography>,
   },
 ];
 
 function Navbar() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-  const [toolOpen, setToolOpen] = useState(false);
-  const navigate = useNavigate();
+  const [openPopover, setOpenPopover] = useState(false);
+  const [currentTooltipContent, setCurrentTooltipContent] =
+    useState<React.ReactNode>(null);
 
+  const handleContinue = () => {
+    setOpen(false);
+    navigate("/PaymentPage");
+  };
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  useEffect(() => {
-    const opas = document.getElementById("autlet");
-    if (toolOpen) {
-      opas?.classList.add("bitten");
-    } else {
-      opas?.classList.remove("bitten");
-    }
-  });
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -115,13 +88,22 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const toogleTool = (newOpen: boolean) => {
-    setToolOpen(newOpen);
+  const handleListMouseEnter = (
+    event: React.MouseEvent<HTMLElement>,
+    tooltipContent: React.ReactNode
+  ) => {
+    setCurrentTooltipContent(tooltipContent);
+    setOpenPopover(true);
   };
 
-  const handleContinue = () => {
-    setOpen(false); // Drawer'ı kapat
-    navigate("/PaymentPage"); // Yönlendirme işlemi
+  const handleListItemMouseLeave = () => {
+    setOpenPopover(false);
+  };
+
+  const style = {
+    width: 1000,
+    bgcolor: "background.paper",
+    p: 2,
   };
 
   return (
@@ -255,38 +237,35 @@ function Navbar() {
                 }}
               >
                 {listItemsData.map((list, index) => (
-                  <Tooltip
-                    onOpen={() => toogleTool(true)}
-                    onClose={() => toogleTool(false)}
-                    key={index}
-                    title={list.tooltipContent}
-                    className="textDec"
-                    slotProps={{
-                      popper: {
-                        style: {
-                          borderRadius: "10px",
-                          width: "60%",
-                        },
-                      },
-                      tooltip: {
-                        sx: {
-                          padding: "0 0 0 10px",
-                          color: "black",
-                          backgroundColor: "rgb(209, 209, 209)",
-                          height: "auto",
-                          maxWidth: "none",
-                        },
-                      },
-                    }}
-                  >
+                  <React.Fragment key={index}>
                     <ListItem
-                      className="headLink"
+                      onMouseEnter={(e) =>
+                        handleListMouseEnter(e, list.tooltipContent)
+                      }
+                      key={index}
+                      className="headLink textDec"
                       sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
                       color="inherit"
                     >
                       {list.listitem.toUpperCase()}
                     </ListItem>
-                  </Tooltip>
+                    <Popper
+                      open={openPopover}
+                      anchorEl={null}
+                      onMouseLeave={handleListItemMouseLeave}
+                      style={{
+                        position: "fixed",
+                        top: "58%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        zIndex: 1200,
+                      }}
+                    >
+                      <Box sx={style}>
+                        {currentTooltipContent}
+                        </Box>
+                    </Popper>
+                  </React.Fragment>
                 ))}
               </List>
             </Container>
