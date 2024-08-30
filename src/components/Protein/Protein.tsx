@@ -14,24 +14,34 @@ export interface ProductProps {
   photo_src: string;
   comment_count?: number;
   average_star: number;
-  slug: string
+  slug: string;
 }
 
 const Protein = ({
-  name, photo_src, short_explanation, average_star, comment_count, price_info:{total_price, discounted_price}, slug
+  name,
+  photo_src,
+  short_explanation,
+  average_star,
+  comment_count,
+  price_info: { total_price, discounted_price },
+  slug,
 }: ProductProps) => {
+  const calculateDiscount = (total_price: number, discounted_price: number) => {
+    const discountAmount = total_price - discounted_price;
+    const discountPercentega = (discountAmount / total_price) * 100;
+    return Math.round(discountPercentega);
+  };
 
-  const calculateDiscount = (total_price: number, discountedPrice: number) =>{
-    return Math.round((discountedPrice-total_price) / total_price * 100)
-  }
-  
   return (
     <>
       <Grid item xs={6} md={4} lg={3}>
-        <Link style={{position:'relative'}} to={`/products/${slug}`}>
+        <Link style={{ position: "relative" }} to={`/products/${slug}`}>
           {discounted_price && (
             <Stack className="discount">
-                  <strong style={{fontSize:'16px'}}>%{calculateDiscount(total_price, discounted_price)} </strong>İNDİRİM
+              <strong style={{ fontSize: "16px" }}>
+                %{calculateDiscount(total_price, discounted_price)}{" "}
+              </strong>
+              İNDİRİM
             </Stack>
           )}
           <img
@@ -41,7 +51,7 @@ const Protein = ({
             style={{ maxWidth: "90%", display: "block", margin: "auto" }}
           />
         </Link>
-        <Stack direction={"column"} sx={{ alignItems: "center" }}>
+        <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>
           <Typography fontSize={16} fontWeight={"bolder"} className="text">
             {name}
           </Typography>
@@ -51,11 +61,15 @@ const Protein = ({
           <Rating name="half-rating" defaultValue={average_star} readOnly />
           <Typography>{comment_count} Yorum</Typography>
           <Typography>
-            <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>
-            {discounted_price && (
-              <span className="spanText">
-                {discounted_price} TL <br />
-              </span>
+            {discounted_price ? (
+              <>
+                <span style={{fontWeight:'bolder', color:'red',fontSize: 16, marginRight:3}}>
+                  {Math.floor(discounted_price)} TL <br />
+                </span>
+                <span style={{ fontWeight: "bolder", textDecoration:'line-through' }}>{total_price} TL</span>
+              </>
+            ) : (
+              <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>
             )}
           </Typography>
         </Stack>

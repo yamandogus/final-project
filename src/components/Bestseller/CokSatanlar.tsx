@@ -13,7 +13,7 @@ interface PriceInfo {
   discount_percentage?: number | null;
 }
 
-interface BestsellerProps {
+export interface BestsellerPropsCS {
   name: string;
   short_explanation: string;
   price_info: PriceInfo;
@@ -30,7 +30,7 @@ export async function loader() {
 
 
 const CokSatanlar = () => {
-  const {products} = useLoaderData() as {products : BestsellerProps[] }
+  const {products} = useLoaderData() as {products : BestsellerPropsCS[] }
   
   return (
     <Box>

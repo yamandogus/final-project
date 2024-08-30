@@ -35,7 +35,7 @@
     &::after{
         content: "❯";
         display: inline-block;
-        margin-left: 10px !important;
+        margin-left: 6px !important;
         transform: rotate(90deg);
     }
     &:hover{
@@ -43,6 +43,10 @@
         &::after{
             transform: rotate(270deg) !important;
         }
+    }
+    @media (min-width: 599px) and (max-width: 972px){
+        width: '0%' !important;
+    
     }
 }
 

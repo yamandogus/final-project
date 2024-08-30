@@ -14,125 +14,83 @@ import LastWiew from "../components/Bestseller/LastWiew";
 import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
 import { Link, useLoaderData} from "react-router-dom";
 import { base_url } from "../components/Bestseller/CokSatanlar";
+import { Product } from "../hooks/types";
 
 const productsDet = [
   {
-    title: "WHEY PROTEIN",
-    description: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
-    rating: 5,
-    reviews: 10869,
-    price: 549,
-    discountedPrice: null,
-    imgSrc: "/images/6card/pg1.jpeg",
-    link: "/Page2",
+    name: "WHEY PROTEIN",
+    short_explanation: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
+    average_star: 5,
+    comment_count: 10869,
+    price_info: {
+      total_price: 549,
+      discounted_price: null,
+    },
+    photo_src: "/images/6card/pg1.jpeg",
+    slug: "/Page2",
   },
   {
-    title: "FITNESS PAKETİ",
-    description: "EN POPÜLER ÜRÜNLER BİR ARADA",
-    rating: 5,
-    reviews: 7650,
-    price: 799,
-    discountedPrice: 1126,
-    imgSrc: "/images/6card/pg2.jpeg",
-    link: null,
+    name: "FITNESS PAKETİ",
+    short_explanation: "EN POPÜLER ÜRÜNLER BİR ARADA",
+    average_star: 5,
+    comment_count: 7650,
+    price_info: {
+      total_price: 799,
+      discounted_price: 650,
+    },
+    photo_src: "/images/6card/pg2.jpeg",
+    slug: null,
   },
   {
-    title: "GÜNLÜK VİTAMİN PAKETİ",
-    description: "EN SIK TÜKETİLEN TAKVİYELER",
-    rating: 5,
-    reviews: 5013,
-    price: 549,
-    discountedPrice: 717,
-    imgSrc: "/images/6card/pg3.jpeg",
-    link: null,
+    name: "GÜNLÜK VİTAMİN PAKETİ",
+    short_explanation: "EN SIK TÜKETİLEN TAKVİYELER",
+    average_star: 5,
+    comment_count: 5013,
+    price_info: {
+      total_price: 549,
+      discounted_price: 500,
+    },
+    photo_src: "/images/6card/pg3.jpeg",
+    slug: null,
   },
   {
-    title: "PRE-WORKOUT SUPREME",
-    description: "ANTRENMAN ÖNCESİ TAKVİYESİ",
-    rating: 5,
-    reviews: 6738,
-    price: 399,
-    discountedPrice: null,
-    imgSrc: "/images/6card/pg4.jpeg",
-    link: null,
+    name: "PRE-WORKOUT SUPREME",
+    short_explanation: "ANTRENMAN ÖNCESİ TAKVİYESİ",
+    average_star: 5,
+    comment_count: 6738,
+    price_info: {
+      total_price: 399,
+      discounted_price: null,
+    },
+    photo_src: "/images/6card/pg4.jpeg",
+    slug: null,
   },
   {
-    title: "CREAM OF RICE",
-    description: "EN LEZZETLİ PİRİNÇ KREMASI",
-    rating: 5,
-    reviews: 5216,
-    price: 239,
-    discountedPrice: null,
-    imgSrc: "/images/6card/pg5.jpeg",
-    link: null,
+    name: "CREAM OF RICE",
+    short_explanation: "EN LEZZETLİ PİRİNÇ KREMASI",
+    average_star: 5,
+    comment_count: 5216,
+    price_info: {
+      total_price: 239,
+      discounted_price: null,
+    },
+    photo_src: "/images/6card/pg5.jpeg",
+    slug: null,
   },
   {
-    title: "CREATINE",
-    description: "EN POPÜLER SPORCU TAKVİYESİ",
-    rating: 5,
-    reviews: 8558,
-    price: 239,
-    discountedPrice: null,
-    imgSrc: "/images/6card/pg6.jpeg",
-    link: null,
+    name: "CREATINE",
+    short_explanation: "EN POPÜLER SPORCU TAKVİYESİ",
+    average_star: 5,
+    comment_count: 8558,
+    price_info: {
+      total_price: 239,
+      discounted_price: null,
+    },
+    photo_src: "/images/6card/pg6.jpeg",
+    slug: null,
   },
 ];
 
-export interface WheyIsolate {
-  id?: string;
-  name?: string;
-  slug?: string;
-  short_explanation?: string;
-  explanation?: {
-    usage?: string;
-    features?: string;
-    description?: string;
-    nutritional_content?: {
-      ingredients?: {
-        aroma?: string;
-        value?: string;
-      }[];
-      nutrition_facts?: {
-        ingredients?: {
-          name?: string;
-          amounts?: string[];
-        }[];
-        portion_sizes?: string[];
-      };
-      amino_acid_facts?: {
-        ingredients?: {
-          name?: string;
-          amounts?: string[];
-        }[];
-        portion_sizes?: string[];
-      };
-    };
-  };
-  main_category_id?: string;
-  sub_category_id?: string;
-  tags?: string[];
-  variants?: {
-    id?: string;
-    size?: {
-      gram?: number;
-      pieces?: number;
-      total_services?: number;
-    };
-    aroma?: string;
-    price?: {
-      profit?: number | null;
-      total_price?: number;
-      discounted_price?: number | null;
-      price_per_servings?: number;
-      discount_percentage?: number | null;
-    };
-    photo_src?: string;
-    is_available?: boolean;
-  }[];
-  comment_count?: number;
-  average_star?: number;
-  photo_src?: string;
-}
 
 
 export async function ProductLoader({ params }: { params: { productSlug: string } }) {
@@ -145,21 +103,13 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
 }
 
 function ProductsDetails() {
-
-  const { data: productData } = useLoaderData() as {data: WheyIsolate};
+  const { data: productData } = useLoaderData() as {data: Product};
+  
 
    return (
     <>
       <Box sx={{ my: 6 }}>
-      <DetailsCmpOne 
-            key={productData.id}
-            short_explanation={productData.short_explanation}
-            name={productData.name}
-            average_star={productData.average_star}
-            variants={productData.variants || []}
-            explanation={productData.explanation || {}}
-            tags={productData.tags}
-          />
+      <DetailsCmpOne tags={productData.tags || []} product={productData} />
         <Typography
           sx={{
             my: 3,
@@ -174,14 +124,12 @@ function ProductsDetails() {
             {productsDet.map((product, index) => (
               <LastWiew
                 key={index}
-                title={product.title}
-                description={product.description}
-                rating={product.rating}
-                reviews={product.reviews}
-                price={product.price}
-                discountedPrice={product.discountedPrice}
-                imgSrc={product.imgSrc}
-                link={product.link}
+                name={product.name}
+                short_explanation={product.short_explanation}
+                average_star={product.average_star}
+                comment_count={product.comment_count}
+                photo_src={product.photo_src}
+                price_info={product.price_info}
               />
             ))}
           </Grid>

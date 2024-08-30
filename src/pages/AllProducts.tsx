@@ -32,8 +32,6 @@ export async function AllProLoader(page = 1) {
   const offset = getAllProducts(page ,limit)
   const response = await fetch(base_url + `/products?limit=${limit}&offset=${offset}`)
   const dataAll = await response.json()
-  console.log(dataAll);
-  
   return {products: dataAll.data.results}
 }
 

@@ -36,6 +36,7 @@ const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
                   sx={{
                     backgroundColor: 'rgba(0, 0, 0, 1)',
                     borderRadius: 2,
+                    width:"100%",
                     fontWeight: 700,
                     '&:hover': { backgroundColor: 'rgba(0, 0, 0, 1)' }
                   }}

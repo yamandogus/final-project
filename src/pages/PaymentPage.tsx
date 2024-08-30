@@ -33,10 +33,15 @@ const PaymentPage = () => {
             <Grid
               item
               xs={6}
-              style={{
+              sx={{
                 height:"670px",
-                overflow:"auto",
+                overflow:"hidden",
                 marginRight: "1px solid black",
+                overflowY:'scroll',
+                "&::-webkit-scrollbar": {
+                  width: 0,
+                  background: "transparent", 
+                },  
               }}
             >
               <Box
