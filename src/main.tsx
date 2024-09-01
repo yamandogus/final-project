@@ -14,60 +14,66 @@ import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/Bestseller/CokSatanlar'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
+import { LinksLoader } from './Layout/Navbar'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root/>,
+    loader:LinksLoader,
     children:[
       {
-        index: true,
-        path: "/Home",
-        loader:loader,
-        element: <Home/>
+        index: true, // This will match the root path "/"
+        element: <Home/>,
+        loader: loader,
       },
       {
-        path: "/products/:productSlug",
+        path: "Home", // Alternatively, you can keep this if you want "/Home" to be accessible directly
+        element: <Home/>,
+        loader: loader,
+      },
+      {
+        path: "products/:productSlug",
         element: <ProductsDetails />,
         loader: ProductLoader,
       },
       {
-        path:'/AllProducts',
+        path: "AllProducts",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         loader: AllProLoader as any,
         element: <AllProducts/>
       },
       {
-        path:'/MyAccount',
+        path: "MyAccount",
         element:<AccountHomePage/>
       },
       {
-        path:"/Login",
+        path: "Login",
         element:<Login/>
       },
       {
-        path:'/SingUp',
+        path: "SingUp",
         element:<SingUp/>
       },
       {
-        path:'/ContactUs',
+        path: "ContactUs",
         element:<ContactUs/>
       },
       {
-        path:"/AboutUs",
+        path: "AboutUs",
         element:<AboutUs/>
       },
       {
-        path:"/SSS",
+        path: "SSS",
         element:<SSS/>
-      },{
-        path:"/PaymentPage",
+      },
+      {
+        path: "PaymentPage",
         element:<PaymentPage/>
       }
     ]
   }
 ])
-
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -18,7 +18,7 @@ const  LastWiew= ({
     return Math.round(discountPercentage);
   }
   return (
-    <Grid item xs={6} md={4} lg={2}>
+    <Grid item xs={6} md={4} lg={2} >
       <Link style={{position:'relative'}} to={'#'}>
         {discounted_price && (
           <Stack className="discount">
@@ -26,13 +26,19 @@ const  LastWiew= ({
           </Stack>
         )}
         <img
-          className="responsive-image"
+          className="responsive-image imgHover"
           src={photo_src}
           alt={name}
-          style={{ maxWidth: "90%", display: "block", margin: "auto" }}
+          style={{
+            width: "100%", 
+            height: "auto", 
+            display: "block", 
+            margin: "auto",
+            objectFit: "cover", 
+          }}
         />
       </Link>
-      <Stack direction={"column"} sx={{ alignItems: "center" }}>
+      <Stack direction={"column"} sx={{ alignItems: "center", mt:2 }}>
         <Typography fontSize={13} fontWeight={"bolder"} className="text">
           {name}
         </Typography>
@@ -44,12 +50,10 @@ const  LastWiew= ({
         <Typography>
           {discounted_price?(
             <>
-            <span style={{ fontWeight: "bolder", color:'red', fontSize:17 }}>{total_price} TL</span>
-          {discounted_price && (
-            <span style={{fontWeight:'bolder', textDecoration:'line-through'}}>
+            <span style={{ fontWeight: "bolder", color:'red', fontSize:17, marginRight:5}}>
               {discounted_price} TL <br />
             </span>
-          )}
+            <span  style={{fontWeight:'bolder', textDecoration:'line-through'}}>{total_price} TL</span>
             </>
           ): <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>}
         </Typography>

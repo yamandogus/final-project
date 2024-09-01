@@ -67,37 +67,41 @@ p{
 }
 
 
-.discount{
+.discount {
     position: absolute;
-    top: -0.100rem;
-    right: -0.01rem;
+    top: -10px; 
+    right: -5px; 
     z-index: 1999;
     padding: 5px;
-    width: 50px;
+    width: 50px; 
+    height: 40px; 
     font-weight: bolder;
     color: white;
-    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(237, 39, 39, 1);
-    font-size: 11px;
-    @media(max-width:478px) {
-        width: 40px;
-        height: 40px;
-        padding: 5px;
-        font-size: 9px;
-        top: -0.1500rem;
-        left: 6.999rem;
-    }
-    @media (min-width: 600px) and (max-width: 912px){
-        width: 70px;
-        height: 60px;
-        font-size: 15px;
-        top: -0.7500rem;
-        left: 12.999rem;
-    }
-}
+    font-size: 12px; 
+    @media (max-width: 478px) {
+        .discount {
+          width: 40px;
+          height: 20px;
+          font-size: 10px;
+          top: 5px; 
+          right: 5px; 
+        }
+      }
+      
+      @media (min-width: 600px) and (max-width: 912px) {
+        .discount {
+          width: 70px;
+          height: 35px;
+          font-size: 14px;
+          top: 10px; 
+          right: 10px; 
+        }
+      }
+  }
 
 .imgHover{
     transition: transform 0.3s ease;

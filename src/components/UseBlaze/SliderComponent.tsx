@@ -17,12 +17,13 @@ const SliderComponent = () => {
 
   useEffect(() => {
     if (sliderRef.current) {
-    const slider =  new BlazeSlider(sliderRef.current, {
+      const slider = new BlazeSlider(sliderRef.current, {
         all: {
           slidesToShow: 4,
           slidesToScroll: 1,
-          loop: false,
-          enableAutoplay: false,
+          enableAutoplay: true,
+          autoplayInterval:2000,
+          transitionDuration:300,
         },
         "(max-width: 768px)": {
           slidesToShow: 2,
@@ -33,11 +34,11 @@ const SliderComponent = () => {
       });
       const prevButton = document.querySelector(".blaze-prev");
       const nextButton = document.querySelector(".blaze-next");
-      if(prevButton){
-        prevButton.addEventListener("click", ()=> slider.prev())
+      if (prevButton) {
+        prevButton.addEventListener("click", () => slider.prev());
       }
-      if(nextButton) {
-        nextButton.addEventListener("click", ()=> slider.next())
+      if (nextButton) {
+        nextButton.addEventListener("click", () => slider.next());
       }
     }
   }, []);
@@ -45,25 +46,33 @@ const SliderComponent = () => {
   return (
     <>
       <Box>
-      <Box sx={{ my: 3 }} className="pic2Border">
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} textAlign={"center"}>
-            GERÇEK MÜŞTERİ YORUMLARI
+        <Box sx={{ my: 3 }} className="pic2Border">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} textAlign={"center"}>
+              GERÇEK MÜŞTERİ YORUMLARI
+            </Grid>
+            <Grid item xs={12} md={6} textAlign={"center"}>
+              <Typography>
+                <Rating name="half-rating" defaultValue={5} readOnly />
+                <span style={{ textDecoration: "underline", margin: "0 4px" }}>
+                  198543 Yorum
+                </span>
+                <div className="my-structure">
+                  <button
+                    style={{marginRight:10}}
+                    className="blaze-prev"
+                    aria-label="Go to previous slide"
+                  >
+                    <KeyboardArrowLeftIcon />
+                  </button>
+                  <button className="blaze-next" aria-label="Go to next slide">
+                    <ChevronRightIcon />
+                  </button>
+                </div>
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6} textAlign={"center"}>
-            <Typography>
-              <Rating name="half-rating" defaultValue={5} readOnly />
-              <span style={{ textDecoration: "underline", margin: "0 4px" }}>
-                198543 Yorum
-              </span>
-              <div className="my-structure">
-              <button className="blaze-prev" aria-label="Go to previous slide"><KeyboardArrowLeftIcon /></button>
-              <button className="blaze-next" aria-label="Go to next slide"><ChevronRightIcon /></button> 
-                </div>  
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
         <Container>
           <div className="blaze-slider" ref={sliderRef}>
             <div className="blaze-container">
@@ -74,7 +83,9 @@ const SliderComponent = () => {
                       <Grid container>
                         <Grid item xs={12}>
                           <Stack direction={"column"}>
-                            <Typography variant='subtitle2'>{comment.date}</Typography>
+                            <Typography variant="subtitle2">
+                              {comment.date}
+                            </Typography>
                             <strong>{comment.title}</strong>
                             <p>{comment.details}</p>
                           </Stack>

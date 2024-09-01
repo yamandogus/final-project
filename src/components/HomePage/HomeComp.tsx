@@ -22,9 +22,10 @@ const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
             <Stack direction={'column'} spacing={2} sx={{ alignItems: 'center', height: '100%', justifyContent: 'center' }}>
               <Typography
                 sx={{
-                  textAlign: 'center',
+                  textAlign: 'end',
                   fontWeight: 900,
-                  fontSize: 20,
+                  fontSize: 'x-large',
+                  width:'min-content'
                 }}
                 className='nameComp'
               >
@@ -37,7 +38,8 @@ const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
                     backgroundColor: 'rgba(0, 0, 0, 1)',
                     borderRadius: 2,
                     width:"100%",
-                    fontWeight: 700,
+                    fontWeight: 'bolder',
+                    px:4,
                     '&:hover': { backgroundColor: 'rgba(0, 0, 0, 1)' }
                   }}
                   variant='contained'

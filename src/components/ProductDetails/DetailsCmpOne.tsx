@@ -2,7 +2,12 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
+  Radio,
+  RadioGroup,
   Rating,
   Stack,
   Typography,
@@ -13,28 +18,27 @@ import Accordions from "../Accordions/Accordions";
 import { photo_url } from "../Bestseller/CokSatanlar";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
+import { color } from "./details";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface Props {
   product: Product;
   tags: string[];
 }
 
-
 const DetailsCmpOne = ({ product }: Props) => {
-  const {
-    tags = [],
-  } = product;
+  const { tags = [] } = product;
   const {
     selectedVariant,
     productAromas,
     productSizes,
     isSelectedAroma,
     isSelectedSize,
+    isSizeAvailable,
     selectAroma,
     selectSize,
   } = useProductVariants(product.variants);
   const [count, setCount] = useState<number>(0);
-
   return (
     <>
       <Box sx={{ mt: 5 }}>
@@ -42,7 +46,13 @@ const DetailsCmpOne = ({ product }: Props) => {
           <Grid container spacing={3}>
             <Grid item sm={12} md={6} key={product.id}>
               <img
-                width={"90%"}
+                style={{
+                  width: "90%",
+                  height: "auto",
+                  display: "block",
+                  margin: "auto",
+                  objectFit: "cover",
+                }}
                 className="pageTwoImg"
                 src={photo_url + selectedVariant?.photo_src}
                 alt=""
@@ -100,42 +110,109 @@ const DetailsCmpOne = ({ product }: Props) => {
                   </Stack>
                 </Box>
                 <Box my={2}>
-                  <Typography component="legend">
-                    <strong>AROMA:</strong>
-                  </Typography>
-                  <Stack direction="row" spacing={2}>
-                    {productAromas.map((aroma, index) => (
-                      <button
-                        key={index}
-                        onClick={() => selectAroma(aroma)}
-                        selected={isSelectedAroma(aroma)}
-                        className={`checkedForm ${
-                          isSelectedAroma(aroma) ? "checkedDiv" : ""
-                        }`}
-                      >
-                        {aroma}
-                      </button>
-                    ))}
-                  </Stack>
+                  <FormControl>
+                    <FormLabel component="legend" sx={{ mb: 1 }}>
+                      <strong>AROMA:</strong>
+                    </FormLabel>
+                    <RadioGroup
+                      aria-labelledby="aroma"
+                      name="radio-buttons-group"
+                    >
+                      <Grid container spacing={2}>
+                        {productAromas.map((aroma, index) => (
+                          <Grid item key={index}>
+                            <FormControlLabel
+                              className={`checkedForm ${
+                                isSelectedAroma(aroma) ? "checkedDiv" : ""
+                              }`}
+                              control={
+                                <Radio
+                                  checked={isSelectedAroma(aroma)}
+                                  onClick={() => selectAroma(aroma)}
+                                  className="checked"
+                                />
+                              }
+                              label={
+                                <Box display="flex" alignItems="center">
+                                  <Box>{aroma}</Box>
+                                  <span
+                                    style={{
+                                      position: "absolute",
+                                      right: 0,
+                                      width: 20,
+                                      height: 35,
+                                      backgroundColor:
+                                        color[aroma] || "transparent",
+                                    }}
+                                    className="labelSpan"
+                                  ></span>
+                                </Box>
+                              }
+                              labelPlacement="end"
+                            />
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
                 </Box>
                 <Box>
-                  <Typography component="legend">
-                    <strong>BOYUT:</strong>
-                  </Typography>
-                  <Stack direction="row" spacing={2}>
-                    {productSizes.map((size, index) => (
-                      <button
-                        onSelect={isSelectedSize(size)}
-                        key={index}
-                        onClick={() => selectSize(size)}
-                        className={`checkedForm ${
-                          isSelectedSize(size) ? "checkedDiv" : ""
-                        }`}
-                      >
-                        {size.pieces} x {size.total_services}
-                      </button>
-                    ))}
-                  </Stack>
+                  <FormControl>
+                    <FormLabel component="legend" sx={{ mb: 1 }}>
+                      <strong>BOYUT:</strong>
+                    </FormLabel>
+                    <RadioGroup
+                      aria-labelledby="aroma"
+                      name="radio-buttons-group"
+                    >
+                      <Grid container spacing={2}>
+                        {productSizes.map((size, index) => (
+                          <Grid item key={index}>
+                            <FormControlLabel
+                              className={`checkedSize ${
+                                isSelectedSize(size) ? "checkedDiv" : ""
+                              }`}
+                              control={
+                                <Radio
+                                  checked={isSelectedSize(size)}
+                                  onClick={() => selectSize(size)}
+                                  className="checked"
+                                  disabled={isSizeAvailable(size)}
+                                />
+                              }
+                              label={
+                                <Box
+                                  display="flex"
+                                  alignItems="center"
+                                  position="relative"
+                                >
+                                  {size.pieces} x {size.total_services}
+                                  <span
+                                    style={{
+                                      position: "absolute",
+                                      height: 80,
+                                      right:-15,
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    {isSizeAvailable(size) && <CloseIcon 
+                                    sx={{
+                                      maxWidth:100,
+                                      fontSize:70
+                                    }}
+                                    />}{" "}
+                                  </span>
+                                </Box>
+                              }
+                              labelPlacement="end"
+                            />
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
                 </Box>
                 <Box
                   sx={{
@@ -210,4 +287,3 @@ const DetailsCmpOne = ({ product }: Props) => {
 };
 
 export default DetailsCmpOne;
-

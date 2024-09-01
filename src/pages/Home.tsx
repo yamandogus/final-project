@@ -16,7 +16,7 @@ const products = [
     bg: "rgba(126,160,162,1)",
   },
   {
-    name: `VİTA-MİNLER`,
+    name: `VİTA- MİNLER`,
     image: "/images/sec-urunler/img/urun2.jpeg",
     description: "Vitamin ürünleri",
     review: "İNCELE",

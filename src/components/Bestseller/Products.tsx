@@ -32,66 +32,47 @@ const ProductCard = ({
 
   return (
     <>
-      <Grid item xs={6} md={4} lg={2} marginBottom={3}>
-        <Link style={{ position: "relative" }} to={`/ProductsDetails`}>
-          {discounted_price && (
-            <Stack className="discount">
-              <strong style={{ fontSize: "15px" }}>
-                %{calculateDiscount(total_price, discounted_price)}{" "}
-              </strong>{" "}
-              İNDİRİM
-            </Stack>
-          )}
-          <img
-            className="responsive-image imgHover"
-            src={photo_src}
-            alt={name}
-            style={{ maxWidth: "90%", display: "block", margin: "auto" }}
-          />
-        </Link>
-        <Stack
-          direction={"column"}
-          textAlign={"center"}
-          sx={{
-            alignItems: "center",
-            fontStyle: "rgba(136, 136, 136, 1)",
+    <Grid item xs={6} md={4} lg={2} >
+      <Link style={{position:'relative'}} to={`#`}>
+        {discounted_price && (
+          <Stack className="discount">
+                <strong style={{fontSize:'15px'}}>%{calculateDiscount(total_price, discounted_price)} </strong> İNDİRİM
+          </Stack>
+        )}
+        <img
+          className="responsive-image imgHover"
+          src={photo_src}
+          alt={name}
+          style={{
+            width: "100%", 
+            height: 180, 
+            display: "block", 
+            margin: "auto",
+            objectFit: "cover", 
           }}
-        >
-          <Typography
-            mt={1}
-            fontSize={16}
-            fontWeight={"bolder"}
-            className="text"
-          >
-            {name}
-          </Typography>
-          <Typography>
-            <span className="centered-span">{short_explanation}</span>
-          </Typography>
-          <Rating
-            className="half-rating"
-            name="half-rating"
-            defaultValue={average_star}
-            readOnly
-          />
-          <Typography>{comment_count} Yorum</Typography>
-          <Typography>
-            {discounted_price ? (
-              <>
-                <span
-                  className="spanText"
-                  style={{ fontWeight: "bolder", color:'red', fontSize: 17, marginRight:3}}
-                >
-                  {Math.floor(discounted_price)} TL <br />
-                </span>
-                <span style={{ fontWeight: "bolder", textDecoration:'line-through'}}>{total_price} TL</span>
-              </>
-            ) : (
-              <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>
-            )}
-          </Typography>
-        </Stack>
-      </Grid>
+        />
+      </Link>
+      <Stack direction={"column"} sx={{ alignItems: "center", mt:2 }}>
+        <Typography fontSize={13} fontWeight={"bolder"} className="text">
+          {name}
+        </Typography>
+        <Typography>
+          <span className="centered-span">{short_explanation}</span>
+        </Typography>
+        <Rating name="half-rating" defaultValue={average_star} readOnly />
+        <Typography>{comment_count} Yorum</Typography>
+        <Typography>
+          {discounted_price?(
+            <>
+            <span style={{ fontWeight: "bolder", color:'red', fontSize:17, marginRight:5}}>
+              {discounted_price} TL <br />
+            </span>
+            <span  style={{fontWeight:'bolder', textDecoration:'line-through'}}>{total_price} TL</span>
+            </>
+          ): <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>}
+        </Typography>
+      </Stack>
+    </Grid>
     </>
   );
 };

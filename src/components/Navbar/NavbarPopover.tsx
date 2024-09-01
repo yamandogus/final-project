@@ -1,88 +1,95 @@
-import { Box, Grid, Rating, Stack, Typography } from "@mui/material";
-const dummyData = [
-  {
-    imgSrc: "../../../images/page3/page1.png",
-    title: "Whey Protein",
-    rating: 5,
-    comments: 0,
-  },
-  {
-    imgSrc: "../../../images/page3/page2.jpeg",
-    title: "Creatine",
-    rating: 4,
-    comments: 12,
-  },
-  {
-    imgSrc: "../../../images/page3/page3.jpeg",
-    title: "BCAA",
-    rating: 4.5,
-    comments: 5,
-  },
-  {
-    imgSrc: "../../../images/page3/page4.jpeg",
-    title: "Glutamine",
-    rating: 3.5,
-    comments: 7,
-  },
-  {
-    imgSrc: "../../../images/page3/page5.jpeg",
-    title: "Pre-Workout",
-    rating: 4.8,
-    comments: 9,
-  },
-];
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import { LinksProps } from "../../Layout/Navbar";
+import { photo_url } from "../Bestseller/CokSatanlar";
+import { Link } from "react-router-dom";
 
-
-
-const NavbarPopover = () => {
+interface NavbarModalProps {
+  links: LinksProps;
+}
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70%",
+  height:400,
+  overflowY: "scroll",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 0,
+};
+const NavbarModal: React.FC<NavbarModalProps> = ({ links }) => {
   return (
     <>
-      <Box >
-        <Grid container spacing={2}>
-          <Grid item xs={5} >
-            <Typography mb={2} variant="h6" fontWeight={700}>
-              ÇOK SATANLAR
-            </Typography>
-            {dummyData.map((dumy, index) => (
+      <Box sx={style}>
+        <Grid container spacing={5} p={1} bgcolor={"rgb(228, 227, 232)"}>
+          <Grid item xs={4}>
+            <Typography mb={2} variant="h6" textAlign={'center'} fontWeight={700}>EN ÇOK SATANLAR</Typography>
+            {links.top_sellers.map((link, index) => (
               <Grid container>
                 <Grid key={index}>
-                  <Stack direction={"row"} alignItems="center">
+                  <Stack direction={"row"} alignItems="center" gap={2} mb={3}>
                     <img
-                      style={{ marginRight: "10px", marginBottom: "10px", borderRadius:'5px' }}
-                      width={70}
-                      src={dumy.imgSrc}
+                      style={{
+                        marginRight: "10px",
+                        marginBottom: "10px",
+                        borderRadius: "5px",
+                      }}
+                      width={80}
+                      src={photo_url + link.picture_src}
                       alt="Ürün görseli"
                     />
                     <Box>
-                      <Typography variant="subtitle1">{dumy.title}</Typography>
-                      <Stack direction={"row"} alignItems="center" spacing={1}>
-                        <Rating value={dumy.rating} size="small" />
-                        <span>{dumy.comments} Yorum</span>
-                      </Stack>
+                      <Typography variant="subtitle1">{link.name}</Typography>
+                      <Typography variant='caption'>{link.slug}</Typography><br />
+                      <Typography variant="caption">
+                        {link.description}
+                      </Typography>
                     </Box>
                   </Stack>
                 </Grid>
               </Grid>
             ))}
           </Grid>
-          <Grid item xs={7} bgcolor={'rgb(255, 255, 255)'} borderRadius={"0 5px 5px 0"} >
-            <h2></h2>
-            <h2 className="tool2">Product 1</h2>
-            <ul className="listeLi">
-              <li>Item lorem2</li>
-              <li>Item lorem2</li>
-              <li>Item lorem3</li>
-              <li>Item lorem3</li>
-              <li>Item lorem3</li>
-            </ul>
-            <h2 className="tool2">Product 2</h2>
-            <ul className="listeLi">
-              <li>Item lorem2</li>
-              <li>Item lorem2</li>
-              <li>Item lorem3</li>
-              <li>Item lorem3</li>
-              <li>Item lorem3</li>
-            </ul>
+          <Grid
+            item
+            xs={8}
+            bgcolor={"rgb(255, 255, 255)"}
+            borderRadius={"0 5px 5px 0"}
+            sx={{
+              overflowY:"auto",
+              display:"flex",
+              flexWrap:"wrap",
+            }}
+          >
+            {links.children.map((linkChild) => (
+              <>
+              <Box key={linkChild.id} sx={{ flex: "1 1 45%", mt:2 }}>
+                <h4 >{linkChild.name}</h4>
+                <ul>
+                  {linkChild.sub_children.map((sub) => (
+                    <li
+                    style={{
+                      listStyle:'none',
+                      margin:"5px 0"
+                    }}
+                    >
+                      <Link 
+                       className="linksNavs"
+                      style={{
+                        color:'black',
+                        textDecoration:'none',
+                      }}
+                      to={`/products/`+ sub.slug}>{sub.name}</Link>
+                    </li>
+                  ))}
+                  </ul>
+                  
+                  </Box>
+              </>
+            ))}
+            
           </Grid>
         </Grid>
       </Box>
@@ -90,4 +97,4 @@ const NavbarPopover = () => {
   );
 };
 
-export default NavbarPopover;
+export default NavbarModal;

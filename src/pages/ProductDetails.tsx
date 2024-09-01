@@ -120,7 +120,7 @@ function ProductsDetails() {
           SON GÖRÜNTÜLENEN ÜRÜNLER
         </Typography>
         <Container>
-          <Grid container>
+          <Grid container columnSpacing={2}>
             {productsDet.map((product, index) => (
               <LastWiew
                 key={index}

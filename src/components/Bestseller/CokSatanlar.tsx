@@ -20,6 +20,7 @@ export interface BestsellerPropsCS {
   photo_src: string;
   comment_count?: number;
   average_star: number;
+  slug: string,
 }
 
 export async function loader() {
@@ -44,7 +45,7 @@ const CokSatanlar = () => {
         ÇOK SATANLAR
       </Typography>
       <Container>
-        <Grid container >
+        <Grid container  spacing={2}>
           {products.map((data, index)=>(
             <ProductCard
             key={index}
