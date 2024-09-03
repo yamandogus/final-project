@@ -58,6 +58,7 @@ const Links: LinksProps[] = [
   {
     id: 6,
     name: "TÜM ÜRÜNLER",
+    link: "/AllProducts"
   }
 ];
 const SecondNavbar = () => {
@@ -80,7 +81,7 @@ const SecondNavbar = () => {
             key={link.id}
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Link className="mobileNvlink" onClick={link.link ? toggleDrawer(false): toggleDrawer(true)} to={link.link ?`/${link.link}`: "#"}><Typography sx={{fontWeight:700}}>{link.name}</Typography></Link>
+            <Link className="mobileNvlink" onClick={link.link ? toggleDrawer(false): toggleDrawer(true)} to={link.link ?`${link.link}`: "#"}><Typography sx={{fontWeight:700}}>{link.name}</Typography></Link>
             {link.icon}
           </ListItem>
         ))}

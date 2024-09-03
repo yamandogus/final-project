@@ -108,7 +108,7 @@ function ProductsDetails() {
 
    return (
     <>
-      <Box sx={{ my: 6 }}>
+      <Box sx={{ my:1 }}>
       <DetailsCmpOne tags={productData.tags || []} product={productData} />
         <Typography
           sx={{

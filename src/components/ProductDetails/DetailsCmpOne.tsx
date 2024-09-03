@@ -26,8 +26,7 @@ interface Props {
   tags: string[];
 }
 
-const DetailsCmpOne = ({ product }: Props) => {
-  const { tags = [] } = product;
+const DetailsCmpOne = ({ product, tags}: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -38,7 +37,20 @@ const DetailsCmpOne = ({ product }: Props) => {
     selectAroma,
     selectSize,
   } = useProductVariants(product.variants);
+  
+
+
+ const culculateDiscount = (total_price: number, discounted_price: number | null)=>{
+  console.log("totol" + total_price +  "dis" + discounted_price);
+  
+  if(discounted_price === null) return 0;
+  const discountedAmount = total_price- discounted_price;
+  const discountedPercentage = (discountedAmount / total_price) * 100;
+  return Math.round(discountedPercentage)
+ }
   const [count, setCount] = useState<number>(0);
+  const currentVariant = selectedVariant || product.variants[0]
+  const currentPrice = currentVariant?.price
   return (
     <>
       <Box sx={{ mt: 5 }}>
@@ -47,11 +59,11 @@ const DetailsCmpOne = ({ product }: Props) => {
             <Grid item sm={12} md={6} key={product.id}>
               <img
                 style={{
-                  width: "90%",
+                  width: "100%",
                   height: "auto",
                   display: "block",
                   margin: "auto",
-                  objectFit: "cover",
+                  objectFit: "contain",
                 }}
                 className="pageTwoImg"
                 src={photo_url + selectedVariant?.photo_src}
@@ -186,7 +198,25 @@ const DetailsCmpOne = ({ product }: Props) => {
                                   alignItems="center"
                                   position="relative"
                                 >
-                                  {size.pieces} x {size.total_services}
+                                  {size.pieces} x {size.gram} gr
+                                  <span>
+                                  {product.variants[index].price.discounted_price !== null &&
+                                  selectedVariant.price.discounted_price
+                                  &&
+                                  !isSizeAvailable(size) && (
+                                    <span
+                                    style={{
+                                      position:"absolute",
+                                      top:-35,
+                                      left:0,
+                                      fontWeight:'bolder',
+                                      backgroundColor:'red',
+                                      color:'white',
+                                      whiteSpace:'nowrap'
+                                    }}
+                                    > %{culculateDiscount(selectedVariant?.price.total_price, selectedVariant?.price.discounted_price)} İndirim</span>
+                                  )}
+                                  </span>
                                   <span
                                     style={{
                                       position: "absolute",
@@ -221,11 +251,19 @@ const DetailsCmpOne = ({ product }: Props) => {
                     my: 2,
                   }}
                 >
-                  <Box>
-                    <span style={{ fontSize: 30, fontWeight: "bolder" }}>
-                      {selectedVariant?.price?.total_price}TL
-                    </span>
-                  </Box>
+                  <Stack direction={'row'} spacing={1}>
+                      {currentPrice?.discounted_price ? (
+                        <>
+                         <span style={{fontWeight:'bolder', color:'red',fontSize: 30, marginRight:3}}>
+                          {Math.floor(currentPrice.discounted_price)} TL <br />
+                        </span>
+                        <span style={{ fontWeight: "bolder",fontSize: 30, textDecoration:'line-through' }}>{currentPrice.total_price} TL</span>
+                        </>
+                      ):
+                      <span style={{ fontWeight: "bolder",fontSize: 30 }}>{currentPrice.total_price} TL</span>
+                      }
+                    
+                  </Stack>
                   <Box>
                     <span>
                       {selectedVariant?.size?.total_services}TL /Servis

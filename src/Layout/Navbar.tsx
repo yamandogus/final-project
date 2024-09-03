@@ -55,7 +55,7 @@ export interface LinksProps {
 export async function LinksLoader() {
   try {
     const response = await fetch(
-      "https://fe1111.projects.academy.onlyjs.com/api/v1/categories?category=vitaminler&subcategory=multivitamin"
+      "https://fe1111.projects.academy.onlyjs.com/api/v1/categories"
     );
     const data = await response.json();
     console.log(data);
