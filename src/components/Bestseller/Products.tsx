@@ -45,10 +45,10 @@ const ProductCard = ({
           alt={name}
           style={{
             width: "100%", 
-            height: 180, 
+            height: "auto", 
             display: "block", 
             margin: "auto",
-            objectFit: "cover", 
+            objectFit: "cover",
           }}
         />
       </Link>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 interface NavbarModalProps {
   links: LinksProps;
+  onClose: () => void;
 }
 const style = {
   position: "absolute",
@@ -19,7 +20,7 @@ const style = {
   boxShadow: 24,
   p: 0,
 };
-const NavbarModal: React.FC<NavbarModalProps> = ({ links }) => {
+const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
   return (
     <>
       <Box sx={style}>
@@ -76,6 +77,7 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links }) => {
                     }}
                     >
                       <Link 
+                      onClick={()=>onClose()}
                        className="linksNavs"
                       style={{
                         color:'black',
@@ -85,7 +87,6 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links }) => {
                     </li>
                   ))}
                   </ul>
-                  
                   </Box>
               </>
             ))}

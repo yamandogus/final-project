@@ -210,6 +210,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                       top:-35,
                                       left:0,
                                       fontWeight:'bolder',
+                                      borderRadius:2,
                                       backgroundColor:'red',
                                       color:'white',
                                       whiteSpace:'nowrap'
@@ -221,7 +222,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                     style={{
                                       position: "absolute",
                                       height: 80,
-                                      right:-15,
+                                      right:0,
                                       display: "flex",
                                       justifyContent: "center",
                                       alignItems: "center",

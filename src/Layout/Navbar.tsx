@@ -248,6 +248,7 @@ function Navbar() {
                       <>
                       <NavbarModal
                       links={allProduct[index]}
+                      onClose={handleCloseModal}
                       />
                       </>
                     </Modal>
