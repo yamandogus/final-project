@@ -16,7 +16,7 @@ import {
   Stack,
   TextField,
   Modal,
-
+  Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
@@ -25,8 +25,6 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import DrawerList from "../components/MyCart/DrawerList";
 import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
-
-
 
 export interface LinksProps {
   id: string;
@@ -74,13 +72,13 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
-  
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleOpenModal = (index: number) => (_event: React.MouseEvent<HTMLElement>) => {
-    setOpenModalIndex(index); 
-  };
+  const handleOpenModal = (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setOpenModalIndex(index);
+    };
   const handleCloseModal = () => {
-    setOpenModalIndex(null)
+    setOpenModalIndex(null);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -105,7 +103,7 @@ function Navbar() {
       <Box component="div" className="firstNavbar">
         <AppBar
           position="static"
-          sx={{ backgroundColor: "white", color: "black", flexGrow: 1 }}
+          sx={{ backgroundColor: "white", color: "black" }}
         >
           <Container>
             <Stack
@@ -117,7 +115,7 @@ function Navbar() {
                 <Typography variant="h6" component="div">
                   <Link to="/Home">
                     <img
-                      className="navimg"
+                      className="navImg"
                       width={160}
                       src="/images/Logo/Logo1.png"
                       alt=""
@@ -134,29 +132,26 @@ function Navbar() {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <Box
-                            component="button"
+                          <Button
                             sx={{
-                              height: 39,
-                              px: 3,
-                              backgroundColor: "rgba(145, 145, 145, 1)",
-                              border: "none",
-                              borderRadius: "0 4px 4px 0",
-                              cursor: "pointer",
+                              zIndex: 15,
                               color: "white",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
+                              borderRadius: "0 2px 2px 0",
+                              backgroundColor: "rgba(145, 145, 145, 1)",
+                              "&:hover": {
+                                backgroundColor: "rgba(145, 145, 145, 1)",
+                              },
+                              border: "2px solid rgba(145, 145, 145, 1)",
                             }}
                           >
                             Ara
-                          </Box>
+                          </Button>
                         </InputAdornment>
                       ),
-                      className: "inputw",
                       sx: {
-                        width: 350,
-                        paddingRight: 0,
+                        width: "100%",
+                        maxWidth: 400,
+                        padding: 0,
                       },
                     }}
                   />
@@ -164,11 +159,20 @@ function Navbar() {
                 <Button
                   variant="outlined"
                   color="inherit"
-                  startIcon={<PersonIcon />}
-                  endIcon={<ArrowDropDownIcon />}
                   onClick={handleClick}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                  }}
                 >
+                  <PersonIcon
+                    sx={{
+                      fontSize: 18,
+                    }}
+                  />{" "}
                   Hesap
+                  <ArrowDropDownIcon />
                 </Button>
                 <Menu
                   disableScrollLock
@@ -176,7 +180,7 @@ function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
                     <Link className="accountLinkNav" to="MyAccount">
                       Hesabım
                     </Link>
@@ -197,7 +201,7 @@ function Navbar() {
                   variant="contained"
                   sx={{
                     backgroundColor: "gray",
-                    px: 4,
+                    px: 3.5,
                     "&:hover": { backgroundColor: "gray" },
                   }}
                   startIcon={<ShoppingCartIcon sx={{ fontSize: 30, mx: 1 }} />}
@@ -222,14 +226,14 @@ function Navbar() {
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  flexWrap: "wrap",
+                  gap: 2.3,
                 }}
               >
                 {allProduct.map((list, index) => (
                   <React.Fragment key={list.id}>
                     <ListItem
                       onClick={handleOpenModal(index)}
-                      className="headLink textDec"
+                      className="navbar-list-item"
                       sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
                       color="inherit"
                     >
@@ -237,23 +241,69 @@ function Navbar() {
                     </ListItem>
                     <Modal
                       sx={{
-                        zIndex:99999
+                        zIndex: 99999,
                       }}
                       disableScrollLock
                       open={openModalIndex === index}
-                      onClose={handleCloseModal}
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                     >
-                      <>
-                      <NavbarModal
+                     <Box
+                     onMouseLeave={handleCloseModal}
+                     >
+                     <NavbarModal                   
                       links={allProduct[index]}
                       onClose={handleCloseModal}
-                      />
-                      </>
+                    />
+                     </Box>
                     </Modal>
                   </React.Fragment>
                 ))}
+
+                <Tooltip
+                  title={
+                    <React.Fragment>
+                      <Link
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          color: "white",
+                        }}
+                        to={"/AllProducts"}
+                      >
+                        Tüm ürünler{" "}
+                      </Link>
+                    </React.Fragment>
+                  }
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        backgroundColor: "black",
+                        color: "white",
+                        width: 200,
+                      },
+                    },
+                  }}
+                  slotProps={{
+                    popper: {
+                      modifiers: [
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [0, 0],
+                          },
+                        },
+                      ],
+                    },
+                  }}
+                >
+                  <ListItem
+                    sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
+                    className="navbar-list-item"
+                  >
+                    TÜM ÜRÜNLER
+                  </ListItem>
+                </Tooltip>
               </List>
             </Container>
           </Box>

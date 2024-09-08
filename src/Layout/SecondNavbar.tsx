@@ -141,9 +141,14 @@ const SecondNavbar = () => {
                 <img width={130} src="/images/Logo/Logo1.png" alt="" />
               </Link>
             </Typography>
+            <Stack position={'relative'}>
             <Button onClick={toggleDrawer2(true)} className="shoppingCart">
               <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
+              <span
+              className="shoppingCount"
+              >0</span>
             </Button>
+            </Stack>
           </Toolbar>
         </AppBar>
         <Box>
