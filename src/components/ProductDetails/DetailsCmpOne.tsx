@@ -36,7 +36,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
     isSizeAvailable,
     selectAroma,
     selectSize,
-  } = useProductVariants(product.variants);
+  } = useProductVariants(product.variants ??[]);
   
 
 

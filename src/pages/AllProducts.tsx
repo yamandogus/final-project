@@ -2,6 +2,7 @@ import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import { Link, useLoaderData } from 'react-router-dom';
 import { base_url } from '../components/Bestseller/CokSatanlar';
 import Protein from '../components/Protein/Protein';
+import { useEffect, useState } from 'react';
 
 
 const photo_url = "https://fe1111.projects.academy.onlyjs.com"
@@ -37,6 +38,45 @@ export async function AllProLoader(page = 1) {
 
 const AllProducts = () => {
   const {products} = useLoaderData() as {products:BestsellerProps[]}
+  const [product, setProduct] = useState(products)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(false);
+  const itemsPerPage = 12;
+
+  useEffect(()=>{
+    const MoreProcut = async () =>{
+      if(loading){
+        const offset = getAllProducts(currentPage, itemsPerPage)
+        const response = await fetch(base_url + `/products?limit=${itemsPerPage}&offset=${offset}`)
+        const data = await response.json()
+        setProduct((newProduct)=> [...newProduct, ...data.data.results])
+        setLoading(false)
+      }
+    };
+    if(currentPage > 1) {
+      MoreProcut()
+    }
+  }, [currentPage, loading])
+
+  const handleScroll = () =>{
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeihght = document.documentElement.scrollHeight;
+    if(scrollY + windowHeight >= documentHeihght - 100 && !loading) {
+      setLoading(true)
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll);
+    return () =>{
+      window.removeEventListener('scroll', handleScroll)
+    };
+  },[loading])
+
+
 
   return (
     <>
@@ -44,7 +84,7 @@ const AllProducts = () => {
       <Container>
         <Typography fontSize={30} mb={2} fontWeight={'bolder'} style={{alignItems:'center'}}>TÜM ÜRÜNLER</Typography>
         <Grid container spacing={2}>
-          {products.map((product, index)=>(
+          {product.map((product, index)=>(
             <Protein
             key={index}
             name={product.name}
@@ -59,7 +99,7 @@ const AllProducts = () => {
         </Grid>
         <Grid item xs={12} spacing={4} mt={3}>
            <Stack spacing={3}>
-           <Typography>Toplam 12 ürün görüntüleniyor</Typography>
+           <Typography>Toplam {product.length} ürün görüntüleniyor</Typography>
             <Typography variant='subtitle2'>Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. <strong>Protein</strong> kısaca, bir veya daha fazla amino asit artık</Typography>
             <Typography variant='caption'>
               <Link style={{color:'green'}} to={'#'}>Daha fazla göster</Link>
