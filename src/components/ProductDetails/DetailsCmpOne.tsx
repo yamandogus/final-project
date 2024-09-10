@@ -12,7 +12,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Accordions from "../Accordions/Accordions";
 import { photo_url } from "../Bestseller/CokSatanlar";
@@ -20,6 +20,8 @@ import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import { color } from "./details";
 import CloseIcon from '@mui/icons-material/Close';
+import { usePaymentStore } from "../../pages/Payement";
+import { useStore } from "../../Layout/Count";
 
 interface Props {
   product: Product;
@@ -37,6 +39,22 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
     selectAroma,
     selectSize,
   } = useProductVariants(product.variants ??[]);
+  const {increaseCount}= useStore()
+  const {addBasketItems} = usePaymentStore()
+
+ const handleProductAdded = () =>{
+  if(selectedVariant){
+    const newItem = {
+      img: selectedVariant.photo_src,
+      gram: selectedVariant.size?.gram,
+      name: product.name,
+      aroma: selectedVariant.aroma,
+      price: selectedVariant.price.discounted_price||selectedVariant.price.total_price
+    };
+    addBasketItems(newItem)
+    increaseCount()
+  }
+ }
   
 
 
@@ -293,7 +311,9 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                       +
                     </button>
                   </Box>
-                  <Button className="ShoppinAdButton" variant="contained">
+                  <Button className="ShoppinAdButton" variant="contained"
+                  onClick={handleProductAdded}
+                  >
                     <ShoppingCartCheckoutIcon sx={{ mr: 1 }} /> SEPETE EKLE
                   </Button>
                 </Box>

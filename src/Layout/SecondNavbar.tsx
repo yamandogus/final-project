@@ -90,7 +90,7 @@ const SecondNavbar = () => {
   );
 
   const MyCart = (
-    <Box width={250} position={'relative'} height={'100%'}>
+    <Box width={250} position={'relative'} height={'80%'}>
       <Typography sx={{ fontWeight: 'bolder' }}>SEPETİM</Typography>
       <Divider />
       <Stack sx={{

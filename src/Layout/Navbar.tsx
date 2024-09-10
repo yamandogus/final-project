@@ -16,15 +16,16 @@ import {
   Stack,
   TextField,
   Modal,
-  Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import DrawerList from "../components/MyCart/DrawerList";
 import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
+import DrawerListCoponent from "../components/MyCart/DrawerList";
+import { useStore } from "./Count";
+
 
 export interface LinksProps {
   id: string;
@@ -64,17 +65,19 @@ export async function LinksLoader() {
   }
 }
 
-LinksLoader();
+
 
 function Navbar() {
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-  const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
+  const [openModalIndex, setOpenModalIndex] = useState<number | null>(null)
+  const {countBasket}= useStore()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleOpenModal = (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handleOpenModal =
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
       setOpenModalIndex(index);
     };
   const handleCloseModal = () => {
@@ -208,6 +211,7 @@ function Navbar() {
                   onClick={toggleDrawer(true)}
                 >
                   Sepet
+                  <span className="count-basket">{countBasket}</span>
                 </Button>
                 <Drawer
                   disableScrollLock
@@ -215,7 +219,7 @@ function Navbar() {
                   open={open}
                   onClose={toggleDrawer(false)}
                 >
-                  <DrawerList onCountine={handleContinue} />
+                  <DrawerListCoponent onCountine={handleContinue} />
                 </Drawer>
               </Stack>
             </Stack>
@@ -248,62 +252,33 @@ function Navbar() {
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                     >
-                     <Box
-                     onMouseLeave={handleCloseModal}
-                     >
-                     <NavbarModal                   
-                      links={allProduct[index]}
-                      onClose={handleCloseModal}
-                    />
-                     </Box>
+                      <Box onMouseLeave={handleCloseModal}>
+                        <NavbarModal
+                          links={allProduct[index]}
+                          onClose={handleCloseModal}
+                        />
+                      </Box>
                     </Modal>
                   </React.Fragment>
                 ))}
-
-                <Tooltip
-                  title={
-                    <React.Fragment>
-                      <Link
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          color: "white",
-                        }}
-                        to={"/AllProducts"}
-                      >
-                        Tüm ürünler{" "}
-                      </Link>
-                    </React.Fragment>
-                  }
-                  componentsProps={{
-                    tooltip: {
-                      sx: {
-                        backgroundColor: "black",
-                        color: "white",
-                        width: 200,
-                      },
+                <React.Fragment>
+                </React.Fragment>
+                <ListItem
+                  component={Link}
+                  to={"/AllProducts"}
+                  sx={{
+                    color:"white",
+                    flex: 1,
+                    justifyContent: "center",
+                    fontSize: 13,
+                    "&::after": {
+                      display: "none",
                     },
                   }}
-                  slotProps={{
-                    popper: {
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: {
-                            offset: [0, 0],
-                          },
-                        },
-                      ],
-                    },
-                  }}
+                  className="navbar-list-item"
                 >
-                  <ListItem
-                    sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
-                    className="navbar-list-item"
-                  >
-                    TÜM ÜRÜNLER
-                  </ListItem>
-                </Tooltip>
+                  TÜM ÜRÜNLER
+                </ListItem>
               </List>
             </Container>
           </Box>

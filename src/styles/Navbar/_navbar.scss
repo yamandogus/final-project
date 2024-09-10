@@ -16,13 +16,14 @@
     position: relative; 
 }
 
-.buttonBef::before {
+.count-basket {
     position: absolute;
-    content: "0";
-    text-align: center;
-    height: 18px;
-    width: 18px;
-    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
     color: white;
     margin-right: 50px;
     margin-bottom: 15px;

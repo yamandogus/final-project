@@ -1,5 +1,4 @@
-import { Box, Container,Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Container,Grid,Typography } from '@mui/material';
 import ProductCard from './Products';
 import { useLoaderData } from 'react-router-dom';
 

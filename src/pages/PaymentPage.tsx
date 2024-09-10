@@ -15,6 +15,9 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useAddressesStore } from "../components/Account/Addresses/Address";
+import { usePaymentStore } from "./Payement";
+import { photo_url } from "../components/Bestseller/CokSatanlar";
 
 const CustomAccordion = styled(Accordion)({
   border: "none",
@@ -25,6 +28,8 @@ const CustomAccordion = styled(Accordion)({
 });
 
 const PaymentPage = () => {
+  const {addresses} = useAddressesStore()
+  const {basketItems} = usePaymentStore()
   return (
     <>
       <Box>
@@ -73,73 +78,47 @@ const PaymentPage = () => {
                   <AccordionDetails sx={{ padding: 2 }}>
                     <Typography variant="subtitle1">Teslimat Adresi</Typography>
                     <Box px={2}>
-                      <FormControl>
+                      <FormControl sx={{width:'90%'}}>
                         <RadioGroup
                           aria-labelledby="demo-radio-buttons-group-label"
                           defaultValue="Ev"
                           name="radio-buttons-group"
                         >
+                          {addresses.map((address)=>(
                           <Box
-                            sx={{
-                              px: 2,
-                              borderRadius: 3,
-                              border: "1px solid black",
-                              my: 2,
-                            }}
+                          sx={{
+                            px: 2,
+                            borderRadius: 3,
+                            border: "1px solid black",
+                            my: 2,
+                          }}
+                        >
+                          <Box
+                            display={"flex"}
+                            justifyContent={"space-between"}
                           >
-                            <Box
-                              display={"flex"}
-                              justifyContent={"space-between"}
-                            >
-                              {" "}
-                              <FormControlLabel
-                                value="Ev"
-                                control={<Radio />}
-                                label="Ev"
-                              />{" "}
-                              <Button>Düzenle</Button>
-                            </Box>
-                            <Box>
-                              <Typography>
-                                Ahmet Mah. Mehmetoğlu Sk., No: 1 Daire: 2,
-                                Ataşehir, İstanbul, Türkiye
-                              </Typography>
-                            </Box>
+                            {" "}
+                            <FormControlLabel
+                              value={address.title}
+                              control={<Radio />}
+                              label="Ev"
+                            />{" "}
+                            <Button>Düzenle</Button>
                           </Box>
+                          <Box>
+                            <Typography>
+                            {address.address}, {address.district}, {address.city}
+                            </Typography>
+                          </Box>
+                        </Box>
+                          ))}
                           <Box
                             sx={{
                               px: 2,
                               borderRadius: 3,
                               border: "1px solid black",
                               my: 2,
-                            }}
-                          >
-                            <Box
-                              display={"flex"}
-                              justifyContent={"space-between"}
-                            >
-                              {" "}
-                              <FormControlLabel
-                                value="Ofis"
-                                control={<Radio />}
-                                label="Ofis"
-                              />{" "}
-                              <Button>Düzenle</Button>
-                            </Box>
-
-                            <Box>
-                              <Typography>
-                                Ahmet Mah. Mehmetoğlu Sk., No: 1 Daire: 2,
-                                Ataşehir, İstanbul, Türkiye
-                              </Typography>
-                            </Box>
-                          </Box>
-                          <Box
-                            sx={{
-                              px: 2,
-                              borderRadius: 3,
-                              border: "1px solid black",
-                              my: 2,
+                              width:"100%"
                             }}
                           >
                             <FormControlLabel
@@ -229,45 +208,27 @@ const PaymentPage = () => {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Grid item>
+               {basketItems.map((basket)=>(
+                <>
+                <Grid item sx={{marginBottom:2}}>
                   <Box
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <img width={90} src="/images/page3/page12.png" alt="" />
+                    <img width={90} src={photo_url+ basket.img} alt="" />
                     <Stack ml={2}>
-                      <strong>WHEY PROTEIN</strong>
-                      <span color="rgb(139, 138, 146)">Çilek/ 400g</span>
+                      <strong>{basket.name}</strong>
+                      <span color="rgb(139, 138, 146)">{basket.aroma}/{basket.gram}gr</span>
                     </Stack>
                   </Box>
                 </Grid>
                 <Grid item>
-                  <Typography>458 TL</Typography>
+                  <Typography>{basket.price} TL</Typography>
                 </Grid>
-              </Grid>
-              <Grid
-                mt={3}
-                container
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <img width={90} src="/images/page3/page12.png" alt="" />
-                    <Stack ml={2}>
-                      <strong>WHEY PROTEIN</strong>
-                      <span color="rgb(139, 138, 146)">Çilek/ 400g</span>
-                    </Stack>
-                  </Box>
-                </Grid>
-                <Grid item>
-                  <Typography>1,098 TL</Typography>
-                </Grid>
+                </>
+               ))}
+             
               </Grid>
               <Grid
                 mt={3}
@@ -302,18 +263,15 @@ const PaymentPage = () => {
                   borderTop:"1px solid gray"
                 }}
               >
-                <Grid item>
-                  <Box
+                <Stack
+                    width={'100%'}
+                    direction={'row'}
                     display="flex"
-                    justifyContent="center"
-                    alignItems="center"
+                    justifyContent='space-between'
                   >
-                   <Typography fontWeight={'bolder'}>Toplam</Typography>
-                  </Box>
-                </Grid>
-                <Grid item>
+                  <Typography fontWeight={'bolder'}>Toplam</Typography>
                   <Typography fontWeight={'bolder'}>1,098 TL</Typography>
-                </Grid>
+                </Stack>
               </Grid>
             </Grid>
           </Grid>
