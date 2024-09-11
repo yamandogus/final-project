@@ -2,6 +2,7 @@ import {
   AppBar,
   Box,
   Button,
+  Card,
   Divider,
   Drawer,
   IconButton,
@@ -20,6 +21,11 @@ import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import SecondNavbarComponent from "../components/Navbar/SecondNavbarComponet";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { usePaymentStore } from "../pages/Payement";
+import { useStore } from "./Count";
+import { photo_url } from "../components/Bestseller/CokSatanlar";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface LinksProps {
   id: string;
@@ -38,6 +44,15 @@ const SecondNavbar = () => {
   const [openList, setOpenList] = useState(false);
   const [selectedLink, setSelectedLink] = useState<LinksProps | null>(null);
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
+  const { basketItems, removeItems } = usePaymentStore();
+  const {removeCount, countBasket} = useStore()
+  const totalAll: number = Math.ceil(basketItems.reduce((arr, index)=> arr + index.price, 0))
+  
+
+  const hadleRemove= (index: number) =>{
+    removeItems(index)
+    removeCount()
+  }
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -90,27 +105,126 @@ const SecondNavbar = () => {
   );
 
   const MyCart = (
-    <Box width={250} position={'relative'} height={'80%'}>
-      <Typography sx={{ fontWeight: 'bolder' }}>SEPETİM</Typography>
-      <Divider />
-      <Stack sx={{
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        p: 2
-      }} >
-        <Typography variant='subtitle2' textAlign={'end'} mr={5} fontWeight={'bolder'}>Toplam: 499 TL</Typography>
-        <Button
-          sx={{
-            width: '100%',
-            px: 10,
-            marginBottom: 3,
-            backgroundColor: 'black',
-            '&:hover': { backgroundColor: 'black' }
-          }}
-          variant='contained'
+    <Box width={300} position={'relative'} height={'100%'}>
+        <Typography 
+        sx={{ 
+          fontWeight: "bolder", 
+          fontSize: 14, 
+          pt: 1, 
+          backgroundColor: "white" 
+        }}
+      >
+        SEPETİM
+      </Typography>
+      <Divider sx={{ mb: 1 }} />
+      <Box 
+        sx={{ 
+          flex: 1, 
+          overflowY: 'auto', 
+          overflowX: 'hidden',
+          height:490,
+          p: 1
+        }}
+      >
+        {basketItems.length === 0 ? (
+          <Typography>Sepet Boş</Typography>
+        ) : (
+          basketItems.map((basket, index) => (
+            <Box mb={1} key={index}>
+              <Card
+                style={{
+                  padding: "5px 0",
+                  backgroundColor: "rgb(247, 247, 247)"
+                }}
+              >
+                <Stack direction={"row"} spacing={2}>
+                  <img width={70} height={55} src={photo_url + basket.img} alt="Product" />
+                  <Stack
+                    direction={"row"}
+                    spacing={2}
+                    width="100%"
+                    justifyContent={"space-between"}
+                  >
+                    <Box>
+                      <Typography fontSize={11} mt={1} fontWeight={'bolder'}>{basket.name}</Typography>
+                      <Typography fontSize={10} variant='subtitle1'>{basket.aroma}</Typography>
+                      <Typography fontSize={10} variant='subtitle1'>{basket.gram ? basket.gram : ""}</Typography>
+                    </Box>
+                    <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bolder",
+                          pt: 1
+                        }}
+                      >
+                        {Math.ceil(basket.price)} TL
+                      </Typography>
+                      <Typography
+                        borderRadius={1}
+                        padding={"2px 5px"}
+                        bgcolor={'white'}
+                        
+                        sx={{
+                          boxShadow:`0 1px 1px rgba(0,1,1,0.5)`
+                        }}
+                      >
+                        <DeleteIcon
+                        onClick={()=>hadleRemove(index)}
+                          sx={{
+                            fontSize: 20,
+                            '&:hover': {
+                              color: "red"
+                            }
+                          }}
+                        /> 
+                        <strong style={{ margin: "0 15px" }}>1</strong>
+                        <button className="increase-button">+</button>
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Card>
+            </Box>
+          ))
+        )}
+      </Box>
+      <Stack
+        width={'100%'}
+        marginBottom={1}
+        textAlign={"center"}
+        position={"relative"}
+        bottom={0}
+      >
+        <Typography
+          variant="subtitle2"
+          fontWeight={"bolder"}
+          textAlign={"end"}
+          mr={5}
+          pt={2}
         >
-          SEPETİM
+          {totalAll ? `Toplam ${totalAll} TL`: "Sepet Boş"}
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{
+            mt: 2,
+            px: 5,
+            mx: 5,
+            backgroundColor: "black",
+            "&:hover": { backgroundColor: "black" },
+          }}
+          onClick={() => {
+            toggleDrawer2(false)
+          }}
+        >
+          <Link
+            onClick={()=>toggleDrawer2(false)}
+            style={{ textDecoration: "none", color: "white"}}
+            to={"PaymentPage"}
+          >
+            DEVAM ET
+          </Link>{" "}
+          <ArrowRightIcon />
         </Button>
       </Stack>
     </Box>
@@ -146,7 +260,7 @@ const SecondNavbar = () => {
               <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
               <span
               className="shoppingCount"
-              >0</span>
+              >{countBasket}</span>
             </Button>
             </Stack>
           </Toolbar>

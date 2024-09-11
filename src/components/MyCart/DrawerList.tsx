@@ -58,7 +58,7 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                 }}
               >
                 <Stack direction={"row"} spacing={2}>
-                  <img width={90} src={photo_url + basket.img} alt="Product" />
+                  <img width={90} height={80} src={photo_url + basket.img} alt="Product" />
                   <Stack
                     direction={"row"}
                     spacing={2}
@@ -83,7 +83,10 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                         borderRadius={1}
                         padding={"2px 5px"}
                         bgcolor={'white'}
-                        boxShadow={"0 1px 1px "}
+                        
+                        sx={{
+                          boxShadow:`0 1px 1px rgba(0,1,1,0.5)`
+                        }}
                       >
                         <DeleteIcon
                         onClick={()=>hadleRemove(index)}
