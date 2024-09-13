@@ -16,6 +16,7 @@ import { useStore } from "../../Layout/Count";
 const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
   const { basketItems, removeItems } = usePaymentStore();
   const {removeCount} = useStore()
+  const totolPrice = basketItems.reduce((arr, index)=> arr + index.price, 0)
 
   const hadleRemove= (index: number) =>{
     removeItems(index)
@@ -117,11 +118,13 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
       >
         <Typography
           variant="subtitle2"
+          pt={2}
+          fontSize={18}
           fontWeight={"bolder"}
           textAlign={"end"}
           mr={5}
         >
-          Toplam 499 TL
+          Toplam {Math.ceil(totolPrice)} TL
         </Typography>
         <Button
           variant="contained"

@@ -14,7 +14,7 @@ import { ChangeEvent } from "react";
 import { useAddressesStore } from "./Address";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 
 const Addresses: React.FC = () => {
   const {
@@ -37,7 +37,7 @@ const Addresses: React.FC = () => {
     addresses,
   } = useAddressesStore();
 
-  const [isAddressSaved, setIsAddressSaved] = useState(false);
+  const [isAddressSaved, setIsAddressSaved] = useState(addAddress.length > 0);
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,6 +49,10 @@ const Addresses: React.FC = () => {
 
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!title || !address || !city || !district || !firstName || !lastName || !phone) {
+      alert("Lütfen tüm alanları doldurun.");
+      return;
+    }
     addAddress({
       title,
       address,
@@ -70,14 +74,110 @@ const Addresses: React.FC = () => {
 
   const handleDeleteAddress = (index: number) => {
     removeAddress(index);
-    if (addresses.length === 0) {
+    if (addresses.length === 1) {
       setIsAddressSaved(false);
     }
   };
 
   return (
     <Box>
-      {addresses.length === 0 || !isAddressSaved ? (
+      {isAddressSaved && addresses.length > 0  ? (
+        <Box mb={30}>
+          <Container>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 2,
+              }}
+            >
+              <Typography variant="subtitle1">
+                Adreslerim ({addresses.length})
+              </Typography>
+              <Button onClick={() => setIsAddressSaved(false)}>
+                Adres Ekle
+              </Button>
+            </Box>
+            <Grid container spacing={3}>
+              {addresses.map((address, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: 2,
+                      border: "1px solid black",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+                      height: "100%",
+                    }}
+                  >
+                    <Typography component="div" fontWeight="bold">
+                      {address.title}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "start",
+                        gap: 1,
+                      }}
+                    >
+                      <HomeIcon /> {address.address}, {address.district},{" "}
+                      {address.city}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "start",
+                        gap: 1,
+                      }}
+                    >
+                      <PersonIcon /> {address.firstName} {address.lastName}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "start",
+                        gap: 1,
+                      }}
+                    >
+                      <PhoneAndroidIcon /> {address.phone}
+                    </Typography>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        mt: 2,
+                      }}
+                    >
+                      <Button
+                        variant="text"
+                        onClick={() => handleDeleteAddress(index)}
+                        sx={{
+                          "&:hover": {
+                            color: "red",
+                          },
+                        }}
+                      >
+                        <DeleteIcon />
+                        Sil
+                      </Button>
+                      <Button>Adresi Düzenle</Button>
+                    </Stack>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+      ) : (
         <Box mb={10}>
           <Box mb={2}>
             <Typography fontWeight="bolder" variant="subtitle1">
@@ -91,7 +191,7 @@ const Addresses: React.FC = () => {
                   borderRadius: 1,
                   px: 3,
                   py: 2,
-                  mt:1
+                  mt: 1,
                 }}
               >
                 <Typography variant="subtitle2">
@@ -101,6 +201,7 @@ const Addresses: React.FC = () => {
               </Stack>
             )}
           </Box>
+          <form onSubmit={handleAddressSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6} mb={2}>
               <TextField
@@ -172,7 +273,7 @@ const Addresses: React.FC = () => {
             </Grid>
             <Grid item xs={12} textAlign="end">
               <Button
-                onClick={handleAddressSubmit}
+                type='submit'
                 variant="contained"
                 sx={{
                   py: 1,
@@ -184,98 +285,7 @@ const Addresses: React.FC = () => {
               </Button>
             </Grid>
           </Grid>
-        </Box>
-      ) : (
-        <Box mb={30}>
-          <Container>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: 2,
-              }}
-            >
-              <Typography variant="subtitle1">
-                Adreslerim ({addresses.length})
-              </Typography>
-              <Button onClick={() => setIsAddressSaved(false)}>
-                Adres Ekle
-              </Button>
-            </Box>
-            <Grid container spacing={3}>
-              {addresses.map((address, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <Box
-                    sx={{
-                      p: 2,
-                      borderRadius: 2,
-                      border: "1px solid black",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 1,
-                      height:"100%"
-                    }}
-                  >
-                    <Typography component="div" fontWeight="bold">
-                      {address.title}
-                    </Typography>
-                    <Typography component="div"
-                    sx={{
-                      display:'flex',
-                      justifyContent:'start',
-                      gap:1
-                    }}>
-                      <HomeIcon /> {address.address}, {address.district}, {address.city}
-                    </Typography>
-                    <Typography component="div"
-                    sx={{
-                      display:'flex',
-                      justifyContent:'start',
-                      gap:1
-                    }}
-                    >
-                      <PersonIcon /> {address.firstName} {address.lastName}
-                    </Typography>
-                    <Typography component="div"
-                    sx={{
-                      display:'flex',
-                      justifyContent:'start',
-                      gap:1
-                    }}
-                    >
-                      <PhoneAndroidIcon /> {address.phone}
-                    </Typography>
-                    <Stack
-
-                      direction="row"
-                      spacing={1}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        mt:2
-                      }}
-                    >
-                      <Button
-                        variant="text"
-                        onClick={() => handleDeleteAddress(index)}
-                        sx={{
-                          "&:hover": {
-                            color: "red",
-                          },
-                        }}
-                      >
-                        <DeleteIcon />
-                        Sil
-                      </Button>
-                      <Button>Adresi Düzenle</Button>
-                    </Stack>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
+          </form>
         </Box>
       )}
     </Box>

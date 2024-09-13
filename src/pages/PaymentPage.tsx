@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useAddressesStore } from "../components/Account/Addresses/Address";
 import { usePaymentStore } from "./Payement";
 import { photo_url } from "../components/Bestseller/CokSatanlar";
+import { useState } from "react";
 
 const CustomAccordion = styled(Accordion)({
   border: "none",
@@ -30,8 +31,10 @@ const CustomAccordion = styled(Accordion)({
 const PaymentPage = () => {
   const { addresses } = useAddressesStore();
   const { basketItems } = usePaymentStore();
-  const total: number= Math.ceil(basketItems.reduce((tot, item) => tot + item.price , 0 ))
-
+  const total: number = Math.ceil(
+    basketItems.reduce((tot, item) => tot + item.price, 0)
+  );
+  const [selectedAddress, setSelectedAddress] = useState("");
   return (
     <>
       <Box>
@@ -78,7 +81,29 @@ const PaymentPage = () => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                   >
-                    <strong>Adres </strong>
+                 <strong style={{ position: "relative" }}>
+                      Adres
+                      <strong
+                        style={{
+                          position: "absolute", 
+                          backgroundColor: "black",
+                          color: "white",
+                          lineHeight: "20px",
+                          height: "20px",
+                          fontSize: 12,
+                          left: "-30px",
+                          top:"-1px", 
+                          borderRadius: "50%",
+                          padding: "2px px",
+                          display: "flex", 
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        1
+                      </strong>
+                    </strong>
                   </AccordionSummary>
                   <AccordionDetails sx={{ padding: 2 }}>
                     <Typography variant="subtitle1">Teslimat Adresi</Typography>
@@ -104,9 +129,15 @@ const PaymentPage = () => {
                               >
                                 {" "}
                                 <FormControlLabel
-                                  value={address.title}
-                                  control={<Radio />}
-                                  label="Ev"
+                                  control={
+                                    <Radio
+                                      value={`${address.address} , ${address.district} / ${address.city}`}
+                                      onChange={(e) =>
+                                        setSelectedAddress(e.target.value)
+                                      }
+                                    />
+                                  }
+                                  label={address.title}
                                 />{" "}
                                 <Button>Düzenle</Button>
                               </Box>
@@ -158,10 +189,44 @@ const PaymentPage = () => {
                     aria-controls="panel2-content"
                     id="panel2-header"
                   >
-                    <strong>Kargo</strong>
+                   <strong style={{ position: "relative" }}>
+                      Kargo
+                      <strong
+                        style={{
+                          position: "absolute", 
+                          backgroundColor: "black",
+                          color: "white",
+                          lineHeight: "20px",
+                          height: "20px",
+                          fontSize: 12,
+                          left: "-30px",
+                          top:"-1px", 
+                          borderRadius: "50%",
+                          padding: "2px 6px",
+                          display: "flex", 
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        2
+                      </strong>
+                    </strong>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography variant="subtitle1">Teslimat Adresi</Typography>
+                    <Box
+                      sx={{
+                        mx: 2,
+                        width: "85%",
+                        p: 2,
+                        borderRadius: 3,
+                        border: "1px solid blue",
+                        my: 2,
+                      }}
+                    >
+                      {selectedAddress}
+                    </Box>
                     <Box px={2}>
                       <Button
                         style={{
@@ -186,7 +251,29 @@ const PaymentPage = () => {
                     aria-controls="panel3-content"
                     id="panel3-header"
                   >
-                    <strong>Ödeme</strong>
+                    <strong style={{ position: "relative" }}>
+                      Ödeme
+                      <strong
+                        style={{
+                          position: "absolute", 
+                          backgroundColor: "black",
+                          color: "white",
+                          lineHeight: "20px",
+                          height: "20px",
+                          fontSize: 12,
+                          left: "-30px",
+                          top:"-1px", 
+                          borderRadius: "50%",
+                          padding: "2px 6px",
+                          display: "flex", 
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        3
+                      </strong>
+                    </strong>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography variant="subtitle1">Teslimat Adresi</Typography>
@@ -209,19 +296,21 @@ const PaymentPage = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Grid container spacing={2}
-              sx={{
-                height:"500px",
-                overflow:"hidden",
-                overflowY:"scroll",
-                '&::-ewbkit-scrollbar':{
-                  width:0,
-                  background:"transparent"
-                }
-              }}
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  height: "500px",
+                  overflow: "hidden",
+                  overflowY: "scroll",
+                  "&::-ewbkit-scrollbar": {
+                    width: 0,
+                    background: "transparent",
+                  },
+                }}
               >
                 {basketItems.map((basket, index) => (
-                  <Grid item  xs={12} key={index}>
+                  <Grid item xs={12} key={index}>
                     <Box
                       sx={{
                         display: "flex",
@@ -233,20 +322,25 @@ const PaymentPage = () => {
                       <Box display={"flex"} alignItems={"center"}>
                         <img
                           style={{
-                            borderRadius:2
+                            borderRadius: 2,
                           }}
                           width={90}
                           src={photo_url + basket.img}
                           alt={basket.name}
                         />
-                      <Stack ml={2}>
-                        <strong>{basket.name}</strong>
-                        <Typography variant='subtitle1' color="rgb(139, 138, 146)">
-                          {basket.aroma} <br/> {basket.gram}gr
-                        </Typography>
-                      </Stack>
+                        <Stack ml={2}>
+                          <strong>{basket.name}</strong>
+                          <Typography
+                            variant="subtitle1"
+                            color="rgb(139, 138, 146)"
+                          >
+                            {basket.aroma} <br /> {basket.gram}gr
+                          </Typography>
+                        </Stack>
                       </Box>
-                      <Typography  sx={{fontWeight:'bolder'}}>{Math.ceil(basket.price)} TL</Typography>
+                      <Typography sx={{ fontWeight: "bolder" }}>
+                        {Math.ceil(basket.price)} TL
+                      </Typography>
                     </Box>
                   </Grid>
                 ))}
@@ -261,7 +355,7 @@ const PaymentPage = () => {
                   borderTop: "1px solid gray",
                 }}
               >
-                  <Stack
+                <Stack
                   width={"100%"}
                   direction={"row"}
                   display="flex"

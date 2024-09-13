@@ -6,9 +6,10 @@ interface OrdersCompProp{
     title: string;
     date: string;
     orderNumber: string;
+    onOpen: ()=> void;
 }
 
-const OrdersComp = ({image, status, title, date,orderNumber}:OrdersCompProp) => {
+const OrdersComp = ({image, status, title, date,orderNumber, onOpen}:OrdersCompProp) => {
   return (
     <>
       <Grid
@@ -39,7 +40,7 @@ const OrdersComp = ({image, status, title, date,orderNumber}:OrdersCompProp) => 
           <Typography variant="subtitle1"> {orderNumber}</Typography>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Button variant="outlined">Detayı Görüntüle</Button>
+          <Button onClick={onOpen} variant="outlined">Detayı Görüntüle</Button>
         </Grid>
       </Grid>
     </>
