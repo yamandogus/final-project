@@ -35,6 +35,12 @@ const PaymentPage = () => {
     basketItems.reduce((tot, item) => tot + item.price, 0)
   );
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [expanded, setExpanded] = useState<string | false>("panel1");
+
+  const handleChangePanel =
+    (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
   return (
     <>
       <Box>
@@ -70,6 +76,8 @@ const PaymentPage = () => {
               </Box>
               <Box mt={5}>
                 <CustomAccordion
+                  expanded={expanded === "panel1"}
+                  onChange={handleChangePanel("panel1")}
                   id="section"
                   sx={{ border: "none" }}
                   defaultExpanded
@@ -81,21 +89,21 @@ const PaymentPage = () => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                   >
-                 <strong style={{ position: "relative" }}>
+                    <strong style={{ position: "relative" }}>
                       Adres
                       <strong
                         style={{
-                          position: "absolute", 
+                          position: "absolute",
                           backgroundColor: "black",
                           color: "white",
                           lineHeight: "20px",
                           height: "20px",
                           fontSize: 12,
                           left: "-30px",
-                          top:"-1px", 
+                          top: "-1px",
                           borderRadius: "50%",
-                          padding: "2px px",
-                          display: "flex", 
+                          padding: "2px 6px",
+                          display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
@@ -167,6 +175,7 @@ const PaymentPage = () => {
                         </RadioGroup>
                       </FormControl>
                       <Button
+                        onClick={() => setExpanded("panel2")}
                         style={{
                           display: "block",
                           padding: "10px 0",
@@ -181,7 +190,11 @@ const PaymentPage = () => {
                     </Box>
                   </AccordionDetails>
                 </CustomAccordion>
-                <CustomAccordion sx={{ border: "none" }}>
+                <CustomAccordion
+                  expanded={expanded === "panel2"}
+                  onChange={handleChangePanel("panel2")}
+                  sx={{ border: "none" }}
+                >
                   <AccordionSummary
                     style={{
                       borderBottom: "1px solid rgb(228, 227, 232)",
@@ -189,21 +202,21 @@ const PaymentPage = () => {
                     aria-controls="panel2-content"
                     id="panel2-header"
                   >
-                   <strong style={{ position: "relative" }}>
+                    <strong style={{ position: "relative" }}>
                       Kargo
                       <strong
                         style={{
-                          position: "absolute", 
+                          position: "absolute",
                           backgroundColor: "black",
                           color: "white",
                           lineHeight: "20px",
                           height: "20px",
                           fontSize: 12,
                           left: "-30px",
-                          top:"-1px", 
+                          top: "-1px",
                           borderRadius: "50%",
                           padding: "2px 6px",
-                          display: "flex", 
+                          display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
@@ -229,6 +242,7 @@ const PaymentPage = () => {
                     </Box>
                     <Box px={2}>
                       <Button
+                        onClick={() => setExpanded("panel3")}
                         style={{
                           display: "block",
                           padding: "10px 0",
@@ -243,7 +257,11 @@ const PaymentPage = () => {
                     </Box>
                   </AccordionDetails>
                 </CustomAccordion>
-                <CustomAccordion sx={{ border: "none" }}>
+                <CustomAccordion
+                  expanded={expanded === "panel3"}
+                  onChange={handleChangePanel("panel3")}
+                  sx={{ border: "none" }}
+                >
                   <AccordionSummary
                     style={{
                       borderBottom: "1px solid rgb(228, 227, 232)",
@@ -255,17 +273,17 @@ const PaymentPage = () => {
                       Ödeme
                       <strong
                         style={{
-                          position: "absolute", 
+                          position: "absolute",
                           backgroundColor: "black",
                           color: "white",
                           lineHeight: "20px",
                           height: "20px",
                           fontSize: 12,
                           left: "-30px",
-                          top:"-1px", 
+                          top: "-1px",
                           borderRadius: "50%",
                           padding: "2px 6px",
-                          display: "flex", 
+                          display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
