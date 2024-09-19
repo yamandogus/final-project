@@ -25,7 +25,7 @@ import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
 import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { useStore } from "./Count";
-
+import { photo_url } from "../components/Bestseller/CokSatanlar";
 
 export interface LinksProps {
   id: string;
@@ -51,13 +51,30 @@ export interface LinksProps {
   }[];
 }
 
+export interface SearchPropsPt {
+  name: string;
+  short_explanation: string;
+  slug: string;
+  price_info: {
+    profit: null | number;
+    total_price: number;
+    discounted_price: number | null;
+    price_per_servings: number;
+    discount_percentage: number | null;
+  };
+  photo_src: string;
+  comment_count: number;
+  average_star: number;
+  id: string;
+}
+
+
 export async function LinksLoader() {
   try {
     const response = await fetch(
       "https://fe1111.projects.academy.onlyjs.com/api/v1/categories"
     );
     const data = await response.json();
-    console.log(data);
     return { allProduct: data.data.data };
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -65,15 +82,16 @@ export async function LinksLoader() {
   }
 }
 
-
-
 function Navbar() {
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-  const [openModalIndex, setOpenModalIndex] = useState<number | null>(null)
-  const {countBasket}= useStore()
+  const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchPropsPt[]>([]);
+  const [searchModal, setSearchModal] = useState(searchResults.length >= 1);
+  const { countBasket } = useStore();
 
   const handleOpenModal =
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -100,6 +118,21 @@ function Navbar() {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  const handleSearchResults = async () => {
+    try {
+      const response = await fetch(
+        `https://fe1111.projects.academy.onlyjs.com/api/v1/products/?limit=1000&search=${search}`
+      );
+      const data = await response.json();
+      setSearchResults(data.data.results);
+      setSearchModal(data.data.results.length > 0);
+      console.log(searchResults);
+    } catch (error) {
+      console.log(error + "Ürün bulunamadı");
+    }
+  };
+
 
   return (
     <>
@@ -132,11 +165,14 @@ function Navbar() {
                     className="searchInput"
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
+                    onChange={(e) => setSearch(e.target.value)}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <Button
+                            onClick={handleSearchResults}
                             sx={{
+                              padding: "6.5px 0 5.8px 0px",
                               zIndex: 15,
                               color: "white",
                               borderRadius: "0 2px 2px 0",
@@ -158,6 +194,38 @@ function Navbar() {
                       },
                     }}
                   />
+                  <Modal
+                  sx={{
+                    mt:10,
+                    left:"40%",
+                    width:"40vw"
+                  }}
+                    disableScrollLock
+                    open={searchModal}
+                    onClose={() => setSearchModal(false)}
+                  >
+                    <>
+                      <Box
+                        sx={{
+                          padding: 4,
+                          backgroundColor: "white",
+                          borderRadius: 2,
+                        }}
+                      >
+                        {searchResults.length > 0 ? (
+                          searchResults.map((search) => (
+                            <Typography key={search.id} onClick={()=> setSearchModal(false)} component={Link} to={`/products/${search.slug}`}>
+                             <img width={90} src={ photo_url+search.photo_src} alt="" /> 
+                              {search.name}
+                             {search.price_info.total_price}
+                            </Typography> 
+                          ))
+                        ) : (
+                          <Typography>Sonuç bulunamadı</Typography>
+                        )}
+                      </Box>
+                    </>
+                  </Modal>
                 </FormGroup>
                 <Button
                   variant="outlined"
@@ -261,13 +329,12 @@ function Navbar() {
                     </Modal>
                   </React.Fragment>
                 ))}
-                <React.Fragment>
-                </React.Fragment>
+                <React.Fragment></React.Fragment>
                 <ListItem
                   component={Link}
                   to={"/AllProducts"}
                   sx={{
-                    color:"white",
+                    color: "white",
                     flex: 1,
                     justifyContent: "center",
                     fontSize: 13,

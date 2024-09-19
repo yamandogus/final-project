@@ -69,7 +69,7 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                     <Box>
                       <Typography mt={1} fontWeight={'bolder'}>{basket.name}</Typography>
                       <Typography variant='subtitle1'>{basket.aroma}</Typography>
-                      <Typography variant='subtitle1'>{basket.gram ? basket.gram : ""}</Typography>
+                      <Typography variant='subtitle1'>{basket.gram ? basket.gram : ""} gr</Typography>
                     </Box>
                     <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
                       <Typography
@@ -78,7 +78,7 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                           pt: 1
                         }}
                       >
-                        {Math.ceil(basket.price)} TL
+                        {basket.price} TL
                       </Typography>
                       <Typography
                         borderRadius={1}

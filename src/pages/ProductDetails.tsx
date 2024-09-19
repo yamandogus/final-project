@@ -97,8 +97,10 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
   const { productSlug } = params;
   const response = await fetch(base_url + `/products/${productSlug}`);
   const result = await response.json();
-  console.log(result);
-  console.log(result.data);
+  if(!result || !result.data){
+    throw new Error("Product data is missing or invalid ");
+    
+  }
   return { data: result.data };
 }
 

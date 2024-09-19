@@ -84,7 +84,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                   objectFit: "contain",
                 }}
                 className="pageTwoImg"
-                src={photo_url + selectedVariant?.photo_src}
+                src={photo_url +(selectedVariant.photo_src)}
                 alt=""
               />
               <Box component={"div"} className="mobileAccordion">
@@ -213,6 +213,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                               label={
                                 <Box
                                   display="flex"
+                                  justifyContent='center'
                                   alignItems="center"
                                   position="relative"
                                 >
@@ -225,13 +226,17 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                     <span
                                     style={{
                                       position:"absolute",
-                                      top:-35,
-                                      left:0,
+                                      top:-34,
+                                      left:"50%",
+                                      padding:2,
+                                      fontSize:"14px",
+                                      transform:'translateX(-50%)',
                                       fontWeight:'bolder',
                                       borderRadius:2,
                                       backgroundColor:'red',
                                       color:'white',
-                                      whiteSpace:'nowrap'
+                                      whiteSpace:'nowrap',
+                                      border:1,
                                     }}
                                     > %{culculateDiscount(selectedVariant?.price.total_price, selectedVariant?.price.discounted_price)} İndirim</span>
                                   )}
