@@ -9,6 +9,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  Modal,
   Radio,
   RadioGroup,
   Stack,
@@ -20,6 +21,7 @@ import { Link } from "react-router-dom";
 import { useAddressesStore } from "../components/Account/Addresses/Address";
 import { usePaymentStore } from "./Payement";
 import { photo_url } from "../components/Bestseller/CokSatanlar";
+import HttpsIcon from "@mui/icons-material/Https";
 import { useState } from "react";
 
 const CustomAccordion = styled(Accordion)({
@@ -32,13 +34,25 @@ const CustomAccordion = styled(Accordion)({
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
+
 const PaymentPage = () => {
   const { addresses } = useAddressesStore();
   const { basketItems } = usePaymentStore();
+  const [security, setSecurity] = useState(false);
+  const [sales, setSales] = useState(false);
   const [open, setOpen] = useState(false);
-  const total: number = Math.floor(
-    basketItems.reduce((tot, item) => tot + item.price, 0)
-  );
+  const total: number = basketItems.reduce((tot, item) => tot + item.price * item.count, 0)
+  ;
   const [selectedAddress, setSelectedAddress] = useState("");
   const [expanded, setExpanded] = useState<string | false>("panel1");
 
@@ -50,13 +64,13 @@ const PaymentPage = () => {
     <>
       <Box>
         <Container>
-          <Grid container spacing={6} mt={3}>
+          <Grid container spacing={3} mt={3}>
             <Grid
               item
               xs={12}
               md={6}
               sx={{
-                height: "670px",
+                maxHeight: "670px",
                 overflow: "hidden",
                 marginRight: "1px solid black",
                 overflowY: "scroll",
@@ -72,7 +86,7 @@ const PaymentPage = () => {
                 alignItems={"center"}
               >
                 <Link to={"/Home"}>
-                  <img width={200} src="/images/Logo/Logo1.png" alt="Logo" />
+                  <img width={180} src="/images/Logo/Logo1.png" alt="Logo" />
                 </Link>
                 <Box>
                   <strong>İsim Soyisim</strong> <br />
@@ -235,16 +249,17 @@ const PaymentPage = () => {
                   <AccordionDetails>
                     <Typography variant="subtitle1">Teslimat Adresi</Typography>
                     {selectedAddress ? (
-                      <Box
-                        sx={{
-                          width: "100%",
-                          padding: "10px 5px",
-                          borderRadius: "2px",
-                          margin: "10px 0 10px 18px",
-                          border: "1px solid gray",
-                        }}
-                      >
-                        {selectedAddress}
+                      <Box px={2}>
+                        <Box
+                          sx={{
+                            borderRadius: 1,
+                            my: 2,
+                            padding: "20px 10px",
+                            border: "1px solid blue",
+                          }}
+                        >
+                          {selectedAddress}
+                        </Box>
                       </Box>
                     ) : (
                       ""
@@ -416,7 +431,7 @@ const PaymentPage = () => {
                                 src="/images/master/master.png"
                                 alt=""
                               />
-                              altyapısında kullanmak <a href="">istiyorum</a>
+                              altyapısında kullanmak <a href="">istiyorum.</a>
                             </Stack>
                             {open ? (
                               <Stack gap={2}>
@@ -498,8 +513,75 @@ const PaymentPage = () => {
                           </Box>
                         </RadioGroup>
                       </FormControl>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "start",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Checkbox required /> Fatura adresim teslimat adresimle
+                        aynı
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "start",
+                          alignItems: "center",
+                          gap: 0.5,
+                        }}
+                      >
+                        <Checkbox required />
+                        <strong onClick={() => setSecurity(true)}>
+                          Gizlilik Sözleşmemi
+                        </strong>
+                        ve
+                        <strong onClick={() => setSales(true)}>
+                          Satış sözleşmemi
+                        </strong>
+                        okudum, onaylıyorum.
+                      </Box>
+                      <Modal open={security} onClose={() => setSecurity(false)}>
+                        <Box sx={modalStyle}>
+                          <Typography variant="h6" component="h2">
+                            Satış Sözleşmesi
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            1. Sipariş ve Teslimat: Siparişiniz, belirtilen
+                            teslimat süresi içinde adresinize gönderilecektir.
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            2. İade Politikası: Ürünleri, teslim tarihinden
+                            itibaren 14 gün içinde iade edebilirsiniz.
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            3. Garanti Şartları: Satın aldığınız ürünler, 1 yıl
+                            boyunca garanti kapsamındadır.
+                          </Typography>
+                        </Box>
+                      </Modal>
+                      <Modal open={sales} onClose={() => setSales(false)}>
+                        <Box sx={modalStyle}>
+                          <Typography variant="h6" component="h2">
+                            Satış Sözleşmesi
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            1. Sipariş ve Teslimat: Siparişiniz, belirtilen
+                            teslimat süresi içinde adresinize gönderilecektir.
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            2. İade Politikası: Ürünleri, teslim tarihinden
+                            itibaren 14 gün içinde iade edebilirsiniz.
+                          </Typography>
+                          <Typography sx={{ mt: 2 }}>
+                            3. Garanti Şartları: Satın aldığınız ürünler, 1 yıl
+                            boyunca garanti kapsamındadır.
+                          </Typography>
+                        </Box>
+                      </Modal>
                       <Button
                         style={{
+                          marginTop: 5,
                           display: "block",
                           padding: "10px 0",
                           width: "100%",
@@ -510,6 +592,18 @@ const PaymentPage = () => {
                       >
                         Ödeme Yap
                       </Button>
+                    </Box>
+                    <Box mt={2}>
+                      <Typography sx={{ color: "gray" }}>
+                        <HttpsIcon
+                          sx={{
+                            mr: 1,
+                            fontSize: 20,
+                            color: "gray",
+                          }}
+                        />{" "}
+                        Ödemeler güvenli ve şifrelidir.
+                      </Typography>
                     </Box>
                   </AccordionDetails>
                 </CustomAccordion>
@@ -542,7 +636,11 @@ const PaymentPage = () => {
                         mb: 2,
                       }}
                     >
-                      <Box display={"flex"} alignItems={"center"}>
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        position={"relative"}
+                      >
                         <img
                           style={{
                             borderRadius: 2,
@@ -551,6 +649,22 @@ const PaymentPage = () => {
                           src={photo_url + basket.img}
                           alt={basket.name}
                         />
+                        <span 
+                        style={{ 
+                          position: "absolute", 
+                          backgroundColor:'red',
+                          width:20,
+                          height:20,
+                          display:'flex',
+                          justifyContent:'center',
+                          alignItems:'center',
+                          fontSize:13,
+                          top:-10,
+                          right:'56%',
+                          color:'white',
+                          borderRadius:"50%"
+
+                        }}>{basket.count}</span>
                         <Stack ml={2}>
                           <strong>{basket.name}</strong>
                           <Typography
@@ -562,7 +676,7 @@ const PaymentPage = () => {
                         </Stack>
                       </Box>
                       <Typography sx={{ fontWeight: "bolder" }}>
-                        {basket.price} TL
+                        {(basket.price * basket.count).toFixed(2)} TL
                       </Typography>
                     </Box>
                   </Grid>
@@ -587,7 +701,7 @@ const PaymentPage = () => {
                     justifyContent="space-between"
                   >
                     <Typography>Ara Toplam ?</Typography>
-                    <Typography>{total}TL</Typography>
+                    <Typography>{(total).toFixed(2)} TL</Typography>
                   </Stack>
                   <Stack
                     width={"100%"}
@@ -596,7 +710,7 @@ const PaymentPage = () => {
                     justifyContent="space-between"
                   >
                     <Typography fontWeight={"bolder"}>Toplam</Typography>
-                    <Typography fontWeight={"bolder"}>{total} TL</Typography>
+                    <Typography fontWeight={"bolder"}>{(total).toFixed(2)} TL</Typography>
                   </Stack>
                 </Grid>
               </Box>

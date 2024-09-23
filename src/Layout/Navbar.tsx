@@ -16,6 +16,7 @@ import {
   Stack,
   TextField,
   Modal,
+  Alert,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
@@ -68,7 +69,6 @@ export interface SearchPropsPt {
   id: string;
 }
 
-
 export async function LinksLoader() {
   try {
     const response = await fetch(
@@ -91,6 +91,7 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<SearchPropsPt[]>([]);
   const [searchModal, setSearchModal] = useState(searchResults.length >= 1);
+  const [openSnackbar, setOpenSnackBar] = useState(false);
   const { countBasket } = useStore();
 
   const handleOpenModal =
@@ -120,18 +121,35 @@ function Navbar() {
   };
 
   const handleSearchResults = async () => {
+    if (search.trim() === "") {
+      setOpenSnackBar(true);
+      setTimeout(() => {
+        setOpenSnackBar(false); 
+      }, 1000);
+      return; 
+    }
+  
+    
     try {
       const response = await fetch(
         `https://fe1111.projects.academy.onlyjs.com/api/v1/products/?limit=1000&search=${search}`
       );
       const data = await response.json();
-      setSearchResults(data.data.results);
-      setSearchModal(data.data.results.length > 0);
-      console.log(searchResults);
+      setSearchResults(data.data.results); 
+      setSearchModal(true); 
     } catch (error) {
-      console.log(error + "Ürün bulunamadı");
+      console.log("Ürün bulunamadı: ", error);
+      setSearchResults([]); 
+      setSearchModal(true); 
     }
   };
+  
+
+  const hadleCloseClear = () => {
+    setSearchModal(false);
+    setSearch("");
+  };
+
 
 
   return (
@@ -160,16 +178,27 @@ function Navbar() {
                 </Typography>
               </Toolbar>
               <Stack className="navAs" direction="row" spacing={2}>
-                <FormGroup>
+                <FormGroup
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSearchResults();
+                  }}
+                >
                   <TextField
                     className="searchInput"
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        handleSearchResults();
+                      }
+                    }}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <Button
+                            type="submit"
                             onClick={handleSearchResults}
                             sx={{
                               padding: "6.5px 0 5.8px 0px",
@@ -195,11 +224,11 @@ function Navbar() {
                     }}
                   />
                   <Modal
-                  sx={{
-                    mt:10,
-                    left:"40%",
-                    width:"40vw"
-                  }}
+                    sx={{
+                      mt: 10,
+                      left: "45%",
+                      width: "35vw",
+                    }}
                     disableScrollLock
                     open={searchModal}
                     onClose={() => setSearchModal(false)}
@@ -207,26 +236,101 @@ function Navbar() {
                     <>
                       <Box
                         sx={{
-                          padding: 4,
+                          py: 1,
                           backgroundColor: "white",
                           borderRadius: 2,
+                          position: "relative",
+                          maxHeight: "550px",
+                          overflowY: "scroll",
+                          overflowX: "hidden",
+                          "&::-webkit-scrollbar": {
+                            width: 0,
+                          },
                         }}
                       >
                         {searchResults.length > 0 ? (
                           searchResults.map((search) => (
-                            <Typography key={search.id} onClick={()=> setSearchModal(false)} component={Link} to={`/products/${search.slug}`}>
-                             <img width={90} src={ photo_url+search.photo_src} alt="" /> 
-                              {search.name}
-                             {search.price_info.total_price}
-                            </Typography> 
+                            <Box
+                              sx={{
+                                mx: 2,
+                                my: 2,
+                                display: "flex",
+                                justifyContent: "space-between",
+                                gap: 1,
+                                alignItems: "self-start",
+                                textTransform: "none",
+                                textDecoration: "none",
+                                color: "black",
+                                p: 1,
+                                borderRadius: 2,
+
+                                border: "1px solid gray",
+                              }}
+                              key={search.id}
+                              onClick={() => hadleCloseClear()}
+                              component={Link}
+                              to={`/products/${search.slug}`}
+                            >
+                              <Box>
+                                <img
+                                  width={90}
+                                  src={photo_url + search.photo_src}
+                                  alt=""
+                                  style={{
+                                    borderRadius: 5,
+                                  }}
+                                />
+                              </Box>
+                              <Box
+                                sx={{
+                                  flexGrow: 1,
+                                }}
+                              >
+                                <Stack direction="column">
+                                  <Typography variant="subtitle1">
+                                    {search.name}
+                                  </Typography>
+                                  <Typography
+                                    textTransform={"lowercase"}
+                                    color="gray"
+                                    variant="subtitle2"
+                                  >
+                                    {search.short_explanation}
+                                  </Typography>
+                                </Stack>
+                              </Box>
+                              <Stack
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "flex-end",
+                                  alignItems: "flex-end",
+                                  ml: "auto",
+                                }}
+                              >
+                                <Typography fontWeight={"bolder"}>
+                                  {search.price_info.discounted_price
+                                    ? search.price_info.discounted_price
+                                    : search.price_info.total_price}{" "}
+                                  TL
+                                </Typography>
+                              </Stack>
+                            </Box>
                           ))
                         ) : (
-                          <Typography>Sonuç bulunamadı</Typography>
+                          <Typography>Ürün Bulunamadı</Typography>
                         )}
                       </Box>
                     </>
                   </Modal>
                 </FormGroup>
+                {openSnackbar && (
+                  <Alert
+                    sx={{ position: "absolute", right: '55%', top:'10px' }}
+                    severity="warning"
+                  >
+                    Lütfen ürün ismi giriniz
+                  </Alert>
+                )}
                 <Button
                   variant="outlined"
                   color="inherit"
@@ -287,7 +391,9 @@ function Navbar() {
                   open={open}
                   onClose={toggleDrawer(false)}
                 >
-                  <DrawerListCoponent onCountine={handleContinue} />
+                  <DrawerListCoponent
+                  onCloseDrawer={toggleDrawer(false)} 
+                  onCountine={handleContinue} />
                 </Drawer>
               </Stack>
             </Stack>

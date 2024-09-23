@@ -12,7 +12,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Accordions from "../Accordions/Accordions";
 import { photo_url } from "../Bestseller/CokSatanlar";
@@ -41,6 +41,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
   } = useProductVariants(product.variants ??[]);
   const {increaseCount}= useStore()
   const {addBasketItems} = usePaymentStore()
+  const [count, setCount] = useState<number>(1);
 
  const handleProductAdded = () =>{
   if(selectedVariant){
@@ -49,10 +50,12 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
       gram: selectedVariant.size?.gram,
       name: product.name,
       aroma: selectedVariant.aroma,
-      price: selectedVariant.price.discounted_price||selectedVariant.price.total_price
+      price: selectedVariant.price.discounted_price||selectedVariant.price.total_price,
+      count: count,
     };
     addBasketItems(newItem)
     increaseCount()
+    setCount(1)
   }
  }
   
@@ -66,7 +69,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
   const discountedPercentage = (discountedAmount / total_price) * 100;
   return Math.round(discountedPercentage)
  }
-  const [count, setCount] = useState<number>(0);
+  
   const currentVariant = selectedVariant || product.variants[0]
   const currentPrice = currentVariant?.price
   return (
@@ -219,10 +222,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                 >
                                   {size.pieces} x {size.gram} gr
                                   <span>
-                                  {product.variants[index].price.discounted_price !== null &&
-                                  selectedVariant.price.discounted_price
-                                  &&
-                                  !isSizeAvailable(size) && (
+                                  {product.variants[index].price.discounted_price  &&(
                                     <span
                                     style={{
                                       position:"absolute",
@@ -238,7 +238,10 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                       whiteSpace:'nowrap',
                                       border:1,
                                     }}
-                                    > %{culculateDiscount(selectedVariant?.price.total_price, selectedVariant?.price.discounted_price)} İndirim</span>
+                                    > %{culculateDiscount(
+                                      product.variants[index].price.total_price,
+                                      product.variants[index].price.discounted_price
+                                    )} İndirim</span>
                                   )}
                                   </span>
                                   <span
@@ -304,7 +307,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                   <Box component={"div"} className="countDiv">
                     <button
                       className="countButton"
-                      onClick={() => setCount(count ? count - 1 : 0)}
+                      onClick={() => setCount(count > 1 ? count - 1 : 1)}
                     >
                       -
                     </button>
@@ -327,18 +330,28 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                 <Typography variant="subtitle1" fontSize={11}>
                   Son Kullanma Tarihi: 07.2025
                 </Typography>
+                <Typography mt={2}>
+                  {product.explanation.description.split('\n- ')[0]}
+                </Typography>
+                <Box>
+                <ul style={{padding:"5px 0"}}>
+                  {product.explanation.description.split('\n- ').slice(1).map((item, index)=>(
+                    <li style={{marginLeft:18, padding:"5px 0"}} key={index}>{item.replace('-',"")}</li>
+                  ))}
+                  </ul>
+                </Box>
                 <Box component={"div"} className="lgAccordion">
                   <Accordions
-                    title={"KULLANIM ŞEKLİ"}
-                    details={product.explanation.usage || " "}
+                    title={"ÖZELLİKLER"}
+                    details={product.explanation.features || " "}
                   />
                   <Accordions
                     title={"BESİN İÇERİĞİ"}
                     details={product.explanation.features || " "}
                   />
                   <Accordions
-                    title={"AÇIKLAMA"}
-                    details={product.explanation.description || " "}
+                    title={"KULLANIM ŞEKLİ"}
+                    details={product.explanation.usage || " "}
                   />
                 </Box>
               </Stack>

@@ -12,23 +12,31 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { usePaymentStore } from "../../pages/Payement";
 import { photo_url } from "../Bestseller/CokSatanlar";
 import { useStore } from "../../Layout/Count";
+import CloseIcon from '@mui/icons-material/Close';
 
-const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
-  const { basketItems, removeItems } = usePaymentStore();
+interface DrawerProps{
+  onCountine: () => void;
+  onCloseDrawer: () => void;
+}
+
+const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
+  const { basketItems, removeItems, increaseCount, removeCountDrawer } = usePaymentStore();
   const {removeCount} = useStore()
-  const totolPrice = basketItems.reduce((arr, index)=> arr + index.price, 0)
+  const totolPrice = basketItems.reduce((arr, index)=> arr + index.price * index.count, 0).toFixed(2)
 
   const hadleRemove= (index: number) =>{
     removeItems(index)
     removeCount()
   }
+
   return (
     <Box
       sx={{ width: 360, height: "100vh", display: 'flex', flexDirection: 'column' }}
       role="presentation"
       onClick={(e) => e.stopPropagation()}
     >
-      <Typography 
+     <Box>
+     <Typography 
         sx={{ 
           fontWeight: "bolder", 
           fontSize: 18, 
@@ -38,6 +46,20 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
       >
         SEPETİM
       </Typography>
+        <CloseIcon 
+        onClick={()=> onCloseDrawer()}
+        sx={{
+          position:'absolute',
+          top:5,
+          right:5,
+          cursor:'pointer',
+          '&:hover':{
+            transition: "color 0.3s ease",
+            color:'red'
+          }
+        }}
+        />
+     </Box>
       <Divider sx={{ mb: 1 }} />
       <Box 
         sx={{ 
@@ -69,7 +91,7 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                     <Box>
                       <Typography mt={1} fontWeight={'bolder'}>{basket.name}</Typography>
                       <Typography variant='subtitle1'>{basket.aroma}</Typography>
-                      <Typography variant='subtitle1'>{basket.gram ? basket.gram : ""} gr</Typography>
+                      <Typography variant='subtitle1'>{basket.gram ? basket.gram + "gr" : ""} </Typography>
                     </Box>
                     <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
                       <Typography
@@ -78,17 +100,23 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                           pt: 1
                         }}
                       >
-                        {basket.price} TL
+                        {(basket.price * basket.count).toFixed(2)} TL
                       </Typography>
                       <Typography
                         borderRadius={1}
                         padding={"2px 5px"}
                         bgcolor={'white'}
-                        
                         sx={{
-                          boxShadow:`0 1px 1px rgba(0,1,1,0.5)`
+                          boxShadow:`0 1px 1px rgba(0,1,1,0.5)`,
+                          display:'flex',
+                          alignItems:'center',
+                          justifyContent:'center',
+                          minWidth:'100%'
                         }}
                       >
+                        {basket.count > 1 ? (
+                          <button className="remove-button" onClick={()=> removeCountDrawer(index)}>-</button>
+                        ): 
                         <DeleteIcon
                         onClick={()=>hadleRemove(index)}
                           sx={{
@@ -97,9 +125,10 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
                               color: "red"
                             }
                           }}
-                        /> 
-                        <strong style={{ margin: "0 15px" }}>1</strong>
-                        <button className="increase-button">+</button>
+                        />   
+                        }
+                         <strong style={{ margin: "0 15px" }}>{basket.count}</strong>
+                        <button onClick={()=> increaseCount(index)} className="increase-button">+</button>
                       </Typography>
                     </Stack>
                   </Stack>
@@ -124,7 +153,7 @@ const DrawerList = ({ onCountine }: { onCountine: () => void }) => {
           textAlign={"end"}
           mr={5}
         >
-          Toplam {Math.ceil(totolPrice)} TL
+          Toplam {totolPrice} TL
         </Typography>
         <Button
           variant="contained"
