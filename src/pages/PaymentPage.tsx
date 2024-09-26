@@ -645,7 +645,7 @@ const PaymentPage = () => {
                           style={{
                             borderRadius: 2,
                           }}
-                          width={90}
+                          width={100}
                           src={photo_url + basket.img}
                           alt={basket.name}
                         />

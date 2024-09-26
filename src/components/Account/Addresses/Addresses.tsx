@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   Container,
@@ -9,14 +10,47 @@ import {
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChangeEvent } from "react";
 import { useAddressesStore } from "./Address";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
+import { base_url } from "../../Bestseller/CokSatanlar";
+
+interface Country {
+  id: number;
+  name: string;
+}
+
+interface City {
+  id: number;
+  name: string;
+  country: Country;
+}
+
+export async function TurkeyCountry() {
+  const response = await fetch(
+    base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+  );
+  const data = await response.json();
+  console.log(data.data.results);
+  return { country: data.data.results };
+}
 
 const Addresses: React.FC = () => {
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { country } = await TurkeyCountry();
+      setCities(country);
+    };
+
+    fetchData();
+  }, []);
+
   const {
     title,
     address,
@@ -49,7 +83,15 @@ const Addresses: React.FC = () => {
 
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !address || !city || !district || !firstName || !lastName || !phone) {
+    if (
+      !title ||
+      !address ||
+      !city ||
+      !district ||
+      !firstName ||
+      !lastName ||
+      !phone
+    ) {
       alert("Lütfen tüm alanları doldurun.");
       return;
     }
@@ -81,7 +123,7 @@ const Addresses: React.FC = () => {
 
   return (
     <Box>
-      {isAddressSaved && addresses.length > 0  ? (
+      {isAddressSaved && addresses.length > 0 ? (
         <Box mb={30}>
           <Container>
             <Box
@@ -202,89 +244,99 @@ const Addresses: React.FC = () => {
             )}
           </Box>
           <form onSubmit={handleAddressSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} mb={2}>
-              <TextField
-                fullWidth
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                label="Adres Başlığı"
-                placeholder="ev, iş vb..."
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} mb={2}>
+                <TextField
+                  fullWidth
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  label="Adres Başlığı"
+                  placeholder="ev, iş vb..."
+                />
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                label="Ad"
-                required
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  label="Ad"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  label="Soyad"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  label="Adres"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Autocomplete
+                  options={cities}
+                  getOptionLabel={(option) => option.name || ""}
+                  value={selectedCity}
+                  onChange={(_event, newValue) => {
+                    setSelectedCity(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Şehir" required />
+                  )}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  value={district}
+                  onChange={(e) => setDistrict(e.target.value)}
+                  fullWidth
+                  label="İlçe"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <MuiPhoneNumber
+                  defaultCountry="tr"
+                  fullWidth
+                  variant="outlined"
+                  label="Telefon Numarası"
+                  name="phone"
+                  value={phone}
+                  onChange={handlePhone}
+                />
+              </Grid>
+              <Grid item xs={12} textAlign="end">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    py: 1,
+                    backgroundColor: "black",
+                    "&:hover": { backgroundColor: "black" },
+                  }}
+                >
+                  Kaydet
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                label="Soyad"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                label="Adres"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                label="Şehir"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                fullWidth
-                label="İlçe"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <MuiPhoneNumber
-                defaultCountry="tr"
-                fullWidth
-                variant="outlined"
-                label="Telefon Numarası"
-                name="phone"
-                value={phone}
-                onChange={handlePhone}
-              />
-            </Grid>
-            <Grid item xs={12} textAlign="end">
-              <Button
-                type='submit'
-                variant="contained"
-                sx={{
-                  py: 1,
-                  backgroundColor: "black",
-                  "&:hover": { backgroundColor: "black" },
-                }}
-              >
-                Kaydet
-              </Button>
-            </Grid>
-          </Grid>
           </form>
         </Box>
       )}

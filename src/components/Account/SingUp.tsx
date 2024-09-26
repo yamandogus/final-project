@@ -1,88 +1,173 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography} from '@mui/material'
-import React from 'react'
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  Tab,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useState} from "react";
+import { Link } from "react-router-dom";
+import { handleLogin, handleRegister } from "./LoginAndSingUp";
 
-const SingUp = () => {
-  const [value, setValue] = React.useState('1');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+const SignUp = () => {
+  const [value, setValue] = useState("1");
+
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-  return (
-    <>
-      <Box sx={{mt:5}}>
-        <Container maxWidth="xs">
-        <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList sx={{px:4}} onChange={handleChange} aria-label="lab API tabs example" >
-            <Tab label="Üye Ol" value="1" sx={{ml:5,mr:6}}/>
-            <Tab label="Giriş Yap" value="2" />
-          </TabList>
-        </Box>
-        <Box sx={{padding:1, my:1, border:'1px solid #F3F3F3', borderRadius:1}}>
-            <TabPanel value="1" sx={{mb:2}}>
-              <Grid container spacing={1}>
-            <Grid item xs={12} md={6}>
-              <FormControl fullWidth>
-                <TextField id="first-name" label="Adınız" variant='outlined' size="medium" required />
-              </FormControl>
-            </Grid>
-    
-            <Grid item xs={12} md={6}>
-              <FormControl fullWidth>
-                <TextField id="last-name" label="Soyadınız" variant='outlined' size="medium" required/>
-              </FormControl>
-            </Grid>
-    
-            <Grid item xs={12} sx={{my:2}}>
-              <FormControl fullWidth>
-                <TextField id="email" label="E-posta" variant='outlined' size="medium" required />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <TextField id="password" label="Şifre" variant='outlined' size="medium" required />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sx={{mt:2}}>
-              <FormControl fullWidth>
-               <Button sx={{backgroundColor:'black',py:1, color:'white',
-               '&:hover':{backgroundColor:'black',py:1, color:'white'}
-               }} >ÜYE OL</Button>
-                <Typography sx={{mt:2}} variant='subtitle1'>Zaten hesabınız var mı? <a href="">Giriş Yap</a></Typography>
-              </FormControl>
-            </Grid>
-              </Grid>
-            </TabPanel>
-        <TabPanel value="2">
-        <Grid container spacing={1}>
-        <Grid item xs={12} sx={{my:2}}>
-          <FormControl fullWidth>
-            <TextField id="email" label="E-posta" variant='outlined' size="medium" required />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <TextField id="password" label="Şifre" variant='outlined' size="medium" required />
-          </FormControl>
-          <Typography variant='subtitle2' sx={{mt:2,textAlign:'end'}}><a href="">Şifremi Unuttum?</a></Typography>
-        </Grid>
-        <Grid item xs={12} sx={{mt:2}}>
-          <FormControl fullWidth>
-           <Button sx={{backgroundColor:'black',py:1, color:'white',
-           '&:hover':{backgroundColor:'black',py:1, color:'white'}
-           }}>GİRİŞ YAP</Button>
-          
-          </FormControl>
-        </Grid>
-          </Grid>
-        </TabPanel>
-        </Box>
-      </TabContext>
-        </Container>
-      </Box>
-    </>
-  )
-}
 
-export default SingUp
+  return (
+    <Box sx={{ mt: 5 }}>
+      <Container maxWidth="xs">
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <TabList onChange={handleChange}>
+              <Tab label="Üye Ol" value="1" />
+              <Tab label="Giriş Yap" value="2" />
+            </TabList>
+          </Box>
+          <Box
+            sx={{
+              padding: 1,
+              my: 1,
+              border: "1px solid #F3F3F3",
+              borderRadius: 1,
+            }}
+          >
+            <form onSubmit={handleRegister}>
+              <TabPanel value="1">
+                <Grid container spacing={1}>
+                  <Grid item xs={12} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="first-name"
+                        name="first_name"
+                        label="Adınız"
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="last-name"
+                        name="last_name"
+                        label="Soyadınız"
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="email"
+                        type="email"
+                        name="email"
+                        label="E-posta"
+                        required
+                        inputProps={{
+                          pattern:
+                            "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+                          title: "Geçerli bir e-posta adresi girin.",
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="password"
+                        name="password"
+                        label="Şifre"
+                        type="password"
+                        autoComplete="current-password"
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <Button
+                        type="submit"
+                        sx={{
+                          backgroundColor: "black",
+                          color: "white",
+                          "&:hover": { backgroundColor: "black" },
+                        }}
+                      >
+                        ÜYE OL
+                      </Button>
+                      <Typography variant="subtitle1" sx={{ mt: 2 }}>
+                        Zaten hesabınız var mı?{" "}
+                        <Link to="/login">Giriş Yap</Link>
+                      </Typography>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+            </form>
+            <form onSubmit={handleLogin}>
+              <TabPanel value="2">
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="email"
+                        name='email'
+                        label="E-posta"
+                        required
+                        inputProps={{
+                          pattern:
+                            "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+                          title: "Geçerli bir e-posta adresi girin.",
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <TextField
+                        name="password"
+                        id="password"
+                        label="Şifre"
+                        type="password"
+                        required
+                      />
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ mt: 2, textAlign: "end" }}
+                      >
+                        <Link to="">Şifremi Unuttum?</Link>
+                      </Typography>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <Button
+                        type='submit'
+                        sx={{
+                          backgroundColor: "black",
+                          color: "white",
+                          "&:hover": { backgroundColor: "black" },
+                        }}
+                      >
+                        GİRİŞ YAP
+                      </Button>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+            </form>
+          </Box>
+        </TabContext>
+      </Container>
+    </Box>
+  );
+};
+
+export default SignUp;
