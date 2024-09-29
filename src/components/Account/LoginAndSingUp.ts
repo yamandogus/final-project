@@ -17,14 +17,14 @@ interface RegisterPayload {
 
 export const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const fomrEl = e.target as HTMLFormElement
+    const formData = new FormData(fomrEl);
     const data = Object.fromEntries(
       formData.entries()
     ) as unknown as RegisterPayload;
-    console.log(data);
 
     data.password2 = data.password;
-    data.api_key = "123456";
+    data.api_key = "100807";
 
     const response = await fetch(base_url + "/auth/register", {
       method: "POST",
@@ -39,12 +39,15 @@ export const handleRegister = async (e: FormEvent) => {
   };
   export const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const formEl = e.target as HTMLFormElement
+    const formData = new FormData(formEl);
     const data = Object.fromEntries(
       formData.entries()
     ) as unknown as LoginPayload;
+    data.api_key = "100807";
+
     console.log(data);
-    data.api_key = "1234567";
+    
 
     const response = await fetch(base_url + "/auth/login", {
       method: "POST",
@@ -53,7 +56,17 @@ export const handleRegister = async (e: FormEvent) => {
         "Content-Type": "application/json",
       },
     });
+    console.log(response);
+    
 
-    const jsonResponse = await response.json();
+    const jsonResponse = await response.json() as 
+    {
+      user:LoginPayload,
+      accessToken: string,
+      refreshToken: string,
+    }
+
     console.log(jsonResponse);
+    
+
   };

@@ -117,8 +117,8 @@ const SignUp = () => {
                   <Grid item xs={12}>
                     <FormControl fullWidth>
                       <TextField
-                        id="email"
-                        name='email'
+                        id="username"
+                        name='username'
                         label="E-posta"
                         required
                         inputProps={{

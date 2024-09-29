@@ -35,7 +35,7 @@ const ProductCard = ({
     <Grid item xs={6} md={4} lg={2} >
       <Link style={{position:'relative'}} to={`#`}>
         {discounted_price && (
-          <Stack className="discount">
+          <Stack className="discountPrice">
                 <strong style={{fontSize:'15px'}}>%{calculateDiscount(total_price, discounted_price)} </strong> İNDİRİM
           </Stack>
         )}
@@ -45,10 +45,6 @@ const ProductCard = ({
           alt={name}
           style={{
             width: "100%", 
-            height: "auto", 
-            display: "block", 
-            margin: "auto",
-            objectFit: "cover", 
           }}
         />
       </Link>

@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Box,
   Button,
   Container,
@@ -10,47 +9,15 @@ import {
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChangeEvent } from "react";
 import { useAddressesStore } from "./Address";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
-import { base_url } from "../../Bestseller/CokSatanlar";
 
-interface Country {
-  id: number;
-  name: string;
-}
-
-interface City {
-  id: number;
-  name: string;
-  country: Country;
-}
-
-export async function TurkeyCountry() {
-  const response = await fetch(
-    base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-  );
-  const data = await response.json();
-  console.log(data.data.results);
-  return { country: data.data.results };
-}
 
 const Addresses: React.FC = () => {
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { country } = await TurkeyCountry();
-      setCities(country);
-    };
-
-    fetchData();
-  }, []);
-
   const {
     title,
     address,
@@ -120,6 +87,7 @@ const Addresses: React.FC = () => {
       setIsAddressSaved(false);
     }
   };
+
 
   return (
     <Box>
@@ -285,22 +253,12 @@ const Addresses: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <Autocomplete
-                  options={cities}
-                  getOptionLabel={(option) => option.name || ""}
-                  value={selectedCity}
-                  onChange={(_event, newValue) => {
-                    setSelectedCity(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Şehir" required />
-                  )}
-                  renderOption={(props, option) => (
-                    <li {...props} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
+              <TextField
                   fullWidth
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  label="Ad"
+                  required
                 />
               </Grid>
               <Grid item xs={12} md={6}>
