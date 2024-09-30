@@ -49,7 +49,7 @@ const Protein = ({
             className="imgHover"
             src={photo_src}
             alt={name}
-            style={{ maxWidth: "90%", display: "block", margin: "auto" }}
+            style={{ maxWidth: "90%", display: "block", margin: "auto", aspectRatio:1/1, objectFit:'cover' }}
           />
         </Link>
         <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>

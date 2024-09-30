@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import { base_url } from "../Bestseller/CokSatanlar";
+import { setTokenAndAuthUser } from "../../services/storage";
 interface RegisterPayload {
     email: string;
     password: string;
@@ -37,6 +38,9 @@ export const handleRegister = async (e: FormEvent) => {
     const jsonResponse = await response.json();
     console.log(jsonResponse);
   };
+
+/*LOGİN */
+
   export const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     const formEl = e.target as HTMLFormElement
@@ -56,17 +60,16 @@ export const handleRegister = async (e: FormEvent) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
-    
+    console.log(response);  
 
     const jsonResponse = await response.json() as 
     {
-      user:LoginPayload,
-      accessToken: string,
-      refreshToken: string,
+      user:LoginPayload;
+      access_token: string,
+      refresh_token: string,
     }
 
-    console.log(jsonResponse);
+    setTokenAndAuthUser(jsonResponse.access_token, jsonResponse.refresh_token, data)
     
-
+    console.log(jsonResponse);
   };

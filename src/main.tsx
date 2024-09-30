@@ -15,6 +15,7 @@ import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/Bestseller/CokSatanlar'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
 import { LinksLoader } from './Layout/Navbar'
+import { MyAccountLoader } from './components/Account/Informations/MyAccount'
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "MyAccount",
+        loader: MyAccountLoader,
         element:<AccountHomePage/>
       },
       {

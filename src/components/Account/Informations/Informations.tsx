@@ -6,8 +6,14 @@ import {
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent, useState } from "react";
+import { MyAccountReturn} from "./MyAccount";
+import { useLoaderData } from "react-router-dom";
+
+
+
 
 const Informations: React.FC = () => {
+  const {user} = useLoaderData() as MyAccountReturn
   const [focusPhone, setFocusPhone] = useState(false);
   const [phone, setPhone] = useState<string>("");
   const [phoneError, setPhoneError] = useState(false);
@@ -27,6 +33,7 @@ const Informations: React.FC = () => {
       <Typography fontWeight="bolder" variant="subtitle1">
         Hesap Bilgilerim
       </Typography>
+        <p>{JSON.stringify(user)}</p>
         <Grid container mt={2} spacing={2} mb={10}>
           <Grid item xs={12} md={6}>
             <TextField fullWidth label="Ad" required defaultValue="Doğuş" />

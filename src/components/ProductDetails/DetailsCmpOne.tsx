@@ -80,11 +80,12 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
             <Grid item sm={12} md={6} key={product.id}>
               <img
                 style={{
-                  width: "100%",
+                  width: "90%",
                   height: "auto",
                   display: "block",
                   margin: "auto",
-                  objectFit: "contain",
+                  objectFit: "cover",
+                  aspectRatio:1/1
                 }}
                 className="pageTwoImg"
                 src={photo_url +(selectedVariant.photo_src)}

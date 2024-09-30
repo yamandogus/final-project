@@ -120,6 +120,7 @@ function Navbar() {
     setOpen(newOpen);
   };
 
+
   const handleSearchResults = async () => {
     if (search.trim() === "") {
       setOpenSnackBar(true);
@@ -137,6 +138,7 @@ function Navbar() {
       const data = await response.json();
       setSearchResults(data.data.results); 
       setSearchModal(true); 
+      
     } catch (error) {
       console.log("Ürün bulunamadı: ", error);
       setSearchResults([]); 

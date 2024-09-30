@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductVariant, ProductVariantSize } from "./types";
 
 export function useProductVariants(productVariants: ProductVariant[]) {
@@ -83,7 +83,12 @@ export function useProductVariants(productVariants: ProductVariant[]) {
             sizeA.total_services === sizeB.total_services &&
             sizeA.gram === sizeB.gram
         );
+
     }
+
+    useEffect(()=>{
+        setSelectedVariant(productVariants[0] || null)
+    },[productVariants])
 
     return {
         selectedVariant,
