@@ -1,6 +1,7 @@
 import { FormEvent } from "react";
 import { base_url } from "../Bestseller/CokSatanlar";
-import { setTokenAndAuthUser } from "../../services/storage";
+
+
 interface RegisterPayload {
     email: string;
     password: string;
@@ -10,7 +11,7 @@ interface RegisterPayload {
     last_name: string;
   }
   
-  interface LoginPayload{
+  export interface LoginPayload{
     email: string,
     password: string,
     api_key?: string,
@@ -41,35 +42,3 @@ export const handleRegister = async (e: FormEvent) => {
 
 /*LOGİN */
 
-  export const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
-    const formEl = e.target as HTMLFormElement
-    const formData = new FormData(formEl);
-    const data = Object.fromEntries(
-      formData.entries()
-    ) as unknown as LoginPayload;
-    data.api_key = "100807";
-
-    console.log(data);
-    
-
-    const response = await fetch(base_url + "/auth/login", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);  
-
-    const jsonResponse = await response.json() as 
-    {
-      user:LoginPayload;
-      access_token: string,
-      refresh_token: string,
-    }
-
-    setTokenAndAuthUser(jsonResponse.access_token, jsonResponse.refresh_token, data)
-    
-    console.log(jsonResponse);
-  };

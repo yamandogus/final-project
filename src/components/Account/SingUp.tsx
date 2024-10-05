@@ -9,9 +9,46 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState} from "react";
+import { FormEvent, useState} from "react";
 import { Link } from "react-router-dom";
-import { handleLogin, handleRegister } from "./LoginAndSingUp";
+import { handleRegister, LoginPayload } from "./LoginAndSingUp";
+import { base_url } from "../Bestseller/CokSatanlar";
+
+export const handleLogin = async (e: FormEvent) => {
+  try {
+   e.preventDefault();
+   const formEl = e.target as HTMLFormElement
+   const formData = new FormData(formEl);
+   const data = Object.fromEntries(
+     formData.entries()
+   ) as unknown as LoginPayload;
+   data.api_key = "100807";
+
+   console.log(data);
+
+   const response = await fetch(base_url + "/auth/login", {
+     method: "POST",
+     body: JSON.stringify(data),
+     headers: {
+       "Content-Type": "application/json",
+     },
+   });
+   console.log(response);  
+
+   const jsonResponse = await response.json() as 
+   {
+     access_token: string,
+     refresh_token: string,
+   }
+
+   localStorage.setItem("access_token", jsonResponse.access_token)
+   localStorage.setItem("refresh_token", jsonResponse.refresh_token)
+   console.log(jsonResponse);
+  } catch (error) {
+   console.log(error);
+   alert("Kullanıcı adı veya şifre hatalı")
+  }
+ };
 
 
 const SignUp = () => {
@@ -75,6 +112,7 @@ const SignUp = () => {
                             "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
                           title: "Geçerli bir e-posta adresi girin.",
                         }}
+                        autoComplete="email"
                       />
                     </FormControl>
                   </Grid>
@@ -126,6 +164,7 @@ const SignUp = () => {
                             "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
                           title: "Geçerli bir e-posta adresi girin.",
                         }}
+                        autoComplete="email"
                       />
                     </FormControl>
                   </Grid>
@@ -136,6 +175,7 @@ const SignUp = () => {
                         id="password"
                         label="Şifre"
                         type="password"
+                        autoComplete="current-password"
                         required
                       />
                       <Typography

@@ -644,6 +644,7 @@ const PaymentPage = () => {
                         <img
                           style={{
                             borderRadius: 2,
+                            aspectRatio:1/1
                           }}
                           width={100}
                           src={photo_url + basket.img}
@@ -660,7 +661,7 @@ const PaymentPage = () => {
                           alignItems:'center',
                           fontSize:13,
                           top:-10,
-                          right:'56%',
+                          right:'47%',
                           color:'white',
                           borderRadius:"50%"
 

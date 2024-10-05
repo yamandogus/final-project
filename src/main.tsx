@@ -15,7 +15,7 @@ import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/Bestseller/CokSatanlar'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
 import { LinksLoader } from './Layout/Navbar'
-import { MyAccountLoader } from './components/Account/Informations/MyAccount'
+import { userProfileLoader } from './components/Account/Informations/MyAccount'
 
 const router = createBrowserRouter([
   {
@@ -24,12 +24,12 @@ const router = createBrowserRouter([
     loader:LinksLoader,
     children:[
       {
-        index: true, // This will match the root path "/"
+        index: true, 
         element: <Home/>,
         loader: loader,
       },
       {
-        path: "Home", // Alternatively, you can keep this if you want "/Home" to be accessible directly
+        path: "Home",
         element: <Home/>,
         loader: loader,
       },
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "MyAccount",
-        loader: MyAccountLoader,
+        loader: userProfileLoader,
         element:<AccountHomePage/>
       },
       {

@@ -1,15 +1,60 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { handleLogin, handleRegister } from "./LoginAndSingUp";
+import { FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {  handleRegister, LoginPayload } from "./LoginAndSingUp";
+import { base_url } from "../Bestseller/CokSatanlar";
+
+
 
 const Login = () => {
   const [value, setValue] = useState("1");
-
+  const navigate = useNavigate()
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+ const handleLogin = async (e: FormEvent) => {
+    try {
+     e.preventDefault();
+     const formEl = e.target as HTMLFormElement
+     const formData = new FormData(formEl);
+     const data = Object.fromEntries(
+       formData.entries()
+     ) as unknown as LoginPayload;
+     data.api_key = "100807";
+  
+     console.log(data);
+  
+     const response = await fetch(base_url + "/auth/login", {
+       method: "POST",
+       body: JSON.stringify(data),
+       headers: {
+         "Content-Type": "application/json",
+       },
+     });
+
+     if(!response.ok){
+      alert("Kullanıcı adı veya şifre hatalı")
+     }else{
+      console.log(response);  
+  
+      const jsonResponse = await response.json() as 
+      {
+        access_token: string,
+        refresh_token: string,
+      }
+   
+      localStorage.setItem("access_token", jsonResponse.access_token)
+      localStorage.setItem("refresh_token", jsonResponse.refresh_token)
+      console.log(jsonResponse);
+      navigate("/")
+     }
+    } catch (error) {
+     console.log(error);
+     alert("Kullanıcı adı veya şifre hatalı")
+    }
+   };
 
   return (
     <Box sx={{ mt: 5 }}>
@@ -80,7 +125,7 @@ const Login = () => {
                       ÜYE OL
                     </Button>
                     <Typography sx={{ mt: 2 }} variant="subtitle1">
-                      Zaten hesabınız var mı? <Link to="/login">Giriş Yap</Link>
+                      Zaten hesabınız var mı? <Link to="/login">GİRİŞ YAP</Link>
                     </Typography>
                   </FormControl>
                 </Grid>
