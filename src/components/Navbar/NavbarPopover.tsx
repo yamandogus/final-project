@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { LinksProps } from "../../Layout/Navbar";
+import { LinksProps } from "../../Layout/Navbar/Navbar";
 import { photo_url } from "../Bestseller/CokSatanlar";
 import { Link } from "react-router-dom";
 

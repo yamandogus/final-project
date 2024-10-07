@@ -16,7 +16,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
 
-
 const Addresses: React.FC = () => {
   const {
     title,
@@ -87,7 +86,6 @@ const Addresses: React.FC = () => {
       setIsAddressSaved(false);
     }
   };
-
 
   return (
     <Box>
@@ -253,11 +251,12 @@ const Addresses: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-              <TextField
-                  fullWidth
+                <TextField
+                  id="outlined-select-currency"
                   value={city}
+                  label="Şehir"
+                  fullWidth
                   onChange={(e) => setCity(e.target.value)}
-                  label="Ad"
                   required
                 />
               </Grid>

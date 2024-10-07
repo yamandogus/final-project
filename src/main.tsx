@@ -14,8 +14,8 @@ import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/Bestseller/CokSatanlar'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
-import { LinksLoader } from './Layout/Navbar'
 import { userProfileLoader } from './components/Account/Informations/MyAccount'
+import { LinksLoader } from './Layout/Navbar'
 
 const router = createBrowserRouter([
   {

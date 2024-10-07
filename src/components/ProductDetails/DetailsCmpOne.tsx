@@ -62,7 +62,6 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
 
 
  const culculateDiscount = (total_price: number, discounted_price: number | null)=>{
-  console.log("totol" + total_price +  "dis" + discounted_price);
   
   if(discounted_price === null) return 0;
   const discountedAmount = total_price- discounted_price;
@@ -79,14 +78,6 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
           <Grid container spacing={3}>
             <Grid item sm={12} md={6} key={product.id}>
               <img
-                style={{
-                  width: "90%",
-                  height: "auto",
-                  display: "block",
-                  margin: "auto",
-                  objectFit: "cover",
-                  aspectRatio:1/1
-                }}
                 className="pageTwoImg"
                 src={photo_url +(selectedVariant.photo_src)}
                 alt=""
@@ -223,7 +214,7 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                                 >
                                   {size.pieces} x {size.gram} gr
                                   <span>
-                                  {product.variants[index].price.discounted_price  &&(
+                                  {!isSizeAvailable(size) && product.variants[index].price.discounted_price  &&(
                                     <span
                                     style={{
                                       position:"absolute",

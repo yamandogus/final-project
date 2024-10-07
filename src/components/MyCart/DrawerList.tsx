@@ -81,7 +81,10 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                 }}
               >
                 <Stack direction={"row"} spacing={2}>
-                  <img width={90} height={80} src={photo_url + basket.img} alt="Product" />
+                  <img style={{
+                    width:"30%",
+                    aspectRatio:1/1
+                  }} src={photo_url + basket.img} alt="Product" />
                   <Stack
                     direction={"row"}
                     spacing={2}

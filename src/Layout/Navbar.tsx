@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -25,7 +25,8 @@ import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
 import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { useStore } from "./Count";
-import { photo_url } from "../components/Bestseller/CokSatanlar";
+import { base_url, photo_url } from "../components/Bestseller/CokSatanlar";
+import { useDebounce } from "./Navbar/Navbar";
 
 export interface LinksProps {
   id: string;
@@ -92,7 +93,15 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState<SearchPropsPt[]>([]);
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
+  const debouncedSearch = useDebounce(search, 1000)
 
+  useEffect(()=>{
+    if(debouncedSearch){
+      handleSearchResults();
+    }else{
+      setSearchResults([])
+    }
+  },[debouncedSearch])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleOpenModal = (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -123,7 +132,7 @@ function Navbar() {
   const handleSearchResults = async () => {
     try {
       const response = await fetch(
-        `https://fe1111.projects.academy.onlyjs.com/api/v1/products/?limit=1000&search=${search}`
+        base_url + `/products/?limit=1000&search=${debouncedSearch}`
       );
       const data = await response.json();
       setSearchResults(data.data.results);
@@ -139,6 +148,7 @@ function Navbar() {
     setSearchModal(false);
     setSearch("");
   };
+
 
 
   return (

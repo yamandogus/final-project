@@ -51,8 +51,10 @@ const PaymentPage = () => {
   const [security, setSecurity] = useState(false);
   const [sales, setSales] = useState(false);
   const [open, setOpen] = useState(false);
-  const total: number = basketItems.reduce((tot, item) => tot + item.price * item.count, 0)
-  ;
+  const total: number = basketItems.reduce(
+    (tot, item) => tot + item.price * item.count,
+    0
+  );
   const [selectedAddress, setSelectedAddress] = useState("");
   const [expanded, setExpanded] = useState<string | false>("panel1");
 
@@ -613,14 +615,14 @@ const PaymentPage = () => {
               item
               xs={12}
               md={6}
-              sx={{ position: "relative", height: "clac(100vh-100px)" }}
+              sx={{ position: "relative", height: "calc(100vh - 100px)" }}
             >
               <Grid
                 container
                 spacing={2}
                 sx={{
                   overflowY: "scroll",
-                  maxHeight: "calc(100vh - 150px)",
+                  maxHeight: "calc(100vh - 200px)",
                   "&::-webkit-scrollbar": {
                     width: 0,
                   },
@@ -643,29 +645,32 @@ const PaymentPage = () => {
                       >
                         <img
                           style={{
-                            borderRadius: 2,
-                            aspectRatio:1/1
+                            width: "20%",
+                            objectFit: "cover",
+                            aspectRatio: 1 / 1,
                           }}
                           width={100}
                           src={photo_url + basket.img}
                           alt={basket.name}
                         />
-                        <span 
-                        style={{ 
-                          position: "absolute", 
-                          backgroundColor:'red',
-                          width:20,
-                          height:20,
-                          display:'flex',
-                          justifyContent:'center',
-                          alignItems:'center',
-                          fontSize:13,
-                          top:-10,
-                          right:'47%',
-                          color:'white',
-                          borderRadius:"50%"
-
-                        }}>{basket.count}</span>
+                        <span
+                          style={{
+                            position: "absolute",
+                            backgroundColor: "red",
+                            width: 20,
+                            height: 20,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontSize: 13,
+                            top: -10, 
+                            left: 80, 
+                            color: "white",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          {basket.count}
+                        </span>
                         <Stack ml={2}>
                           <strong>{basket.name}</strong>
                           <Typography
@@ -676,16 +681,22 @@ const PaymentPage = () => {
                           </Typography>
                         </Stack>
                       </Box>
-                      <Typography sx={{ fontWeight: "bolder" }}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bolder",
+                          mr: 2,
+                          minWidth: "100px", 
+                          textAlign: "right", 
+                        }}
+                      >
                         {(basket.price * basket.count).toFixed(2)} TL
                       </Typography>
                     </Box>
                   </Grid>
                 ))}
               </Grid>
-              <Box sx={{ position: "relative", bottom: 0, width: "100%" }}>
+              <Box sx={{ position: "absolute", bottom: 0, width: "100%" }}>
                 <Grid
-                  mt={3}
                   container
                   justifyContent="space-between"
                   alignItems="center"
@@ -701,8 +712,8 @@ const PaymentPage = () => {
                     display="flex"
                     justifyContent="space-between"
                   >
-                    <Typography>Ara Toplam ?</Typography>
-                    <Typography>{(total).toFixed(2)} TL</Typography>
+                    <Typography>Ara Toplam</Typography>
+                    <Typography>{total.toFixed(2)} TL</Typography>
                   </Stack>
                   <Stack
                     width={"100%"}
@@ -711,7 +722,9 @@ const PaymentPage = () => {
                     justifyContent="space-between"
                   >
                     <Typography fontWeight={"bolder"}>Toplam</Typography>
-                    <Typography fontWeight={"bolder"}>{(total).toFixed(2)} TL</Typography>
+                    <Typography fontWeight={"bolder"}>
+                      {total.toFixed(2)} TL
+                    </Typography>
                   </Stack>
                 </Grid>
               </Box>

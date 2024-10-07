@@ -32,7 +32,7 @@ const ProductCard = ({
 
   return (
     <>
-    <Grid item xs={6} md={4} lg={2} >
+    <Grid item xs={6} md={4} lg={2}>
       <Link style={{position:'relative'}} to={`#`}>
         {discounted_price && (
           <Stack className="discountPrice">
