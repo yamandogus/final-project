@@ -5,13 +5,11 @@ import {
   Card,
   ClickAwayListener,
   Divider,
-  dividerClasses,
   Drawer,
   IconButton,
   InputAdornment,
   List,
   ListItem,
-  Modal,
   Popper,
   Stack,
   TextField,
@@ -28,11 +26,10 @@ import SecondNavbarComponent from "../components/Navbar/SecondNavbarComponet";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { usePaymentStore } from "../pages/Payement";
 import { useStore } from "./Count";
-import { base_url, photo_url } from "../components/Bestseller/CokSatanlar";
+import { base_url, photo_url } from "../components/Bestseller/BestSellers";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDebounce } from "./Navbar/Navbar";
 import { SearchPropsPt } from "./Navbar";
-
 interface LinksProps {
   id: string;
   name: string;
@@ -66,10 +63,14 @@ const SecondNavbar = () => {
       const response = await fetch(
         base_url + `/products/?limit=1000&search=${debouncedSearch}`
       );
-      console.log(response);
       const responseJson = await response.json();
-      console.log(responseJson);
-      setSearchResults(responseJson.data.results);
+      
+      if(responseJson.data.results.length === 0){
+        setDebounced(`${debouncedSearch} adında bir ürün bulunamadı.`)
+      }else{
+        setSearchResults(responseJson.data.results);
+        setDebounced("")
+      }
     } catch (error) {
       console.log(error);
       setSearchResults([]);
@@ -190,7 +191,11 @@ const SecondNavbar = () => {
                 <Stack direction={"row"} spacing={2}>
                   <img
                     width={70}
-                    height={55}
+                    height={60}
+                    style={{
+                      aspectRatio:1/1,
+                      objectFit:"cover"
+                    }}
                     src={photo_url + basket.img}
                     alt="Product"
                   />
@@ -301,13 +306,6 @@ const SecondNavbar = () => {
   };
 
 
-  useEffect(()=>{
-    const timer = setTimeout(() => {
-        setDebounced(debouncedSearch + " adında bir ürün bulunamadı")
-    }, 6000);
-    return ()=> clearTimeout(timer)
-  }, [debouncedSearch])
-  
 
   return (
     <>
@@ -368,15 +366,19 @@ const SecondNavbar = () => {
               }}
             />
             {searchResults.length > 0 ? (
-              <Popper
+              <Box>
+               <Popper
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 style={{width: "100%", zIndex: 1855 }}
               >
                 <List
                   sx={{
+                    left:"2.5%",
+                    width:"95%",
+                    marginTop:1,
                     padding: 0,
-                    backgroundColor: "white",
+                    backgroundColor: "#F4FAFF",
                     maxHeight: "400px",
                     overflow: "auto",
                     borderRadius: 2,
@@ -399,35 +401,34 @@ const SecondNavbar = () => {
                       {product.name}
                     </ListItem>
                   ))}
+                {searchResults ? <Link
+                to={"/AllProducts"}
+                onClick={()=> setAnchorEl(null)}
+                style={{
+                  margin:5,
+                  display:"flex",
+                  textDecoration:'none',
+                  textTransform:"none",
+                  color:"red"
+                }} 
+                >Tüm Ürünler <NavigateNextIcon style={{fontSize:20}}/></Link> : ""}
                 </List>
-                {debouncedSearch && (
-                  <Button
-                    onClick={handleClosePopper}
-                    sx={{
-                      backgroundColor: "white",
-                      color: "black",
-                      fontSize: 30,
-                      borderRadius: "50%",
-                      left: "40%",
-                      marginTop: 2,
-                    }}
-                  >
-                    X
-                  </Button>
-                )}
               </Popper>
-            ):<div>{!debouncedSearch ? " ": <div    style={{
+              </Box>
+            ):<div>{!debouncedSearch ? " ": <div style={{
               display:"flex",
               width:"90%",
               borderRadius:2,
               transform: "translate(-50%)",
               left:"50%",
               backgroundColor:"white",
-              padding: "10px 5px",
+              paddingLeft:10,
               zIndex: 1855,
               position: "absolute",
             }}>
-              {debounced}
+              {debounced ?(
+             <Typography>{debounced}</Typography>
+             ) : null }
             </div>}</div>}
           </Box>
         </ClickAwayListener>

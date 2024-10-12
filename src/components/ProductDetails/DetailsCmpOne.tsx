@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Accordions from "../Accordions/Accordions";
-import { photo_url } from "../Bestseller/CokSatanlar";
+import { photo_url } from "../Bestseller/BestSellers";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import { color } from "./details";

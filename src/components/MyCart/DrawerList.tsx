@@ -10,7 +10,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { usePaymentStore } from "../../pages/Payement";
-import { photo_url } from "../Bestseller/CokSatanlar";
+import { photo_url } from "../Bestseller/BestSellers";
 import { useStore } from "../../Layout/Count";
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -29,9 +29,11 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
     removeCount()
   }
 
+
+
   return (
     <Box
-      sx={{ width: 360, height: "100vh", display: 'flex', flexDirection: 'column' }}
+      sx={{ width: 380, height: "100vh", display: 'flex', flexDirection: 'column' }}
       role="presentation"
       onClick={(e) => e.stopPropagation()}
     >
@@ -82,8 +84,9 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
               >
                 <Stack direction={"row"} spacing={2}>
                   <img style={{
-                    width:"30%",
-                    aspectRatio:1/1
+                    width:90,
+                    aspectRatio:1/1,
+                    objectFit:"cover"
                   }} src={photo_url + basket.img} alt="Product" />
                   <Stack
                     direction={"row"}

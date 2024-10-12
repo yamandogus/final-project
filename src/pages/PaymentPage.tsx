@@ -20,9 +20,9 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useAddressesStore } from "../components/Account/Addresses/Address";
 import { usePaymentStore } from "./Payement";
-import { photo_url } from "../components/Bestseller/CokSatanlar";
 import HttpsIcon from "@mui/icons-material/Https";
 import { useState } from "react";
+import { photo_url } from "../components/Bestseller/BestSellers";
 
 const CustomAccordion = styled(Accordion)({
   border: "none",

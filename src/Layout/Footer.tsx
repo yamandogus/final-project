@@ -11,11 +11,11 @@ const contactLinks: Link[] = [
   { to: "/AboutUs", label: "Hakkımızda" },
   { to: "/SSS", label: "Sıkça Sorulan Sorular" },
   { to: "/KVKK", label: "KVKK" },
-  { to: "/Principles", label: "Çalışma İlkelerimiz" },
-  { to: "/SalesAgreement", label: "Satış Sözleşmesi" },
-  { to: "/WarrantyReturns", label: "Garanti ve İade Koşulları" },
-  { to: "/CustomerReviews", label: "Gerçek Müşteri Yorumları" },
-  { to: "/Blog", label: "Blog" },
+  { to: "/", label: "Çalışma İlkelerimiz" },
+  { to: "/", label: "Satış Sözleşmesi" },
+  { to: "/", label: "Garanti ve İade Koşulları" },
+  { to: "/", label: "Gerçek Müşteri Yorumları" },
+  { to: "/", label: "Blog" },
 ];
 
 const popularProductsLinks: Link[] = [

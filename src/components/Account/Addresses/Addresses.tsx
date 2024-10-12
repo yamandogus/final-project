@@ -3,18 +3,22 @@ import {
   Button,
   Container,
   Grid,
+  MenuItem,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChangeEvent } from "react";
 import { useAddressesStore } from "./Address";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
+import useSnackbar from "../../../hooks/alert";
+import { base_url } from "../../Bestseller/BestSellers";
+import { CityProps, DistrictProps } from "../../../services/city-district";
 
 const Addresses: React.FC = () => {
   const {
@@ -38,6 +42,14 @@ const Addresses: React.FC = () => {
   } = useAddressesStore();
 
   const [isAddressSaved, setIsAddressSaved] = useState(addAddress.length > 0);
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
+  const [cities, setCities] = useState<CityProps[]>([]);
+  const [districts, setDistricts] = useState<DistrictProps[]>([]);
+
+  useEffect(() => {
+    fetchCity();
+  }, []);
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -61,23 +73,52 @@ const Addresses: React.FC = () => {
       alert("Lütfen tüm alanları doldurun.");
       return;
     }
-    addAddress({
-      title,
-      address,
-      city,
-      district,
-      firstName,
-      lastName,
-      phone,
-    });
-    setTitle("");
-    setAddress("");
-    setCity("");
-    setDistrict("");
-    setFirstName("");
-    setLastName("");
-    setPhone("");
-    setIsAddressSaved(true);
+    if (editIndex !== null) {
+      const updatedAddress = [...addresses];
+      updatedAddress[editIndex] = {
+        title,
+        city,
+        firstName,
+        lastName,
+        district,
+        address,
+        phone,
+      };
+      useAddressesStore.setState({ addresses: updatedAddress });
+      setEditIndex(null);
+      setIsAddressSaved(true);
+      showSnackbar("Adres Güncellendi", "success");
+      setAddress("");
+      setCity("");
+      setDistrict("");
+      setFirstName("");
+      setLastName("");
+      setTitle("");
+      setPhone("");
+      setCities([]);
+      setDistricts([]);
+    } else {
+      addAddress({
+        title,
+        city,
+        firstName,
+        lastName,
+        district,
+        address,
+        phone,
+      });
+      setIsAddressSaved(true);
+      showSnackbar("Adres Kaydedildi", "success");
+      setAddress("");
+      setCity("");
+      setDistrict("");
+      setFirstName("");
+      setLastName("");
+      setTitle("");
+      setPhone("");
+      setCities([]);
+      setDistricts([]);
+    }
   };
 
   const handleDeleteAddress = (index: number) => {
@@ -86,6 +127,25 @@ const Addresses: React.FC = () => {
       setIsAddressSaved(false);
     }
   };
+
+  async function fetchCity() {
+    const responseCity = await fetch(
+      base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+    );
+    const dataCity = await responseCity.json();
+    console.log(dataCity.data.results);
+    setCities(dataCity.data.results);
+  }
+
+  async function fetchDistrict(selectedCity: string) {
+    const responseDistrict = await fetch(
+      base_url +
+        `/world/subregion?limit=30&offset=0&region-name=${selectedCity}`
+    );
+    const dataDistrict = await responseDistrict.json();
+    console.log(dataDistrict.data.results);
+    setDistricts(dataDistrict.data.results);
+  }
 
   return (
     <Box>
@@ -100,11 +160,15 @@ const Addresses: React.FC = () => {
                 mb: 2,
               }}
             >
-              <Typography variant="subtitle1">
-                Adreslerim ({addresses.length})
+              <Typography sx={{ textTransform: "none" }} variant="subtitle1">
+                ADRESLERİM(
+                <strong style={{ color: "red" }}>{addresses.length}</strong>)
               </Typography>
-              <Button onClick={() => setIsAddressSaved(false)}>
-                Adres Ekle
+              <Button
+                sx={{ textTransform: "none", fontWeight: "bolder" }}
+                onClick={() => setIsAddressSaved(false)}
+              >
+                ADRES EKLE
               </Button>
             </Box>
             <Grid container spacing={3}>
@@ -132,7 +196,7 @@ const Addresses: React.FC = () => {
                         gap: 1,
                       }}
                     >
-                      <HomeIcon /> {address.address}, {address.district},{" "}
+                      <HomeIcon /> {address.address} {address.district}/{" "}
                       {address.city}
                     </Typography>
                     <Typography
@@ -169,6 +233,7 @@ const Addresses: React.FC = () => {
                         variant="text"
                         onClick={() => handleDeleteAddress(index)}
                         sx={{
+                          textTransform: "none",
                           "&:hover": {
                             color: "red",
                           },
@@ -177,7 +242,22 @@ const Addresses: React.FC = () => {
                         <DeleteIcon />
                         Sil
                       </Button>
-                      <Button>Adresi Düzenle</Button>
+                      <Button
+                        sx={{ textTransform: "none" }}
+                        onClick={() => {
+                          setEditIndex(index);
+                          setTitle(address.title);
+                          setAddress(address.address);
+                          setCity(address.city);
+                          setDistrict(address.district);
+                          setFirstName(address.firstName);
+                          setLastName(address.lastName);
+                          setPhone(address.phone);
+                          setIsAddressSaved(false);
+                        }}
+                      >
+                        Adresi Düzenle
+                      </Button>
                     </Stack>
                   </Box>
                 </Grid>
@@ -188,9 +268,23 @@ const Addresses: React.FC = () => {
       ) : (
         <Box mb={10}>
           <Box mb={2}>
-            <Typography fontWeight="bolder" variant="subtitle1">
-              Adres Oluştur
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography fontWeight="bolder" variant="subtitle1">
+                {editIndex !== null ? "Adresi Düzenle" : "Adres Oluştur"}
+              </Typography>
+              <Button
+                onClick={() => setIsAddressSaved(true)}
+                sx={{ textTransform: "none" }}
+              >
+                Adreslerim ➝
+              </Button>
+            </Box>
             {addresses.length === 0 && (
               <Stack
                 sx={{
@@ -252,22 +346,48 @@ const Addresses: React.FC = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  id="outlined-select-currency"
-                  value={city}
-                  label="Şehir"
                   fullWidth
-                  onChange={(e) => setCity(e.target.value)}
+                  select
+                  value={city}
+                  onFocus={() => fetchCity()}
+                  SelectProps={{
+                    MenuProps: {disableScrollLock:true}
+                  }}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                    fetchDistrict(e.target.value);
+                  }}
                   required
-                />
+                  label="Şehir"
+                >
+                  {cities.map((option) => (
+                    <MenuItem
+                    key={option.id} value={option.name}>
+                      {option.name.split(" ")[0]}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  value={district}
-                  onChange={(e) => setDistrict(e.target.value)}
                   fullWidth
-                  label="İlçe"
+                  select
+                  value={district}
+                  SelectProps={{
+                    MenuProps:{
+                      disableScrollLock: true
+                    }
+                  }}
+                  onChange={(e) => setDistrict(e.target.value)}
                   required
-                />
+                  label="İlçe"
+                >
+                  {districts.map((district, index) => (
+                    <MenuItem key={index} value={district.name}>
+                      {district.name.split(" ")[0]}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12}>
                 <MuiPhoneNumber
@@ -286,17 +406,19 @@ const Addresses: React.FC = () => {
                   variant="contained"
                   sx={{
                     py: 1,
+                    textTransform: "none",
                     backgroundColor: "black",
                     "&:hover": { backgroundColor: "black" },
                   }}
                 >
-                  Kaydet
+                  {editIndex !== null ? "Güncelle" : "Kaydet"}
                 </Button>
               </Grid>
             </Grid>
           </form>
         </Box>
       )}
+      <SnackbarComponent />
     </Box>
   );
 };

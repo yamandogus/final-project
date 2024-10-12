@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -16,6 +16,7 @@ import {
   Stack,
   TextField,
   Modal,
+  Popper,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
@@ -25,7 +26,7 @@ import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
 import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { useStore } from "./Count";
-import { base_url, photo_url } from "../components/Bestseller/CokSatanlar";
+import { base_url, photo_url } from "../components/Bestseller/BestSellers";
 import { useDebounce } from "./Navbar/Navbar";
 
 export interface LinksProps {
@@ -82,7 +83,6 @@ export async function LinksLoader() {
   }
 }
 
-
 function Navbar() {
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
   const navigate = useNavigate();
@@ -93,21 +93,21 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState<SearchPropsPt[]>([]);
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
-  const debouncedSearch = useDebounce(search, 1000)
-
-  useEffect(()=>{
-    if(debouncedSearch){
+  const debouncedSearch = useDebounce(search, 1000);
+  useEffect(() => {
+    if (debouncedSearch) {
       handleSearchResults();
-    }else{
-      setSearchResults([])
+    } else {
+      setSearchResults([]);
     }
-  },[debouncedSearch])
+  }, [debouncedSearch]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleOpenModal = (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setOpenModalIndex(index);
-  };
-  
+  const handleOpenModal =
+    (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setOpenModalIndex(index);
+    };
+
   const handleCloseModal = () => {
     setOpenModalIndex(null);
   };
@@ -136,31 +136,41 @@ function Navbar() {
       );
       const data = await response.json();
       setSearchResults(data.data.results);
-      setSearchModal(true); 
+      setSearchModal(true);
     } catch (error) {
       console.log("Ürün bulunamadı: ", error);
-      setSearchResults([]); 
-      setSearchModal(true); 
+      setSearchResults([]);
+      setSearchModal(true);
     }
   };
-  
+
   const handleCloseClear = () => {
     setSearchModal(false);
     setSearch("");
   };
 
-
-
   return (
     <>
       <Box component="div" className="firstNavbar">
-        <AppBar position="static" sx={{ backgroundColor: "white", color: "black" }}>
+        <AppBar
+          position="static"
+          sx={{ backgroundColor: "white", color: "black" }}
+        >
           <Container>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Toolbar>
                 <Typography variant="h6" component="div">
                   <Link to="/Home">
-                    <img className="navImg" width={160} src="/images/Logo/Logo1.png" alt="" />
+                    <img
+                      className="navImg"
+                      width={160}
+                      src="/images/Logo/Logo1.png"
+                      alt=""
+                    />
                   </Link>
                 </Typography>
               </Toolbar>
@@ -176,6 +186,7 @@ function Navbar() {
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
+                    value={search}
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
                         handleSearchResults();
@@ -210,19 +221,19 @@ function Navbar() {
                       },
                     }}
                   />
-                  <Modal
+                  <Popper
                     sx={{
+                      zIndex: 15662,
                       mt: 10,
-                      left: "45%",
+                      left: "10dd%",
                       width: "35vw",
+                      transform: "translateX(120%)",
                     }}
-                    disableScrollLock
                     open={searchModal}
-                    onClose={() => setSearchModal(false)}
-                    
+                    onMouseLeave={() => handleCloseClear()}
                   >
                     <Box
-                    onMouseLeave= {()=> setSearchModal(false)}
+                      onMouseLeave={() => setSearchModal(false)}
                       sx={{
                         py: 1,
                         backgroundColor: "white",
@@ -260,8 +271,8 @@ function Navbar() {
                                 alt=""
                                 style={{
                                   borderRadius: 5,
-                                  width:90,
-                                  aspectRatio:1/1
+                                  width: 90,
+                                  aspectRatio: 1 / 1,
                                 }}
                               />
                             </Box>
@@ -270,7 +281,11 @@ function Navbar() {
                                 <Typography variant="subtitle1">
                                   {search.name}
                                 </Typography>
-                                <Typography textTransform={"lowercase"} color="gray" variant="subtitle2">
+                                <Typography
+                                  textTransform={"lowercase"}
+                                  color="gray"
+                                  variant="subtitle2"
+                                >
                                   {search.short_explanation}
                                 </Typography>
                               </Stack>
@@ -296,12 +311,16 @@ function Navbar() {
                         <Typography>Ürün Bulunamadı</Typography>
                       )}
                     </Box>
-                  </Modal>
+                  </Popper>
                 </FormGroup>
                 <Button
                   variant="outlined"
                   color="inherit"
+                  aria-label="more"
+                  aria-controls="long-menu"
+                  aria-haspopup="true"
                   onClick={handleClick}
+                  onMouseLeave={() => handleClose}
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -312,19 +331,28 @@ function Navbar() {
                   <ArrowDropDownIcon />
                 </Button>
                 <Menu
-                  disableScrollLock
+                  id="simple-menu"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
+                  MenuListProps={{onMouseLeave: handleClose}}
+                  disableScrollLock
+                  
                 >
                   <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
-                    <Link className="accountLinkNav" to="MyAccount">Hesabım</Link>
+                    <Link className="accountLinkNav" to="MyAccount">
+                      Hesabım
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <Link className="accountLinkNav" to="Login">Üye Girişi</Link>
+                    <Link className="accountLinkNav" to="Login">
+                      Üye Girişi
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <Link className="accountLinkNav" to="SingUp">Üye Ol</Link>
+                    <Link className="accountLinkNav" to="SingUp">
+                      Üye Ol
+                    </Link>
                   </MenuItem>
                 </Menu>
                 <Button
@@ -346,10 +374,13 @@ function Navbar() {
                   anchor="right"
                   open={open}
                   onClose={toggleDrawer(false)}
+                  sx={{
+
+                  }}
                 >
                   <DrawerListCoponent
-                    onCloseDrawer={toggleDrawer(false)} 
-                    onCountine={handleContinue} 
+                    onCloseDrawer={toggleDrawer(false)}
+                    onCountine={handleContinue}
                   />
                 </Drawer>
               </Stack>
@@ -377,7 +408,10 @@ function Navbar() {
                       aria-describedby="modal-modal-description"
                     >
                       <Box onMouseLeave={handleCloseModal}>
-                        <NavbarModal links={allProduct[index]} onClose={handleCloseModal} />
+                        <NavbarModal
+                          links={allProduct[index]}
+                          onClose={handleCloseModal}
+                        />
                       </Box>
                     </Modal>
                   </React.Fragment>

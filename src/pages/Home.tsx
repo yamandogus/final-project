@@ -1,10 +1,11 @@
 import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
-import CokSatanlar from "../components/Bestseller/CokSatanlar";
+
 import HomeComp from "../components/HomePage/HomeComp";
 import SliderComponent from "../components/UseBlaze/SliderComponent";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
+import BestSeller from "../components/Bestseller/BestSellers";
 
 const products = [
   {
@@ -120,7 +121,7 @@ const Home = () => {
           ))}
         </Grid>
       </Container>
-      <CokSatanlar />
+      <BestSeller />
       <Box sx={{ mt: 3 }} position={"relative"}>
         <img
           className="homePage2"

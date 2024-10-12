@@ -29,6 +29,7 @@ interface AddressesProps {
   addresses: Address[];
   addAddress: (newAddress: Address) => void;
   removeAddress: (index: number) => void;
+  updateAddress: (index: number, updatedAddress:Address) => void;
 }
 
 export const useAddressesStore = create(
@@ -55,7 +56,14 @@ export const useAddressesStore = create(
         set((state) => ({
           addresses: state.addresses.filter((_, i) => i !== index),
         })),
-    }),
+        updateAddress: (index: number, updatedAddress: Address) =>
+          set((state)=>({
+            addresses: state.addresses.map((address, i)=>
+            i === index ? updatedAddress : address
+            ),
+          }))
+        }
+    ),
     {
       name: "addresses-storage",
       getStorage: () => localStorage,

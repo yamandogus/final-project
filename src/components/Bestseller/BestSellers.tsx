@@ -30,7 +30,7 @@ export async function loader() {
 }
 
 
-const CokSatanlar = () => {
+const BestSeller = () => {
   const {products} = useLoaderData() as {products : BestsellerPropsCS[] }
   
   return (
@@ -63,4 +63,4 @@ const CokSatanlar = () => {
   );
 }
 
-export default CokSatanlar;
+export default BestSeller;

@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { LinksProps } from "../../Layout/Navbar/Navbar";
-import { photo_url } from "../Bestseller/CokSatanlar";
+import { photo_url } from "../Bestseller/BestSellers";
 import { Link } from "react-router-dom";
+import { LinksProps } from "../../Layout/Navbar";
 
 interface NavbarModalProps {
   links: LinksProps;
@@ -36,6 +36,9 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
                         marginRight: "10px",
                         marginBottom: "10px",
                         borderRadius: "5px",
+                        width:80,
+                        aspectRatio:1/1,
+                        objectFit:"cover"
                       }}
                       width={80}
                       src={photo_url + link.picture_src}

@@ -3,13 +3,15 @@ import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography }
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {  handleRegister, LoginPayload } from "./LoginAndSingUp";
-import { base_url } from "../Bestseller/CokSatanlar";
+import { base_url } from "../Bestseller/BestSellers";
+import useSnackbar from "../../hooks/alert";
 
 
 
 const Login = () => {
   const [value, setValue] = useState("1");
   const navigate = useNavigate()
+  const {showSnackbar, SnackbarComponent} = useSnackbar()
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -35,7 +37,7 @@ const Login = () => {
      });
 
      if(!response.ok){
-      alert("Kullanıcı adı veya şifre hatalı")
+      showSnackbar("Kullanıcı adı veya şifre hatalı", "error")
      }else{
       console.log(response);  
   
@@ -52,7 +54,7 @@ const Login = () => {
      }
     } catch (error) {
      console.log(error);
-     alert("Kullanıcı adı veya şifre hatalı")
+     showSnackbar("Kullanıcı adı veya şifre hatalı", "error")
     }
    };
 
@@ -80,7 +82,7 @@ const Login = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <TextField id="password" label="Şifre" name="password" type="password" autoComplete="current-password" required />
+                    <TextField id="login-password" label="Şifre" name="password" type="password" autoComplete="current-password" required />
                     <Typography variant="subtitle2" sx={{ mt: 2, textAlign: "end" }}>
                       <Link to="">Şifremi Unuttum?</Link>
                     </Typography>
@@ -116,7 +118,7 @@ const Login = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <TextField id="password" name="password" label="Şifre" type="password" required />
+                    <TextField id="register-password" name="password" label="Şifre" type="password" required />
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -135,6 +137,7 @@ const Login = () => {
           </Box>
         </TabContext>
       </Container>
+      <SnackbarComponent/>
     </Box>
   );
 };
