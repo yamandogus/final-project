@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Backdrop,
   Box,
   Button,
   Card,
@@ -10,7 +11,7 @@ import {
   InputAdornment,
   List,
   ListItem,
-  Popper,
+  Modal,
   Stack,
   TextField,
   Toolbar,
@@ -51,7 +52,7 @@ const SecondNavbar = () => {
   const { removeCount, countBasket } = useStore();
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<SearchPropsPt[]>([]);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
   const totalAll: number = Math.ceil(
     basketItems.reduce((arr, index) => arr + index.price, 0)
   );
@@ -301,7 +302,7 @@ const SecondNavbar = () => {
   };
 
   const handleClosePopper = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
     setSearch("")
   };
 
@@ -350,13 +351,16 @@ const SecondNavbar = () => {
               value={search}
               onChange={handleSearchChange}
               sx={{
+                zIndex:1600,
                 my: 1,
                 width: "100%",
                 maxWidth: "100%",
+                
               }}
               InputProps={{
                 sx: {
                   borderRadius: 35,
+                  backgroundColor:"white",
                 },
                 startAdornment: (
                   <InputAdornment position="start">
@@ -367,10 +371,21 @@ const SecondNavbar = () => {
             />
             {searchResults.length > 0 ? (
               <Box>
-               <Popper
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                style={{width: "100%", zIndex: 1855 }}
+               <Modal
+                open={anchorEl}
+                onClose={()=>setAnchorEl(false)}
+                style={{width: "100%"}}
+                slots={{
+                  backdrop:Backdrop
+                }}
+                slotProps={{
+                  backdrop:{
+                    timeout:500
+                  }
+                }}
+                disableAutoFocus={true}
+                disableEnforceFocus={true}
+                disableScrollLock={true}
               >
                 <List
                   sx={{
@@ -378,6 +393,8 @@ const SecondNavbar = () => {
                     width:"95%",
                     marginTop:1,
                     padding: 0,
+                    top:110,
+                    zIndex: 1500,
                     backgroundColor: "#F4FAFF",
                     maxHeight: "400px",
                     overflow: "auto",
@@ -403,7 +420,10 @@ const SecondNavbar = () => {
                   ))}
                 {searchResults ? <Link
                 to={"/AllProducts"}
-                onClick={()=> setAnchorEl(null)}
+                onClick={()=> {
+                  setAnchorEl(false)
+                  setSearch("")
+                }}
                 style={{
                   margin:5,
                   display:"flex",
@@ -413,7 +433,7 @@ const SecondNavbar = () => {
                 }} 
                 >Tüm Ürünler <NavigateNextIcon style={{fontSize:20}}/></Link> : ""}
                 </List>
-              </Popper>
+              </Modal>
               </Box>
             ):<div>{!debouncedSearch ? " ": <div style={{
               display:"flex",

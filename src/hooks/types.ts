@@ -13,7 +13,7 @@ export interface Product {
                 value: string;
             }[];
             nutrition_facts: {
-                ingredients: [];
+                ingredients: Ingredient[];
                 portion_sizes: [];
             };
             amino_acid_facts: null;
@@ -47,3 +47,8 @@ export interface ProductVariantSize {
     total_services: number;
     gram?: number;
 }
+
+export interface Ingredient {
+    name: string;  
+    amounts: string; 
+  }

@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Container,
@@ -14,21 +17,22 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import Accordions from "../Accordions/Accordions";
 import { photo_url } from "../Bestseller/BestSellers";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import { color } from "./details";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../../pages/Payement";
 import { useStore } from "../../Layout/Count";
+import useSnackbar from "../../hooks/alert";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface Props {
   product: Product;
   tags: string[];
 }
 
-const DetailsCmpOne = ({ product, tags}: Props) => {
+const DetailsCmpOne = ({ product, tags }: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -38,39 +42,43 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
     isSizeAvailable,
     selectAroma,
     selectSize,
-  } = useProductVariants(product.variants ??[]);
-  const {increaseCount}= useStore()
-  const {addBasketItems} = usePaymentStore()
+  } = useProductVariants(product.variants ?? []);
+  const { increaseCount } = useStore();
+  const { addBasketItems } = usePaymentStore();
   const [count, setCount] = useState<number>(1);
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
 
- const handleProductAdded = () =>{
-  if(selectedVariant){
-    const newItem = {
-      img: selectedVariant.photo_src,
-      gram: selectedVariant.size?.gram,
-      name: product.name,
-      aroma: selectedVariant.aroma,
-      price: selectedVariant.price.discounted_price||selectedVariant.price.total_price,
-      count: count,
-    };
-    addBasketItems(newItem)
-    increaseCount()
-    setCount(1)
-  }
- }
-  
+  const handleProductAdded = () => {
+    if (selectedVariant) {
+      const newItem = {
+        img: selectedVariant.photo_src,
+        gram: selectedVariant.size?.gram,
+        name: product.name,
+        aroma: selectedVariant.aroma,
+        price:
+          selectedVariant.price.discounted_price ||
+          selectedVariant.price.total_price,
+        count: count,
+      };
+      addBasketItems(newItem);
+      increaseCount();
+      setCount(1);
+      showSnackbar("Ürün sepete eklendi", "success");
+    }
+  };
 
+  const culculateDiscount = (
+    total_price: number,
+    discounted_price: number | null
+  ) => {
+    if (discounted_price === null) return 0;
+    const discountedAmount = total_price - discounted_price;
+    const discountedPercentage = (discountedAmount / total_price) * 100;
+    return Math.round(discountedPercentage);
+  };
 
- const culculateDiscount = (total_price: number, discounted_price: number | null)=>{
-  
-  if(discounted_price === null) return 0;
-  const discountedAmount = total_price- discounted_price;
-  const discountedPercentage = (discountedAmount / total_price) * 100;
-  return Math.round(discountedPercentage)
- }
-  
-  const currentVariant = selectedVariant || product.variants[0]
-  const currentPrice = currentVariant?.price
+  const currentVariant = selectedVariant || product.variants[0];
+  const currentPrice = currentVariant?.price;
   return (
     <>
       <Box sx={{ mt: 5 }}>
@@ -79,22 +87,82 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
             <Grid item sm={12} md={6} key={product.id}>
               <img
                 className="pageTwoImg"
-                src={photo_url +(selectedVariant.photo_src)}
+                src={photo_url + selectedVariant.photo_src}
                 alt=""
               />
+              
               <Box component={"div"} className="mobileAccordion">
-                <Accordions
-                  title={"ÖZELLİKLER"}
-                  details={product.explanation.usage || " "}
-                />
-                <Accordions
-                  title={"BESİN İÇERİĞİ"}
-                  details={product.explanation.features || " "}
-                />
-                <Accordions
-                  title={"KULLANIM KOŞULLARI"}
-                  details={product.explanation.description || " "}
-                />
+              <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      ÖZELLİKLER
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {product.explanation.features || " "}
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      BESİN İÇERİĞİ
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack
+                        direction={"row"}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Typography sx={{ fontWeight: "bolder" }}>
+                          BESİN DEĞERİ
+                        </Typography>
+                        <Typography sx={{ fontWeight: "bolder" }}>
+                          25 g servis için
+                        </Typography>
+                      </Stack>
+                      <Stack>
+                        {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
+                          (ing, index) => (
+                            <Stack
+                              key={index}
+                              direction={"row"}
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Typography>{ing.name}</Typography>
+                              <Typography>{ing.amounts}</Typography>
+                            </Stack>
+                          )
+                        )}
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3-content"
+                      id="panel3-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      ÖZELLİKLER
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {product.explanation.features || " "}
+                    </AccordionDetails>
+                  </Accordion>
               </Box>
             </Grid>
             <Grid item container sm={12} md={6}>
@@ -208,50 +276,61 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                               label={
                                 <Box
                                   display="flex"
-                                  justifyContent='center'
+                                  justifyContent="center"
                                   alignItems="center"
                                   position="relative"
                                 >
                                   {size.pieces} x {size.gram} gr
                                   <span>
-                                  {!isSizeAvailable(size) && product.variants[index].price.discounted_price  &&(
-                                    <span
-                                    style={{
-                                      position:"absolute",
-                                      top:-34,
-                                      left:"50%",
-                                      padding:2,
-                                      fontSize:"14px",
-                                      transform:'translateX(-50%)',
-                                      fontWeight:'bolder',
-                                      borderRadius:2,
-                                      backgroundColor:'red',
-                                      color:'white',
-                                      whiteSpace:'nowrap',
-                                      border:1,
-                                    }}
-                                    > %{culculateDiscount(
-                                      product.variants[index].price.total_price,
-                                      product.variants[index].price.discounted_price
-                                    )} İndirim</span>
-                                  )}
+                                    {!isSizeAvailable(size) &&
+                                      product.variants[index].price
+                                        .discounted_price && (
+                                        <span
+                                          style={{
+                                            position: "absolute",
+                                            top: -34,
+                                            left: "50%",
+                                            padding: 2,
+                                            fontSize: "14px",
+                                            transform: "translateX(-50%)",
+                                            fontWeight: "bolder",
+                                            borderRadius: 2,
+                                            backgroundColor: "red",
+                                            color: "white",
+                                            whiteSpace: "nowrap",
+                                            border: 1,
+                                          }}
+                                        >
+                                          {" "}
+                                          %
+                                          {culculateDiscount(
+                                            product.variants[index].price
+                                              .total_price,
+                                            product.variants[index].price
+                                              .discounted_price
+                                          )}{" "}
+                                          İndirim
+                                        </span>
+                                      )}
                                   </span>
                                   <span
                                     style={{
                                       position: "absolute",
                                       height: 80,
-                                      right:0,
+                                      right: 0,
                                       display: "flex",
                                       justifyContent: "center",
                                       alignItems: "center",
                                     }}
                                   >
-                                    {isSizeAvailable(size) && <CloseIcon 
-                                    sx={{
-                                      maxWidth:100,
-                                      fontSize:70
-                                    }}
-                                    />}{" "}
+                                    {isSizeAvailable(size) && (
+                                      <CloseIcon
+                                        sx={{
+                                          maxWidth: 100,
+                                          fontSize: 70,
+                                        }}
+                                      />
+                                    )}{" "}
                                   </span>
                                 </Box>
                               }
@@ -270,18 +349,34 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                     my: 2,
                   }}
                 >
-                  <Stack direction={'row'} spacing={1}>
-                      {currentPrice?.discounted_price ? (
-                        <>
-                         <span style={{fontWeight:'bolder', color:'red',fontSize: 30, marginRight:3}}>
+                  <Stack direction={"row"} spacing={1}>
+                    {currentPrice?.discounted_price ? (
+                      <>
+                        <span
+                          style={{
+                            fontWeight: "bolder",
+                            color: "red",
+                            fontSize: 30,
+                            marginRight: 3,
+                          }}
+                        >
                           {Math.floor(currentPrice.discounted_price)} TL <br />
                         </span>
-                        <span style={{ fontWeight: "bolder",fontSize: 30, textDecoration:'line-through' }}>{currentPrice.total_price} TL</span>
-                        </>
-                      ):
-                      <span style={{ fontWeight: "bolder",fontSize: 30 }}>{currentPrice.total_price} TL</span>
-                      }
-                    
+                        <span
+                          style={{
+                            fontWeight: "bolder",
+                            fontSize: 30,
+                            textDecoration: "line-through",
+                          }}
+                        >
+                          {currentPrice.total_price} TL
+                        </span>
+                      </>
+                    ) : (
+                      <span style={{ fontWeight: "bolder", fontSize: 30 }}>
+                        {currentPrice.total_price} TL
+                      </span>
+                    )}
                   </Stack>
                   <Box>
                     <span>
@@ -311,8 +406,10 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                       +
                     </button>
                   </Box>
-                  <Button className="ShoppinAdButton" variant="contained"
-                  onClick={handleProductAdded}
+                  <Button
+                    className="ShoppinAdButton"
+                    variant="contained"
+                    onClick={handleProductAdded}
                   >
                     <ShoppingCartCheckoutIcon sx={{ mr: 1 }} /> SEPETE EKLE
                   </Button>
@@ -323,33 +420,101 @@ const DetailsCmpOne = ({ product, tags}: Props) => {
                   Son Kullanma Tarihi: 07.2025
                 </Typography>
                 <Typography mt={2}>
-                  {product.explanation.description.split('\n- ')[0]}
+                  {product.explanation.description.split("\n- ")[0]}
                 </Typography>
                 <Box>
-                <ul style={{padding:"5px 0"}}>
-                  {product.explanation.description.split('\n- ').slice(1).map((item, index)=>(
-                    <li style={{marginLeft:18, padding:"5px 0"}} key={index}>{item.replace('-',"")}</li>
-                  ))}
+                  <ul style={{ padding: "5px 0" }}>
+                    {product.explanation.description
+                      .split("\n- ")
+                      .slice(1)
+                      .map((item, index) => (
+                        <li
+                          style={{ marginLeft: 18, padding: "5px 0" }}
+                          key={index}
+                        >
+                          {item.replace("-", "")}
+                        </li>
+                      ))}
                   </ul>
                 </Box>
                 <Box component={"div"} className="lgAccordion">
-                  <Accordions
-                    title={"ÖZELLİKLER"}
-                    details={product.explanation.features || " "}
-                  />
-                  <Accordions
-                    title={"BESİN İÇERİĞİ"}
-                    details={product.explanation.features || " "}
-                  />
-                  <Accordions
-                    title={"KULLANIM ŞEKLİ"}
-                    details={product.explanation.usage || " "}
-                  />
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      ÖZELLİKLER
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {product.explanation.features || " "}
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      BESİN İÇERİĞİ
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack
+                        direction={"row"}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Typography sx={{ fontWeight: "bolder" }}>
+                          BESİN DEĞERİ
+                        </Typography>
+                        <Typography sx={{ fontWeight: "bolder" }}>
+                          25 g servis için
+                        </Typography>
+                      </Stack>
+                      <Stack>
+                        {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
+                          (ing, index) => (
+                            <Stack
+                              key={index}
+                              direction={"row"}
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Typography>{ing.name}</Typography>
+                              <Typography>{ing.amounts}</Typography>
+                            </Stack>
+                          )
+                        )}
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3-content"
+                      id="panel3-header"
+                      sx={{ fontWeight: "bolder" }}
+                    >
+                      ÖZELLİKLER
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {product.explanation.features || " "}
+                    </AccordionDetails>
+                  </Accordion>
                 </Box>
               </Stack>
             </Grid>
           </Grid>
         </Container>
+        <SnackbarComponent />
       </Box>
     </>
   );

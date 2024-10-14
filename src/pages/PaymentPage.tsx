@@ -143,8 +143,9 @@ const PaymentPage = () => {
                           defaultValue="Ev"
                           name="radio-buttons-group"
                         >
-                          {addresses.map((address) => (
+                          {addresses.map((address, index) => (
                             <Box
+                            key={index}
                               sx={{
                                 px: 2,
                                 borderRadius: 3,

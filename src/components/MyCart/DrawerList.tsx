@@ -33,7 +33,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
 
   return (
     <Box
-      sx={{ width: 380, height: "100vh", display: 'flex', flexDirection: 'column' }}
+      sx={{ width: 420, height: "100vh", display: 'flex', flexDirection: 'column',justifyContent:"space-between" }}
       role="presentation"
       onClick={(e) => e.stopPropagation()}
     >
@@ -85,6 +85,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                 <Stack direction={"row"} spacing={2}>
                   <img style={{
                     width:90,
+                    height:90,
                     aspectRatio:1/1,
                     objectFit:"cover"
                   }} src={photo_url + basket.img} alt="Product" />
@@ -95,7 +96,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                     justifyContent={"space-between"}
                   >
                     <Box>
-                      <Typography mt={1} fontWeight={'bolder'}>{basket.name}</Typography>
+                      <Typography variant='subtitle1' mt={1} fontWeight={'bolder'}>{basket.name}</Typography>
                       <Typography variant='subtitle1'>{basket.aroma}</Typography>
                       <Typography variant='subtitle1'>{basket.gram ? basket.gram + "gr" : ""} </Typography>
                     </Box>
@@ -117,7 +118,8 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                           display:'flex',
                           alignItems:'center',
                           justifyContent:'center',
-                          minWidth:'100%'
+                          minWidth:80,
+                          maxWidth:80,
                         }}
                       >
                         {basket.count > 1 ? (
@@ -144,16 +146,11 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
           ))
         )}
       </Box>
-      <Stack
-        width={'100%'}
-        marginBottom={1}
-        textAlign={"center"}
-        position={"relative"}
-        bottom={0}
+      <Box
+        sx={{ padding: "16px", borderTop: "1px solid #ddd" }}
       >
         <Typography
-          variant="subtitle2"
-          pt={2}
+          variant="subtitle1"
           fontSize={18}
           fontWeight={"bolder"}
           textAlign={"end"}
@@ -164,9 +161,8 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
         <Button
           variant="contained"
           sx={{
-            mt: 2,
-            px: 10,
-            mx: 5,
+            mt: 3,
+            width: "100%",
             backgroundColor: "black",
             "&:hover": { backgroundColor: "black" },
           }}
@@ -183,7 +179,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
           </Link>{" "}
           <ArrowRightIcon />
         </Button>
-      </Stack>
+      </Box>
     </Box>
   );
 };

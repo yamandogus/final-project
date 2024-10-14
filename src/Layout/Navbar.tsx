@@ -16,7 +16,7 @@ import {
   Stack,
   TextField,
   Modal,
-  Popper,
+  Backdrop,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
@@ -83,6 +83,7 @@ export async function LinksLoader() {
   }
 }
 
+
 function Navbar() {
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
   const navigate = useNavigate();
@@ -102,7 +103,6 @@ function Navbar() {
     }
   }, [debouncedSearch]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleOpenModal =
     (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
       setOpenModalIndex(index);
@@ -149,6 +149,15 @@ function Navbar() {
     setSearch("");
   };
 
+  useEffect(()=>{
+    if(!debouncedSearch){
+      setSearchModal(false)
+    }
+  },[debouncedSearch])
+
+
+  
+
   return (
     <>
       <Box component="div" className="firstNavbar">
@@ -174,25 +183,32 @@ function Navbar() {
                   </Link>
                 </Typography>
               </Toolbar>
-              <Stack className="navAs" direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <FormGroup
+                  sx={{
+                    padding:0,
+                    margin:0
+                  }}
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSearchResults();
                   }}
                 >
                   <TextField
-                    className="searchInput"
+                    sx={{zIndex: 1600}}
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         handleSearchResults();
                       }
                     }}
                     InputProps={{
+                      style:{
+                        backgroundColor:"white"
+                      },
                       endAdornment: (
                         <InputAdornment position="end">
                           <Button
@@ -202,7 +218,7 @@ function Navbar() {
                               padding: "6.5px 0 5.8px 0px",
                               zIndex: 15,
                               color: "white",
-                              borderRadius: "0 2px 2px 0",
+                              borderRadius: "0 1px 1px 0",
                               backgroundColor: "rgba(145, 145, 145, 1)",
                               "&:hover": {
                                 backgroundColor: "rgba(145, 145, 145, 1)",
@@ -221,29 +237,40 @@ function Navbar() {
                       },
                     }}
                   />
-                  <Popper
-                    sx={{
-                      zIndex: 15662,
-                      mt: 10,
-                      left: "10dd%",
-                      width: "35vw",
-                      transform: "translateX(120%)",
-                    }}
+                  <Modal
                     open={searchModal}
-                    onMouseLeave={() => handleCloseClear()}
+                    disableScrollLock={true}
+                    onClose={()=>setSearchModal(false)}
+                    slots={{
+                      backdrop: Backdrop
+                    }}
+                    slotProps={{
+                      backdrop:{
+                        timeout:500
+                      }
+                    }}
+                    disableAutoFocus={true}
+                    disableEnforceFocus={true}
                   >
                     <Box
-                      onMouseLeave={() => setSearchModal(false)}
+                    onMouseLeave={handleCloseClear}
                       sx={{
+                        mt: 10,
+                        width: "35vw",
+                        transform: "translateX(120%)",
                         py: 1,
                         backgroundColor: "white",
                         borderRadius: 2,
                         position: "relative",
                         maxHeight: "450px",
                         overflowY: "scroll",
+                        '&::-webkit-scrollbar':{
+                          width:0,
+                          background:'transparent'
+                        }
                       }}
                     >
-                      {searchResults.length > 0 ? (
+                      {searchResults.length > 1 ? (
                         searchResults.map((search) => (
                           <Box
                             sx={{
@@ -307,11 +334,11 @@ function Navbar() {
                             </Stack>
                           </Box>
                         ))
-                      ) : (
-                        <Typography>Ürün Bulunamadı</Typography>
+                      ) : (   
+                          <Typography>Ürün Bulunamadı</Typography>
                       )}
                     </Box>
-                  </Popper>
+                  </Modal>
                 </FormGroup>
                 <Button
                   variant="outlined"
@@ -335,9 +362,8 @@ function Navbar() {
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
-                  MenuListProps={{onMouseLeave: handleClose}}
+                  MenuListProps={{ onMouseLeave: handleClose }}
                   disableScrollLock
-                  
                 >
                   <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
                     <Link className="accountLinkNav" to="MyAccount">
@@ -375,7 +401,7 @@ function Navbar() {
                   open={open}
                   onClose={toggleDrawer(false)}
                   sx={{
-
+                    zIndex:1700
                   }}
                 >
                   <DrawerListCoponent

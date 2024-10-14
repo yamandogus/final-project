@@ -168,7 +168,7 @@ const Addresses: React.FC = () => {
                 sx={{ textTransform: "none", fontWeight: "bolder" }}
                 onClick={() => setIsAddressSaved(false)}
               >
-                ADRES EKLE
+                Adres Ekle
               </Button>
             </Box>
             <Grid container spacing={3}>
@@ -351,14 +351,22 @@ const Addresses: React.FC = () => {
                   value={city}
                   onFocus={() => fetchCity()}
                   SelectProps={{
-                    MenuProps: {disableScrollLock:true}
+                    MenuProps: 
+                    {
+                      PaperProps:{
+                        style:{
+                          maxHeight:140
+                        }
+                      },
+                      disableScrollLock:true
+                    }
                   }}
                   onChange={(e) => {
                     setCity(e.target.value);
                     fetchDistrict(e.target.value);
                   }}
                   required
-                  label="Şehir"
+                  label="İl"
                 >
                   {cities.map((option) => (
                     <MenuItem
@@ -375,6 +383,11 @@ const Addresses: React.FC = () => {
                   value={district}
                   SelectProps={{
                     MenuProps:{
+                      PaperProps:{
+                        style:{
+                          maxHeight:140
+                        }
+                      },
                       disableScrollLock: true
                     }
                   }}

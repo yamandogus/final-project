@@ -108,7 +108,7 @@ const Home = () => {
       </Box>
       <Container sx={{ boxShadow: "none", border: "none", p: 2, pt: 5 }}>
         <Grid container spacing={2}>
-          {products.map((product, index) => (
+          {products.map((product,index) => (
             <HomeComp
               key={index}
               name={product.name}
