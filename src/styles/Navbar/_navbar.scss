@@ -41,9 +41,11 @@
 
 .navbar-list-item{
     transition: color 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover{
-        color: #4169E1;
+        color: #2657ec;
+        box-shadow: inset 0 -1.5px 0 0  #4169E1,
     }
 }
 

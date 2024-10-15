@@ -54,10 +54,10 @@ const Footer: React.FC = () => {
   const renderLink = (Links: Link[]): JSX.Element => {
     return (
       <Stack direction={"column"} spacing={1}>
-        {Links.map((link) => (
+        {Links.map((link, index) => (
           <Link
             className="footerLink"
-            key={link.to}
+            key={index}
             to={link.to}
           >
             <Typography variant="subtitle2">{link.label}</Typography>

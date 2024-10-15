@@ -401,9 +401,9 @@ const SecondNavbar = () => {
                     borderRadius: 2,
                   }}
                 >
-                  {searchResults.map((product) => (
+                  {searchResults.map((product, index) => (
                     <ListItem
-                      key={product.slug}
+                      key={index}
                       sx={{ borderBottom: "1px solid gray", color: "black" }}
                       to={`/products/${product.slug}`}
                       component={Link}

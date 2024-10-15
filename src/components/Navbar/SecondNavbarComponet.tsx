@@ -27,17 +27,17 @@ const SecondNavbarComponent: React.FC<SecondNavbarComponentProps> = ({ links, on
           fontWeight:'bolder',
           fontSize:20
         }}>{links.name}</Typography>
-      {links.children && links.children.map((linkChild) => (
-        <Box key={linkChild.id}>
+      {links.children && links.children.map((linkChild, index) => (
+        <Box key={index}>
           <h4 style={{margin:"15px 0px", paddingBottom:2, borderBottom:"1px solid black"}}>{linkChild.name}</h4>
           <ul>
-            {linkChild.sub_children.map((children)=>(
+            {linkChild.sub_children.map((children, index)=>(
               <li
               style={{
                 listStyle: "none",
                 margin: "10px 0",
               }}
-              key={children.name}
+              key={index}
             >
               <Link
                 onClick={()=> linksClose()}

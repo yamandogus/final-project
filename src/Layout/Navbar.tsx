@@ -130,6 +130,7 @@ function Navbar() {
   };
 
   const handleSearchResults = async () => {
+   if(search.length>1){
     try {
       const response = await fetch(
         base_url + `/products/?limit=1000&search=${debouncedSearch}`
@@ -142,6 +143,7 @@ function Navbar() {
       setSearchResults([]);
       setSearchModal(true);
     }
+   }
   };
 
   const handleCloseClear = () => {
@@ -160,12 +162,13 @@ function Navbar() {
 
   return (
     <>
-      <Box component="div" className="firstNavbar">
+      <Box sx={{position:'relative',zIndex:1450}} component="div" className="firstNavbar">
         <AppBar
+
           position="static"
-          sx={{ backgroundColor: "white", color: "black" }}
+          sx={{ backgroundColor: "white", color: "black"}}
         >
-          <Container>
+          <Container >
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -195,7 +198,7 @@ function Navbar() {
                   }}
                 >
                   <TextField
-                    sx={{zIndex: 1600}}
+                    sx={{zIndex: 1700}}
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
@@ -246,32 +249,29 @@ function Navbar() {
                     }}
                     slotProps={{
                       backdrop:{
-                        timeout:500
+                        timeout:500,
                       }
                     }}
+                    sx={{zIndex:1451}}
                     disableAutoFocus={true}
                     disableEnforceFocus={true}
                   >
                     <Box
                     onMouseLeave={handleCloseClear}
                       sx={{
-                        mt: 10,
+                        mt: 8,
                         width: "35vw",
                         transform: "translateX(120%)",
-                        py: 1,
+                        py: 0,
                         backgroundColor: "white",
                         borderRadius: 2,
                         position: "relative",
                         maxHeight: "450px",
                         overflowY: "scroll",
-                        '&::-webkit-scrollbar':{
-                          width:0,
-                          background:'transparent'
-                        }
                       }}
                     >
                       {searchResults.length > 1 ? (
-                        searchResults.map((search) => (
+                        searchResults.map((search, index) => (
                           <Box
                             sx={{
                               mx: 2,
@@ -287,7 +287,7 @@ function Navbar() {
                               borderRadius: 2,
                               border: "1px solid gray",
                             }}
-                            key={search.id}
+                            key={index}
                             onClick={() => handleCloseClear()}
                             component={Link}
                             to={`/products/${search.slug}`}
@@ -364,6 +364,7 @@ function Navbar() {
                   onClose={handleClose}
                   MenuListProps={{ onMouseLeave: handleClose }}
                   disableScrollLock
+                  sx={{zIndex:1700}}
                 >
                   <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
                     <Link className="accountLinkNav" to="MyAccount">
@@ -412,28 +413,38 @@ function Navbar() {
               </Stack>
             </Stack>
           </Container>
-          <Box sx={{ backgroundColor: "black", color: "white" }}>
+          <Box sx={{ backgroundColor: "black", color: "white"}}>
             <Container>
-              <List sx={{ display: "flex", flexDirection: "row", gap: 2.3 }}>
+              <List onMouseLeave={handleCloseModal} sx={{ padding:0, display: "flex", flexDirection: "row", gap: 2.3 }}>
                 {allProduct.map((list, index) => (
                   <React.Fragment key={index}>
                     <ListItem
-                      onClick={handleOpenModal(index)}
+                      onMouseEnter={handleOpenModal(index)}
                       className="navbar-list-item"
-                      sx={{ flex: 1, justifyContent: "center", fontSize: 13 }}
+                      sx={{ flex: 1, justifyContent: "center", fontSize: 13, py:2 }}
                       color="inherit"
                     >
                       {list.name}
                     </ListItem>
                     <Modal
-                      sx={{ zIndex: 99999 }}
-                      disableScrollLock
                       open={openModalIndex === index}
                       onClose={handleCloseModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
+                      disableEnforceFocus={true}
+                      disableScrollLock={true}
+                      disableAutoFocus={true}
+                      slots={{
+                        backdrop:Backdrop
+                      }}
+                      slotProps={{
+                        backdrop:{
+                          timeout:0
+                        }
+                      }}
+                      sx={{
+                        zIndex:1400
+                      }}
                     >
-                      <Box onMouseLeave={handleCloseModal}>
+                      <Box onMouseLeave={handleCloseModal} >
                         <NavbarModal
                           links={allProduct[index]}
                           onClose={handleCloseModal}
@@ -445,6 +456,7 @@ function Navbar() {
                 <ListItem
                   component={Link}
                   to={"/AllProducts"}
+                  onMouseEnter={handleCloseModal}
                   sx={{
                     color: "white",
                     flex: 1,

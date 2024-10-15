@@ -8,37 +8,47 @@ interface NavbarModalProps {
   onClose: () => void;
 }
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position:"absolute",
+  top:"120px",
+  left:"50%",
+  transform: "translate(-50%, 0)",
   width: "70%",
-  height:400,
+  borderRadius: 2,
+  maxHeight: 400,
   overflowY: "scroll",
+  "&::-webkit-scrollbar": {
+    width: 0,
+    background: "transparent",
+  },
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
-  p: 0,
 };
 const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
   return (
     <>
       <Box sx={style}>
-        <Grid container spacing={5} p={1} bgcolor={"rgb(228, 227, 232)"}>
-          <Grid item xs={4}>
-            <Typography mb={2} variant="h6" textAlign={'center'} fontWeight={700}>EN ÇOK SATANLAR</Typography>
+        <Grid container spacing={5}>
+          <Grid item lg={4} md={5} bgcolor={"rgb(228, 227, 232)"}>
+            <Typography
+              mb={2}
+              variant="h6"
+              textAlign={"center"}
+              fontWeight={700}
+            >
+              EN ÇOK SATANLAR
+            </Typography>
             {links.top_sellers.map((link, index) => (
-              <Grid container>
+              <Grid container px={1}>
                 <Grid key={index}>
-                  <Stack direction={"row"} alignItems="center" gap={2} mb={3}>
+                  <Stack direction={"row"} alignItems="center" mb={3}>
                     <img
                       style={{
                         marginRight: "10px",
                         marginBottom: "10px",
                         borderRadius: "5px",
-                        width:80,
-                        aspectRatio:1/1,
-                        objectFit:"cover"
+                        width: 80,
+                        aspectRatio: 1 / 1,
+                        objectFit: "cover",
                       }}
                       width={80}
                       src={photo_url + link.picture_src}
@@ -46,7 +56,8 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
                     />
                     <Box>
                       <Typography variant="subtitle1">{link.name}</Typography>
-                      <Typography variant='caption'>{link.slug}</Typography><br />
+                      <Typography variant="caption">{link.slug}</Typography>
+                      <br />
                       <Typography variant="caption">
                         {link.description}
                       </Typography>
@@ -58,42 +69,46 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
           </Grid>
           <Grid
             item
-            xs={8}
+            lg={8}
+            md={7}
             bgcolor={"rgb(255, 255, 255)"}
             borderRadius={"0 5px 5px 0"}
             sx={{
-              overflowY:"auto",
-              display:"flex",
-              flexWrap:"wrap",
+              overflowY: "auto",
+              display: "flex",
+              flexWrap: "wrap",
             }}
           >
-            {links.children.map((linkChild) => (
+            {links.children.map((linkChild, index) => (
               <>
-              <Box key={linkChild.id} sx={{ flex: "1 1 45%", mt:2 }}>
-                <h4 >{linkChild.name}</h4>
-                <ul>
-                  {linkChild.sub_children.map((sub) => (
-                    <li
-                    style={{
-                      listStyle:'none',
-                      margin:"5px 0"
-                    }}
-                    >
-                      <Link 
-                      onClick={()=>onClose()}
-                       className="linksNavs"
-                      style={{
-                        color:'black',
-                        textDecoration:'none',
-                      }}
-                      to={`/products/`+ sub.slug}>{sub.name}</Link>
-                    </li>
-                  ))}
+                <Box key={index} sx={{ flex: "1 1 45%", mt: 2 }}>
+                  <h4>{linkChild.name}</h4>
+                  <ul>
+                    {linkChild.sub_children.map((sub, index) => (
+                      <li
+                      key={index}
+                        style={{
+                          listStyle: "none",
+                          margin: "5px 0",
+                        }}
+                      >
+                        <Link
+                          onClick={() => onClose()}
+                          className="linksNavs"
+                          style={{
+                            color: "black",
+                            textDecoration: "none",
+                          }}
+                          to={`/products/` + sub.slug}
+                        >
+                          {sub.name}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
-                  </Box>
+                </Box>
               </>
             ))}
-            
           </Grid>
         </Grid>
       </Box>

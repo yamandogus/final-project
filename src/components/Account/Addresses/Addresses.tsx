@@ -368,9 +368,9 @@ const Addresses: React.FC = () => {
                   required
                   label="İl"
                 >
-                  {cities.map((option) => (
+                  {cities.map((option, index) => (
                     <MenuItem
-                    key={option.id} value={option.name}>
+                    key={index} value={option.name}>
                       {option.name.split(" ")[0]}
                     </MenuItem>
                   ))}
