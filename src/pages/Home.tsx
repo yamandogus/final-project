@@ -1,11 +1,11 @@
 import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 
-import HomeComp from "../components/HomePage/HomeComp";
-import SliderComponent from "../components/UseBlaze/SliderComponent";
+import HomeComp from "../components/homePage/HomeComp";
+import SliderComponent from "../components/useBlaze/SliderComponent";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
-import BestSeller from "../components/Bestseller/BestSellers";
+import BestSeller from "../components/bestseller/BestSellers";
 
 const products = [
   {

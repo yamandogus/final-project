@@ -8,14 +8,14 @@ import ProductsDetails, { ProductLoader } from './pages/ProductDetails'
 import AccountHomePage from './pages/AccountHomePage'
 import SingUp from './components/Account/SingUp'
 import ContactUs from './FootherPages/ContactUs'
-import AboutUs from './FootherPages/AboutUs'
 import SSS from './FootherPages/SSS'
 import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
-import { loader } from './components/Bestseller/BestSellers'
+import { loader } from './components/bestseller/BestSellers'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
-import { userProfileLoader } from './components/Account/Informations/MyAccount'
+import { userProfileLoader } from './components/Account/informations/MyAccount'
 import { LinksLoader } from './Layout/Navbar'
+import AboutUs from './FootherPages/aboutUs'
 
 const router = createBrowserRouter([
   {

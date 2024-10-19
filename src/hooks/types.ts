@@ -16,7 +16,7 @@ export interface Product {
                 ingredients: Ingredient[];
                 portion_sizes: [];
             };
-            amino_acid_facts: null;
+            amino_acid_facts: AminoAcidFacts|null;
         };
     };
     main_category_id: string;
@@ -52,3 +52,13 @@ export interface Ingredient {
     name: string;  
     amounts: string; 
   }
+
+  export interface AminoAcidFacts {
+    ingredients: AminoAcidIngredient[];
+    portion_sizes: string[];
+}
+
+export interface AminoAcidIngredient {
+    name: string;
+    amounts: string[];
+}

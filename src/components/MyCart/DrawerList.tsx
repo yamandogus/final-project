@@ -10,7 +10,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { usePaymentStore } from "../../pages/Payement";
-import { photo_url } from "../Bestseller/BestSellers";
+import { photo_url } from "../bestseller/BestSellers";
 import { useStore } from "../../Layout/Count";
 import CloseIcon from '@mui/icons-material/Close';
 

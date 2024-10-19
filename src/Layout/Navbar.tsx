@@ -23,52 +23,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import SecondNavbar from "./SecondNavbar";
-import NavbarModal from "../components/Navbar/NavbarPopover";
-import DrawerListCoponent from "../components/MyCart/DrawerList";
+import NavbarModal from "../components/navbar/NavbarPopover";
+import DrawerListCoponent from "../components/myCart/DrawerList";
 import { useStore } from "./Count";
-import { base_url, photo_url } from "../components/Bestseller/BestSellers";
-import { useDebounce } from "./Navbar/Navbar";
-
-export interface LinksProps {
-  id: string;
-  name: string;
-  slug: string;
-  order: number;
-  children: {
-    id: string;
-    name: string;
-    slug: string;
-    order: number;
-    sub_children: {
-      name: string;
-      slug: string;
-      order: number;
-    }[];
-  }[];
-  top_sellers: {
-    name: string;
-    slug: string;
-    description: string;
-    picture_src: string;
-  }[];
-}
-
-export interface SearchPropsPt {
-  name: string;
-  short_explanation: string;
-  slug: string;
-  price_info: {
-    profit: null | number;
-    total_price: number;
-    discounted_price: number | null;
-    price_per_servings: number;
-    discount_percentage: number | null;
-  };
-  photo_src: string;
-  comment_count: number;
-  average_star: number;
-  id: string;
-}
+import { base_url, photo_url } from "../components/bestseller/BestSellers";
+import { useDebounce } from "../components/navbar/Navbar";
+import { LinksProps, SearchPropsPt } from "../services/type";
 
 export async function LinksLoader() {
   try {
@@ -83,7 +43,6 @@ export async function LinksLoader() {
   }
 }
 
-
 function Navbar() {
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
   const navigate = useNavigate();
@@ -95,6 +54,7 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
+
   useEffect(() => {
     if (debouncedSearch) {
       handleSearchResults();
@@ -130,20 +90,20 @@ function Navbar() {
   };
 
   const handleSearchResults = async () => {
-   if(search.length>1){
-    try {
-      const response = await fetch(
-        base_url + `/products/?limit=1000&search=${debouncedSearch}`
-      );
-      const data = await response.json();
-      setSearchResults(data.data.results);
-      setSearchModal(true);
-    } catch (error) {
-      console.log("Ürün bulunamadı: ", error);
-      setSearchResults([]);
-      setSearchModal(true);
+    if (search.length > 1) {
+      try {
+        const response = await fetch(
+          base_url + `/products/?limit=1000&search=${debouncedSearch}`
+        );
+        const data = await response.json();
+        setSearchResults(data.data.results);
+        setSearchModal(true);
+      } catch (error) {
+        console.log("Ürün bulunamadı: ", error);
+        setSearchResults([]);
+        setSearchModal(true);
+      }
     }
-   }
   };
 
   const handleCloseClear = () => {
@@ -151,29 +111,18 @@ function Navbar() {
     setSearch("");
   };
 
-  useEffect(()=>{
-    if(!debouncedSearch){
-      setSearchModal(false)
+  useEffect(() => {
+    if (!debouncedSearch) {
+      setSearchModal(false);
     }
-  },[debouncedSearch])
-
-
-  
+  }, [debouncedSearch]);
 
   return (
     <>
-      <Box sx={{position:'relative',zIndex:1450}} component="div" className="firstNavbar">
-        <AppBar
-
-          position="static"
-          sx={{ backgroundColor: "white", color: "black"}}
-        >
-          <Container >
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
+      <Box sx={{ position: 'relative', zIndex: 1420 }} component="div" className="firstNavbar">
+        <AppBar position="static" sx={{ backgroundColor: "white", color: "black" }}>
+          <Container>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Toolbar>
                 <Typography variant="h6" component="div">
                   <Link to="/Home">
@@ -188,17 +137,13 @@ function Navbar() {
               </Toolbar>
               <Stack direction="row" spacing={2}>
                 <FormGroup
-                  sx={{
-                    padding:0,
-                    margin:0
-                  }}
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSearchResults();
                   }}
                 >
                   <TextField
-                    sx={{zIndex: 1700}}
+                    sx={{ zIndex: 2000}}
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
@@ -209,8 +154,8 @@ function Navbar() {
                       }
                     }}
                     InputProps={{
-                      style:{
-                        backgroundColor:"white"
+                      style: {
+                        backgroundColor: "white",
                       },
                       endAdornment: (
                         <InputAdornment position="end">
@@ -243,35 +188,44 @@ function Navbar() {
                   <Modal
                     open={searchModal}
                     disableScrollLock={true}
-                    onClose={()=>setSearchModal(false)}
+                    onClose={handleCloseClear}
                     slots={{
-                      backdrop: Backdrop
+                      backdrop: Backdrop,
                     }}
                     slotProps={{
-                      backdrop:{
-                        timeout:500,
-                      }
+                      backdrop: {
+                        timeout: 500,
+                        style:{
+                          position:'fixed'
+                        }
+                      },
                     }}
-                    sx={{zIndex:1451}}
+                    sx={{
+                      zIndex: 1500,
+                    }}
                     disableAutoFocus={true}
                     disableEnforceFocus={true}
                   >
                     <Box
-                    onMouseLeave={handleCloseClear}
+                      onMouseLeave={handleCloseClear}
                       sx={{
-                        mt: 8,
+                        mt: 10,
                         width: "35vw",
                         transform: "translateX(120%)",
-                        py: 0,
+                        py: 1,
                         backgroundColor: "white",
                         borderRadius: 2,
                         position: "relative",
                         maxHeight: "450px",
                         overflowY: "scroll",
+                        '&::-webkit-scrollbar': {
+                          width: 0,
+                          background: 'transparent',
+                        },
                       }}
                     >
-                      {searchResults.length > 1 ? (
-                        searchResults.map((search, index) => (
+                      {searchResults.length > 0 ? (
+                        searchResults.map((search) => (
                           <Box
                             sx={{
                               mx: 2,
@@ -287,8 +241,8 @@ function Navbar() {
                               borderRadius: 2,
                               border: "1px solid gray",
                             }}
-                            key={index}
-                            onClick={() => handleCloseClear()}
+                            key={search.id}
+                            onClick={handleCloseClear}
                             component={Link}
                             to={`/products/${search.slug}`}
                           >
@@ -334,8 +288,8 @@ function Navbar() {
                             </Stack>
                           </Box>
                         ))
-                      ) : (   
-                          <Typography>Ürün Bulunamadı</Typography>
+                      ) : (
+                        <Typography>{debouncedSearch} adında bir ürün bulunamadı</Typography>
                       )}
                     </Box>
                   </Modal>
@@ -347,7 +301,7 @@ function Navbar() {
                   aria-controls="long-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
-                  onMouseLeave={() => handleClose}
+                  onMouseLeave={handleClose}
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -363,8 +317,7 @@ function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                   MenuListProps={{ onMouseLeave: handleClose }}
-                  disableScrollLock
-                  sx={{zIndex:1700}}
+                  sx={{ zIndex: 1700 }}
                 >
                   <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
                     <Link className="accountLinkNav" to="MyAccount">
@@ -402,7 +355,7 @@ function Navbar() {
                   open={open}
                   onClose={toggleDrawer(false)}
                   sx={{
-                    zIndex:1700
+                    zIndex: 1560,
                   }}
                 >
                   <DrawerListCoponent
@@ -413,15 +366,15 @@ function Navbar() {
               </Stack>
             </Stack>
           </Container>
-          <Box sx={{ backgroundColor: "black", color: "white"}}>
+          <Box sx={{ backgroundColor: "black", color: "white" }}>
             <Container>
-              <List onMouseLeave={handleCloseModal} sx={{ padding:0, display: "flex", flexDirection: "row", gap: 2.3 }}>
+              <List onMouseLeave={handleCloseModal} sx={{ padding: 0, display: "flex", flexDirection: "row", gap: 2.3}}>
                 {allProduct.map((list, index) => (
                   <React.Fragment key={index}>
                     <ListItem
                       onMouseEnter={handleOpenModal(index)}
                       className="navbar-list-item"
-                      sx={{ flex: 1, justifyContent: "center", fontSize: 13, py:2 }}
+                      sx={{ flex: 1, justifyContent: "center", fontSize: 13, py: 2 }}
                       color="inherit"
                     >
                       {list.name}
@@ -433,18 +386,18 @@ function Navbar() {
                       disableScrollLock={true}
                       disableAutoFocus={true}
                       slots={{
-                        backdrop:Backdrop
+                        backdrop: Backdrop,
                       }}
                       slotProps={{
-                        backdrop:{
-                          timeout:0
-                        }
+                        backdrop: {
+                          timeout: 0,
+                        },
                       }}
                       sx={{
-                        zIndex:1400
+                        zIndex: 1400,
                       }}
                     >
-                      <Box onMouseLeave={handleCloseModal} >
+                      <Box onMouseLeave={handleCloseModal}>
                         <NavbarModal
                           links={allProduct[index]}
                           onClose={handleCloseModal}

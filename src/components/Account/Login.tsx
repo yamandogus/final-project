@@ -3,7 +3,7 @@ import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography }
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {  handleRegister, LoginPayload } from "./LoginAndSingUp";
-import { base_url } from "../Bestseller/BestSellers";
+import { base_url } from "../bestseller/BestSellers";
 import useSnackbar from "../../hooks/alert";
 
 

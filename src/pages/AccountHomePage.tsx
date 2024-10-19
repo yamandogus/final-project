@@ -3,11 +3,11 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { useState } from "react";
-import Informations from "../components/Account/Informations/Informations";
-import Addresses from "../components/Account/Addresses/Addresses";
+import Informations from "../components/Account/informations/Informations";
+import Addresses from "../components/Account/addresses/Addresses";
 import Orders from "../components/Account/Orders/Orders";
 import { useLoaderData } from "react-router-dom";
-import { userProfileLoaderReturn } from "../components/Account/Informations/MyAccount";
+import { userProfileLoaderReturn } from "../components/Account/informations/MyAccount";
 
 
 const AccountHomePage = () => {

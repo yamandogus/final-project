@@ -12,7 +12,7 @@ import {
 import { FormEvent, useState} from "react";
 import { Link } from "react-router-dom";
 import { handleRegister, LoginPayload } from "./LoginAndSingUp";
-import { base_url } from "../Bestseller/BestSellers";
+import { base_url } from "../bestseller/BestSellers";
 
 export const handleLogin = async (e: FormEvent) => {
   try {

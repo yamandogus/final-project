@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import OrdersComp from "./OrdersComponents/OrdersComp";
 import { useState } from "react";
-import Olderdest from "../Olderders/Olderdest";
+import Olderdest from "../olderders/Olderdest";
 
 const orderData = [
   {

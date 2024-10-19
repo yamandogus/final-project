@@ -6,6 +6,7 @@ import {
   Button,
   Checkbox,
   Container,
+  Drawer,
   FormControl,
   FormControlLabel,
   Grid,
@@ -18,11 +19,11 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { useAddressesStore } from "../components/Account/Addresses/Address";
+import { useAddressesStore } from "../components/Account/addresses/Address";
 import { usePaymentStore } from "./Payement";
 import HttpsIcon from "@mui/icons-material/Https";
 import { useState } from "react";
-import { photo_url } from "../components/Bestseller/BestSellers";
+import { photo_url } from "../components/bestseller/BestSellers";
 
 const CustomAccordion = styled(Accordion)({
   border: "none",
@@ -56,12 +57,26 @@ const PaymentPage = () => {
     0
   );
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [paymentMethod, setPaymentMetod] = useState("")
+  const [extra, setExtra] = useState(0)
   const [expanded, setExpanded] = useState<string | false>("panel1");
-
+  const [newAddress, setNewAddress] = useState(false)
   const handleChangePanel =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handlePaymentMethod = (e:any) =>{
+    setPaymentMetod(e.target.value)
+    if(e.target.value === "Adreste nakit ödeme"){
+      setExtra(39)
+    }else if(e.target.value === "Adreste kart ile ödeme"){
+      setExtra(45)
+    }else if(e.target.value === "Kredi Kartı"){
+      setExtra(0)
+    }
+  }
   return (
     <>
       <Box>
@@ -169,7 +184,7 @@ const PaymentPage = () => {
                                   }
                                   label={address.title}
                                 />{" "}
-                                <Button>Düzenle</Button>
+                                <Button onClick={()=>setNewAddress(true)}>Düzenle</Button>
                               </Box>
                               <Box>
                                 <Typography>
@@ -189,10 +204,26 @@ const PaymentPage = () => {
                             }}
                           >
                             <FormControlLabel
+
                               value="Yeni Adres"
                               control={<Radio />}
                               label="Yeni Adres"
+                              onClick={()=> setNewAddress(true)}
                             />
+                            <Drawer
+                            anchor={'right'}
+                            open={newAddress}
+                            onClose={()=>setNewAddress(false)}
+                            PaperProps={{
+                              sx:{ 
+                                width: { xs: '70%', md: '40%' },
+                              }
+                            }}
+                            >
+                              <Box>
+                               <Typography>Adres ekleme&Adres güncelleme</Typography>
+                              </Box>
+                            </Drawer>
                           </Box>
                         </RadioGroup>
                       </FormControl>
@@ -322,12 +353,12 @@ const PaymentPage = () => {
                     </strong>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography variant="subtitle1">Teslimat Adresi</Typography>
                     <Box>
                       <FormControl sx={{ width: "100%" }}>
                         <RadioGroup
                           aria-labelledby="demo-radio-buttons-group-label"
                           defaultValue="Kredi Kartı"
+                          onChange={handlePaymentMethod}
                           name="radio-buttons-group"
                         >
                           <Box
@@ -460,6 +491,7 @@ const PaymentPage = () => {
                             <FormControlLabel
                               control={<Radio />}
                               value="Adreste nakit ödeme"
+                              onChange={handlePaymentMethod}
                               label={
                                 <Box
                                   display="flex"
@@ -493,6 +525,7 @@ const PaymentPage = () => {
                             <FormControlLabel
                               control={<Radio />}
                               value="Adreste kart ile ödeme"
+                              onChange={handlePaymentMethod}
                               label={
                                 <Box
                                   display="flex"
@@ -507,7 +540,7 @@ const PaymentPage = () => {
                                     sx={{ fontWeight: "bolder" }}
                                     variant="subtitle1"
                                   >
-                                    39 TL işlem bedeli
+                                    45 TL işlem bedeli
                                   </Typography>
                                 </Box>
                               }
@@ -616,7 +649,7 @@ const PaymentPage = () => {
               item
               xs={12}
               md={6}
-              sx={{ position: "relative", height: "calc(100vh - 100px)" }}
+              sx={{ position: "relative", height: "calc(100vh - 100px)"}}
             >
               <Grid
                 container
@@ -646,32 +679,16 @@ const PaymentPage = () => {
                       >
                         <img
                           style={{
+                            position:'relative',
                             width: "20%",
                             objectFit: "cover",
+                            borderRadius:2,
                             aspectRatio: 1 / 1,
                           }}
                           width={100}
                           src={photo_url + basket.img}
                           alt={basket.name}
                         />
-                        <span
-                          style={{
-                            position: "absolute",
-                            backgroundColor: "red",
-                            width: 20,
-                            height: 20,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            fontSize: 13,
-                            top: -10, 
-                            left: 80, 
-                            color: "white",
-                            borderRadius: "50%",
-                          }}
-                        >
-                          {basket.count}
-                        </span>
                         <Stack ml={2}>
                           <strong>{basket.name}</strong>
                           <Typography
@@ -696,15 +713,16 @@ const PaymentPage = () => {
                   </Grid>
                 ))}
               </Grid>
-              <Box sx={{ position: "absolute", bottom: 0, width: "100%" }}>
+              <Box sx={{ position: "absolute", bottom: 0, width: "100%"}}>
                 <Grid
                   container
                   justifyContent="space-between"
                   alignItems="center"
                   sx={{
+                    backgroundColor:"white",
                     pt: 2,
                     borderTop: "1px solid gray",
-                    gap: 2,
+                    gap: 1,
                   }}
                 >
                   <Stack
@@ -716,6 +734,35 @@ const PaymentPage = () => {
                     <Typography>Ara Toplam</Typography>
                     <Typography>{total.toFixed(2)} TL</Typography>
                   </Stack>
+                 {total >3000 ?(
+                   <Stack
+                   width={"100%"}
+                   direction={"row"}
+                   display="flex"
+                   justifyContent="space-between"
+                   color={'green'}
+                 >
+                   <Typography fontWeight={"bolder"}>%10 İndirim</Typography>
+                   <Typography fontWeight={"bolder"}>
+                     -{((total*10)/100).toFixed(2)} TL
+                   </Typography>
+                 </Stack>
+                 ):""} 
+                  {extra > 1 ?(
+                    <>
+                    <Stack
+                    width={"100%"}
+                    direction={"row"}
+                    display="flex"
+                    justifyContent="space-between"
+                  >
+                    <Typography fontWeight={"bolder"}>{paymentMethod}</Typography>
+                    <Typography fontWeight={"bolder"}>
+                      {extra} TL
+                    </Typography>
+                  </Stack>
+                    </>
+                  ):""}
                   <Stack
                     width={"100%"}
                     direction={"row"}
@@ -724,7 +771,7 @@ const PaymentPage = () => {
                   >
                     <Typography fontWeight={"bolder"}>Toplam</Typography>
                     <Typography fontWeight={"bolder"}>
-                      {total.toFixed(2)} TL
+                      {(total-(total*10)/100+extra).toFixed(2)} TL
                     </Typography>
                   </Stack>
                 </Grid>

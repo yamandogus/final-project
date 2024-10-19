@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { base_url } from "../Bestseller/BestSellers";
+import { base_url } from "../bestseller/BestSellers";
 
 
 interface RegisterPayload {

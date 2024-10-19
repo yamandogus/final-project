@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { photo_url } from "../Bestseller/BestSellers";
+import { photo_url } from "../bestseller/BestSellers";
 import { Link } from "react-router-dom";
 import { LinksProps } from "../../Layout/Navbar";
 
@@ -73,13 +73,16 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
             md={7}
             bgcolor={"rgb(255, 255, 255)"}
             borderRadius={"0 5px 5px 0"}
-            sx={{
+          >
+            <Box><Typography variant='subtitle1' sx={{textDecoration:'underline'}}>{links.name}</Typography></Box>
+            <Grid container>
+              <Grid
+              sx={{
               overflowY: "auto",
               display: "flex",
               flexWrap: "wrap",
-            }}
-          >
-            {links.children.map((linkChild, index) => (
+            }}>
+              {links.children.map((linkChild, index) => (
               <>
                 <Box key={index} sx={{ flex: "1 1 45%", mt: 2 }}>
                   <h4>{linkChild.name}</h4>
@@ -109,6 +112,9 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
                 </Box>
               </>
             ))}
+              </Grid>
+            </Grid>
+          
           </Grid>
         </Grid>
       </Box>

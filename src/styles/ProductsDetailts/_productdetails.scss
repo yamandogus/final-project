@@ -1,4 +1,4 @@
-.pageTwoImg{
+.detail-img{
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -73,7 +73,7 @@
 /*NEW CSS DEPO CHANGES*/
 
 .choiceDiv{
-    padding: 0 0 10px 0;
+    padding: 0 0 8px 0;
     border-bottom: 1px solid rgba(221, 221, 221, 1);
 }
 
@@ -84,12 +84,13 @@
     cursor: pointer;
 }
 .checkedForm{
+    border-radius: 2px;
     position: relative;
-    border: 4px solid rgb(229, 229, 229);
+    border: 3px solid rgb(229, 229, 229);
     padding: 5px 45px 5px 30px;
 }
 .checkedForm.checkedDiv{
-    border: 4px solid rgb(12, 71, 233) !important;
+    border: 3px solid rgb(12, 71, 233) !important;
     &::after{
         content: '✔'; 
         text-align: center;
@@ -108,12 +109,13 @@
 }
 
 .checkedSize{
+    border-radius: 2px;
     position: relative;
-    border: 4px solid rgb(229, 229, 229);
+    border: 3px solid rgb(229, 229, 229);
     padding: 20px 50px 20px 50px;
 }
 .checkedSize.checkedDiv{
-    border: 4px solid rgb(12, 71, 233) !important;
+    border: 3px solid rgb(12, 71, 233) !important;
     &::after{
         content: '✔'; 
         text-align: center;
@@ -195,3 +197,4 @@
     justify-content: center; 
     white-space: nowrap; 
   }
+  //*İMGZOOM*//

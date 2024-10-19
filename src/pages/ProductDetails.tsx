@@ -9,11 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import Yorumlar from "../components/Comments/Yorumlar";
-import LastWiew from "../components/Bestseller/LastWiew";
-import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
+import Yorumlar from "../components/comments/Yorumlar";
+import LastWiew from "../components/bestseller/LastWiew";
+import DetailsCmpOne from "../components/productDetails/DetailsCmpOne";
 import { Link, useLoaderData} from "react-router-dom";
-import { base_url } from "../components/Bestseller/BestSellers";
+import { base_url } from "../components/bestseller/BestSellers";
 import { Product } from "../hooks/types";
 
 const productsDet = [
@@ -91,6 +91,14 @@ const productsDet = [
   },
 ];
 
+const commentData = 
+[
+  { value: 5, count: 9184, sliderValue: 90 },
+  { value: 4, count: 1316, sliderValue: 50 },
+  { value: 3, count: 226, sliderValue: 30 },
+  { value: 2, count: 32, sliderValue: 10 },
+  { value: 1, count: 11, sliderValue: 5 },
+]
 
 
 export async function ProductLoader({ params }: { params: { productSlug: string } }) {
@@ -165,13 +173,7 @@ function ProductsDetails() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Stack direction={"column"}>
-                {[
-                  { value: 5, count: 9284, sliderValue: 90 },
-                  { value: 4, count: 1316, sliderValue: 50 },
-                  { value: 3, count: 226, sliderValue: 30 },
-                  { value: 2, count: 32, sliderValue: 10 },
-                  { value: 1, count: 11, sliderValue: 5 },
-                ].map((rating, index) => (
+                {commentData.map((rating, index) => (
                   <Stack
                     key={index}
                     direction={"row"}

@@ -12,13 +12,13 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { ChangeEvent } from "react";
-import { useAddressesStore } from "./Address";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
 import useSnackbar from "../../../hooks/alert";
-import { base_url } from "../../Bestseller/BestSellers";
+import { base_url } from "../../bestseller/BestSellers";
 import { CityProps, DistrictProps } from "../../../services/city-district";
+import { useAddressesStore } from "./Address";
 
 const Addresses: React.FC = () => {
   const {
@@ -59,7 +59,18 @@ const Addresses: React.FC = () => {
     }
   };
 
-  const handleAddressSubmit = (e: React.FormEvent) => {
+  const resetForm = () => {
+    setTitle("");
+    setAddress("");
+    setCity("");
+    setDistrict("");
+    setFirstName("");
+    setLastName("");
+    setPhone("");
+    setCities([]);
+    setDistricts([]);
+};
+ const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
       !title ||
@@ -88,15 +99,7 @@ const Addresses: React.FC = () => {
       setEditIndex(null);
       setIsAddressSaved(true);
       showSnackbar("Adres Güncellendi", "success");
-      setAddress("");
-      setCity("");
-      setDistrict("");
-      setFirstName("");
-      setLastName("");
-      setTitle("");
-      setPhone("");
-      setCities([]);
-      setDistricts([]);
+      resetForm()
     } else {
       addAddress({
         title,
@@ -109,15 +112,7 @@ const Addresses: React.FC = () => {
       });
       setIsAddressSaved(true);
       showSnackbar("Adres Kaydedildi", "success");
-      setAddress("");
-      setCity("");
-      setDistrict("");
-      setFirstName("");
-      setLastName("");
-      setTitle("");
-      setPhone("");
-      setCities([]);
-      setDistricts([]);
+      resetForm()
     }
   };
 
@@ -248,8 +243,8 @@ const Addresses: React.FC = () => {
                           setEditIndex(index);
                           setTitle(address.title);
                           setAddress(address.address);
-                          setCity(address.city);
-                          setDistrict(address.district);
+                          setCity("");
+                          setDistrict("");
                           setFirstName(address.firstName);
                           setLastName(address.lastName);
                           setPhone(address.phone);
@@ -350,6 +345,7 @@ const Addresses: React.FC = () => {
                   select
                   value={city}
                   onFocus={() => fetchCity()}
+
                   SelectProps={{
                     MenuProps: 
                     {

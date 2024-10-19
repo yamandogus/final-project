@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import { Link, useLoaderData } from 'react-router-dom';
-import { base_url } from '../components/Bestseller/BestSellers';
-import Protein from '../components/Protein/Protein';
+import { base_url } from '../components/bestseller/BestSellers';
+import Protein from '../components/protein/Protein';
 import { useEffect, useState } from 'react';
 
 
@@ -100,7 +100,7 @@ const AllProducts = () => {
         <Grid item xs={12} spacing={4} mt={3}>
            <Stack spacing={3}>
            <Typography>Toplam {product.length} ürün görüntüleniyor</Typography>
-            <Typography variant='subtitle2'>Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. <strong>Protein</strong> kısaca, bir veya daha fazla amino asit artık</Typography>
+            <Typography style={{color:'gray'}} variant='subtitle2'>Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. <strong>Protein</strong> kısaca, bir veya daha fazla amino asit artık</Typography>
             <Typography variant='caption'>
               <Link style={{color:'green'}} to={'#'}>Daha fazla göster</Link>
             </Typography>

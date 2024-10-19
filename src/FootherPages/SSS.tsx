@@ -4,12 +4,12 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import Accordions from '../components/Accordions/Accordions';
 import {Container, Typography } from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ContactUs from './ContactUs';
+import Accordions from '../components/accordions/Accordions';
 
 
 

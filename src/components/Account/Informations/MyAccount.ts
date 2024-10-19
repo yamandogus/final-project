@@ -1,5 +1,5 @@
 
-import { base_url } from "../../Bestseller/BestSellers";
+import { base_url } from "../../bestseller/BestSellers";
 interface AccountProps {
   email: string;
   first_name: string;

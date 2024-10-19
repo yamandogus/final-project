@@ -1,5 +1,5 @@
 import {Box,Container, Grid, Rating, Stack, Typography } from '@mui/material'
-import Yorumlar from '../components/Comments/Yorumlar'
+import Yorumlar from '../components/comments/Yorumlar'
 
 const AboutUs = () => {
   return (

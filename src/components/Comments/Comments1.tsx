@@ -2,11 +2,11 @@ import { Grid, Rating, Stack, Typography } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import { CommentProp } from './Yorumlar';
 
-const Comments1 = ({rating,name,date,comment,shortComment}:CommentProp) => {
+const Comments1 = ({rating,name,date,comment,shortComment, key}:CommentProp) => {
   return (
     <>
         <Grid container spacing={2} className='gridYrm'>
-        <Grid item xs={12}>
+        <Grid item xs={12} key={key}>
         <Stack direction={'column'} spacing={2}>
           <Stack direction={'row'} sx={{display:'flex', justifyContent:'space-between'}}>
            <Stack direction={'row'}>

@@ -23,13 +23,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import SecondNavbarComponent from "../components/Navbar/SecondNavbarComponet";
+import SecondNavbarComponent from "../components/navbar/SecondNavbarComponet";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { usePaymentStore } from "../pages/Payement";
 import { useStore } from "./Count";
-import { base_url, photo_url } from "../components/Bestseller/BestSellers";
+import { base_url, photo_url } from "../components/bestseller/BestSellers";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDebounce } from "./Navbar/Navbar";
+import { useDebounce } from "../components/navbar/Navbar";
 import { SearchPropsPt } from "./Navbar";
 interface LinksProps {
   id: string;
@@ -306,6 +306,13 @@ const SecondNavbar = () => {
     setSearch("")
   };
 
+  useEffect(()=>{
+    if(search.length > 1){
+      setAnchorEl(true)
+    }else{
+      setAnchorEl(false)
+    }
+  },[search])
 
 
   return (
@@ -369,9 +376,7 @@ const SecondNavbar = () => {
                 ),
               }}
             />
-            {searchResults.length > 0 ? (
-              <Box>
-               <Modal
+            <Modal
                 open={anchorEl}
                 onClose={()=>setAnchorEl(false)}
                 style={{width: "100%"}}
@@ -385,8 +390,9 @@ const SecondNavbar = () => {
                 }}
                 disableAutoFocus={true}
                 disableEnforceFocus={true}
-                disableScrollLock={true}
               >
+            {searchResults.length > 0 ? (
+              <Box>
                 <List
                   sx={{
                     left:"2.5%",
@@ -433,23 +439,25 @@ const SecondNavbar = () => {
                 }} 
                 >Tüm Ürünler <NavigateNextIcon style={{fontSize:20}}/></Link> : ""}
                 </List>
-              </Modal>
+             
               </Box>
             ):<div>{!debouncedSearch ? " ": <div style={{
+              position: "absolute",
+              top:"20%",
+              padding:10,
               display:"flex",
-              width:"90%",
-              borderRadius:2,
+              width:"95%",
+              borderRadius:5,
               transform: "translate(-50%)",
               left:"50%",
               backgroundColor:"white",
-              paddingLeft:10,
               zIndex: 1855,
-              position: "absolute",
             }}>
               {debounced ?(
              <Typography>{debounced}</Typography>
              ) : null }
             </div>}</div>}
+            </Modal>
           </Box>
         </ClickAwayListener>
       </Box>
