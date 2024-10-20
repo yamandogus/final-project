@@ -1,5 +1,5 @@
 import { Box, Container, Pagination, Typography} from "@mui/material";
-import Comments1 from "./Comments1";
+import Comments1 from "./homeComments";
 import { useState } from "react";
 
 export interface CommentProp {
@@ -8,9 +8,7 @@ export interface CommentProp {
   date: string;
   comment: string;
   shortComment: string;
-  key?:number
 }
-
 
 const reviews: CommentProp[] = [ 
   {
@@ -356,51 +354,51 @@ const reviews: CommentProp[] = [
 ];
 
 const Yorumlar = () => {
-const [page, setPage] = useState(1)
-const commentLimit = 6;
+  const [page, setPage] = useState(1)
+  const commentLimit = 6;
 
+  const handleChangePage = (e: React.ChangeEvent<unknown>, p: number) => {
+    console.log(e);
+    setPage(p)
+  }
 
-const handleChangePage= (e:React.ChangeEvent<unknown>, p:number)=>{
-  console.log(e);
-  setPage(p)
-}
-
-const standartPage = (page - 1) * commentLimit
-const selectedRewies = reviews.slice(standartPage , standartPage + commentLimit)
-
+  const standartPage = (page - 1) * commentLimit
+  const selectedReviews = reviews.slice(standartPage, standartPage + commentLimit)
 
   return (
-    <>
-      <Box sx={{ my: 10 }}>
+    <Box sx={{ my: 10 }}>
       <Container>
-       {reviews.length > 0 ? (
-        <>
-        {selectedRewies.map((rew, index)=>(
-        <>
-        <Comments1
-          rating={rew.rating}
-          name={rew.name}
-          date={rew.date}
-          comment={rew.comment}
-          shortComment={rew.shortComment}
-          key={index}
-        />
-        </>
-      ))}
-        </>
-
-       ):<Typography>Yorum Bulunmadı</Typography>}
+        {reviews.length > 0 ? (
+          selectedReviews.map((review, index) => (
+            <Comments1
+              key={`${review.name}-${index}`}
+              rating={review.rating}
+              name={review.name}
+              date={review.date}
+              comment={review.comment}
+              shortComment={review.shortComment}
+            />
+          ))
+        ) : (
+          <Typography>Yorum Bulunmadı</Typography>
+        )}
       </Container>
-      <Typography> {page}</Typography>
+      <Typography>{page}</Typography>
       <Box sx={{
-        display:'flex',
-        justifyContent:'center'
+        display: 'flex',
+        justifyContent: 'center'
       }}>
-          <Pagination color='secondary' count={Math.ceil(reviews.length / commentLimit)} onChange={handleChangePage}/>
+        <Pagination 
+          color='secondary' 
+          count={Math.ceil(reviews.length / commentLimit)} 
+          onChange={handleChangePage}
+        />
       </Box>
-      </Box>
-    </>
+    </Box>
   );
 };
 
 export default Yorumlar;
+
+
+

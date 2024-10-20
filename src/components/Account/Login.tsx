@@ -35,7 +35,6 @@ const Login = () => {
          "Content-Type": "application/json",
        },
      });
-
      if(!response.ok){
       showSnackbar("Kullanıcı adı veya şifre hatalı", "error")
      }else{

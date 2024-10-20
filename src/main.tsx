@@ -14,8 +14,8 @@ import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/bestseller/BestSellers'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
 import { userProfileLoader } from './components/Account/informations/MyAccount'
-import { LinksLoader } from './Layout/Navbar'
 import AboutUs from './FootherPages/aboutUs'
+import { LinksLoader } from './Layout/Navbar'
 
 const router = createBrowserRouter([
   {

@@ -22,8 +22,8 @@ const SliderComponent = () => {
           slidesToShow: 4,
           slidesToScroll: 1,
           enableAutoplay: true,
-          autoplayInterval:2000,
-          transitionDuration:300,
+          autoplayInterval: 2000,
+          transitionDuration: 300,
         },
         "(max-width: 768px)": {
           slidesToShow: 2,
@@ -44,62 +44,64 @@ const SliderComponent = () => {
   }, []);
 
   return (
-    <>
-      <Box>
-        <Box sx={{ my: 3 }} className="pic2Border">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} textAlign={"center"}>
-              GERÇEK MÜŞTERİ YORUMLARI
-            </Grid>
-            <Grid item xs={12} md={6} textAlign={"center"}>
-              <Typography>
-                <Rating name="half-rating" defaultValue={5} readOnly />
-                <span style={{ textDecoration: "underline", margin: "0 4px" }}>
-                  198543 Yorum
-                </span>
-                <div className="my-structure">
-                  <button
-                    style={{marginRight:10}}
-                    className="blaze-prev"
-                    aria-label="Go to previous slide"
-                  >
-                    <KeyboardArrowLeftIcon />
-                  </button>
-                  <button className="blaze-next" aria-label="Go to next slide">
-                    <ChevronRightIcon />
-                  </button>
-                </div>
-              </Typography>
-            </Grid>
+    <Box>
+      <Box sx={{ my: 3 }} className="pic2Border">
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6} textAlign="center">
+            GERÇEK MÜŞTERİ YORUMLARI
           </Grid>
-        </Box>
-        <Container>
-          <div className="blaze-slider" ref={sliderRef}>
-            <div className="blaze-container">
-              <div className="blaze-track-container">
-                <div className="blaze-track">
-                  {Comments.map((comment, index) => (
-                    <div key={index}>
-                      <Grid container>
-                        <Grid item xs={12}>
-                          <Stack direction={"column"}>
-                            <Typography variant="subtitle2">
-                              {comment.date}
-                            </Typography>
-                            <strong>{comment.title}</strong>
-                            <p>{comment.details}</p>
-                          </Stack>
-                        </Grid>
+          <Grid item xs={12} md={6} textAlign="center">
+            <Typography component="div">
+              <Rating name="half-rating" defaultValue={5} readOnly />
+              <span style={{ textDecoration: "underline", margin: "0 4px" }}>
+                198543 Yorum
+              </span>
+              <div className="my-structure">
+                <button
+                  style={{ marginRight: 10 }}
+                  className="blaze-prev"
+                  aria-label="Go to previous slide"
+                >
+                  <KeyboardArrowLeftIcon />
+                </button>
+                <button className="blaze-next" aria-label="Go to next slide">
+                  <ChevronRightIcon />
+                </button>
+              </div>
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+      <Container>
+        <div className="blaze-slider" ref={sliderRef}>
+          <div className="blaze-container">
+            <div className="blaze-track-container">
+              <div className="blaze-track">
+                {Comments.map((comment, index) => (
+                  <div key={index}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Stack direction="column">
+                          <Typography variant="subtitle2">
+                            {comment.date}
+                          </Typography>
+                          <Typography variant="body1" component="strong">
+                            {comment.title}
+                          </Typography>
+                          <Typography variant="body2">
+                            {comment.details}
+                          </Typography>
+                        </Stack>
                       </Grid>
-                    </div>
-                  ))}
-                </div>
+                    </Grid>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </Container>
-      </Box>
-    </>
+        </div>
+      </Container>
+    </Box>
   );
 };
 

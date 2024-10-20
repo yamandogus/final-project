@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface Address {
+export interface Address {
   title: string;
   address: string;
   city: string;

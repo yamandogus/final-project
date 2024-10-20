@@ -119,10 +119,21 @@ function Navbar() {
 
   return (
     <>
-      <Box sx={{ position: 'relative', zIndex: 1420 }} component="div" className="firstNavbar">
-        <AppBar position="static" sx={{ backgroundColor: "white", color: "black" }}>
+      <Box
+        sx={{ position: "relative", zIndex: 1420 }}
+        component="div"
+        className="firstNavbar"
+      >
+        <AppBar
+          position="static"
+          sx={{ backgroundColor: "white", color: "black" }}
+        >
           <Container>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Toolbar>
                 <Typography variant="h6" component="div">
                   <Link to="/Home">
@@ -143,7 +154,7 @@ function Navbar() {
                   }}
                 >
                   <TextField
-                    sx={{ zIndex: 2000}}
+                    sx={{ zIndex: 2000 }}
                     size="small"
                     placeholder="Lütfen bir ürün arayınız"
                     onChange={(e) => setSearch(e.target.value)}
@@ -195,9 +206,9 @@ function Navbar() {
                     slotProps={{
                       backdrop: {
                         timeout: 500,
-                        style:{
-                          position:'fixed'
-                        }
+                        style: {
+                          position: "fixed",
+                        },
                       },
                     }}
                     sx={{
@@ -218,9 +229,9 @@ function Navbar() {
                         position: "relative",
                         maxHeight: "450px",
                         overflowY: "scroll",
-                        '&::-webkit-scrollbar': {
+                        "&::-webkit-scrollbar": {
                           width: 0,
-                          background: 'transparent',
+                          background: "transparent",
                         },
                       }}
                     >
@@ -289,7 +300,9 @@ function Navbar() {
                           </Box>
                         ))
                       ) : (
-                        <Typography>{debouncedSearch} adında bir ürün bulunamadı</Typography>
+                        <Typography>
+                          {debouncedSearch} adında bir ürün bulunamadı
+                        </Typography>
                       )}
                     </Box>
                   </Modal>
@@ -301,7 +314,8 @@ function Navbar() {
                   aria-controls="long-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
-                  onMouseLeave={handleClose}
+                  id="demo-positioned-button"
+                  aria-expanded={anchorEl ? "true" : undefined}
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -312,10 +326,12 @@ function Navbar() {
                   <ArrowDropDownIcon />
                 </Button>
                 <Menu
-                  id="simple-menu"
+                  id="demo-positioned-menu"
+                  aria-labelledby="demo-positioned-button"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
+                  disableScrollLock
                   MenuListProps={{ onMouseLeave: handleClose }}
                   sx={{ zIndex: 1700 }}
                 >
@@ -368,13 +384,26 @@ function Navbar() {
           </Container>
           <Box sx={{ backgroundColor: "black", color: "white" }}>
             <Container>
-              <List onMouseLeave={handleCloseModal} sx={{ padding: 0, display: "flex", flexDirection: "row", gap: 2.3}}>
+              <List
+                onMouseLeave={handleCloseModal}
+                sx={{
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 2.3,
+                }}
+              >
                 {allProduct.map((list, index) => (
                   <React.Fragment key={index}>
                     <ListItem
                       onMouseEnter={handleOpenModal(index)}
                       className="navbar-list-item"
-                      sx={{ flex: 1, justifyContent: "center", fontSize: 13, py: 2 }}
+                      sx={{
+                        flex: 1,
+                        justifyContent: "center",
+                        fontSize: 13,
+                        py: 2,
+                      }}
                       color="inherit"
                     >
                       {list.name}
