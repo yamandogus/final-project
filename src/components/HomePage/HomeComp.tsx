@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 interface ProductPropsHome {
   name: string;
   image?: string;
-  description: string;
+  description?: string;
   review: string;
   link: string;
   bg: string;
 }
-
-const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
+const CategoryProducts = ({ name, image, review, link, bg }: ProductPropsHome) => {
   return (
     <Grid item xs={6} sm={4}>
       <Box>
@@ -57,7 +56,7 @@ const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
                 >
                   {name}
                 </Typography>
-                <Link to={link} style={{ textDecoration: "none" }}>
+                <Link to={`/category/${link}/${encodeURIComponent(name)}`} style={{ textDecoration: "none" }}>
                   <Button
                     className="buttonComp"
                     sx={{
@@ -82,4 +81,4 @@ const HomeComp = ({ name, image, review, link, bg }: ProductPropsHome) => {
   );
 };
 
-export default HomeComp;
+export default CategoryProducts;

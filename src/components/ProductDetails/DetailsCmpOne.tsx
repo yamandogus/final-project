@@ -21,7 +21,7 @@ import { photo_url } from "../bestseller/BestSellers";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import CloseIcon from "@mui/icons-material/Close";
-import { usePaymentStore } from "../../pages/Payement";
+import { usePaymentStore } from "../../services/Payement";
 import { useStore } from "../../Layout/Count";
 import useSnackbar from "../../hooks/alert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";

@@ -1,11 +1,9 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import { Link, useLoaderData } from 'react-router-dom';
-import { base_url } from '../components/bestseller/BestSellers';
+import { base_url, photo_url } from '../components/bestseller/BestSellers';
 import Protein from '../components/protein/Protein';
 import { useEffect, useState } from 'react';
 
-
-const photo_url = "https://fe1111.projects.academy.onlyjs.com"
 interface PriceInfo {
   profit?: null;
   total_price: number;
@@ -24,7 +22,7 @@ interface BestsellerProps {
   average_star: number;
 }
 
-function getAllProducts(page:number, limit:number){
+export function getAllProducts(page:number, limit:number){
   return (page - 1) * limit
 }
 

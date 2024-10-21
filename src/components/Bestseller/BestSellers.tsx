@@ -1,32 +1,20 @@
 import { Box, Container,Grid,Typography } from '@mui/material';
 import ProductCard from './Products';
 import { useLoaderData } from 'react-router-dom';
+import { BestsellerPropsCS } from '../../services/type';
 
 export const base_url = "https://fe1111.projects.academy.onlyjs.com/api/v1"
 export const photo_url = "https://fe1111.projects.academy.onlyjs.com"
 
-interface PriceInfo {
-  profit?: null;
-  total_price: number;
-  discounted_price?: number | null;
-  price_per_servings?: number;
-  discount_percentage?: number | null;
-}
-
-export interface BestsellerPropsCS {
-  name: string;
-  short_explanation: string;
-  price_info: PriceInfo;
-  photo_src: string;
-  comment_count?: number;
-  average_star: number;
-  slug?: string,
-}
 
 export async function loader() {
-    const response = await fetch(base_url + "/products/best-sellers")
-    const result = await response.json() 
-    return { products: result.data} 
+  const bestSellersResponse = await fetch(base_url + "/products/best-sellers");
+  const bestSellersData = await bestSellersResponse.json();
+  
+  const categoriesResponse = await fetch(base_url + "/categories");
+  const categoriesData = await categoriesResponse.json();
+
+  return { products: bestSellersData.data, category: categoriesData.data.data };
 }
 
 

@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from "@mui/material";
 import { useState } from "react";
 import { useAddressesStore } from "../components/Account/addresses/Address";
-import { usePaymentStore } from "./Payement";
+import { usePaymentStore } from "../services/Payement";
 import AddressSection from "../components/payment/addressSection";
 import ShippingSection from "../components/payment/shippingSections";
 import PaymentSection from "../components/payment/paymentSection";

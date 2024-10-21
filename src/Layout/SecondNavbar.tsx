@@ -25,12 +25,12 @@ import { useEffect, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import SecondNavbarComponent from "../components/navbar/SecondNavbarComponet";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { usePaymentStore } from "../pages/Payement";
+import { usePaymentStore } from "../services/Payement";
 import { useStore } from "./Count";
 import { base_url, photo_url } from "../components/bestseller/BestSellers";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDebounce } from "../components/navbar/Navbar";
-import { SearchPropsPt } from "./Navbar";
+import { SearchPropsPt } from "../services/type";
 interface LinksProps {
   id: string;
   name: string;

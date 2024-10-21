@@ -1,11 +1,13 @@
-import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 
-import HomeComp from "../components/homePage/HomeComp";
 import SliderComponent from "../components/useBlaze/SliderComponent";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
-import BestSeller from "../components/bestseller/BestSellers";
+import BestSeller, { base_url } from "../components/bestseller/BestSellers";
+import { Link, useLoaderData } from "react-router-dom";
+import { CategoryProps } from "../services/type";
+import CategoryProducts from "../components/homePage/HomeComp";
 
 const products = [
   {
@@ -59,9 +61,10 @@ const products = [
 ];
 
 const Home = () => {
+  const { category } = useLoaderData() as { category: CategoryProps[] };
   return (
     <>
-      <Box component={'div'} className="sliderRek">
+      <Box component={"div"} className="sliderRek">
         <Container>
           <Stack
             direction="row"
@@ -108,17 +111,93 @@ const Home = () => {
       </Box>
       <Container sx={{ boxShadow: "none", border: "none", p: 2, pt: 5 }}>
         <Grid container spacing={2}>
-          {products.map((product,index) => (
-            <HomeComp
-              key={index}
-              name={product.name}
-              image={product.image}
-              description={product.description}
-              review={product.review}
-              link={product.link}
-              bg={product.bg}
-            />
-          ))}
+            {category.map((cat, index)=>{
+              const product = products[index];
+              return(
+                <CategoryProducts
+                  name={cat.name}
+                  bg={product.bg}
+                  image={product.image}
+                  description={product.description}
+                  link={cat.id}
+                  review={product.review}
+                />
+              )
+            })}
+          <Grid item xs={6} sm={4}>
+            <Box>
+              <Card
+                className="cardTyp"
+                sx={{
+                  backgroundColor: "rgb(168, 213, 232)",
+                  height: 165,
+                  borderRadius: 3,
+                }}
+              >
+                <Grid container>
+                  <Grid item xs={6}>
+                    <img
+                      className="homeConmtImg"
+                      style={{ height: 164, width: 294 }}
+                      height={"auto"}
+                      src={base_url + "/images/6card/news.png"}
+                      alt=""
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={6}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "end",
+                      pr: 2,
+                    }}
+                  >
+                    <Stack
+                      direction={"column"}
+                      spacing={2}
+                      sx={{
+                        alignItems: "center",
+                        height: "100%",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          textAlign: "end",
+                          fontWeight: 900,
+                          fontSize: "x-large",
+                          width: "min-content",
+                        }}
+                        className="nameComp"
+                      >
+                        Tüm ürünler
+                      </Typography>
+                      <Link
+                        to={"/AllProducts"}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button
+                          className="buttonComp"
+                          sx={{
+                            backgroundColor: "rgba(0, 0, 0, 1)",
+                            borderRadius: 2,
+                            width: "100%",
+                            fontWeight: "bolder",
+                            px: 4,
+                            "&:hover": { backgroundColor: "rgba(0, 0, 0, 1)" },
+                          }}
+                          variant="contained"
+                        >
+                          İNCELE
+                        </Button>
+                      </Link>
+                    </Stack>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Box>
+          </Grid>
         </Grid>
       </Container>
       <BestSeller />
@@ -129,7 +208,7 @@ const Home = () => {
           src="/images/6card/box3.png"
           alt=""
         />
-      </Box>   
+      </Box>
       <Box>
         <Container sx={{ my: 5, overflow: "hidden" }}>
           <SliderComponent />
@@ -140,11 +219,7 @@ const Home = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Stack direction={"row"} sx={{ mb: 2 }}>
-                <Rating
-                  name="half-rating"
-                  defaultValue={5}
-                  readOnly
-                />
+                <Rating name="half-rating" defaultValue={5} readOnly />
                 <Typography>(140.000+)</Typography>
               </Stack>
               <Typography variant="h5">

@@ -16,6 +16,7 @@ import AllProducts, { AllProLoader } from './pages/AllProducts'
 import { userProfileLoader } from './components/Account/informations/MyAccount'
 import AboutUs from './FootherPages/aboutUs'
 import { LinksLoader } from './Layout/Navbar'
+import Categories, { CategoryLoader } from './pages/Categories'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,12 @@ const router = createBrowserRouter([
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         loader: AllProLoader as any,
         element: <AllProducts/>
+      },
+      {
+        path:"/category/:id/:name",
+        element:<Categories/>,
+        loader:CategoryLoader,
+
       },
       {
         path: "MyAccount",

@@ -17,6 +17,12 @@ export interface ProductProps {
   slug: string;
 }
 
+export const calculateDiscount = (total_price: number, discounted_price: number) => {
+  const discountAmount = total_price - discounted_price;
+  const discountPercentega = (discountAmount / total_price) * 100;
+  return Math.round(discountPercentega);
+};
+
 const Protein = ({
   name,
   photo_src,
@@ -26,12 +32,6 @@ const Protein = ({
   price_info: { total_price, discounted_price },
   slug,
 }: ProductProps) => {
-
-  const calculateDiscount = (total_price: number, discounted_price: number) => {
-    const discountAmount = total_price - discounted_price;
-    const discountPercentega = (discountAmount / total_price) * 100;
-    return Math.round(discountPercentega);
-  };
 
   return (
     <>

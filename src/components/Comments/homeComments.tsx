@@ -2,7 +2,6 @@ import { Grid, Rating, Stack, Typography } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import { CommentProp } from './Yorumlar';
 
-// key prop'unu CommentProp tipinden çıkaralım
 type Comments1Props = Omit<CommentProp, 'key'>;
 
 const HomeCooments = ({rating, name, date, comment, shortComment}: Comments1Props) => {
