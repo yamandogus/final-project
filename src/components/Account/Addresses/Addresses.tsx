@@ -16,7 +16,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
 import useSnackbar from "../../../hooks/alert";
-import { base_url } from "../../bestseller/BestSellers";
+import { base_url } from "../../Bestseller/Bestseller";
 import { CityProps, DistrictProps } from "../../../services/city-district";
 import { useAddressesStore } from "./Address";
 

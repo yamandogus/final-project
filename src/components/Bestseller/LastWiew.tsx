@@ -1,6 +1,6 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { BestsellerPropsCS } from "./BestSellers";
+import { BestsellerPropsCS } from "../../services/type";
 
 
 const  LastWiew= ({

@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import { Link, useLoaderData } from 'react-router-dom';
-import { base_url, photo_url } from '../components/bestseller/BestSellers';
-import Protein from '../components/protein/Protein';
+import { base_url, photo_url } from '../components/Bestseller/Bestseller';
 import { useEffect, useState } from 'react';
+import Protein from '../components/Protein/Protein';
 
 interface PriceInfo {
   profit?: null;

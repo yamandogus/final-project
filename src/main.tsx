@@ -11,12 +11,13 @@ import ContactUs from './FootherPages/ContactUs'
 import SSS from './FootherPages/SSS'
 import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
-import { loader } from './components/bestseller/BestSellers'
+import { loader } from './components/Bestseller/Bestseller'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
-import { userProfileLoader } from './components/Account/informations/MyAccount'
-import AboutUs from './FootherPages/aboutUs'
+import { userProfileLoader } from './components/Account/Informations/MyAccount'
+import AboutUs from './FootherPages/AboutUs'
 import { LinksLoader } from './Layout/Navbar'
 import Categories, { CategoryLoader } from './pages/Categories'
+
 
 const router = createBrowserRouter([
   {

@@ -5,54 +5,66 @@ import {
   Container,
   FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
   Tab,
   TextField,
   Typography,
 } from "@mui/material";
 import { FormEvent, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { handleRegister, LoginPayload } from "./LoginAndSingUp";
-import { base_url } from "../bestseller/BestSellers";
+import { base_url } from "../Bestseller/Bestseller";
 
-export const handleLogin = async (e: FormEvent) => {
-  try {
-   e.preventDefault();
-   const formEl = e.target as HTMLFormElement
-   const formData = new FormData(formEl);
-   const data = Object.fromEntries(
-     formData.entries()
-   ) as unknown as LoginPayload;
-   data.api_key = "100807";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-   console.log(data);
 
-   const response = await fetch(base_url + "/auth/login", {
-     method: "POST",
-     body: JSON.stringify(data),
-     headers: {
-       "Content-Type": "application/json",
-     },
-   });
-   console.log(response);  
-
-   const jsonResponse = await response.json() as 
-   {
-     access_token: string,
-     refresh_token: string,
-   }
-
-   localStorage.setItem("access_token", jsonResponse.access_token)
-   localStorage.setItem("refresh_token", jsonResponse.refresh_token)
-   console.log(jsonResponse);
-  } catch (error) {
-   console.log(error);
-   alert("Kullanıcı adı veya şifre hatalı")
-  }
- };
 
 
 const SignUp = () => {
   const [value, setValue] = useState("1");
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(true);
+
+  const handleShow =()=>{
+    setShowPassword(prev => !prev)
+  }
+
+  const handleLogin = async (e: FormEvent) => {
+    try {
+     e.preventDefault();
+     const formEl = e.target as HTMLFormElement
+     const formData = new FormData(formEl);
+     const data = Object.fromEntries(
+       formData.entries()
+     ) as unknown as LoginPayload;
+     data.api_key = "100807";
+  
+     console.log(data);
+  
+     const response = await fetch(base_url + "/auth/login", {
+       method: "POST",
+       body: JSON.stringify(data),
+       headers: {
+         "Content-Type": "application/json",
+       },
+     });
+     console.log(response);  
+     const jsonResponse = await response.json() as 
+     {
+       access_token: string,
+       refresh_token: string,
+     }
+  
+     localStorage.setItem("access_token", jsonResponse.access_token)
+     localStorage.setItem("refresh_token", jsonResponse.refresh_token)
+     console.log(jsonResponse);
+     navigate("/")
+    } catch (error) {
+     console.log(error);
+     alert("Kullanıcı adı veya şifre hatalı")
+    }
+   };
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -118,13 +130,25 @@ const SignUp = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <TextField
+                     <TextField
                         id="password"
                         name="password"
                         label="Şifre"
-                        type="password"
+                        type={showPassword ? "password" : "text"}
                         autoComplete="current-password"
                         required
+                        InputProps={{
+                          endAdornment:(
+                            <InputAdornment position="end">
+                              <IconButton
+                              onClick={handleShow}
+                              edge='end'
+                              >
+                                {showPassword ? <VisibilityOff/> :<Visibility/> }
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -170,13 +194,25 @@ const SignUp = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <TextField
-                        name="password"
+                    <TextField
                         id="password"
+                        name="password"
                         label="Şifre"
-                        type="password"
+                        type={showPassword ? "password" : "text"}
                         autoComplete="current-password"
                         required
+                        InputProps={{
+                          endAdornment:(
+                            <InputAdornment position="end">
+                              <IconButton
+                              onClick={handleShow}
+                              edge='end'
+                              >
+                                {showPassword ? <VisibilityOff/> :<Visibility/> }
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
                       />
                       <Typography
                         variant="subtitle2"

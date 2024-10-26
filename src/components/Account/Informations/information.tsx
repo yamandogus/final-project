@@ -6,9 +6,12 @@ import {
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent, useState } from "react";
+import { userProfileLoaderReturn } from "./MyAccount";
+import { useLoaderData } from "react-router-dom";
 
 
 const Informations: React.FC = () => {
+  const {user} = useLoaderData() as userProfileLoaderReturn;
   const [focusPhone, setFocusPhone] = useState(false);
   const [phone, setPhone] = useState<string>("");
   const [phoneError, setPhoneError] = useState(false);
@@ -31,19 +34,20 @@ const Informations: React.FC = () => {
 
         <Grid container mt={2} spacing={2} mb={10}>
           <Grid item xs={12} md={6}>
-            <TextField fullWidth label="Ad" required defaultValue="Doğuş" />
+            <TextField fullWidth label="Ad" required defaultValue={user ? user.first_name :""} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField fullWidth label="Soyad" id="Soyad" required defaultValue="Yaman" />
+            <TextField fullWidth label="Soyad" id="Soyad" required defaultValue={user ? user.last_name :""} />
           </Grid>
           <Grid item xs={12}>
-            <MuiPhoneNumber
+            <MuiPhoneNumber      
               key="autofocus_issue_112"
               defaultCountry="tr"
               fullWidth
               variant="outlined"
               label="Telefon Numarası"
               name="phone"
+              defaultValue={user ? user.phone_number : ""}
               value={phone}
               onChange={handlePhone}
               error={phoneError}
@@ -52,7 +56,7 @@ const Informations: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField type="email" label="Email" required fullWidth />
+            <TextField type="email" label="Email" required defaultValue={user ? user.email : ""} fullWidth />
           </Grid>
           <Grid item xs={12} textAlign="end">
             <Button

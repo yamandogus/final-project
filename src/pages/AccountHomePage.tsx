@@ -3,16 +3,19 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { useState } from "react";
-import Informations from "../components/Account/informations/Informations";
-import Addresses from "../components/Account/addresses/Addresses";
+
+
 import Orders from "../components/Account/Orders/Orders";
+import Addresses from "../components/Account/Addresses/Addresses";
+import Informations from "../components/Account/Informations/information";
 import { useLoaderData } from "react-router-dom";
-import { userProfileLoaderReturn } from "../components/Account/informations/MyAccount";
+import { userProfileLoaderReturn } from "../components/Account/Informations/MyAccount";
+
 
 
 const AccountHomePage = () => {
   const [activeSation, setActiveSation] = useState('accountInfo');
-  const {user} = useLoaderData() as userProfileLoaderReturn;
+  const{user} = useLoaderData() as userProfileLoaderReturn
 
   const renderContent = () =>{
     switch(activeSation){
@@ -29,8 +32,8 @@ const AccountHomePage = () => {
 
   return (
     <>
+    {JSON.stringify(user)}
       <Box>
-          <p>{JSON.stringify(user)}</p>
         <Container sx={{ mt: 10 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={3} textAlign={'center'}>

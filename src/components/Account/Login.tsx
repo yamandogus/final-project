@@ -1,10 +1,11 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Button, Container, FormControl, Grid, Tab, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, FormControl, Grid, IconButton, InputAdornment, Tab, TextField, Typography } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {  handleRegister, LoginPayload } from "./LoginAndSingUp";
-import { base_url } from "../bestseller/BestSellers";
+import { base_url } from "../Bestseller/Bestseller";
 import useSnackbar from "../../hooks/alert";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 
@@ -12,6 +13,12 @@ const Login = () => {
   const [value, setValue] = useState("1");
   const navigate = useNavigate()
   const {showSnackbar, SnackbarComponent} = useSnackbar()
+  const [showPassword, setShowPassword] = useState(true);
+
+  const handleShow =()=>{
+    setShowPassword(prev => !prev)
+  }
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -81,7 +88,26 @@ const Login = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <TextField id="login-password" label="Şifre" name="password" type="password" autoComplete="current-password" required />
+                     <TextField
+                        id="password"
+                        name="password"
+                        label="Şifre"
+                        type={showPassword ? "password" : "text"}
+                        autoComplete="current-password"
+                        required
+                        InputProps={{
+                          endAdornment:(
+                            <InputAdornment position="end">
+                              <IconButton
+                              onClick={handleShow}
+                              edge='end'
+                              >
+                                {showPassword ? <VisibilityOff/> :<Visibility/> }
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
+                      />
                     <Typography variant="subtitle2" sx={{ mt: 2, textAlign: "end" }}>
                       <Link to="">Şifremi Unuttum?</Link>
                     </Typography>
@@ -117,7 +143,26 @@ const Login = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <TextField id="register-password" name="password" label="Şifre" type="password" required />
+                    <TextField
+                        id="password"
+                        name="password"
+                        label="Şifre"
+                        type={showPassword ? "password" : "text"}
+                        autoComplete="current-password"
+                        required
+                        InputProps={{
+                          endAdornment:(
+                            <InputAdornment position="end">
+                              <IconButton
+                              onClick={handleShow}
+                              edge='end'
+                              >
+                                {showPassword ? <VisibilityOff/> :<Visibility/> }
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
+                      />
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>

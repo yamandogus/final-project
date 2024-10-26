@@ -23,10 +23,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import SecondNavbar from "./SecondNavbar";
-import NavbarModal from "../components/navbar/NavbarPopover";
-import DrawerListCoponent from "../components/myCart/DrawerList";
+import NavbarModal from "../components/Navbar/NavbarPopover";
+import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { useStore } from "./Count";
-import { base_url, photo_url } from "../components/bestseller/BestSellers";
+import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { useDebounce } from "../components/navbar/Navbar";
 import { LinksProps, SearchPropsPt } from "../services/type";
 
@@ -54,6 +54,8 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
+  
+
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -322,7 +324,8 @@ function Navbar() {
                     gap: 0.5,
                   }}
                 >
-                  <PersonIcon sx={{ fontSize: 18 }} /> Hesap
+                  <PersonIcon sx={{ fontSize: 18 }} /> 
+                   Hesap
                   <ArrowDropDownIcon />
                 </Button>
                 <Menu
@@ -345,7 +348,7 @@ function Navbar() {
                       Üye Girişi
                     </Link>
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose}>
                     <Link className="accountLinkNav" to="SingUp">
                       Üye Ol
                     </Link>

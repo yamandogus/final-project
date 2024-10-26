@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { photo_url } from "../bestseller/BestSellers";
+import { photo_url } from "../Bestseller/Bestseller";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import CloseIcon from "@mui/icons-material/Close";

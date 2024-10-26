@@ -10,6 +10,13 @@ interface ProductPropsHome {
   bg: string;
 }
 const CategoryProducts = ({ name, image, review, link, bg }: ProductPropsHome) => {
+  const CategoryLink= ()=>{
+    if(link ==="/AllProducts"){
+      return link
+    }else{
+      return `/category/${link}/${encodeURIComponent(name)}`;
+    }
+  }
   return (
     <Grid item xs={6} sm={4}>
       <Box>
@@ -56,7 +63,7 @@ const CategoryProducts = ({ name, image, review, link, bg }: ProductPropsHome) =
                 >
                   {name}
                 </Typography>
-                <Link to={`/category/${link}/${encodeURIComponent(name)}`} style={{ textDecoration: "none" }}>
+                <Link to={CategoryLink()} style={{ textDecoration: "none" }}>
                   <Button
                     className="buttonComp"
                     sx={{

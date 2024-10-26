@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Stack, styled, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 interface Link {
@@ -19,36 +19,28 @@ const contactLinks: Link[] = [
 ];
 
 const popularProductsLinks: Link[] = [
-  { to: "/Protein", label: "Protein" },
-  { to: "/SportsNutrition", label: "Spor Gıdaları" },
-  { to: "/Health", label: "Sağlık" },
-  { to: "/Food", label: "Gıda" },
-  { to: "/Vitamins", label: "Vitamin" },
-  { to: "/Accessories", label: "Aksesuar" },
+  { to: "/category/38fb5754-3068-4490-a12a-169fa564c675/PROTEİN", label: "Protein" },
+  { to: "/category/d3cdcefe-eedd-4ee0-a254-b821ed4e2b8c/Spor Gıdaları", label: "Spor Gıdaları" },
+  { to: "/category/8eaeff30-3138-49ac-b120-0eac18866190/Sağlık", label: "Sağlık" },
+  { to: "/category/8eaeff30-3138-49ac-b120-0eac18866190/Gıda", label: "Gıda" },
+  { to: "/category/cae64711-98b9-48f4-82b4-c5d460718dcf/Vitamin", label: "Vitamin" },
+  { to: "/", label: "Aksesuar" },
   { to: "/AllProducts", label: "Tüm Ürünler" },
-  { to: "/Packages", label: "Paketler" },
-  { to: "/LaunchOffers", label: "Lansmana Özel Fırsatlar" },
+  { to: "/", label: "Paketler" },
+  { to: "/", label: "Lansmana Özel Fırsatlar" },
 ];
 
 const categoriesLinks: Link[] = [
-  { to: "/WheyProtein", label: "Whey Protein" },
-  { to: "/CreamOfRice", label: "Cream of Rice" },
-  { to: "/Creatine", label: "Creatine" },
-  { to: "/BCAA", label: "BCAA+" },
-  { to: "/PreWorkout", label: "Pre-Workout" },
-  { to: "/FitnessPackage", label: "Fitness Paketi" },
-  { to: "/Collagen", label: "Collagen" },
-  { to: "/DailyVitaminPackage", label: "Günlük Vitamin Paketi" },
-  { to: "/ZMA", label: "ZMA" },
+  { to: "/products/whey-protein", label: "Whey Protein" },
+  { to: "/products/cream-of-rice", label: "Cream of Rice" },
+  { to: "/products/creatine", label: "Creatine" },
+  { to: "/products/bcaa-411", label: "BCAA+" },
+  { to: "/products/preworkout", label: "Pre-Workout" },
+  { to: "/", label: "Fitness Paketi" },
+  { to: "/products/collagen", label: "Collagen" },
+  { to: "/", label: "Günlük Vitamin Paketi" },
+  { to: "/products/zma", label: "ZMA" },
 ];
-
-const FootherAccordion = styled(Accordion)({
-  border: "none",
-  boxShadow:"none",
-  "&:before": {
-    display: "none",
-  },
-})
 
 const Footer: React.FC = () => {
   const renderLink = (Links: Link[]): JSX.Element => {
@@ -66,6 +58,16 @@ const Footer: React.FC = () => {
       </Stack>
     );
   };
+
+  const accordionStyle = {
+    border: "none",
+    boxShadow: "none",
+    "&:before": {
+      display: "none",
+    },
+    backgroundColor: "transparent",
+  };
+
   return (
     <>
       <Box
@@ -76,30 +78,19 @@ const Footer: React.FC = () => {
         <Container>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
-              <Typography
-                variant="h6"
-                gutterBottom
-              >
-               <strong> OJS <br /> NUTRITION</strong> 
-                
+              <Typography variant="h6" gutterBottom>
+                <strong>OJS <br /> NUTRITION</strong>
               </Typography>
               <div>{renderLink(contactLinks)}</div>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Typography
-                variant="h6"
-                gutterBottom
-              >
+              <Typography variant="h6" gutterBottom>
                 <strong>Popüler Ürünler</strong>
               </Typography>
               {renderLink(popularProductsLinks)}
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ fontWeight: "bolder" }}
-              >
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: "bolder" }}>
                 <strong>Kategoriler</strong>
               </Typography>
               {renderLink(categoriesLinks)}
@@ -107,49 +98,43 @@ const Footer: React.FC = () => {
           </Grid>
         </Container>
       </Box>
-        <Box className="test" sx={{backgroundColor:'#222222'}}>
-        <Container style={{border:'none !important'}} >
-        <FootherAccordion 
-        sx={{"&:before":{backgroundColor:'transparent'}}}
-        className="accordion">
-        <AccordionSummary
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
-          <strong>+ OJS <br /> NUTRITION</strong> 
-        </AccordionSummary>
-        <AccordionDetails>
-        {renderLink(contactLinks)}
-        </AccordionDetails>
-      </FootherAccordion>
-      <FootherAccordion 
-      sx={{"&:before":{backgroundColor:'transparent'}}}
-      className="accordion">
-        <AccordionSummary
-          aria-controls="panel2-content"
-          id="panel2-header"
-        >
-          <strong>+ Popüler Ürünler</strong>
-        </AccordionSummary>
-        <AccordionDetails>
-        {renderLink(popularProductsLinks)}
-        </AccordionDetails>
-      </FootherAccordion>
-      <FootherAccordion 
-      sx={{"&:before":{backgroundColor:'transparent'}}}
-      className="accordion">
-        <AccordionSummary
-          aria-controls="panel3-content"
-          id="panel3-header"
-        >
-         <strong>+ Kategoriler</strong>
-        </AccordionSummary>
-        <AccordionDetails>
-        {renderLink(categoriesLinks)}
-        </AccordionDetails>
-      </FootherAccordion>
+      <Box className="test" sx={{backgroundColor:'#222222'}}>
+        <Container style={{border:'none !important'}}>
+          <Accordion sx={accordionStyle} className="accordion">
+            <AccordionSummary
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <strong>+ OJS <br /> NUTRITION</strong> 
+            </AccordionSummary>
+            <AccordionDetails>
+              {renderLink(contactLinks)}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={accordionStyle} className="accordion">
+            <AccordionSummary
+              aria-controls="panel2-content"
+              id="panel2-header"
+            >
+              <strong>+ Popüler Ürünler</strong>
+            </AccordionSummary>
+            <AccordionDetails>
+              {renderLink(popularProductsLinks)}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={accordionStyle} className="accordion">
+            <AccordionSummary
+              aria-controls="panel3-content"
+              id="panel3-header"
+            >
+              <strong>+ Kategoriler</strong>
+            </AccordionSummary>
+            <AccordionDetails>
+              {renderLink(categoriesLinks)}
+            </AccordionDetails>
+          </Accordion>
         </Container>
-    </Box>
+      </Box>
     </>
   );
 };

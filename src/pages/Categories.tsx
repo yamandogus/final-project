@@ -4,9 +4,9 @@ import {
   useLoaderData,
   useParams,
 } from "react-router-dom";
-import { base_url, photo_url } from "../components/bestseller/BestSellers";
+import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { Container, Grid, Rating, Stack, Typography } from "@mui/material";
-import { calculateDiscount } from "../components/protein/Protein";
+import { calculateDiscount } from "../components/Protein/Protein";
 import { getAllProducts } from "./AllProducts";
 import { useEffect, useState } from "react";
 

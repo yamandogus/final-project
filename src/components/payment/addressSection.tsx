@@ -19,7 +19,7 @@ import { useState } from "react";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { ChangeEvent } from "react";
 import useSnackbar from "../../hooks/alert";
-import { base_url } from "../bestseller/BestSellers";
+import { base_url } from "../Bestseller/Bestseller";
 import { useEffect } from "react";
 
 interface AddressSectionProps {

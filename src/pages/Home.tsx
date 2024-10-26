@@ -1,13 +1,14 @@
-import { Box, Button, Card, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box,Container, Grid, Rating, Stack, Typography } from "@mui/material";
 
-import SliderComponent from "../components/useBlaze/SliderComponent";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
-import BestSeller, { base_url } from "../components/bestseller/BestSellers";
-import { Link, useLoaderData } from "react-router-dom";
+import {useLoaderData } from "react-router-dom";
 import { CategoryProps } from "../services/type";
-import CategoryProducts from "../components/homePage/HomeComp";
+import CategoryProducts from "../components/HomePage/HomeComp";
+import SliderComponent from "../components/UseBlaze/SliderComponent";
+import BestSeller from "../components/Bestseller/Bestseller";
+
 
 const products = [
   {
@@ -62,6 +63,7 @@ const products = [
 
 const Home = () => {
   const { category } = useLoaderData() as { category: CategoryProps[] };
+  
   return (
     <>
       <Box component={"div"} className="sliderRek">
@@ -124,80 +126,14 @@ const Home = () => {
                 />
               )
             })}
-          <Grid item xs={6} sm={4}>
-            <Box>
-              <Card
-                className="cardTyp"
-                sx={{
-                  backgroundColor: "rgb(168, 213, 232)",
-                  height: 165,
-                  borderRadius: 3,
-                }}
-              >
-                <Grid container>
-                  <Grid item xs={6}>
-                    <img
-                      className="homeConmtImg"
-                      style={{ height: 164, width: 294 }}
-                      height={"auto"}
-                      src={base_url + "/images/6card/news.png"}
-                      alt=""
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={6}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "end",
-                      pr: 2,
-                    }}
-                  >
-                    <Stack
-                      direction={"column"}
-                      spacing={2}
-                      sx={{
-                        alignItems: "center",
-                        height: "100%",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          textAlign: "end",
-                          fontWeight: 900,
-                          fontSize: "x-large",
-                          width: "min-content",
-                        }}
-                        className="nameComp"
-                      >
-                        Tüm ürünler
-                      </Typography>
-                      <Link
-                        to={"/AllProducts"}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <Button
-                          className="buttonComp"
-                          sx={{
-                            backgroundColor: "rgba(0, 0, 0, 1)",
-                            borderRadius: 2,
-                            width: "100%",
-                            fontWeight: "bolder",
-                            px: 4,
-                            "&:hover": { backgroundColor: "rgba(0, 0, 0, 1)" },
-                          }}
-                          variant="contained"
-                        >
-                          İNCELE
-                        </Button>
-                      </Link>
-                    </Stack>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Box>
-          </Grid>
+         <CategoryProducts
+            name={products[5].name}
+            bg={products[5].bg}
+            image={products[5].image}
+            description={products[5].description}
+            link={"/AllProducts"}
+            review={products[5].review}
+          />
         </Grid>
       </Container>
       <BestSeller />

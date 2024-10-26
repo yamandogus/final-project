@@ -13,7 +13,7 @@ import Yorumlar from "../components/comments/Yorumlar";
 import LastWiew from "../components/bestseller/LastWiew";
 import DetailsCmpOne from "../components/productDetails/DetailsCmpOne";
 import { Link, useLoaderData} from "react-router-dom";
-import { base_url } from "../components/bestseller/BestSellers";
+import { base_url } from "../components/Bestseller/Bestseller";
 import { Product } from "../hooks/types";
 
 const productsDet = [

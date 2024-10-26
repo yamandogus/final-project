@@ -1,13 +1,4 @@
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
-const StyledAccordion = styled(Accordion)({
-  border: "none",
-  boxShadow: "none",
-  "&:before": {
-    display: "none",
-  },
-});
 
 interface CustomAccordionProps {
   children: React.ReactNode;
@@ -19,9 +10,19 @@ interface CustomAccordionProps {
 
 const CustomAccordion: React.FC<CustomAccordionProps> = ({ children, expanded, onChange, title, panelNumber }) => {
   return (
-    <StyledAccordion expanded={expanded} onChange={onChange}>
+    <Accordion 
+      expanded={expanded} 
+      onChange={onChange}
+      sx={{
+        border: "none",
+        boxShadow: "none",
+        "&:before": {
+          display: "none",
+        },
+      }}
+    >
       <AccordionSummary
-        style={{
+        sx={{
           borderBottom: "1px solid rgb(228, 227, 232)",
         }}
       >
@@ -52,7 +53,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({ children, expanded, o
         </Box>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
-    </StyledAccordion>
+    </Accordion>
   );
 };
 

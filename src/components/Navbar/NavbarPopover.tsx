@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { photo_url } from "../bestseller/BestSellers";
+import { photo_url } from "../Bestseller/Bestseller";
 import { Link } from "react-router-dom";
 import { LinksProps } from "../../services/type";
 
