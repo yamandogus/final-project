@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import CustomAccordion from "./customAccordion";
 import { Link } from "react-router-dom";
-import { Address, useAddressesStore } from "../Account/addresses/Address";
 import { CityProps, DistrictProps } from "../../services/city-district";
 import { useState } from "react";
 import MuiPhoneNumber from "material-ui-phone-number";
@@ -21,6 +20,7 @@ import { ChangeEvent } from "react";
 import useSnackbar from "../../hooks/alert";
 import { base_url } from "../Bestseller/Bestseller";
 import { useEffect } from "react";
+import { Address, useAddressesStore } from "../Account/Addresses/Address";
 
 interface AddressSectionProps {
   addresses: Address[];

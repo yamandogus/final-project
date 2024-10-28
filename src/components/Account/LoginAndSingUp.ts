@@ -12,9 +12,9 @@ interface RegisterPayload {
   }
   
   export interface LoginPayload{
-    email: string,
+    username: string,
     password: string,
-    api_key?: string,
+    api_key: string,
   }
 
 export const handleRegister = async (e: FormEvent) => {

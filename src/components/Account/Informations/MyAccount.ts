@@ -4,23 +4,27 @@ export interface AccountProps {
   email: string;
   first_name: string;
   last_name: string;
-  phone_number: null | string; // phone_number null veya string olabilir
+  phone_number: null | string; 
 }
 
 export async function userProfileLoader() {
-  const response = await fetch(base_url + "/users/my-account", {
+  const accessToken = localStorage.getItem("access_token");
+  if(!accessToken){
+    throw new Error("Access token not found");
+  }
+   const response = await fetch(base_url + "/users/my-account", {
     method: "GET",
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"),
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   });
 
   const responseJson = await response.json();
-  console.log(localStorage.getItem("access_token"));
+  console.log("access_token:" + localStorage.getItem("access_token"));
   console.log(responseJson);
+  
 
-  // Eğer API yanıtı { status: "success", data: { ... } } şeklindeyse
   return { user: responseJson.data as AccountProps };
 }
 

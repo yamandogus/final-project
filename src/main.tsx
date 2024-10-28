@@ -7,16 +7,16 @@ import "./styles/evryStyles.scss"
 import ProductsDetails, { ProductLoader } from './pages/ProductDetails'
 import AccountHomePage from './pages/AccountHomePage'
 import SingUp from './components/Account/SingUp'
-import ContactUs from './FootherPages/ContactUs'
-import SSS from './FootherPages/SSS'
 import Login from './components/Account/Login'
 import PaymentPage from './pages/PaymentPage'
 import { loader } from './components/Bestseller/Bestseller'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
 import { userProfileLoader } from './components/Account/Informations/MyAccount'
-import AboutUs from './FootherPages/AboutUs'
 import { LinksLoader } from './Layout/Navbar'
 import Categories, { CategoryLoader } from './pages/Categories'
+import ContactUs from './components/FootherPages/ContactUs'
+import AboutUs from './components/FootherPages/AboutUs'
+import SSS from './components/FootherPages/SSS'
 
 
 const router = createBrowserRouter([

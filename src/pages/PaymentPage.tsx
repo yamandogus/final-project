@@ -1,11 +1,11 @@
 import { Box, Container, Grid } from "@mui/material";
 import { useState } from "react";
-import { useAddressesStore } from "../components/Account/addresses/Address";
 import { usePaymentStore } from "../services/Payement";
 import AddressSection from "../components/payment/addressSection";
 import ShippingSection from "../components/payment/shippingSections";
 import PaymentSection from "../components/payment/paymentSection";
 import OrderSummary from "../components/payment/orderSummary";
+import { useAddressesStore } from "../components/Account/Addresses/Address";
 
 const PaymentPage = () => {
   const { addresses } = useAddressesStore();

@@ -1,5 +1,5 @@
 import { Box, Container, Pagination, Typography} from "@mui/material";
-import Comments1 from "./homeComments";
+import Comments1 from "../Comments/homeComments";
 import { useState } from "react";
 
 export interface CommentProp {

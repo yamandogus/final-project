@@ -32,7 +32,7 @@ const AccountHomePage = () => {
 
   return (
     <>
-    {JSON.stringify(user)}
+    {user?JSON.stringify(user):""}
       <Box>
         <Container sx={{ mt: 10 }}>
           <Grid container spacing={2}>

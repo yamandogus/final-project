@@ -9,7 +9,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ContactUs from './ContactUs';
-import Accordions from '../components/accordions/Accordions';
+import Accordions from '../Accordions/Accordions';
 
 
 

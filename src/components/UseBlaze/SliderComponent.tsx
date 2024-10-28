@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import BlazeSlider from "blaze-slider";
 import "blaze-slider/dist/blaze.css";
 import { useEffect, useRef } from "react";
@@ -22,7 +22,7 @@ const SliderComponent = () => {
           slidesToShow: 4,
           slidesToScroll: 1,
           enableAutoplay: true,
-          autoplayInterval: 2000,
+          autoplayInterval: 3000,
           transitionDuration: 300,
         },
         "(max-width: 768px)": {
@@ -45,30 +45,30 @@ const SliderComponent = () => {
 
   return (
     <Box>
-      <Box sx={{ my: 3 }} className="pic2Border">
+      <Box sx={{ mt: 3 }} className="pic2Border">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6} textAlign="center">
+          <Grid item xs={12} md={6} sx={{fontWeight:'bolder'}}>
             GERÇEK MÜŞTERİ YORUMLARI
           </Grid>
-          <Grid item xs={12} md={6} textAlign="center">
-            <Typography component="div">
+          <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'end'}}>
+            <Stack direction={'row'} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} spacing={3}>
               <Rating name="half-rating" defaultValue={5} readOnly />
               <span style={{ textDecoration: "underline", margin: "0 4px" }}>
                 198543 Yorum
               </span>
               <div className="my-structure">
-                <button
-                  style={{ marginRight: 10 }}
+                <Button
+                  style={{ backgroundColor:'none'}}
                   className="blaze-prev"
                   aria-label="Go to previous slide"
                 >
                   <KeyboardArrowLeftIcon />
-                </button>
-                <button className="blaze-next" aria-label="Go to next slide">
+                </Button>
+                <Button className="blaze-next" aria-label="Go to next slide">
                   <ChevronRightIcon />
-                </button>
+                </Button>
               </div>
-            </Typography>
+            </Stack>
           </Grid>
         </Grid>
       </Box>

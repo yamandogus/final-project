@@ -78,7 +78,7 @@ export interface BestsellerPropsCS {
   photo_src: string;
   comment_count?: number;
   average_star: number;
-  slug?: string,
+  slug: string,
 }
 
 export interface SimplifiedCategory {

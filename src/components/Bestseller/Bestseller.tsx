@@ -36,6 +36,7 @@ const BestSeller = () => {
         <Grid container  spacing={2}>
           {products.map((data, index)=>(
             <ProductCard
+            slug={data.slug}
             key={index}
             name={data.name}
             photo_src={photo_url  +data.photo_src}

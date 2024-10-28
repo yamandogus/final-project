@@ -36,8 +36,8 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
       title="Ödeme"
       panelNumber={3}
     >
-      <Box>
-        <FormControl sx={{ width: "100%" }}>
+      <Box sx={{overflow:'hidden'}}>
+        <FormControl sx={{ width: "100%", overflow:'hidden'}}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="Kredi Kartı"

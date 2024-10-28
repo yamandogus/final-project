@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export interface BestsellerProps {
   name: string;
   short_explanation: string;
+  slug:string
   price_info: {
     profit?: null;
     total_price: number;
@@ -22,6 +23,7 @@ const ProductCard = ({
   short_explanation,
   average_star,
   comment_count,
+  slug,
   price_info: { total_price, discounted_price },
 }: BestsellerProps) => {
   const calculateDiscount = (total_price: number, discounted_price: number) => {
@@ -33,7 +35,7 @@ const ProductCard = ({
   return (
     <>
     <Grid item xs={6} md={4} lg={2}>
-      <Link style={{position:'relative'}} to={`#`}>
+      <Link style={{position:'relative'}} to={`/products/${slug}`}>
         {discounted_price && (
           <Stack className="discountPrice">
                 <strong style={{fontSize:'15px'}}>%{calculateDiscount(total_price, discounted_price)} </strong> İNDİRİM

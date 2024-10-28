@@ -15,7 +15,7 @@ const style = {
   transform: "translate(-50%, 0)",
   width: "70%",
   borderRadius: 2,
-  maxHeight: 400,
+  maxHeight: 500,
   overflowY: "scroll",
   "&::-webkit-scrollbar": {
     width: 0,
@@ -29,7 +29,7 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
   return (
     <Box sx={style}>
       <Grid container spacing={5}>
-        <Grid item lg={4} md={5} bgcolor={"rgb(228, 227, 232)"}>
+        <Grid item xs={5} lg={4} md={5} bgcolor={"rgb(228, 227, 232)"}>
           <Typography mb={2} variant="h6" textAlign={"center"} fontWeight={700}>
             EN ÇOK SATANLAR
           </Typography>
@@ -61,7 +61,7 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
             </Grid>
           ))}
         </Grid>
-        <Grid item lg={8} md={7} bgcolor={"rgb(255, 255, 255)"} borderRadius={"0 5px 5px 0"}>
+        <Grid item xs={7} lg={8} md={7} bgcolor={"rgb(255, 255, 255)"} borderRadius={"0 5px 5px 0"}>
           <Box>
             <Typography variant='subtitle1' sx={{textDecoration:'underline'}}>{links.name}</Typography>
           </Box>

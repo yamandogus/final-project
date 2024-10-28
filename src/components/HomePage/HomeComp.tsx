@@ -8,8 +8,9 @@ interface ProductPropsHome {
   review: string;
   link: string;
   bg: string;
+
 }
-const CategoryProducts = ({ name, image, review, link, bg }: ProductPropsHome) => {
+const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) => {
   const CategoryLink= ()=>{
     if(link ==="/AllProducts"){
       return link

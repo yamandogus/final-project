@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface Payment{
     img: string;
@@ -63,7 +63,7 @@ export const usePaymentStore = create(
         }),
         {
             name: "basketItems-storage",
-            getStorage: () => localStorage,
+            storage: createJSONStorage(()=> localStorage)
         }
     )
 )

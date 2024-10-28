@@ -117,6 +117,7 @@ const Home = () => {
               const product = products[index];
               return(
                 <CategoryProducts
+                  key={cat.id}
                   name={cat.name}
                   bg={product.bg}
                   image={product.image}
@@ -127,6 +128,7 @@ const Home = () => {
               )
             })}
          <CategoryProducts
+            key={products[5].name}
             name={products[5].name}
             bg={products[5].bg}
             image={products[5].image}
