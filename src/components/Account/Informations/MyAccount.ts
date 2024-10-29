@@ -1,3 +1,4 @@
+import { AddedAddress } from "../../../services/type";
 import { base_url } from "../../Bestseller/Bestseller";
 
 export interface AccountProps {
@@ -23,9 +24,21 @@ export async function userProfileLoader() {
   const responseJson = await response.json();
   console.log("access_token:" + localStorage.getItem("access_token"));
   console.log(responseJson);
-  
 
-  return { user: responseJson.data as AccountProps };
+  const responseAddress = await fetch(
+    base_url + "/users/addresses?limit=10&offset=0",
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const responseJsonAddress = await responseAddress.json();
+  return { user: responseJson.data as AccountProps,datas: responseJsonAddress.data.results as AddedAddress[]};
 }
 
 export type userProfileLoaderReturn = Awaited<ReturnType<typeof userProfileLoader>>;
+
+

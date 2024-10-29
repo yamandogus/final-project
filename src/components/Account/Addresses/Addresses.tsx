@@ -9,53 +9,65 @@ import {
   Typography,
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
+import { ChangeEvent, useEffect, useState } from "react";
+import { base_url } from "../../Bestseller/Bestseller";
+import useSnackbar from "../../../hooks/alert";
+import { AddedAddress, Address } from "../../../services/type";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
-import { ChangeEvent } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
-import useSnackbar from "../../../hooks/alert";
-import { base_url } from "../../Bestseller/Bestseller";
-import { CityProps, DistrictProps } from "../../../services/city-district";
-import { useAddressesStore } from "./Address";
+import { deleteAddress } from "../../../services/addresDelete";
 
-const Addresses: React.FC = () => {
-  const {
-    title,
-    address,
-    city,
-    district,
-    firstName,
-    lastName,
-    phone,
-    setTitle,
-    setAddress,
-    setCity,
-    setDistrict,
-    setFirstName,
-    setLastName,
-    setPhone,
-    addAddress,
-    removeAddress,
-    addresses,
-  } = useAddressesStore();
 
-  const [isAddressSaved, setIsAddressSaved] = useState(addAddress.length > 0);
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const { showSnackbar, SnackbarComponent } = useSnackbar();
+interface CityProps {
+  id: number;
+  name: string;
+}
+
+interface DistrictProps {
+  id: number;
+  name: string;
+}
+
+const AddressForm: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
   const [cities, setCities] = useState<CityProps[]>([]);
   const [districts, setDistricts] = useState<DistrictProps[]>([]);
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
+  const [addresss, setAddresss] = useState<AddedAddress[]>([]);
+  const [isAddressSaved, setIsAddressSaved] = useState(true);
+  const [editIndex, setEditIndex] = useState<string | null>(null);
+  const [id, setİd] = useState("")
 
-  useEffect(() => {
-    fetchCity();
-  }, []);
+  const addedAddresses = async () => {
+    const response = await fetch(
+      base_url + "/users/addresses?limit=10&offset=0",
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseJson = await response.json();
+    const datas = responseJson.data.results;
+    setAddresss(datas);
+  };
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (typeof value === "string") {
-      setPhone(value);
+      const cleanValue = value.replace(/\s+/g, "");
+      setPhone(cleanValue);
     }
   };
 
@@ -69,106 +81,133 @@ const Addresses: React.FC = () => {
     setPhone("");
     setCities([]);
     setDistricts([]);
-};
- const handleAddressSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (
-      !title ||
-      !address ||
-      !city ||
-      !district ||
-      !firstName ||
-      !lastName ||
-      !phone
-    ) {
-      alert("Lütfen tüm alanları doldurun.");
-      return;
-    }
-    if (editIndex !== null) {
-      const updatedAddress = [...addresses];
-      updatedAddress[editIndex] = {
-        title,
-        city,
-        firstName,
-        lastName,
-        district,
-        address,
-        phone,
-      };
-      useAddressesStore.setState({ addresses: updatedAddress });
-      setEditIndex(null);
-      setIsAddressSaved(true);
-      showSnackbar("Adres Güncellendi", "success");
-      resetForm()
-    } else {
-      addAddress({
-        title,
-        city,
-        firstName,
-        lastName,
-        district,
-        address,
-        phone,
-      });
-      setIsAddressSaved(true);
-      showSnackbar("Adres Kaydedildi", "success");
-      resetForm()
-    }
+    setEditIndex(null);
   };
 
-  const handleDeleteAddress = (index: number) => {
-    removeAddress(index);
-    if (addresses.length === 1) {
-      setIsAddressSaved(false);
+  useEffect(() => {
+    addedAddresses();
+    fetchCity();
+  }, []);
+
+  useEffect(()=>{
+    if(addresss.length===0){
+      setIsAddressSaved(false)
+    }else{
+      setIsAddressSaved(true)
+    }
+  },[addresss.length])
+
+  const handleAddressSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const FormEl = e.target as HTMLFormElement;
+    const formData = new FormData(FormEl);
+    const data = Object.fromEntries(formData.entries()) as unknown as Address;
+
+    const newData = {
+      title: title,
+      country_id: 226,
+      region_id: cities.find((c) => c.name === city)?.id,
+      subregion_id: districts.find((d) => d.name === district)?.id,
+      full_address: `${address}${city}/${district}`,
+      phone_number: data.phone,
+    };
+
+    try {
+      const response = await fetch(
+        base_url + "/users/addresses",
+        {
+          method:"POST",
+          body: JSON.stringify(newData),
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseJson = await response.json();
+      console.log(responseJson);
+      
+      showSnackbar("Adres Kaydedildi", "success");
+      resetForm();
+      await addedAddresses();
+      setIsAddressSaved(true);
+    } catch (error) {
+      console.log(error);
+      showSnackbar("Adres Eklenemedi", "error");
     }
   };
 
   async function fetchCity() {
-    const responseCity = await fetch(
-      base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-    );
-    const dataCity = await responseCity.json();
-    console.log(dataCity.data.results);
-    setCities(dataCity.data.results);
+    try {
+      const responseCity = await fetch(
+        base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+      );
+      const dataCity = await responseCity.json();
+      setCities(dataCity.data.results);
+    } catch (error) {
+      console.error("Şehirler yüklenirken hata oluştu:", error);
+      showSnackbar("Şehirler yüklenirken hata oluştu", "error");
+    }
   }
 
   async function fetchDistrict(selectedCity: string) {
-    const responseDistrict = await fetch(
-      base_url +
-        `/world/subregion?limit=30&offset=0&region-name=${selectedCity}`
-    );
-    const dataDistrict = await responseDistrict.json();
-    console.log(dataDistrict.data.results);
-    setDistricts(dataDistrict.data.results);
+    try {
+      const responseDistrict = await fetch(
+        base_url + `/world/subregion?limit=30&offset=0&region-name=${selectedCity}`
+      );
+      const dataDistrict = await responseDistrict.json();
+      setDistricts(dataDistrict.data.results);
+    } catch (error) {
+      console.error("İlçeler yüklenirken hata oluştu:", error);
+      showSnackbar("İlçeler yüklenirken hata oluştu", "error");
+    }
+  }
+
+  const upadeteAddress= async(id: string)=>{
+    try {
+      const response = await fetch(base_url + `/users/addresses/${id}`,{
+        method:"PUT",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
   }
 
   return (
-    <Box>
-      {isAddressSaved && addresses.length > 0 ? (
-        <Box mb={30}>
+    <Box mb={10}>
+      {isAddressSaved ? (
+        <Box>
           <Container>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: 2,
-              }}
-            >
-              <Typography sx={{ textTransform: "none" }} variant="subtitle1">
-                ADRESLERİM(
-                <strong style={{ color: "red" }}>{addresses.length}</strong>)
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              mb: 2
+            }}>
+              <Typography variant="subtitle1">
+                ADRESLERİM
+                <span style={{ fontWeight: "bolder" }}>
+                  ({addresss.length})
+                </span>
               </Typography>
-              <Button
-                sx={{ textTransform: "none", fontWeight: "bolder" }}
+              <Button 
                 onClick={() => setIsAddressSaved(false)}
+                sx={{ textTransform: 'none' }}
               >
                 Adres Ekle
               </Button>
             </Box>
             <Grid container spacing={3}>
-              {addresses.map((address, index) => (
-                <Grid item xs={12} md={6} key={index}>
+              {addresss.map((adres) => (
+                <Grid item xs={6} md={6} key={adres.id}>
                   <Box
                     sx={{
                       p: 2,
@@ -181,7 +220,7 @@ const Addresses: React.FC = () => {
                     }}
                   >
                     <Typography component="div" fontWeight="bold">
-                      {address.title}
+                      {adres.title}
                     </Typography>
                     <Typography
                       component="div"
@@ -191,8 +230,7 @@ const Addresses: React.FC = () => {
                         gap: 1,
                       }}
                     >
-                      <HomeIcon /> {address.address} {address.district}/{" "}
-                      {address.city}
+                      <HomeIcon /> {adres.full_address}
                     </Typography>
                     <Typography
                       component="div"
@@ -202,7 +240,7 @@ const Addresses: React.FC = () => {
                         gap: 1,
                       }}
                     >
-                      <PersonIcon /> {address.firstName} {address.lastName}
+                      <PersonIcon /> {firstName} {lastName}
                     </Typography>
                     <Typography
                       component="div"
@@ -212,7 +250,7 @@ const Addresses: React.FC = () => {
                         gap: 1,
                       }}
                     >
-                      <PhoneAndroidIcon /> {address.phone}
+                      <PhoneAndroidIcon /> {adres.phone_number}
                     </Typography>
                     <Stack
                       direction="row"
@@ -225,8 +263,8 @@ const Addresses: React.FC = () => {
                       }}
                     >
                       <Button
+                        onClick={() => deleteAddress(adres.id, showSnackbar, addedAddresses)}
                         variant="text"
-                        onClick={() => handleDeleteAddress(index)}
                         sx={{
                           textTransform: "none",
                           "&:hover": {
@@ -237,19 +275,16 @@ const Addresses: React.FC = () => {
                         <DeleteIcon />
                         Sil
                       </Button>
-                      <Button
-                        sx={{ textTransform: "none" }}
+                      <Button 
                         onClick={() => {
-                          setEditIndex(index);
-                          setTitle(address.title);
-                          setAddress(address.address);
-                          setCity("");
-                          setDistrict("");
-                          setFirstName(address.firstName);
-                          setLastName(address.lastName);
-                          setPhone(address.phone);
+                          setEditIndex(adres.id);
+                          setTitle(adres.title);
+                          setAddress(adres.full_address);
+                          setPhone(adres.phone_number);
                           setIsAddressSaved(false);
+                          setİd(adres.id)
                         }}
+                        sx={{ textTransform: "none" }}
                       >
                         Adresi Düzenle
                       </Button>
@@ -261,26 +296,27 @@ const Addresses: React.FC = () => {
           </Container>
         </Box>
       ) : (
-        <Box mb={10}>
+        <Box>
           <Box mb={2}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
               <Typography fontWeight="bolder" variant="subtitle1">
-                {editIndex !== null ? "Adresi Düzenle" : "Adres Oluştur"}
+                {editIndex ? "Adresi Düzenle" : "Adres Oluştur"}
               </Typography>
               <Button
-                onClick={() => setIsAddressSaved(true)}
-                sx={{ textTransform: "none" }}
+                onClick={() => {
+                  setIsAddressSaved(true);
+                  resetForm();
+                }}
+                sx={{ textTransform: 'none' }}
               >
                 Adreslerim ➝
               </Button>
             </Box>
-            {addresses.length === 0 && (
+            {addresss.length === 0 && !editIndex && (
               <Stack
                 sx={{
                   backgroundColor: "rgba(33, 38, 171, 0.1)",
@@ -345,17 +381,15 @@ const Addresses: React.FC = () => {
                   select
                   value={city}
                   onFocus={() => fetchCity()}
-
                   SelectProps={{
-                    MenuProps: 
-                    {
-                      PaperProps:{
-                        style:{
-                          maxHeight:140
-                        }
+                    MenuProps: {
+                      PaperProps: {
+                        style: {
+                          maxHeight: 140,
+                        },
                       },
-                      disableScrollLock:true
-                    }
+                      disableScrollLock: true,
+                    },
                   }}
                   onChange={(e) => {
                     setCity(e.target.value);
@@ -365,8 +399,7 @@ const Addresses: React.FC = () => {
                   label="İl"
                 >
                   {cities.map((option, index) => (
-                    <MenuItem
-                    key={index} value={option.name}>
+                    <MenuItem key={index} value={option.name}>
                       {option.name.split(" ")[0]}
                     </MenuItem>
                   ))}
@@ -378,14 +411,14 @@ const Addresses: React.FC = () => {
                   select
                   value={district}
                   SelectProps={{
-                    MenuProps:{
-                      PaperProps:{
-                        style:{
-                          maxHeight:140
-                        }
+                    MenuProps: {
+                      PaperProps: {
+                        style: {
+                          maxHeight: 140,
+                        },
                       },
-                      disableScrollLock: true
-                    }
+                      disableScrollLock: true,
+                    },
                   }}
                   onChange={(e) => setDistrict(e.target.value)}
                   required
@@ -413,6 +446,11 @@ const Addresses: React.FC = () => {
                 <Button
                   type="submit"
                   variant="contained"
+                  onClick={()=>{
+                    if(editIndex){
+                      upadeteAddress(id)
+                    }
+                  }}
                   sx={{
                     py: 1,
                     textTransform: "none",
@@ -420,7 +458,7 @@ const Addresses: React.FC = () => {
                     "&:hover": { backgroundColor: "black" },
                   }}
                 >
-                  {editIndex !== null ? "Güncelle" : "Kaydet"}
+                  {editIndex ? "Güncelle" : "Kaydet"}
                 </Button>
               </Grid>
             </Grid>
@@ -432,4 +470,4 @@ const Addresses: React.FC = () => {
   );
 };
 
-export default Addresses;
+export default AddressForm;

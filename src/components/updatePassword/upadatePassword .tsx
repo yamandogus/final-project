@@ -175,7 +175,6 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
         >
           <Button variant="contained" sx={{
             backgroundColor:'black',
-            width:"40%"
           }} type="submit">
             Güncelle
           </Button>

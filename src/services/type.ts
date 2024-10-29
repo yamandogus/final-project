@@ -88,3 +88,76 @@ export interface SimplifiedCategory {
   childName?: string;
   childId?: string;
 }
+
+export interface Address {
+  title: string;
+  address: string;
+  city: string;
+  district: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+export interface AddressProps {
+  title: string;
+  country_id: number;
+  region_id: number;
+  subregion_id: number;
+  full_address: string;
+  phone_number: string;
+}
+
+
+export interface CityProps {
+  id: number;
+  name: string;
+  country: {
+    id: number;
+    name: string;
+  };
+}
+
+
+export interface DistrictProps {
+  id: number;
+  name: string;
+  region: {
+    id: number;
+    name: string;
+    country: {
+      id: number;
+      name: string;
+    };
+  };
+}
+
+export interface AddedAddress {
+  id: string;
+  title: string;
+  country: {
+    id: number;
+    name: string;
+  };
+  region: {
+    id: number;
+    name: string;
+    country: {
+      id: number;
+      name: string;
+    };
+  };
+  full_address: string;
+  phone_number: string;
+  subregion: {
+    id: number;
+    name: string;
+    region: {
+      id: number;
+      name: string;
+      country: {
+        id: number;
+        name: string;
+      };
+    };
+  }[];
+};

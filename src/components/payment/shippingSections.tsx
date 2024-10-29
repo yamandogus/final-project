@@ -10,7 +10,7 @@ interface ShippingSectionProps {
 const ShippingSection: React.FC<ShippingSectionProps> = ({
   expanded,
   handleChangePanel,
-  selectedAddress,
+  selectedAddress
 }) => {
   return (
     <CustomAccordion
@@ -20,7 +20,7 @@ const ShippingSection: React.FC<ShippingSectionProps> = ({
       panelNumber={2}
     >
       <Typography variant="subtitle1">Teslimat Adresi</Typography>
-      {selectedAddress ? (
+      {selectedAddress && (
         <Box px={2}>
           <Box
             sx={{
@@ -33,8 +33,6 @@ const ShippingSection: React.FC<ShippingSectionProps> = ({
             {selectedAddress}
           </Box>
         </Box>
-      ) : (
-        ""
       )}
       <Box px={2}>
         <Button

@@ -17,6 +17,7 @@ import Categories, { CategoryLoader } from './pages/Categories'
 import ContactUs from './components/FootherPages/ContactUs'
 import AboutUs from './components/FootherPages/AboutUs'
 import SSS from './components/FootherPages/SSS'
+import { userAddressLoader } from './services/paymentAddress'
 
 
 const router = createBrowserRouter([
@@ -79,6 +80,7 @@ const router = createBrowserRouter([
       },
       {
         path: "PaymentPage",
+        loader:userAddressLoader,
         element:<PaymentPage/>
       }
     ]

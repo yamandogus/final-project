@@ -3,18 +3,15 @@ import { useState } from "react";
 import { usePaymentStore } from "../services/Payement";
 import AddressSection from "../components/payment/addressSection";
 import ShippingSection from "../components/payment/shippingSections";
-import PaymentSection from "../components/payment/paymentSection";
 import OrderSummary from "../components/payment/orderSummary";
-import { useAddressesStore } from "../components/Account/Addresses/Address";
+import PaymentSection from "../components/payment/paymentSection";
 
 const PaymentPage = () => {
-  const { addresses } = useAddressesStore();
   const { basketItems } = usePaymentStore();
   const [expanded, setExpanded] = useState<string | false>("panel1");
-  const [selectedAddress, setSelectedAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [extra, setExtra] = useState(0);
-  const [newAddress, setNewAddress] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState("");
 
   const handleChangePanel = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
@@ -48,12 +45,10 @@ const PaymentPage = () => {
           }}
           >
             <AddressSection
-              addresses={addresses}
               expanded={expanded}
               handleChangePanel={handleChangePanel}
               setSelectedAddress={setSelectedAddress}
-              newAddress={newAddress}
-              setNewAddress={setNewAddress}
+           
             />
             <ShippingSection
               expanded={expanded}
