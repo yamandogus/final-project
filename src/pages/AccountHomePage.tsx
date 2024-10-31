@@ -15,7 +15,7 @@ import { userProfileLoaderReturn } from "../components/Account/Informations/MyAc
 
 const AccountHomePage = () => {
   const [activeSation, setActiveSation] = useState('accountInfo');
-  const{user} = useLoaderData() as userProfileLoaderReturn
+  const{user, datas} = useLoaderData() as userProfileLoaderReturn
 
   const renderContent = () =>{
     switch(activeSation){
@@ -33,6 +33,7 @@ const AccountHomePage = () => {
   return (
     <>
     {user?JSON.stringify(user):""}
+    {datas?JSON.stringify(datas):""}
       <Box>
         <Container sx={{ mt: 10 }}>
           <Grid container spacing={2}>

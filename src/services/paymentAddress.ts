@@ -15,5 +15,14 @@ export async function userAddressLoader(){
       );
       const responseJson = await response.json();
 
-      return {datas:responseJson.data.results};
+      const response1 = await fetch(base_url + "/users/my-account", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+      });
+      const responseJson1 = await response1.json();
+
+      return {datas:responseJson.data.results, user: responseJson1.data};
 }

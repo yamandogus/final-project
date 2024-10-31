@@ -12,12 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { handleRegister, LoginPayload } from "./LoginAndSingUp";
 import { base_url } from "../Bestseller/Bestseller";
 import useSnackbar from "../../hooks/alert";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import UpadatePasswordNew from "../updatePassword/upadatePassword ";
+import { LinksLoader } from "../../Layout/Navbar";
 
 const Login = () => {
   const [value, setValue] = useState("1");
@@ -25,6 +26,7 @@ const Login = () => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
   const [changePassword, setChangePassword] = useState(false);
+
 
   const handleShow = () => {
     setShowPassword((prev) => !prev);
@@ -36,7 +38,7 @@ const Login = () => {
 
   const handleLogin = async (e: FormEvent) => {
     try {
-      e.preventDefault();
+      e.preventDefault()
       const formEl = e.target as HTMLFormElement;
       const formData = new FormData(formEl);
       const data = Object.fromEntries(
@@ -62,11 +64,12 @@ const Login = () => {
           access_token: string;
           refresh_token: string;
         };
-
         localStorage.setItem("access_token", jsonResponse.access_token);
         localStorage.setItem("refresh_token", jsonResponse.refresh_token);
         console.log(jsonResponse);
+        await LinksLoader()
         navigate("/");
+        window.location.reload()
       }
     } catch (error) {
       console.log(error);

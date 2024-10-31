@@ -27,8 +27,9 @@ import NavbarModal from "../components/Navbar/NavbarPopover";
 import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { useStore } from "./Count";
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
-import { useDebounce } from "../components/navbar/Navbar";
+import { useDebounce } from "../components/Navbar/Navbar";
 import { LinksProps, SearchPropsPt } from "../services/type";
+import { AccountProps } from "../components/Account/Informations/MyAccount";
 
 export async function LinksLoader() {
   try {
@@ -36,15 +37,30 @@ export async function LinksLoader() {
       "https://fe1111.projects.academy.onlyjs.com/api/v1/categories"
     );
     const data = await response.json();
-    return { allProduct: data.data.data };
+
+    const response1 = await fetch(base_url + "/users/my-account", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+    });
+    const responseJson = await response1.json();
+
+
+    return { allProduct: data.data.data, user: responseJson.data };
   } catch (error) {
     console.error("Error fetching data:", error);
     return { allProduct: [] };
   }
 }
+interface LoaderData {
+  allProduct: LinksProps[];
+  user: AccountProps;
+}
 
 function Navbar() {
-  const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
+  const { allProduct = [], user } = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -54,8 +70,6 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
-  
-
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -64,6 +78,13 @@ function Navbar() {
       setSearchResults([]);
     }
   }, [debouncedSearch]);
+
+  const handlelogout = () =>{
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token")
+    window.location.reload();
+    navigate("/");
+  }
 
   const handleOpenModal =
     (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -324,35 +345,43 @@ function Navbar() {
                     gap: 0.5,
                   }}
                 >
-                  <PersonIcon sx={{ fontSize: 18 }} /> 
-                   Hesap
+                  <PersonIcon sx={{ fontSize: 18 }} />
+                  {user ? user.first_name : "Hesap"}
                   <ArrowDropDownIcon />
                 </Button>
                 <Menu
-                  id="demo-positioned-menu"
-                  aria-labelledby="demo-positioned-button"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                   disableScrollLock
                   MenuListProps={{ onMouseLeave: handleClose }}
-                  sx={{ zIndex: 1700 }}
+                  sx={{ zIndex: 1420 }}
                 >
-                  <MenuItem onClick={handleClose} sx={{ width: "129px" }}>
-                    <Link className="accountLinkNav" to="MyAccount">
-                      Hesabım
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <Link className="accountLinkNav" to="Login">
-                      Üye Girişi
-                    </Link>
-                  </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link className="accountLinkNav" to="SingUp">
-                      Üye Ol
-                    </Link>
-                  </MenuItem>
+                  {user
+                    ? [
+                        <MenuItem key="my-account" onClick={handleClose}>
+                          <Link className="accountLinkNav" to="MyAccount">
+                            Hesabım
+                          </Link>
+                        </MenuItem>,
+                        <MenuItem key="logout" onClick={handlelogout}>
+                          <Link className="accountLinkNav" to="/">
+                            Çıkış Yap
+                          </Link>
+                        </MenuItem>,
+                      ]
+                    : [
+                        <MenuItem key="login" onClick={handleClose}>
+                          <Link className="accountLinkNav" to="Login">
+                            Üye Girişi
+                          </Link>
+                        </MenuItem>,
+                        <MenuItem key="signup" onClick={handleClose}>
+                          <Link className="accountLinkNav" to="SingUp">
+                            Üye Ol
+                          </Link>
+                        </MenuItem>,
+                      ]}
                 </Menu>
                 <Button
                   className="buttonBef"
@@ -406,6 +435,7 @@ function Navbar() {
                         justifyContent: "center",
                         fontSize: 13,
                         py: 2,
+                        cursor: "pointer",
                       }}
                       color="inherit"
                     >

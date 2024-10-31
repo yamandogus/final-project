@@ -23,14 +23,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import SecondNavbarComponent from "../components/navbar/SecondNavbarComponet";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { usePaymentStore } from "../services/Payement";
 import { useStore } from "./Count";
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDebounce } from "../components/navbar/Navbar";
 import { SearchPropsPt } from "../services/type";
+import { useDebounce } from "../components/Navbar/Navbar";
+import SecondNavbarComponent from "../components/Navbar/SecondNavbarComponet";
 interface LinksProps {
   id: string;
   name: string;

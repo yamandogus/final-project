@@ -1,5 +1,4 @@
 import { Box,Container, Grid, Rating, Stack, Typography } from "@mui/material";
-
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
@@ -8,7 +7,6 @@ import { CategoryProps } from "../services/type";
 import CategoryProducts from "../components/HomePage/HomeComp";
 import SliderComponent from "../components/UseBlaze/SliderComponent";
 import BestSeller from "../components/Bestseller/Bestseller";
-
 
 const products = [
   {
@@ -63,6 +61,7 @@ const products = [
 
 const Home = () => {
   const { category } = useLoaderData() as { category: CategoryProps[] };
+
   
   return (
     <>

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import OrdersComp from "./OrdersComponents/OrdersComp";
 import { useState } from "react";
-import Olderdest from "../olderders/Olderdest";
+import Olderdest from "../Olderders/Olderdest";
 
 const orderData = [
   {
@@ -48,8 +48,9 @@ const Orders = () => {
               </Typography>
             </Box>
             <Box sx={{ display: "grid", gap: 5 }}>
-              {orderData.map((data) => (
+              {orderData.map((data, index) => (
                 <OrdersComp
+                  key={index}
                   image={data.image}
                   status={data.status}
                   title={data.title}

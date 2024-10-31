@@ -1,4 +1,4 @@
-import { AddedAddress } from "../../../services/type";
+import { AddedAddress} from "../../../services/type";
 import { base_url } from "../../Bestseller/Bestseller";
 
 export interface AccountProps {
@@ -36,6 +36,7 @@ export async function userProfileLoader() {
     }
   );
   const responseJsonAddress = await responseAddress.json();
+
   return { user: responseJson.data as AccountProps,datas: responseJsonAddress.data.results as AddedAddress[]};
 }
 

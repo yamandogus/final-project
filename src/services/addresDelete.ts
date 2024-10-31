@@ -1,7 +1,9 @@
 import { base_url } from "../components/Bestseller/Bestseller";
 
-
-export const deleteAddress = async (id: string,showSnackbar: (message: string, severity: "success" | "error") => void, refreshAddress:()=> void) => {
+export const deleteAddress = async (
+  id: string,
+  showSnackbar: (message: string, severity: "success" | "error") => void
+) => {
   try {
     const response = await fetch(base_url + `/users/addresses/${id}`, {
       method: "DELETE",
@@ -10,12 +12,17 @@ export const deleteAddress = async (id: string,showSnackbar: (message: string, s
         "Content-Type": "application/json",
       },
     });
-    const responseJson = await response.json();
-    console.log(responseJson);
+
+    if (!response.ok) {
+      throw new Error('Silme işlemi başarısız');
+    }
+
+    await response.json();
     showSnackbar("Adres silindi", "success");
-    refreshAddress()
+    return true;
   } catch (error) {
     console.log(error);
     showSnackbar("Adres silinemedi", "error");
+    throw error;
   }
 };
