@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface Count{
     countBasket: number
@@ -19,6 +19,6 @@ export const useStore = create(
         }),
     {
         name: "count-basket",
-        getStorage: ()=> localStorage
+        storage: createJSONStorage(()=> localStorage)
     }
 ))

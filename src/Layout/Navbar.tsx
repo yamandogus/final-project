@@ -22,45 +22,73 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import SecondNavbar from "./SecondNavbar";
 import NavbarModal from "../components/Navbar/NavbarPopover";
-import DrawerListCoponent from "../components/MyCart/DrawerList";
-import { useStore } from "./Count";
+import DrawerListCoponent, { CartItem} from "../components/MyCart/DrawerList";
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { useDebounce } from "../components/Navbar/Navbar";
 import { LinksProps, SearchPropsPt } from "../services/type";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
+import SecondNavbar from "./SecondNavbar";
+import { useStore } from "./Count";
 
 export async function LinksLoader() {
+  //category
   try {
     const response = await fetch(
       "https://fe1111.projects.academy.onlyjs.com/api/v1/categories"
     );
+    if (!response.ok) {
+      throw new Error("Kategoriler alınamadı");
+    }
     const data = await response.json();
 
-    const response1 = await fetch(base_url + "/users/my-account", {
+    // account
+    const responseAccount = await fetch(base_url + "/users/my-account", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
         "Content-Type": "application/json",
       },
     });
-    const responseJson = await response1.json();
+    if (!responseAccount.ok) {
+      throw new Error("Kullanıcı bilgileri alınamadı");
+    }
+    const responseJsonAccount = await responseAccount.json();
 
 
-    return { allProduct: data.data.data, user: responseJson.data };
+// sepet
+    const responseCart = await fetch(base_url + "/users/cart", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+    });
+    const responseJsonCart = await responseCart.json();
+
+
+    return { 
+      allProduct: data.data.data, 
+      user: responseJsonAccount.data || {}, 
+      userCart: responseJsonCart.data || {}
+    };
   } catch (error) {
-    console.error("Error fetching data:", error);
-    return { allProduct: [] };
+    console.error("Veri alma hatası:", error);
+    return { allProduct: [], userCart: {}};
   }
 }
-interface LoaderData {
+
+export interface LoaderData {
   allProduct: LinksProps[];
   user: AccountProps;
+  userCart: {
+    total_price: number;
+    items: CartItem[];
+  };
 }
 
 function Navbar() {
-  const { allProduct = [], user } = useLoaderData() as LoaderData;
+  const { allProduct = [], user, userCart} = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -79,12 +107,12 @@ function Navbar() {
     }
   }, [debouncedSearch]);
 
-  const handlelogout = () =>{
+  const handlelogout = () => {
     localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token")
+    localStorage.removeItem("refresh_token");
     window.location.reload();
     navigate("/");
-  }
+  };
 
   const handleOpenModal =
     (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -133,7 +161,7 @@ function Navbar() {
     setSearchModal(false);
     setSearch("");
   };
-
+ 
   useEffect(() => {
     if (!debouncedSearch) {
       setSearchModal(false);
@@ -409,6 +437,7 @@ function Navbar() {
                   <DrawerListCoponent
                     onCloseDrawer={toggleDrawer(false)}
                     onCountine={handleContinue}
+                    userCart={userCart}
                   />
                 </Drawer>
               </Stack>

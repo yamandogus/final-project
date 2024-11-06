@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { LinksProps } from "../../Layout/Navbar";
+import { LinksProps } from "../../layout/Navbar";
 
 
 interface SecondNavbarComponentProps {

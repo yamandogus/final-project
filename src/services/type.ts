@@ -78,7 +78,7 @@ export interface BestsellerPropsCS {
   photo_src: string;
   comment_count?: number;
   average_star: number;
-  slug: string,
+  slug?: string,
 }
 
 export interface SimplifiedCategory {
@@ -170,4 +170,37 @@ export interface CityProps {
 export interface DistrictProps {
   id: number;
   name: string;
+}
+
+
+export interface CartResponse {
+  status: string;
+  data: CartData;
+}
+
+interface CartData {
+  total_price: number;
+  items: CartItem[];
+}
+
+interface CartItem {
+  product_id: string;
+  product_variant_id: string;
+  product: string;
+  product_variant_detail: ProductVariantDetail;
+  pieces: number;
+  unit_price: number;
+  total_price: number;
+}
+
+interface ProductVariantDetail {
+  size: Size;
+  aroma: string;
+  photo_src: string;
+}
+
+interface Size {
+  gram: number;
+  pieces: number;
+  total_services: number;
 }

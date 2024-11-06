@@ -89,14 +89,16 @@ p{
   z-index: 2;
   padding: 5px;
   width: 50px; 
+  box-shadow: 0.5px 0.5px  black;
   height: 40px; 
+  border-radius: 2px;
   font-weight: bolder;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(237, 39, 39, 1);
-  font-size: 12px; 
+  font-size: 11px; 
 }
 
 .discount {

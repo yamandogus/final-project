@@ -18,7 +18,6 @@ import { base_url } from "../Bestseller/Bestseller";
 import useSnackbar from "../../hooks/alert";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import UpadatePasswordNew from "../updatePassword/upadatePassword ";
-import { LinksLoader } from "../../Layout/Navbar";
 
 const Login = () => {
   const [value, setValue] = useState("1");
@@ -26,6 +25,7 @@ const Login = () => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
   const [changePassword, setChangePassword] = useState(false);
+
 
 
   const handleShow = () => {
@@ -67,15 +67,15 @@ const Login = () => {
         localStorage.setItem("access_token", jsonResponse.access_token);
         localStorage.setItem("refresh_token", jsonResponse.refresh_token);
         console.log(jsonResponse);
-        await LinksLoader()
         navigate("/");
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
       showSnackbar("Kullanıcı adı veya şifre hatalı", "error");
     }
   };
+
 
   return (
     <Box sx={{ mt: 5 }}>
@@ -124,9 +124,13 @@ const Login = () => {
                             type={showPassword ? "password" : "text"}
                             autoComplete="password"
                             required
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
+                            slotProps={{
+                              input:{
+                                sx:{
+                                  textTransform:"lowercase"
+                                },
+                                endAdornment:(
+                                  <InputAdornment position="end">
                                   <IconButton onClick={handleShow} edge="end">
                                     {showPassword ? (
                                       <VisibilityOff sx={{fontSize:17}}/>
@@ -135,7 +139,8 @@ const Login = () => {
                                     )}
                                   </IconButton>
                                 </InputAdornment>
-                              ),
+                                )
+                              }
                             }}
                           />
                           <Typography

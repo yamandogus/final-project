@@ -23,7 +23,6 @@ const Informations: React.FC = () => {
       setPhoneError(false);
     }
   };
-  console.log(phone);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

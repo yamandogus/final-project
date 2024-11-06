@@ -95,7 +95,7 @@ const AllProducts = () => {
             />
           ))}
         </Grid>
-        <Grid item xs={12} spacing={4} mt={3}>
+        <Grid item xs={12} gap={4} mt={3}>
            <Stack spacing={3}>
            <Typography>Toplam {product.length} ürün görüntüleniyor</Typography>
             <Typography style={{color:'gray'}} variant='subtitle2'>Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. <strong>Protein</strong> kısaca, bir veya daha fazla amino asit artık</Typography>

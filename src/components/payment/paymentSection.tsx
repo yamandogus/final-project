@@ -60,6 +60,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue={selectedPayment}
+            id="payment_type"
             onChange={handlePaymentChange}
             name="radio-buttons-group"
           >
@@ -85,6 +86,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                       <TextField
                         sx={{ backgroundColor: "white" }}
                         fullWidth
+                        id="card_digits"
                         type="text"
                         placeholder="Kart Numarası"
                         inputProps={{
@@ -110,6 +112,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                       <TextField
                         sx={{ backgroundColor: "white" }}
                         fullWidth
+                        id="card_expiration_date"
                         placeholder="Ay/Yıl"
                         inputProps={{
                           inputMode: "numeric",
@@ -125,6 +128,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                         }}
                       />
                       <TextField
+                       id="card_security_code"
                         sx={{ backgroundColor: "white" }}
                         fullWidth
                         placeholder="CVC"

@@ -9,12 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import Yorumlar from "../components/comments/Yorumlar";
-import LastWiew from "../components/bestseller/LastWiew";
-import DetailsCmpOne from "../components/productDetails/DetailsCmpOne";
 import { Link, useLoaderData} from "react-router-dom";
 import { base_url } from "../components/Bestseller/Bestseller";
 import { Product } from "../hooks/types";
+import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
+import LastWiew from "../components/Bestseller/LastWiew";
+import Yorumlar from "../components/Comments/Yorumlar";
+import { AccountProps } from "../components/Account/Informations/MyAccount";
 
 const productsDet = [
   {
@@ -105,21 +106,27 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
   const { productSlug } = params;
   const response = await fetch(base_url + `/products/${productSlug}`);
   const result = await response.json();
+  const userResponse = await fetch(base_url + "/users/my-account", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+      "Content-Type": "application/json",
+    },
+  });
+  const userResult = await userResponse.json();
   if(!result || !result.data){
     throw new Error("Product data is missing or invalid ");
-    
   }
-  return { data: result.data };
+  return { data: result.data, user: userResult.data};
 }
 
-function ProductsDetails() {
-  const { data: productData } = useLoaderData() as {data: Product};
-  
 
+function ProductsDetails() {
+  const { data: productData, user } = useLoaderData() as {data: Product, user: AccountProps};
    return (
     <>
       <Box sx={{ my:1 }}>
-      <DetailsCmpOne tags={productData.tags || []} product={productData} />
+      <DetailsCmpOne user={user} tags={productData.tags || []} product={productData} />
         <Typography
           sx={{
             my: 3,

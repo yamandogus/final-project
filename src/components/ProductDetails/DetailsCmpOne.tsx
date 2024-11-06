@@ -17,22 +17,23 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { photo_url } from "../Bestseller/Bestseller";
+import {base_url, photo_url } from "../Bestseller/Bestseller";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../../services/Payement";
-import { useStore } from "../../Layout/Count";
 import useSnackbar from "../../hooks/alert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { color } from "./details";
-
+import { AccountProps } from "../Account/Informations/MyAccount";
+import { useStore } from "../../layout/Count";
 interface Props {
   product: Product;
   tags: string[];
+  user?:AccountProps;
 }
 
-const DetailsCmpOne = ({ product, tags }: Props) => {
+const DetailsCmpOne = ({ product, tags,user }: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -48,7 +49,34 @@ const DetailsCmpOne = ({ product, tags }: Props) => {
   const [count, setCount] = useState<number>(1);
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [basketText, setBasketText] = useState(false);
-
+ 
+  const hadleUserProductAdded= async(e:React.SyntheticEvent)=>{
+    e.preventDefault()
+    try {
+      const response = await fetch( base_url + "/users/cart", {
+        method:"POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"), 
+          "Content-Type": "application/json",
+        },
+        body:JSON.stringify({
+            product_id: product.id,
+            product_variant_id: selectedVariant.id,
+            pieces: count,
+        })
+      })
+      const responseJson = await response.json() as {
+        product_id: string,
+        product_variant_id: string,
+        pieces: number,
+      }
+      console.log(responseJson);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   const handleProductAdded = () => {
     if (selectedVariant) {
       const newItem = {
@@ -72,6 +100,8 @@ const DetailsCmpOne = ({ product, tags }: Props) => {
     }
   };
 
+
+
   const culculateDiscount = (
     total_price: number,
     discounted_price: number | null
@@ -81,6 +111,8 @@ const DetailsCmpOne = ({ product, tags }: Props) => {
     const discountedPercentage = (discountedAmount / total_price) * 100;
     return Math.round(discountedPercentage);
   };
+  console.log(product.id);
+  console.log(selectedVariant.id);
 
   const currentVariant = selectedVariant || product.variants[0];
   const currentPrice = currentVariant?.price;
@@ -497,11 +529,11 @@ const DetailsCmpOne = ({ product, tags }: Props) => {
                     id="added"
                     className="ShoppinAdButton"
                     variant="contained"
-                    onClick={handleProductAdded}
+                    onClick={(e)=> user ? hadleUserProductAdded(e) : handleProductAdded()}
                   >
                     <ShoppingCartCheckoutIcon
                       color={!basketText ? "inherit" : "success"}
-                      sx={{ mr: 1 }}
+                      sx={{ mr: 1,}}
                     />
                     {!basketText ? "SEPETE EKLE" : "ÜRÜN SEPETE EKLENDİ"}
                   </Button>
