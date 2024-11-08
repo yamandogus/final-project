@@ -28,21 +28,18 @@ import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { useDebounce } from "../components/Navbar/Navbar";
 import { LinksProps, SearchPropsPt } from "../services/type";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
-import SecondNavbar from "./SecondNavbar";
-import { useStore } from "./Count";
+import SecondNavbar from "../components/secondNavbar";
+import { useStore } from "../services/Count";
 
 export async function LinksLoader() {
-  //category
   try {
-    const response = await fetch(
-      "https://fe1111.projects.academy.onlyjs.com/api/v1/categories"
-    );
-    if (!response.ok) {
-      throw new Error("Kategoriler alınamadı");
-    }
-    const data = await response.json();
+    //Category
 
-    // account
+    const response = await fetch(base_url + "/categories");
+    const data = await response.json();
+    console.log("category",data);
+    
+    //Account
     const responseAccount = await fetch(base_url + "/users/my-account", {
       method: "GET",
       headers: {
@@ -50,13 +47,11 @@ export async function LinksLoader() {
         "Content-Type": "application/json",
       },
     });
-    if (!responseAccount.ok) {
-      throw new Error("Kullanıcı bilgileri alınamadı");
-    }
     const responseJsonAccount = await responseAccount.json();
 
-
-// sepet
+    console.log(responseJsonAccount);
+    
+    //UserCart
     const responseCart = await fetch(base_url + "/users/cart", {
       method: "GET",
       headers: {
@@ -66,7 +61,8 @@ export async function LinksLoader() {
     });
     const responseJsonCart = await responseCart.json();
 
-
+    console.log(responseJsonCart);
+    
     return { 
       allProduct: data.data.data, 
       user: responseJsonAccount.data || {}, 
@@ -74,9 +70,10 @@ export async function LinksLoader() {
     };
   } catch (error) {
     console.error("Veri alma hatası:", error);
-    return { allProduct: [], userCart: {}};
+    return { allProduct: [], userCart: {} };
   }
 }
+
 
 export interface LoaderData {
   allProduct: LinksProps[];
@@ -88,7 +85,7 @@ export interface LoaderData {
 }
 
 function Navbar() {
-  const { allProduct = [], user, userCart} = useLoaderData() as LoaderData;
+  const { allProduct=[], user, userCart} = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -98,6 +95,7 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
+
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -374,7 +372,7 @@ function Navbar() {
                   }}
                 >
                   <PersonIcon sx={{ fontSize: 18 }} />
-                  {user ? user.first_name : "Hesap"}
+                  {user && user.first_name ? user.first_name : "Hesap"}
                   <ArrowDropDownIcon />
                 </Button>
                 <Menu
@@ -385,7 +383,7 @@ function Navbar() {
                   MenuListProps={{ onMouseLeave: handleClose }}
                   sx={{ zIndex: 1420 }}
                 >
-                  {user
+                  {user && user.first_name
                     ? [
                         <MenuItem key="my-account" onClick={handleClose}>
                           <Link className="accountLinkNav" to="MyAccount">
@@ -423,7 +421,7 @@ function Navbar() {
                   onClick={toggleDrawer(true)}
                 >
                   Sepet
-                  <span className="count-basket">{countBasket}</span>
+                  <span className="count-basket">{userCart && userCart.items ? userCart.items.length :countBasket}</span>
                 </Button>
                 <Drawer
                   disableScrollLock
@@ -437,7 +435,6 @@ function Navbar() {
                   <DrawerListCoponent
                     onCloseDrawer={toggleDrawer(false)}
                     onCountine={handleContinue}
-                    userCart={userCart}
                   />
                 </Drawer>
               </Stack>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export interface BestsellerProps {
   name: string;
   short_explanation: string;
-  slug:string;
+  slug?:string;
   price_info: {
     profit?: null;
     total_price: number;

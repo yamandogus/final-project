@@ -24,7 +24,8 @@ export const upadeteAccount = async (e: FormEvent, phone:string) => {
     },
   });
   const responseJson = await response.json()
-  console.log(responseJson);
+  
+  return responseJson.data;
 
  } catch (error) {
   console.log(error);

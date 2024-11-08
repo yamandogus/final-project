@@ -1,5 +1,7 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { photo_url } from "../Bestseller/Bestseller";
+import { useLoaderData } from "react-router-dom";
+import { CartItem } from "../MyCart/DrawerList";
 
 interface OrderSummaryProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,11 +10,25 @@ interface OrderSummaryProps {
   extra: number;
 }
 
-const OrderSummary: React.FC<OrderSummaryProps> = ({ basketItems, paymentMethod, extra }) => {
-  const total: number = basketItems.reduce((tot, item) => tot + item.price * item.count, 0);
+const OrderSummary: React.FC<OrderSummaryProps> = ({
+  basketItems,
+  paymentMethod,
+  extra,
+}) => {
+  const total: number = basketItems.reduce(
+    (tot, item) => tot + item.price * item.count,
+    0
+  );
+  const { userCart } = useLoaderData() as {
+    userCart: {
+      total_price: number;
+      items: CartItem[];
+    };
+  };
 
   return (
     <Box sx={{ position: "relative", height: "calc(100vh - 100px)" }}>
+      {JSON.stringify(userCart)}
       <Grid
         container
         spacing={2}
@@ -80,7 +96,12 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ basketItems, paymentMethod,
             gap: 1,
           }}
         >
-          <Stack width={"100%"} direction={"row"} display="flex" justifyContent="space-between">
+          <Stack
+            width={"100%"}
+            direction={"row"}
+            display="flex"
+            justifyContent="space-between"
+          >
             <Typography>Ara Toplam</Typography>
             <Typography>{total.toFixed(2)} TL</Typography>
           </Stack>
@@ -93,7 +114,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ basketItems, paymentMethod,
               color={"green"}
             >
               <Typography fontWeight={"bolder"}>%10 İndirim</Typography>
-              <Typography fontWeight={"bolder"}>-{((total * 10) / 100).toFixed(2)} TL</Typography>
+              <Typography fontWeight={"bolder"}>
+                -{((total * 10) / 100).toFixed(2)} TL
+              </Typography>
             </Stack>
           ) : (
             ""
@@ -111,7 +134,12 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ basketItems, paymentMethod,
           ) : (
             ""
           )}
-          <Stack width={"100%"} direction={"row"} display="flex" justifyContent="space-between">
+          <Stack
+            width={"100%"}
+            direction={"row"}
+            display="flex"
+            justifyContent="space-between"
+          >
             <Typography fontWeight={"bolder"}>Toplam</Typography>
             <Typography fontWeight={"bolder"}>
               {(total - (total * 10) / 100 + extra).toFixed(2)} TL

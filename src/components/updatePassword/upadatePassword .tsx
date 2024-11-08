@@ -86,7 +86,7 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
   return (
     <form onSubmit={handleSubmit} style={{marginBottom:"10rem"}}>
       <Grid container spacing={3}>
-        <Button onClick={()=>update()} sx={{textTransform:'none'}}>Giriş</Button>
+        <Button variant='contained' onClick={()=>update()} sx={{textTransform:'none'}}>⬅ Giriş</Button>
         <Grid item xs={12} sx={style}>
           <TextField
             id="old_password"

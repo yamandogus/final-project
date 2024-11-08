@@ -12,6 +12,8 @@ const Informations: React.FC = () => {
   const [phone, setPhone] = useState<string>(user?.phone_number || "");
   const [phoneError, setPhoneError] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
+  const [change, setChange] = useState(false)
+  const [userData, setUserData] = useState(user)
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,16 +26,23 @@ const Informations: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async(e: FormEvent) => {
     e.preventDefault();
+   if(!change){
+    setChange(true)
+   }else{
     const cleanPhone = phone.replace(/\D/g, "").replace(/^90|^0/, "");
     const phone_number = `+90${cleanPhone}`;
     if (phone_number.length !== 13) {
       setPhoneError(true);
       return;
     }
-    upadeteAccount(e, phone_number);
+    const updateUser= await upadeteAccount(e, phone_number);
+    setUserData(updateUser)
+    setChange(false)
+   }
   };
+
 
   return (
     <>
@@ -49,8 +58,9 @@ const Informations: React.FC = () => {
                   fullWidth
                   id="first_name"
                   name="first_name"
+                  disabled={!change ? true : false}
                   label="Ad"
-                  defaultValue={user ? user.first_name : ""}
+                  defaultValue={userData ? userData.first_name : ""}
                   required
                 />
               </Grid>
@@ -60,8 +70,9 @@ const Informations: React.FC = () => {
                   label="Soyad"
                   id="last_name"
                   name="last_name"
+                  disabled={!change ? true : false}
                   required
-                  defaultValue={user ? user.last_name : ""}
+                  defaultValue={userData ? userData.last_name : ""}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -72,6 +83,7 @@ const Informations: React.FC = () => {
                   variant="outlined"
                   label="Telefon Numarası"
                   id="phone_number"
+                  disabled={!change ? true : false}
                   name="phone"
                   value={phone}
                   onChange={handlePhone}
@@ -86,8 +98,9 @@ const Informations: React.FC = () => {
                   id="email"
                   name="email"
                   label="E-posta"
+                  disabled={!change ? true : false}
                   required
-                  defaultValue={user ? user.email : ""}
+                  defaultValue={userData ? userData.email : ""}
                   fullWidth
                 />
               </Grid>
@@ -108,7 +121,7 @@ const Informations: React.FC = () => {
                     "&:hover": { backgroundColor: "black" },
                   }}
                 >
-                  Kaydet
+                  {!change ?"GÜNCELLE":"KAYDET"}
                 </Button>
               </Grid>
             </Grid>

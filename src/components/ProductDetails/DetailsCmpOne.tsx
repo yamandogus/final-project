@@ -26,14 +26,14 @@ import useSnackbar from "../../hooks/alert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { color } from "./details";
 import { AccountProps } from "../Account/Informations/MyAccount";
-import { useStore } from "../../layout/Count";
+import { useStore } from "../../services/Count";
 interface Props {
   product: Product;
   tags: string[];
   user?:AccountProps;
 }
 
-const DetailsCmpOne = ({ product, tags,user }: Props) => {
+const DetailsCmpOne = ({ product, tags,user}: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -70,8 +70,7 @@ const DetailsCmpOne = ({ product, tags,user }: Props) => {
         product_variant_id: string,
         pieces: number,
       }
-      console.log(responseJson);
-      
+      console.log(responseJson);   
     } catch (error) {
       console.log(error);
       
@@ -99,7 +98,6 @@ const DetailsCmpOne = ({ product, tags,user }: Props) => {
       }, 2100);
     }
   };
-
 
 
   const culculateDiscount = (

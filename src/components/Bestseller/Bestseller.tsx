@@ -1,6 +1,6 @@
 import { Box, Container,Grid,Typography } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
-import { BestsellerPropsCS } from '../../services/type';
+import { BestsellerPropsCS, LinksProps } from '../../services/type';
 import ProductCard from './Products';
 
 export const base_url = "https://fe1111.projects.academy.onlyjs.com/api/v1"
@@ -19,7 +19,7 @@ export async function loader() {
 
 
 const BestSeller = () => {
-  const {products} = useLoaderData() as {products : BestsellerPropsCS[] }
+  const {products} = useLoaderData() as {products : BestsellerPropsCS[], category:LinksProps[]}
   
   return (
     <Box>

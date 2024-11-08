@@ -38,9 +38,9 @@ const style = {
   pb: 3,
 };
 
-interface LoaderData{
+interface LoaderDataAccount{
 datas: AddedAddress[],
-user: AccountProps
+user: AccountProps,
 }
 
 const AddressSection: React.FC<AddressSectionProps> = ({
@@ -48,7 +48,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   expanded,
   setSelectedAddress,
 }) => {
-  const { datas, user} = useLoaderData() as LoaderData;
+  const { datas, user} = useLoaderData() as LoaderDataAccount;
   const [title, setTitle] = useState("");
   const [addres, setAddres] = useState("");
   const [city, setCity] = useState("");
