@@ -12,6 +12,7 @@ const  LastWiew= ({
   price_info: { total_price, discounted_price },
 }: BestsellerPropsCS) => {
 
+
   const calculateDiscount = (total_price: number, discounted_price: number) => {
     const discountAmount = total_price - discounted_price;
     const discountPercentage = (discountAmount / total_price) * 100;

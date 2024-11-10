@@ -4,10 +4,11 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link, useLoaderData } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { usePaymentStore } from "../../services/Payement";
-import { photo_url } from "../Bestseller/Bestseller";
+import { base_url, photo_url } from "../Bestseller/Bestseller";
 import { useStore } from "../../services/Count";
 import CloseIcon from "@mui/icons-material/Close";
 import { LoaderData } from "../../Layout/Navbar";
+import { useState } from "react";
 
 export interface CartItem {
   product_id: string;
@@ -28,8 +29,8 @@ export interface CartItem {
 }
 
 export interface CartProps {
-  total_price: number; 
-  items: CartItem[]; 
+  total_price: number;
+  items: CartItem[];
 }
 
 interface DrawerProps {
@@ -38,19 +39,78 @@ interface DrawerProps {
 }
 
 const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
-  const { basketItems, removeItems, increaseCount, removeCountDrawer } = usePaymentStore();
-  const { userCart } = useLoaderData() as LoaderData;
+  const { basketItems, removeItems, increaseCount, removeCountDrawer } =
+    usePaymentStore();
+  const { userCart, user } = useLoaderData() as LoaderData;
+  const [userCartData, setUserCartData] = useState(userCart)
   const { removeCount } = useStore();
 
   const totolPrice = basketItems
-  .reduce((arr, index) => arr + index.price * index.count, 0)
-  .toFixed(2);
+    .reduce((arr, index) => arr + index.price * index.count, 0)
+    .toFixed(2);
 
   const handleRemove = (index: number) => {
-      removeItems(index);
-      removeCount();
+    removeItems(index);
+    removeCount();
   };
 
+  const handleDeleteUserCart = async (
+    e: React.SyntheticEvent,
+    index: number
+  ) => {
+    const userCartRemove = userCart.items[index];
+    e.preventDefault();
+    try {
+      const deleteResponse = await fetch(base_url + "/users/cart", {
+        method: "DELETE",
+        body: JSON.stringify({
+          product_id: userCartRemove.product_id,
+          product_variant_id: userCartRemove.product_variant_id,
+          pieces: userCartRemove.pieces,
+        }),
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"), 
+          "Content-Type": "application/json",
+        },
+      });
+      const deleteResponseJson = await deleteResponse.json() as {
+        product_id: number,
+        product_variant_id: string,
+        pieces: number,
+      }
+      console.log(deleteResponseJson);
+      setUserCartData((prevCart)=>({
+        ...prevCart,
+        items:prevCart.items.filter((_,i)=> i !== index)
+      }))
+      
+    } catch (error) {console.log("Ürün silinemedi",error);
+    }
+  };
+  const handlePiecesDecrease = (index: number) =>{
+    setUserCartData((prev)=>({
+      ...prev,
+      items: prev.items.map((item, i)=>
+      i ===index ? {
+        ...item,
+        pieces:item.pieces > 1 ? item.pieces - 1: item.pieces
+      }: item
+      )
+    }))
+  }
+  const handlePiecesincrease= (index: number)=>{
+    setUserCartData((prev)=>({
+      ...prev,
+      items: prev.items.map((item,i)=>
+      i === index ? {
+        ...item,
+        pieces: item.pieces > 1 ? item.pieces + 1 : item.pieces
+      }: item
+       
+
+      )
+    }))
+  }
   return (
     <Box
       sx={{
@@ -98,7 +158,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
         }}
       >
         {userCart && userCart.items && userCart.items.length > 0 ? (
-          userCart.items.map((basket, index) => (
+          userCartData.items.map((basket, index) => (
             <Box mb={1} key={index}>
               <Card
                 style={{
@@ -135,7 +195,10 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                         {basket.product_variant_detail.aroma}
                       </Typography>
                       <Typography variant="subtitle1">
-                        {basket.product_variant_detail.size.total_services ? basket.product_variant_detail.size.total_services + "gr" : ""}{" "}
+                        {basket.product_variant_detail.size.total_services
+                          ? basket.product_variant_detail.size.total_services +
+                            "gr"
+                          : ""}{" "}
                       </Typography>
                     </Box>
                     <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
@@ -163,6 +226,105 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                         {basket.pieces > 1 ? (
                           <button
                             className="remove-button"
+                            onClick={() => handlePiecesDecrease(index)}
+                          >
+                            -
+                          </button>
+                        ) : (
+                          <DeleteIcon
+                            onClick={(e) => handleDeleteUserCart(e,index)}
+                            sx={{
+                              fontSize: 20,
+                              "&:hover": {
+                                color: "red",
+                              },
+                            }}
+                          />
+                        )}
+                        <strong style={{ margin: "0 15px" }}>
+                          {basket.pieces}
+                        </strong>
+                        <button
+                          onClick={() => handlePiecesincrease(index)}
+                          className="increase-button"
+                        >
+                          +
+                        </button>
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Card>
+            </Box>
+          ))
+        ) : basketItems.length === 0 ? (
+          <Typography>Sepet Boş</Typography>
+        ) : (
+          basketItems.map((basket, index) => (
+            <Box mb={1} key={index}>
+              <Card
+                style={{
+                  padding: "5px 0",
+                  backgroundColor: "rgb(247, 247, 247)",
+                }}
+              >
+                <Stack direction={"row"} spacing={2}>
+                  <img
+                    style={{
+                      width: 90,
+                      height: 90,
+                      aspectRatio: 1 / 1,
+                      objectFit: "cover",
+                    }}
+                    src={photo_url + basket.img}
+                    alt="Product"
+                  />
+                  <Stack
+                    direction={"row"}
+                    spacing={2}
+                    width="100%"
+                    justifyContent={"space-between"}
+                  >
+                    <Box>
+                      <Typography
+                        variant="subtitle1"
+                        mt={1}
+                        fontWeight={"bolder"}
+                      >
+                        {basket.name}
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {basket.aroma}
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {basket.gram ? basket.gram + "gr" : ""}{" "}
+                      </Typography>
+                    </Box>
+                    <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bolder",
+                          pt: 1,
+                        }}
+                      >
+                        {(basket.price * basket.count).toFixed(2)} TL
+                      </Typography>
+                      <Typography
+                        borderRadius={1}
+                        padding={"2px 5px"}
+                        bgcolor={"white"}
+                        sx={{
+                          boxShadow: `0 1px 1px rgba(0,1,1,0.5)`,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minWidth: 80,
+                          maxWidth: 80,
+                        }}
+                      >
+                        {basket.count > 1 ? (
+                          <button
+                            className="remove-button"
                             onClick={() => removeCountDrawer(index)}
                           >
                             -
@@ -179,7 +341,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                           />
                         )}
                         <strong style={{ margin: "0 15px" }}>
-                          {basket.pieces}
+                          {basket.count}
                         </strong>
                         <button
                           onClick={() => increaseCount(index)}
@@ -194,107 +356,6 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
               </Card>
             </Box>
           ))
-        ) : (
-          basketItems.length === 0 ? (
-            <Typography>Sepet Boş</Typography>
-          ) : (
-            basketItems.map((basket, index) => (
-              <Box mb={1} key={index}>
-                <Card
-                  style={{
-                    padding: "5px 0",
-                    backgroundColor: "rgb(247, 247, 247)",
-                  }}
-                >
-                  <Stack direction={"row"} spacing={2}>
-                    <img
-                      style={{
-                        width: 90,
-                        height: 90,
-                        aspectRatio: 1 / 1,
-                        objectFit: "cover",
-                      }}
-                      src={photo_url + basket.img}
-                      alt="Product"
-                    />
-                    <Stack
-                      direction={"row"}
-                      spacing={2}
-                      width="100%"
-                      justifyContent={"space-between"}
-                    >
-                      <Box>
-                        <Typography
-                          variant="subtitle1"
-                          mt={1}
-                          fontWeight={"bolder"}
-                        >
-                          {basket.name}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                          {basket.aroma}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                          {basket.gram ? basket.gram + "gr" : ""}{" "}
-                        </Typography>
-                      </Box>
-                      <Stack spacing={1} alignItems="flex-end" gap={2} pr={1}>
-                        <Typography
-                          sx={{
-                            fontWeight: "bolder",
-                            pt: 1,
-                          }}
-                        >
-                          {(basket.price * basket.count).toFixed(2)} TL
-                        </Typography>
-                        <Typography
-                          borderRadius={1}
-                          padding={"2px 5px"}
-                          bgcolor={"white"}
-                          sx={{
-                            boxShadow: `0 1px 1px rgba(0,1,1,0.5)`,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            minWidth: 80,
-                            maxWidth: 80,
-                          }}
-                        >
-                          {basket.count > 1 ? (
-                            <button
-                              className="remove-button"
-                              onClick={() => removeCountDrawer(index)}
-                            >
-                              -
-                            </button>
-                          ) : (
-                            <DeleteIcon
-                              onClick={() => handleRemove(index)}
-                              sx={{
-                                fontSize: 20,
-                                "&:hover": {
-                                  color: "red",
-                                },
-                              }}
-                            />
-                          )}
-                          <strong style={{ margin: "0 15px" }}>
-                            {basket.count}
-                          </strong>
-                          <button
-                            onClick={() => increaseCount(index)}
-                            className="increase-button"
-                          >
-                            +
-                          </button>
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Stack>
-                </Card>
-              </Box>
-            ))
-          )
         )}
       </Box>
       <Box sx={{ padding: "16px", borderTop: "1px solid #ddd" }}>
@@ -305,7 +366,9 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
           textAlign={"end"}
           mr={5}
         >
-          Toplam {userCart && userCart.total_price? userCart.total_price :totolPrice} TL
+          Toplam{" "}
+          {userCartData && userCartData.total_price ? userCartData.total_price : totolPrice}
+          TL
         </Typography>
         <Button
           variant="contained"
@@ -315,12 +378,19 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
             backgroundColor: "black",
             "&:hover": { backgroundColor: "black" },
           }}
-          onClick={() => { onCountine() }}
         >
           <Link
-            onClick={onCountine}
+            onClick={() => {
+              if (user) {
+                onCountine();
+              }
+            }}
             style={{ textDecoration: "none", color: "white" }}
-            to={"PaymentPage"}
+            to={
+              user && user.first_name
+                ? `PaymentPage`
+                : `SingUp?button=${encodeURIComponent("ÜYE OLMADAN DEVAM ET")}`
+            }
           >
             DEVAM ET
           </Link>{" "}

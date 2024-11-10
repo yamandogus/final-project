@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { FormEvent,useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { handleRegister, LoginPayload } from "./LoginAndSingUp";
 import { base_url } from "../Bestseller/Bestseller";
@@ -25,7 +25,7 @@ const Login = () => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
   const [changePassword, setChangePassword] = useState(false);
-
+  
 
 
   const handleShow = () => {
@@ -77,6 +77,8 @@ const Login = () => {
   };
 
 
+
+
   return (
     <Box sx={{ mt: 5 }}>
       <Container maxWidth="xs">
@@ -84,9 +86,9 @@ const Login = () => {
           <>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList onChange={handleChange}>
-                  <Tab label="Giriş Yap" value="1" />
-                  <Tab label="Üye Ol" value="2" />
+                <TabList textColor='inherit' TabIndicatorProps={{style:{backgroundColor:'black'}}} onChange={handleChange}>
+                  <Tab sx={{textTransform:'none'}} label="GİRİŞ YAP" value="1" />
+                  <Tab sx={{textTransform:'none'}} label="ÜYE OL" value="2" />
                 </TabList>
               </Box>
               <Box
@@ -157,6 +159,7 @@ const Login = () => {
                             type="submit"
                             sx={{
                               backgroundColor: "black",
+                              textTransform:'none',
                               color: "white",
                               "&:hover": { backgroundColor: "black" },
                             }}
@@ -210,18 +213,20 @@ const Login = () => {
                             type={showPassword ? "password" : "text"}
                             autoComplete="password"
                             required
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <IconButton onClick={handleShow} edge="end">
-                                    {showPassword ? (
-                                      <VisibilityOff />
-                                    ) : (
-                                      <Visibility />
-                                    )}
-                                  </IconButton>
-                                </InputAdornment>
-                              ),
+                            slotProps={{
+                              input: {
+                                endAdornment: (
+                                  <InputAdornment position="end">
+                                    <IconButton onClick={handleShow} edge="end">
+                                      {showPassword ? (
+                                        <VisibilityOff />
+                                      ) : (
+                                        <Visibility />
+                                      )}
+                                    </IconButton>
+                                  </InputAdornment>
+                                ),
+                              },
                             }}
                           />
                         </FormControl>

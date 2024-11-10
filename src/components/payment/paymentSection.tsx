@@ -20,6 +20,7 @@ interface PaymentSectionProps {
     panel: string
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
   handlePaymentMethod: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setPaymentMade: (e:boolean)=> void;
 }
 
 const modalStyle = {
@@ -37,18 +38,19 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   expanded,
   handleChangePanel,
   handlePaymentMethod,
+  setPaymentMade,
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("Kredi Kartı");
   const [security, setSecurity] = useState(false);
   const [sales, setSales] = useState(false);
 
-  const handlePaymentChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedPayment(e.target.value)
-    handlePaymentMethod(e)
+  const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPayment(e.target.value);
+    handlePaymentMethod(e);
   };
 
-  return (
+  return(
     <CustomAccordion
       expanded={expanded === "panel3"}
       onChange={handleChangePanel("panel3")}
@@ -128,7 +130,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                         }}
                       />
                       <TextField
-                       id="card_security_code"
+                        id="card_security_code"
                         sx={{ backgroundColor: "white" }}
                         fullWidth
                         placeholder="CVC"
@@ -298,6 +300,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           </Box>
         </Modal>
         <Button
+        onClick={()=> setPaymentMade(true)}
           style={{
             marginTop: 5,
             display: "block",

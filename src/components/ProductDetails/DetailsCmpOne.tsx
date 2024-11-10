@@ -70,10 +70,15 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
         product_variant_id: string,
         pieces: number,
       }
+      setBasketText(true);
+      showSnackbar("Ürün sepete eklendi",'success')
+      setTimeout(() => {
+        setBasketText(false);
+      }, 2100);
       console.log(responseJson);   
     } catch (error) {
       console.log(error);
-      
+      showSnackbar("Ürün sepete eklenemedi",'error')
     }
   }
   const handleProductAdded = () => {

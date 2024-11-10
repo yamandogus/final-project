@@ -19,11 +19,12 @@ import {
   CityProps,
   DistrictProps,
 } from "../../services/type";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { base_url } from "../Bestseller/Bestseller";
 import MuiPhoneNumber from "material-ui-phone-number";
 import useSnackbar from "../../hooks/alert";
 import { AccountProps } from "../Account/Informations/MyAccount";
+import { CartItem } from "../MyCart/DrawerList";
 interface AddressSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -38,9 +39,13 @@ const style = {
   pb: 3,
 };
 
-interface LoaderDataAccount{
-datas: AddedAddress[],
-user: AccountProps,
+export interface LoaderDataAccount {
+  datas: AddedAddress[];
+  user: AccountProps;
+  userCart:{
+    total_price: string,
+    items:CartItem[],
+  }
 }
 
 const AddressSection: React.FC<AddressSectionProps> = ({
@@ -48,7 +53,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   expanded,
   setSelectedAddress,
 }) => {
-  const { datas, user} = useLoaderData() as LoaderDataAccount;
+  const { datas, user } = useLoaderData() as LoaderDataAccount;
   const [title, setTitle] = useState("");
   const [addres, setAddres] = useState("");
   const [city, setCity] = useState("");
@@ -108,18 +113,20 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     }
   };
 
-  async function fetchCity() {
-    try {
-      const responseCity = await fetch(
-        base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-      );
-      const dataCity = await responseCity.json();
-      setCities(dataCity.data.results);
-    } catch (error) {
-      console.error("Şehirler yüklenirken hata oluştu:", error);
+  useEffect(()=>{
+    async function fetchCity() {
+      try {
+        const responseCity = await fetch(
+          base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+        );
+        const dataCity = await responseCity.json();
+        setCities(dataCity.data.results);
+      } catch (error) {
+        console.error("Şehirler yüklenirken hata oluştu:", error);
+      }
     }
-  }
-
+    fetchCity()
+  },[open])
   async function fetchDistrict(selectedCity: string) {
     try {
       const responseDistrict = await fetch(
@@ -195,10 +202,17 @@ const AddressSection: React.FC<AddressSectionProps> = ({
             alt="Logo"
           />
         </Link>
-        <Box>
-          <strong>{user.first_name+ " " + user.last_name}</strong> <br />
-          {user.email}
-        </Box>
+        {user && user.first_name ? (
+          <Box>
+            <strong>{user.first_name + " " + user.last_name}</strong> <br />
+            {user.email}
+          </Box>
+        ) : (
+          <Box>
+            <strong><a href="SingUp">Üye Ol</a></strong> 
+            
+          </Box>
+        )}
       </Box>
       <CustomAccordion
         expanded={expanded === "panel1"}
@@ -214,60 +228,62 @@ const AddressSection: React.FC<AddressSectionProps> = ({
               defaultValue="Ev"
               name="radio-buttons-group"
             >
-              {addresssNew.map((address) => (
-                <Box
-                  key={address.id}
-                  sx={{
-                    px: 2,
-                    borderRadius: 3,
-                    border: "1px solid black",
-                    my: 2,
-                  }}
-                >
-                  <Box display={"flex"} justifyContent={"space-between"}>
-                    <FormControlLabel
-                      control={
-                        <Radio
-                          value={address.full_address}
-                          onChange={(e) => {
-                            setSelectedAddress(e.target.value)
-                            setSelectedAddressValue(e.target.value)
-                          }}
-                        />
-                      }
-                      label={
-                        <Typography
-                          sx={{
-                            fontWeight: "bolder",
-                            ":hover": {
-                              color: '#0a5f05',
-                            },
-                          }}
-                        >
-                          {address.title}
-                        </Typography>
-                      }
-                    />
-                    <Button
-                      onClick={() => {
-                        setTitle(address.title);
-                        setAddres(address.full_address.split(",")[0]);
-                        setPhone(address.phone_number);
-                        handleOpen();
-                        setİd(address.id);
+              {user && user.first_name
+                ? addresssNew.map((address) => (
+                    <Box
+                      key={address.id}
+                      sx={{
+                        px: 2,
+                        borderRadius: 3,
+                        border: "1px solid black",
+                        my: 2,
                       }}
-                      sx={{ textTransform: "none" }}
                     >
-                      Düzenle
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Typography variant="subtitle1">
-                      {address.full_address}
-                    </Typography>
-                  </Box>
-                </Box>
-              ))}
+                      <Box display={"flex"} justifyContent={"space-between"}>
+                        <FormControlLabel
+                          control={
+                            <Radio
+                              value={address.full_address}
+                              onChange={(e) => {
+                                setSelectedAddress(e.target.value);
+                                setSelectedAddressValue(e.target.value);
+                              }}
+                            />
+                          }
+                          label={
+                            <Typography
+                              sx={{
+                                fontWeight: "bolder",
+                                ":hover": {
+                                  color: "#0a5f05",
+                                },
+                              }}
+                            >
+                              {address.title}
+                            </Typography>
+                          }
+                        />
+                        <Button
+                          onClick={() => {
+                            setTitle(address.title);
+                            setAddres(address.full_address.split(",")[0]);
+                            setPhone(address.phone_number);
+                            handleOpen();
+                            setİd(address.id);
+                          }}
+                          sx={{ textTransform: "none" }}
+                        >
+                          Düzenle
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Typography variant="subtitle1">
+                          {address.full_address}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ))
+                : ""}
               <Box
                 sx={{
                   px: 2,
@@ -286,8 +302,8 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                         }}
                         value={""}
                         onChange={(e) => {
-                          setSelectedAddress(e.target.value)
-                          setSelectedAddressValue(e.target.value)
+                          setSelectedAddress(e.target.value);
+                          setSelectedAddressValue(e.target.value);
                         }}
                       />
                     }
@@ -309,14 +325,14 @@ const AddressSection: React.FC<AddressSectionProps> = ({
             </RadioGroup>
           </FormControl>
           <Button
-          onClick={()=>{
-            if(selectedAddressValue){
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              handleChangePanel("panel2")(null as any, true)
-            }else{
-              showSnackbar("Lütfen bir teslimat adresi seçin", 'error')
-            }
-          }}
+            onClick={() => {
+              if (selectedAddressValue) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                handleChangePanel("panel2")(null as any, true);
+              } else {
+                showSnackbar("Lütfen bir teslimat adresi seçin", "error");
+              }
+            }}
             style={{
               marginLeft: 0,
               display: "block",
@@ -413,7 +429,6 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                 <TextField
                   fullWidth
                   select
-                  onFocus={() => fetchCity()}
                   value={city}
                   SelectProps={{
                     MenuProps: {

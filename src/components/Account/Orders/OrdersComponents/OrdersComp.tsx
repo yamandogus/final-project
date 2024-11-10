@@ -14,10 +14,10 @@ const OrdersComp = ({image, status, title, date,orderNumber, onOpen}:OrdersCompP
     <>
       <Grid
         container
-        spacing={2}
+        gap={1}
         sx={{ borderBottom: "1px solid rgba(0, 0, 0, 1)", pb:1}}
       >
-        <Grid item lg={2} sx={{ display: { xs: "none", md: "block" } }}>
+        <Grid  item lg={2} sx={{ display: { xs: "none", md: "block" } }}>
           <Avatar
             sx={{
               width: 60,

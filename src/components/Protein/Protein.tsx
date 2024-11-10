@@ -1,5 +1,6 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { lastVisited } from "../../services/lastVisited";
 
 export interface ProductProps {
   name: string;
@@ -14,10 +15,13 @@ export interface ProductProps {
   photo_src: string;
   comment_count?: number;
   average_star: number;
-  slug: string;
+  slug?: string;
 }
 
-export const calculateDiscount = (total_price: number, discounted_price: number) => {
+export const calculateDiscount = (
+  total_price: number,
+  discounted_price: number
+) => {
   const discountAmount = total_price - discounted_price;
   const discountPercentega = (discountAmount / total_price) * 100;
   return Math.round(discountPercentega);
@@ -32,11 +36,24 @@ const Protein = ({
   price_info: { total_price, discounted_price },
   slug,
 }: ProductProps) => {
-
   return (
     <>
       <Grid item xs={6} md={4} lg={3}>
-        <Link style={{ position: "relative" }} to={`/products/${slug}`}>
+        <Link
+          style={{ position: "relative" }}
+          to={`/products/${slug}`}
+          onClick={() =>
+            lastVisited({
+              name,
+              photo_src,
+              short_explanation,
+              average_star,
+              comment_count,
+              price_info: { total_price, discounted_price },
+              slug,
+            })
+          }
+        >
           {discounted_price && (
             <Stack className="discount">
               <strong style={{ fontSize: "16px" }}>
@@ -49,7 +66,13 @@ const Protein = ({
             className="imgHover"
             src={photo_src}
             alt={name}
-            style={{ maxWidth: "90%", display: "block", margin: "auto", aspectRatio:1/1, objectFit:'cover' }}
+            style={{
+              maxWidth: "90%",
+              display: "block",
+              margin: "auto",
+              aspectRatio: 1 / 1,
+              objectFit: "cover",
+            }}
           />
         </Link>
         <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>
@@ -64,10 +87,24 @@ const Protein = ({
           <Typography>
             {discounted_price ? (
               <>
-                <span style={{fontWeight:'bolder', color:'red',fontSize: 16, marginRight:3}}>
+                <span
+                  style={{
+                    fontWeight: "bolder",
+                    color: "red",
+                    fontSize: 16,
+                    marginRight: 3,
+                  }}
+                >
                   {Math.floor(discounted_price)} TL <br />
                 </span>
-                <span style={{ fontWeight: "bolder", textDecoration:'line-through' }}>{total_price} TL</span>
+                <span
+                  style={{
+                    fontWeight: "bolder",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  {total_price} TL
+                </span>
               </>
             ) : (
               <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>

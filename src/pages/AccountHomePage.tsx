@@ -2,20 +2,25 @@ import {  Box,  Container, Grid, List, ListItem,  Typography } from "@mui/materi
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import Orders from "../components/Account/Orders/Orders";
 import Addresses from "../components/Account/Addresses/Addresses";
 import Informations from "../components/Account/Informations/information";
-import { useLoaderData } from "react-router-dom";
-import { userProfileLoaderReturn } from "../components/Account/Informations/MyAccount";
 
 
 
 const AccountHomePage = () => {
   const [activeSation, setActiveSation] = useState('accountInfo');
-  const{user, datas} = useLoaderData() as userProfileLoaderReturn
+
+  useEffect(()=>{
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    if(tab){
+      setActiveSation(tab)
+    }
+  },[])
 
   const renderContent = () =>{
     switch(activeSation){
@@ -32,10 +37,8 @@ const AccountHomePage = () => {
 
   return (
     <>
-    {user?JSON.stringify(user):""}
-    {datas?JSON.stringify(datas):""}
       <Box>
-        <Container sx={{ mt: 10 }}>
+        <Container sx={{ mt: 7 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={3} textAlign={'center'}>
                <Typography fontWeight={'bolder'} variant='h5' textAlign={'center'}> HESABIM</Typography>

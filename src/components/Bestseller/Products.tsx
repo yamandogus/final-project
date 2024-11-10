@@ -1,10 +1,11 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { lastVisited } from "../../services/lastVisited";
 
 export interface BestsellerProps {
   name: string;
   short_explanation: string;
-  slug?:string;
+  slug?: string;
   price_info: {
     profit?: null;
     total_price: number;
@@ -34,43 +35,76 @@ const ProductCard = ({
 
   return (
     <>
-    <Grid item xs={6} md={4} lg={2}>
-      <Link style={{position:'relative'}} to={`/products/${slug}`}>
-        {discounted_price && (
-          <Stack className="discountPrice">
-                <strong style={{fontSize:'15px'}}>%{calculateDiscount(total_price, discounted_price)} </strong> İNDİRİM
-          </Stack>
-        )}
-        <img
-          className="responsive-image imgHover"
-          src={photo_src}
-          alt={name}
-          style={{
-            width: "100%", 
-          }}
-        />
-      </Link>
-      <Stack direction={"column"} sx={{ alignItems: "center", mt:2 }}>
-        <Typography fontSize={13} fontWeight={"bolder"} className="text">
-          {name}
-        </Typography>
-        <Typography>
-          <span className="centered-span">{short_explanation}</span>
-        </Typography>
-        <Rating name="half-rating" defaultValue={average_star} readOnly />
-        <Typography>{comment_count} Yorum</Typography>
-        <Typography>
-          {discounted_price?(
-            <>
-            <span style={{ fontWeight: "bolder", color:'red', fontSize:17, marginRight:5}}>
-              {discounted_price} TL <br />
-            </span>
-            <span  style={{fontWeight:'bolder', textDecoration:'line-through'}}>{total_price} TL</span>
-            </>
-          ): <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>}
-        </Typography>
-      </Stack>
-    </Grid>
+      <Grid item xs={6} md={4} lg={2}>
+        <Link
+          style={{ position: "relative" }}
+          to={`/products/${slug}`}
+          onClick={() =>
+            lastVisited({
+              name,
+              photo_src,
+              short_explanation,
+              average_star,
+              comment_count,
+              slug,
+              price_info: { total_price, discounted_price },
+            })
+          }
+        >
+          {discounted_price && (
+            <Stack className="discountPrice">
+              <strong style={{ fontSize: "15px" }}>
+                %{calculateDiscount(total_price, discounted_price)}{" "}
+              </strong>{" "}
+              İNDİRİM
+            </Stack>
+          )}
+          <img
+            className="responsive-image imgHover"
+            src={photo_src}
+            alt={name}
+            style={{
+              width: "100%",
+            }}
+          />
+        </Link>
+        <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>
+          <Typography fontSize={13} fontWeight={"bolder"} className="text">
+            {name}
+          </Typography>
+          <Typography>
+            <span className="centered-span">{short_explanation}</span>
+          </Typography>
+          <Rating name="half-rating" defaultValue={average_star} readOnly />
+          <Typography>{comment_count} Yorum</Typography>
+          <Typography>
+            {discounted_price ? (
+              <>
+                <span
+                  style={{
+                    fontWeight: "bolder",
+                    color: "red",
+                    fontSize: 17,
+                    marginRight: 5,
+                  }}
+                >
+                  {discounted_price} TL <br />
+                </span>
+                <span
+                  style={{
+                    fontWeight: "bolder",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  {total_price} TL
+                </span>
+              </>
+            ) : (
+              <span style={{ fontWeight: "bolder" }}>{total_price} TL</span>
+            )}
+          </Typography>
+        </Stack>
+      </Grid>
     </>
   );
 };

@@ -59,22 +59,21 @@ const AddressForm: React.FC = () => {
   };
 
 
-  async function fetchCity() {
-    try {
-      const responseCity = await fetch(
-        base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-      );
-      const dataCity = await responseCity.json();
-      setCities(dataCity.data.results);
-    } catch (error) {
-      console.error("Şehirler yüklenirken hata oluştu:", error);
-      showSnackbar("Şehirler yüklenirken hata oluştu", "error");
-    }
-  }
-
   useEffect(() => {
-    fetchCity();
-  }, []);
+    async function fetchCity() {
+      try {
+        const responseCity = await fetch(
+          base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+        );
+        const dataCity = await responseCity.json();
+        setCities(dataCity.data.results);
+      } catch (error) {
+        console.error("Şehirler yüklenirken hata oluştu:", error);
+        showSnackbar("Şehirler yüklenirken hata oluştu", "error");
+      }
+    }
+    fetchCity()
+  }, [datas]);
 
   useEffect(()=>{
     if(addresssNew.length===0){
@@ -378,7 +377,6 @@ const AddressForm: React.FC = () => {
                 <TextField
                   fullWidth
                   select
-                  onFocus={()=>fetchCity()}
                   value={city}
                   SelectProps={{
                     MenuProps: {

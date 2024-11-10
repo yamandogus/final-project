@@ -9,6 +9,7 @@ import { Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import { calculateDiscount } from "../components/Protein/Protein";
 import { getAllProducts } from "./AllProducts";
 import { useEffect, useState } from "react";
+import { lastVisited } from "../services/lastVisited";
 
 interface CatPropsconst {
   name: string;
@@ -69,27 +70,27 @@ const Categories = () => {
         setLoading(false);
       }
     };
-    if(currentPage>1){
-      MoreProduct()
+    if (currentPage > 1) {
+      MoreProduct();
     }
   }, [currentPage, loading]);
 
-  const handeleScroll = () =>{
+  const handeleScroll = () => {
     const scrollY = window.scrollY;
-    const windowHeight= window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight
-    if(scrollY + windowHeight >= documentHeight - 100 && !loading){
-      setLoading(true)
-      setCurrentPage(currentPage + 1)
-    } 
-  }
-
-  useEffect(()=>{
-    window.addEventListener("scroll",handeleScroll);
-    return () =>{
-      window.removeEventListener("scroll",handeleScroll)
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    if (scrollY + windowHeight >= documentHeight - 100 && !loading) {
+      setLoading(true);
+      setCurrentPage(currentPage + 1);
     }
-  },[loading])
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handeleScroll);
+    return () => {
+      window.removeEventListener("scroll", handeleScroll);
+    };
+  }, [loading]);
 
   return (
     <>
@@ -110,6 +111,20 @@ const Categories = () => {
           {product.map((cat, index) => (
             <Grid key={index} item xs={6} md={4} lg={3}>
               <Link
+                onClick={() =>
+                {
+                  const selected= product[index]
+                  lastVisited({
+                    name: selected.name,
+                    photo_src:selected.photo_src,
+                    short_explanation:selected.short_explanation,
+                    average_star: selected.average_star,
+                    comment_count: selected.comment_count,
+                    slug: selected.slug,
+                    price_info: { total_price :selected.price_info.total_price, discounted_price:selected.price_info.discounted_price },
+                  })
+                }
+                }
                 style={{ position: "relative" }}
                 to={`/products/${cat.slug}`}
               >

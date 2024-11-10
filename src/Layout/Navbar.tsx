@@ -17,13 +17,15 @@ import {
   TextField,
   Modal,
   Backdrop,
+  Divider,
+  Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PersonIcon from "@mui/icons-material/Person";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavbarModal from "../components/Navbar/NavbarPopover";
-import DrawerListCoponent, { CartItem} from "../components/MyCart/DrawerList";
+import DrawerListCoponent, { CartItem } from "../components/MyCart/DrawerList";
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { useDebounce } from "../components/Navbar/Navbar";
 import { LinksProps, SearchPropsPt } from "../services/type";
@@ -37,8 +39,8 @@ export async function LinksLoader() {
 
     const response = await fetch(base_url + "/categories");
     const data = await response.json();
-    console.log("category",data);
-    
+    console.log("category", data);
+
     //Account
     const responseAccount = await fetch(base_url + "/users/my-account", {
       method: "GET",
@@ -50,7 +52,7 @@ export async function LinksLoader() {
     const responseJsonAccount = await responseAccount.json();
 
     console.log(responseJsonAccount);
-    
+
     //UserCart
     const responseCart = await fetch(base_url + "/users/cart", {
       method: "GET",
@@ -62,18 +64,17 @@ export async function LinksLoader() {
     const responseJsonCart = await responseCart.json();
 
     console.log(responseJsonCart);
-    
-    return { 
-      allProduct: data.data.data, 
-      user: responseJsonAccount.data || {}, 
-      userCart: responseJsonCart.data || {}
+
+    return {
+      allProduct: data.data.data,
+      user: responseJsonAccount.data || {},
+      userCart: responseJsonCart.data || {},
     };
   } catch (error) {
     console.error("Veri alma hatası:", error);
     return { allProduct: [], userCart: {} };
   }
 }
-
 
 export interface LoaderData {
   allProduct: LinksProps[];
@@ -85,7 +86,7 @@ export interface LoaderData {
 }
 
 function Navbar() {
-  const { allProduct=[], user, userCart} = useLoaderData() as LoaderData;
+  const { allProduct = [], user, userCart } = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -95,7 +96,6 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
-
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -109,6 +109,7 @@ function Navbar() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     window.location.reload();
+    handleClose()
     navigate("/");
   };
 
@@ -159,7 +160,7 @@ function Navbar() {
     setSearchModal(false);
     setSearch("");
   };
- 
+
   useEffect(() => {
     if (!debouncedSearch) {
       setSearchModal(false);
@@ -356,58 +357,122 @@ function Navbar() {
                     </Box>
                   </Modal>
                 </FormGroup>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  aria-label="more"
-                  aria-controls="long-menu"
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                  id="demo-positioned-button"
-                  aria-expanded={anchorEl ? "true" : undefined}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 0.5,
+                <Tooltip
+                  title={
+                    <>
+                      {user && user.first_name ? (
+                        <Box>
+                          <MenuItem key="my-account" onClick={handleClose}>
+                            <Link  className="accountLinkNav" to="MyAccount" onClick={handleClose}>
+                              Hesabım
+                            </Link>
+                          </MenuItem>
+                          <Divider />
+                          <MenuItem key="logout" onClick={handlelogout}>
+                            <Link className="accountLinkNav" to="/" onClick={handleClose}>
+                              Çıkış Yap
+                            </Link>
+                          </MenuItem>
+                        </Box>
+                      ) : (
+                        <Box>
+                          <MenuItem key="login" onClick={handleClose}>
+                            <Link  className="accountLinkNav" to="Login" onClick={handleClose}>
+                              Üye Girişi
+                            </Link>
+                          </MenuItem>
+                          <Divider />
+                          <MenuItem key="signup" onClick={handleClose}>
+                            <Link className="accountLinkNav" to="SingUp" onClick={handleClose}>
+                              Üye Ol
+                            </Link>
+                          </MenuItem>
+                        </Box>
+                      )}
+                    </>
+                  }
+                  slotProps={{
+                    popper:{
+                      modifiers:[{
+                        name:"offset",
+                        options:{
+                          offset:[0,-10]
+                        }
+                      }]
+                    },
+                    tooltip:{
+                      sx:{
+                        mt:-2,
+                        backgroundColor:'white',
+                        color:'black',
+                        border:"0.01px solid black"
+                      }
+                    }
                   }}
+                  arrow
                 >
-                  <PersonIcon sx={{ fontSize: 18 }} />
-                  {user && user.first_name ? user.first_name : "Hesap"}
-                  <ArrowDropDownIcon />
-                </Button>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                    id="demo-positioned-button"
+                    aria-expanded={anchorEl ? "true" : undefined}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 1,
+                      width: "130px",
+                      padding: "6px 10px",
+                    }}
+                  >
+                    <PersonOutlineIcon
+                      sx={{ fontSize: 20, position: "relative", top: "-1px" }}
+                    />
+                    {user && user.first_name ? user.first_name : "Hesap"}
+                    <ArrowDropDownIcon
+                      sx={{ fontSize: 22, position: "relative", top: "-1px" }}
+                    />
+                  </Button>
+                </Tooltip>
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                   disableScrollLock
                   MenuListProps={{ onMouseLeave: handleClose }}
-                  sx={{ zIndex: 1420 }}
+                  sx={{ zIndex: 1420, display: "flex", alignItems: "center" }}
                 >
-                  {user && user.first_name
-                    ? [
-                        <MenuItem key="my-account" onClick={handleClose}>
-                          <Link className="accountLinkNav" to="MyAccount">
-                            Hesabım
-                          </Link>
-                        </MenuItem>,
-                        <MenuItem key="logout" onClick={handlelogout}>
-                          <Link className="accountLinkNav" to="/">
-                            Çıkış Yap
-                          </Link>
-                        </MenuItem>,
-                      ]
-                    : [
-                        <MenuItem key="login" onClick={handleClose}>
-                          <Link className="accountLinkNav" to="Login">
-                            Üye Girişi
-                          </Link>
-                        </MenuItem>,
-                        <MenuItem key="signup" onClick={handleClose}>
-                          <Link className="accountLinkNav" to="SingUp">
-                            Üye Ol
-                          </Link>
-                        </MenuItem>,
-                      ]}
+                  {user && user.first_name ? (
+                    <Box>
+                      <MenuItem key="my-account" onClick={handleClose}>
+                        <Link className="accountLinkNav" to="MyAccount">
+                          Hesabım
+                        </Link>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem key="logout" onClick={handlelogout}>
+                        <Link className="accountLinkNav" to="/">
+                          Çıkış Yap
+                        </Link>
+                      </MenuItem>
+                    </Box>
+                  ) : (
+                    <Box>
+                      <MenuItem key="login" onClick={handleClose}>
+                        <Link className="accountLinkNav" to="Login">
+                          Üye Girişi
+                        </Link>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem key="signup" onClick={handleClose}>
+                        <Link className="accountLinkNav" to="SingUp">
+                          Üye Ol
+                        </Link>
+                      </MenuItem>
+                    </Box>
+                  )}
                 </Menu>
                 <Button
                   className="buttonBef"
@@ -421,7 +486,11 @@ function Navbar() {
                   onClick={toggleDrawer(true)}
                 >
                   Sepet
-                  <span className="count-basket">{userCart && userCart.items ? userCart.items.length :countBasket}</span>
+                  <span className="count-basket">
+                    {userCart && userCart.items
+                      ? userCart.items.length
+                      : countBasket}
+                  </span>
                 </Button>
                 <Drawer
                   disableScrollLock
