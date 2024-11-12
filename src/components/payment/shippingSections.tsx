@@ -12,6 +12,7 @@ const ShippingSection: React.FC<ShippingSectionProps> = ({
   handleChangePanel,
   selectedAddress
 }) => {
+
   return (
     <CustomAccordion
       expanded={expanded === "panel2"}

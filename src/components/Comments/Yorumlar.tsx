@@ -383,10 +383,10 @@ const Yorumlar = () => {
           <Typography>Yorum Bulunmadı</Typography>
         )}
       </Container>
-      <Typography>{page}</Typography>
       <Box sx={{
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        mt:5
       }}>
         <Pagination 
           color='secondary' 

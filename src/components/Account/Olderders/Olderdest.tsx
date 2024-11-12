@@ -7,8 +7,6 @@ interface OlderdestProps {
 
 export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk }) => {
   return (
-    <>
-      <Button onClick={onCloseBsk}>Siparişlerim</Button>
       <Grid container>
         <Grid item xs={12} md={8}>
           <Typography sx={{ pb: 3 }} variant="h4">
@@ -138,9 +136,8 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk }) => {
             <Typography variant="subtitle2">Satış Sözleşmesi</Typography>
           </Stack>
         </Grid>
-        
+        <Button onClick={onCloseBsk}>Siparişlerim</Button>
       </Grid>
-    </>
   );
 };
 

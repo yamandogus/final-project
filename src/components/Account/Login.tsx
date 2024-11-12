@@ -32,7 +32,7 @@ const Login = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
@@ -66,9 +66,8 @@ const Login = () => {
         };
         localStorage.setItem("access_token", jsonResponse.access_token);
         localStorage.setItem("refresh_token", jsonResponse.refresh_token);
-        console.log(jsonResponse);
+        window.location.reload()
         navigate("/");
-        window.location.reload();
       }
     } catch (error) {
       console.log(error);

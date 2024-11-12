@@ -16,81 +16,8 @@ import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
 import LastWiew from "../components/Bestseller/LastWiew";
 import Yorumlar from "../components/Comments/Yorumlar";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
+import { ProductProps } from "../components/Protein/Protein";
 
-const productsDet = [
-  {
-    name: "WHEY PROTEIN",
-    short_explanation: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
-    average_star: 5,
-    comment_count: 10869,
-    price_info: {
-      total_price: 549,
-      discounted_price: null,
-    },
-    photo_src: "/images/6card/pg1.jpeg",
-    slug: "/Page2",
-  },
-  {
-    name: "FITNESS PAKETİ",
-    short_explanation: "EN POPÜLER ÜRÜNLER BİR ARADA",
-    average_star: 5,
-    comment_count: 7650,
-    price_info: {
-      total_price: 799,
-      discounted_price: 650,
-    },
-    photo_src: "/images/6card/pg2.jpeg",
-    slug: null,
-  },
-  {
-    name: "GÜNLÜK VİTAMİN PAKETİ",
-    short_explanation: "EN SIK TÜKETİLEN TAKVİYELER",
-    average_star: 5,
-    comment_count: 5013,
-    price_info: {
-      total_price: 549,
-      discounted_price: 500,
-    },
-    photo_src: "/images/6card/pg3.jpeg",
-    slug: null,
-  },
-  {
-    name: "PRE-WORKOUT SUPREME",
-    short_explanation: "ANTRENMAN ÖNCESİ TAKVİYESİ",
-    average_star: 5,
-    comment_count: 6738,
-    price_info: {
-      total_price: 399,
-      discounted_price: null,
-    },
-    photo_src: "/images/6card/pg4.jpeg",
-    slug: null,
-  },
-  {
-    name: "CREAM OF RICE",
-    short_explanation: "EN LEZZETLİ PİRİNÇ KREMASI",
-    average_star: 5,
-    comment_count: 5216,
-    price_info: {
-      total_price: 239,
-      discounted_price: null,
-    },
-    photo_src: "/images/6card/pg5.jpeg",
-    slug: null,
-  },
-  {
-    name: "CREATINE",
-    short_explanation: "EN POPÜLER SPORCU TAKVİYESİ",
-    average_star: 5,
-    comment_count: 8558,
-    price_info: {
-      total_price: 239,
-      discounted_price: null,
-    },
-    photo_src: "/images/6card/pg6.jpeg",
-    slug: null,
-  },
-];
 
 const commentData = 
 [
@@ -123,6 +50,10 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
 
 function ProductsDetails() {
   const { data: productData, user } = useLoaderData() as {data: Product, user: AccountProps};
+  const data = localStorage.getItem("last-visited")
+  const lastViseted: ProductProps[] = data ? JSON.parse(data): [];
+
+  
    return (
     <>
       <Box sx={{ my:1 }}>
@@ -138,7 +69,7 @@ function ProductsDetails() {
         </Typography>
         <Container>
           <Grid container columnSpacing={2}>
-            {productsDet.map((product, index) => (
+            {lastViseted.map((product, index) => (
               <LastWiew
                 key={index}
                 name={product.name}
@@ -154,14 +85,14 @@ function ProductsDetails() {
       </Box>
       <Box>
         <Container>
-          <Grid container spacing={6}>
+          <Grid container spacing={6} mt={2}>
             <Grid
               item
               xs={12}
               md={6}
               sx={{
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: 'space-between',
                 alignItems: "center",
               }}
             >

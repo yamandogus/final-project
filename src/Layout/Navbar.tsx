@@ -97,6 +97,17 @@ function Navbar() {
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
 
+  // user local added
+  localStorage.setItem("login-user", JSON.stringify(user));
+  const userLocalGet = localStorage.getItem("login-user");
+  const userNew:AccountProps = userLocalGet ? JSON.parse(userLocalGet) : {};
+  
+  //userCart local added
+  localStorage.setItem("login-userCarts", JSON.stringify(userCart));
+  const userCartLocalGet = localStorage.getItem("login-userCarts");
+  const userCartNew:LoaderData["userCart"] = userCartLocalGet ? JSON.parse(userCartLocalGet) : {};
+ 
+
   useEffect(() => {
     if (debouncedSearch) {
       handleSearchResults();
@@ -360,7 +371,7 @@ function Navbar() {
                 <Tooltip
                   title={
                     <>
-                      {user && user.first_name ? (
+                      {userNew && userNew.first_name ? (
                         <Box>
                           <MenuItem key="my-account" onClick={handleClose}>
                             <Link  className="accountLinkNav" to="MyAccount" onClick={handleClose}>
@@ -430,7 +441,7 @@ function Navbar() {
                     <PersonOutlineIcon
                       sx={{ fontSize: 20, position: "relative", top: "-1px" }}
                     />
-                    {user && user.first_name ? user.first_name : "Hesap"}
+                    {userNew && userNew.first_name ? user.first_name : "Hesap"}
                     <ArrowDropDownIcon
                       sx={{ fontSize: 22, position: "relative", top: "-1px" }}
                     />
@@ -444,7 +455,7 @@ function Navbar() {
                   MenuListProps={{ onMouseLeave: handleClose }}
                   sx={{ zIndex: 1420, display: "flex", alignItems: "center" }}
                 >
-                  {user && user.first_name ? (
+                  {userNew && userNew.first_name ? (
                     <Box>
                       <MenuItem key="my-account" onClick={handleClose}>
                         <Link className="accountLinkNav" to="MyAccount">
@@ -487,7 +498,7 @@ function Navbar() {
                 >
                   Sepet
                   <span className="count-basket">
-                    {userCart && userCart.items
+                    {userCartNew && userCartNew.items
                       ? userCart.items.length
                       : countBasket}
                   </span>

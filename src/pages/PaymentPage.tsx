@@ -6,7 +6,7 @@ import ShippingSection from "../components/payment/shippingSections";
 import OrderSummary from "../components/payment/orderSummary";
 import PaymentSection from "../components/payment/paymentSection";
 import { useLoaderData } from "react-router-dom";
-import { LoaderData } from "../Layout/Navbar";
+import { LoaderData } from "../layout/Navbar";
 
 const PaymentPage = () => {
   const { basketItems } = usePaymentStore();
@@ -14,6 +14,7 @@ const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [extra, setExtra] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddressId, setSelectedAddressId] = useState("");
   const [paymentMade, setPaymentMade] = useState(false);
   const { user } = useLoaderData() as LoaderData;
 
@@ -28,7 +29,7 @@ const PaymentPage = () => {
       setExtra(39);
     } else if (e.target.value === "Adreste kart ile ödeme") {
       setExtra(45);
-    } else if (e.target.value === "Kredi Kartı") {
+    } else if (e.target.value === "credit_cart") {
       setExtra(0);
     }
   };
@@ -57,6 +58,7 @@ const PaymentPage = () => {
                 expanded={expanded}
                 handleChangePanel={handleChangePanel}
                 setSelectedAddress={setSelectedAddress}
+                setSelectedAddressId={setSelectedAddressId}
               />
               <ShippingSection
                 expanded={expanded}
@@ -68,6 +70,8 @@ const PaymentPage = () => {
                 handleChangePanel={handleChangePanel}
                 handlePaymentMethod={handlePaymentMethod}
                 setPaymentMade={setPaymentMade}
+                selectedAddressId={selectedAddressId}
+                selectedAddress={selectedAddress}
               />
             </Grid>
             <Grid item xs={12} md={6}>

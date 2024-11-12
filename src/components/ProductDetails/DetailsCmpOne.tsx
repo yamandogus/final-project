@@ -81,6 +81,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
       showSnackbar("Ürün sepete eklenemedi",'error')
     }
   }
+
   const handleProductAdded = () => {
     if (selectedVariant) {
       const newItem = {

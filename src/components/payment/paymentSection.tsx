@@ -1,5 +1,4 @@
 import {
-  Box,
   Typography,
   FormControl,
   RadioGroup,
@@ -10,17 +9,22 @@ import {
   Checkbox,
   Button,
   Modal,
+  Box,
 } from "@mui/material";
 import { useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
 import CustomAccordion from "./customAccordion";
+import useSnackbar from "../../hooks/alert";
+import { base_url } from "../Bestseller/Bestseller";
 interface PaymentSectionProps {
   expanded: string | false;
   handleChangePanel: (
     panel: string
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
   handlePaymentMethod: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setPaymentMade: (e:boolean)=> void;
+  setPaymentMade: (e: boolean) => void;
+  selectedAddress: string;
+  selectedAddressId: string;
 }
 
 const modalStyle = {
@@ -39,18 +43,61 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   handleChangePanel,
   handlePaymentMethod,
   setPaymentMade,
+  selectedAddressId,
 }) => {
   const [open, setOpen] = useState(false);
-  const [selectedPayment, setSelectedPayment] = useState("Kredi Kartı");
+  const [selectedPayment, setSelectedPayment] = useState("credit_cart");
   const [security, setSecurity] = useState(false);
   const [sales, setSales] = useState(false);
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
 
   const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(e.target.value);
     handlePaymentMethod(e);
   };
 
-  return(
+  const handlePayment = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const responsePayment = await fetch(
+        base_url + "/orders/complete-shopping",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            
+              address_id: selectedAddressId,
+              payment_type: "credit_cart",
+              card_digits: "1234567891234567",
+              card_expiration_date: "06-25",
+              card_security_code:"123",
+              card_type: "VISA"
+          
+          }),
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responsePaymentJson = (await responsePayment.json()) as {
+        address_id: string;
+        payment_type: string;
+        card_digits: string;
+        card_expiration_date: string;
+        card_security_code: string;
+        card_type: string;
+      };
+      console.log(responsePaymentJson); 
+      if (responsePayment.ok) {
+        showSnackbar("Ödeme Yapıldı", "success");
+        setPaymentMade(true);
+      }
+    } catch (error) {
+      console.log("ödeme hatası", error);
+      showSnackbar("Ödeme Başarısız", "error");
+    }
+  };
+  return (
     <CustomAccordion
       expanded={expanded === "panel3"}
       onChange={handleChangePanel("panel3")}
@@ -61,7 +108,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
         <FormControl sx={{ width: "100%", overflow: "hidden" }}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue={selectedPayment}
+            value={selectedPayment}
             id="payment_type"
             onChange={handlePaymentChange}
             name="radio-buttons-group"
@@ -77,11 +124,11 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
               }}
             >
               <FormControlLabel
-                value="Kredi Kartı"
+                value="credit_cart"
                 control={<Radio />}
                 label="Kredi Kartı"
               />
-              {selectedPayment === "Kredi Kartı" && (
+              {selectedPayment === "credit_cart" && (
                 <Box>
                   <Box>
                     <Stack gap={2}>
@@ -96,11 +143,11 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                           maxLength: 19,
                           pattern: "[0-9]*",
                         }}
-                        onChange={(e) => {
-                          let value = e.target.value.replace(/\D/g, "");
+                        onChange={(e) => {                        
+                          let value = e.target.value.replace(/\D/g, "");   
                           if (value.length > 16) value = value.slice(0, 16);
-                          value = value.match(/.{1,4}/g)?.join(" ") || "";
-                          e.target.value = value;
+                          value = value.match(/.{1,4}/g)?.join(" ") || "";  
+                          e.target.value = value;                     
                         }}
                       />
                       <TextField
@@ -115,7 +162,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                         sx={{ backgroundColor: "white" }}
                         fullWidth
                         id="card_expiration_date"
-                        placeholder="Ay/Yıl"
+                        placeholder="Ay-Yıl"
                         inputProps={{
                           inputMode: "numeric",
                           maxLength: 5,
@@ -125,7 +172,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                           let value = e.target.value.replace(/\D/g, "");
                           if (value.length > 4) value = value.slice(0, 4);
                           if (value.length > 2)
-                            value = value.slice(0, 2) + "/" + value.slice(2);
+                            value = value.slice(0, 2) + "-" + value.slice(2);
                           e.target.value = value;
                         }}
                       />
@@ -300,7 +347,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           </Box>
         </Modal>
         <Button
-        onClick={()=> setPaymentMade(true)}
+          onClick={(e) => handlePayment(e)}
           style={{
             marginTop: 5,
             display: "block",
@@ -326,6 +373,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           Ödemeler güvenli ve şifrelidir.
         </Typography>
       </Box>
+      <SnackbarComponent />
     </CustomAccordion>
   );
 };
