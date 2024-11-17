@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
@@ -18,7 +19,6 @@ import {
   Modal,
   Backdrop,
   Divider,
-  Tooltip,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -36,11 +36,9 @@ import { useStore } from "../services/Count";
 export async function LinksLoader() {
   try {
     //Category
-
     const response = await fetch(base_url + "/categories");
     const data = await response.json();
     console.log("category", data);
-
     //Account
     const responseAccount = await fetch(base_url + "/users/my-account", {
       method: "GET",
@@ -50,9 +48,7 @@ export async function LinksLoader() {
       },
     });
     const responseJsonAccount = await responseAccount.json();
-
     console.log(responseJsonAccount);
-
     //UserCart
     const responseCart = await fetch(base_url + "/users/cart", {
       method: "GET",
@@ -63,6 +59,7 @@ export async function LinksLoader() {
     });
     const responseJsonCart = await responseCart.json();
 
+    localStorage.setItem("login-user-carts",JSON.stringify(responseJsonCart))
     console.log(responseJsonCart);
 
     return {
@@ -86,7 +83,7 @@ export interface LoaderData {
 }
 
 function Navbar() {
-  const { allProduct = [], user, userCart } = useLoaderData() as LoaderData;
+  const { allProduct = [], user} = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -96,17 +93,19 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
-
-  // user local added
-  localStorage.setItem("login-user", JSON.stringify(user));
-  const userLocalGet = localStorage.getItem("login-user");
-  const userNew:AccountProps = userLocalGet ? JSON.parse(userLocalGet) : {};
+  const [userCartLocal, setUserCartLocal] = useState<LoaderData["userCart"] | null>(null);
   
-  //userCart local added
-  localStorage.setItem("login-userCarts", JSON.stringify(userCart));
-  const userCartLocalGet = localStorage.getItem("login-userCarts");
-  const userCartNew:LoaderData["userCart"] = userCartLocalGet ? JSON.parse(userCartLocalGet) : {};
- 
+  useEffect(() => {
+    const locaUserCart = localStorage.getItem("login-user-carts");
+    if (locaUserCart) {
+      try {
+        const parsedData = JSON.parse(locaUserCart);
+        setUserCartLocal(parsedData.data);
+      } catch (error) {
+        console.error("Geçersiz :", error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -125,6 +124,7 @@ function Navbar() {
   };
 
   const handleOpenModal =
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
       setOpenModalIndex(index);
     };
@@ -368,60 +368,6 @@ function Navbar() {
                     </Box>
                   </Modal>
                 </FormGroup>
-                <Tooltip
-                  title={
-                    <>
-                      {userNew && userNew.first_name ? (
-                        <Box>
-                          <MenuItem key="my-account" onClick={handleClose}>
-                            <Link  className="accountLinkNav" to="MyAccount" onClick={handleClose}>
-                              Hesabım
-                            </Link>
-                          </MenuItem>
-                          <Divider />
-                          <MenuItem key="logout" onClick={handlelogout}>
-                            <Link className="accountLinkNav" to="/" onClick={handleClose}>
-                              Çıkış Yap
-                            </Link>
-                          </MenuItem>
-                        </Box>
-                      ) : (
-                        <Box>
-                          <MenuItem key="login" onClick={handleClose}>
-                            <Link  className="accountLinkNav" to="Login" onClick={handleClose}>
-                              Üye Girişi
-                            </Link>
-                          </MenuItem>
-                          <Divider />
-                          <MenuItem key="signup" onClick={handleClose}>
-                            <Link className="accountLinkNav" to="SingUp" onClick={handleClose}>
-                              Üye Ol
-                            </Link>
-                          </MenuItem>
-                        </Box>
-                      )}
-                    </>
-                  }
-                  slotProps={{
-                    popper:{
-                      modifiers:[{
-                        name:"offset",
-                        options:{
-                          offset:[0,-10]
-                        }
-                      }]
-                    },
-                    tooltip:{
-                      sx:{
-                        mt:-2,
-                        backgroundColor:'white',
-                        color:'black',
-                        border:"0.01px solid black"
-                      }
-                    }
-                  }}
-                  arrow
-                >
                   <Button
                     variant="outlined"
                     color="inherit"
@@ -441,12 +387,11 @@ function Navbar() {
                     <PersonOutlineIcon
                       sx={{ fontSize: 20, position: "relative", top: "-1px" }}
                     />
-                    {userNew && userNew.first_name ? user.first_name : "Hesap"}
+                    {user && user.first_name ? user.first_name : "Hesap"}
                     <ArrowDropDownIcon
                       sx={{ fontSize: 22, position: "relative", top: "-1px" }}
                     />
                   </Button>
-                </Tooltip>
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
@@ -455,7 +400,7 @@ function Navbar() {
                   MenuListProps={{ onMouseLeave: handleClose }}
                   sx={{ zIndex: 1420, display: "flex", alignItems: "center" }}
                 >
-                  {userNew && userNew.first_name ? (
+                  {user && user.first_name ? (
                     <Box>
                       <MenuItem key="my-account" onClick={handleClose}>
                         <Link className="accountLinkNav" to="MyAccount">
@@ -498,8 +443,8 @@ function Navbar() {
                 >
                   Sepet
                   <span className="count-basket">
-                    {userCartNew && userCartNew.items
-                      ? userCart.items.length
+                    {userCartLocal && userCartLocal?.items
+                      ? userCartLocal.items.length
                       : countBasket}
                   </span>
                 </Button>

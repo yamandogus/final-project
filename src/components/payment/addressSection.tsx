@@ -31,7 +31,7 @@ interface AddressSectionProps {
     panel: string
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
   setSelectedAddress: (address: string) => void;
-  setSelectedAddressId:(id:string) =>void;
+  setSelectedAddressId: (id: string) => void;
 }
 const style = {
   left: "50%",
@@ -43,17 +43,17 @@ const style = {
 export interface LoaderDataAccount {
   datas: AddedAddress[];
   user: AccountProps;
-  userCart:{
-    total_price: string,
-    items:CartItem[],
-  }
+  userCart: {
+    total_price: string;
+    items: CartItem[];
+  };
 }
 
 const AddressSection: React.FC<AddressSectionProps> = ({
   handleChangePanel,
   expanded,
   setSelectedAddress,
-  setSelectedAddressId
+  setSelectedAddressId,
 }) => {
   const { datas, user } = useLoaderData() as LoaderDataAccount;
   const [title, setTitle] = useState("");
@@ -115,7 +115,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     async function fetchCity() {
       try {
         const responseCity = await fetch(
@@ -127,8 +127,8 @@ const AddressSection: React.FC<AddressSectionProps> = ({
         console.error("Şehirler yüklenirken hata oluştu:", error);
       }
     }
-    fetchCity()
-  },[open])
+    fetchCity();
+  }, [open]);
   async function fetchDistrict(selectedCity: string) {
     try {
       const responseDistrict = await fetch(
@@ -211,8 +211,9 @@ const AddressSection: React.FC<AddressSectionProps> = ({
           </Box>
         ) : (
           <Box>
-            <strong><a href="SingUp">Üye Ol</a></strong> 
-            
+            <strong>
+              <a href="SingUp">Üye Ol</a>
+            </strong>
           </Box>
         )}
       </Box>
@@ -247,7 +248,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                             <Radio
                               value={address.full_address}
                               onChange={(e) => {
-                                setSelectedAddressId(address.id)
+                                setSelectedAddressId(address.id);
                                 setSelectedAddress(e.target.value);
                                 setSelectedAddressValue(e.target.value);
                               }}

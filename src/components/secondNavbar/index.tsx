@@ -296,7 +296,8 @@ import SecondNavbarComponent from "../Navbar/SecondNavbarComponet";
       </Box>
     );
   
-    const handleSearchChange = (e: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleSearchChange = (e:any) => {
       setSearch(e.target.value);
       setAnchorEl(e.currentTarget);
     };

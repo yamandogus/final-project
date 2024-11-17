@@ -1,6 +1,6 @@
 import { Grid, Rating, Stack, Typography } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
-import { CommentProp } from './Yorumlar';
+import { CommentProp } from './comment';
 
 type Comments1Props = Omit<CommentProp, 'key'>;
 

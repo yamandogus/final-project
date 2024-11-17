@@ -204,3 +204,82 @@ interface Size {
   pieces: number;
   total_services: number;
 }
+
+export interface Order {
+  order_no: string;
+  order_status: string;
+  shipment_tracking_number: string;
+  address: Addresss;
+  payment_detail: PaymentDetail;
+  shopping_cart: ShoppingCart;
+}
+
+interface Addresss {
+  title: string;
+  country: string;
+  region: string;
+  subregion: string;
+  full_address: string;
+  phone_number: string;
+}
+
+interface PaymentDetail {
+  card_digits: string;
+  card_expiration_date: string; 
+  card_security_code: string;
+  payment_type: string;
+  card_type: string;
+  base_price: number;
+  shipment_fee: number;
+  payment_fee: number;
+  discount_ratio: number;
+  discount_amount: number;
+  final_price: number;
+}
+
+interface ShoppingCart {
+  total_price: number;
+  items: ShoppingCartItem[];
+}
+
+interface ShoppingCartItem {
+  product_id: string;
+  product_variant_id: string;
+  product: string;
+  product_variant_detail: ProductVariantDetail;
+  pieces: number;
+  unit_price: number;
+  total_price: number;
+}
+
+interface ProductVariantDetail {
+  size: Size;
+  aroma: string;
+  photo_src: string;
+}
+
+interface Size {
+  gram: number;
+  pieces: number;
+  total_services: number;
+}
+
+interface Review {
+  stars: string;
+  comment: string;
+  title: string;
+  created_at: string;
+  aroma: string;
+  first_name: string;
+  last_name: string;
+}
+
+export interface ReviewResponse {
+  status: string;
+  data: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Review[];
+  };
+}

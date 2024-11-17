@@ -73,7 +73,7 @@ const AddressForm: React.FC = () => {
       }
     }
     fetchCity()
-  }, [datas]);
+  }, []);
 
   useEffect(()=>{
     if(addresssNew.length===0){

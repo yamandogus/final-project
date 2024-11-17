@@ -1,6 +1,6 @@
 import { Box, Container, Pagination, Typography} from "@mui/material";
-import Comments1 from "../Comments/homeComments";
 import { useState } from "react";
+import HomeCooments from "./homeComments";
 
 export interface CommentProp {
   rating: number;
@@ -353,7 +353,7 @@ const reviews: CommentProp[] = [
   { rating: 5, name: "Selin U.", date: "07/27/24", comment: "Harika bir ürün, bayıldım!", shortComment: "Hızlı teslimat." }
 ];
 
-const Yorumlar = () => {
+const Comments = () => {
   const [page, setPage] = useState(1)
   const commentLimit = 6;
 
@@ -370,7 +370,7 @@ const Yorumlar = () => {
       <Container>
         {reviews.length > 0 ? (
           selectedReviews.map((review, index) => (
-            <Comments1
+            <HomeCooments
               key={`${review.name}-${index}`}
               rating={review.rating}
               name={review.name}
@@ -398,7 +398,7 @@ const Yorumlar = () => {
   );
 };
 
-export default Yorumlar;
+export default Comments;
 
 
 

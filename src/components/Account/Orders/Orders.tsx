@@ -2,41 +2,22 @@ import { Box, Typography } from "@mui/material";
 import OrdersComp from "./OrdersComponents/OrdersComp";
 import { useState } from "react";
 import Olderdest from "../Olderders/Olderdest";
+import { useLoaderData } from "react-router-dom";
+import { userProfileLoaderReturn } from "../Informations/MyAccount";
 
-const orderData = [
-  {
-    image: "/images/Orders/orders1.jpeg",
-    status: "Teslim Edildi",
-    title: "DEEP SLEEP",
-    date: "31 Mart 2023 Tarihinde Sipariş Verildi",
-    orderNumber: "427795 numaralı sipariş",
-  },
-  {
-    image: "/images/Orders/orders2.jpeg",
-    status: "Teslim Edildi",
-    title: "MELATONIN - GÜNLÜK VİTAMİN PAKETİ - BROMELAIN",
-    date: "14 Aralık 2022 Tarihinde Sipariş Verildi",
-    orderNumber: "290405 numaralı sipariş",
-  },
-  {
-    image: "/images/Orders/orders3.jpeg",
-    status: "Teslim Edildi",
-    title: "GAMER HACK - DETOX PAKETİ",
-    date: "19 Kasım 2022 Tarihinde Sipariş Verildi",
-    orderNumber: "255564 numaralı sipariş",
-  },
-  {
-    image: "/images/Orders/orders4.jpeg",
-    status: "Teslim Edildi",
-    title: "CREAM OF RICE",
-    date: "1 Ekim 2022 Tarihinde Sipariş Verildi",
-    orderNumber: "190462 numaralı sipariş",
-  },
-];
+const orderData = {
+  image: "/images/Orders/orders1.jpeg",
+  title: "DEEP SLEEP",
+}
+  
+   
+  
+
 
 const Orders = () => {
   const [open, setOpen] = useState(false);
-
+  const {orders} = useLoaderData() as userProfileLoaderReturn
+  const [orderId, setOrderId] = useState("")
   return (
     <>
       <Box>
@@ -44,20 +25,27 @@ const Orders = () => {
           <>
             <Box mb={5}>
               <Typography fontWeight={"bolder"} variant="subtitle1">
-                Siparişlerim(4)
+                Siparişlerim({orders.length})
               </Typography>
             </Box>
             <Box sx={{ display: "grid", gap: 5 }}>
-              {orderData.map((data, index) => (
+              {orders.map((data, index) =>(
                 <OrdersComp
-                  key={index}
-                  image={data.image}
-                  status={data.status}
-                  title={data.title}
-                  date={data.date}
-                  orderNumber={data.orderNumber}
-                  onOpen={()=> setOpen(true)}
-                />
+                key={index}
+                image={orderData.image}
+                status={
+                  data.order_status ==="delivered" ? "Teslim Edildi":
+                  data.order_status ==="in_cargo" ? "Korgoda":
+                  data.order_status === "getting_ready"? "Hazırlanıyor":""
+                }
+                title={orderData.title}
+                date={data.created_at.split("T")[0].split("-").reverse().join(".")}
+                orderNumber={data.order_no}
+                onOpen={()=> {
+                  setOpen(true)
+                  setOrderId(data.order_no)
+                }}
+              />
               ))}
             </Box>
           </>
@@ -65,6 +53,7 @@ const Orders = () => {
           <>
           <Olderdest
           onCloseBsk={()=>setOpen(false)}
+          orderId={orderId}
           />
           </>
         )}

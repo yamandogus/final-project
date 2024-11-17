@@ -9,21 +9,26 @@ interface NavbarModalProps {
 }
 
 const style = {
-  position:"absolute",
-  top:"120px",
-  left:"50%",
+  position: "absolute",
+  top: "120px",
+  left: "50%",
   transform: "translate(-50%, 0)",
-  width: "70%",
+  width: {
+    xs: "100%",
+    sm: "90%",
+    md: "70%",
+  },
   borderRadius: 2,
-  maxHeight: 500,
-  overflowY: "scroll",
+  maxHeight: "calc(100vh - 150px)",
+  overflowY: "auto",
+  bgcolor: "background.paper",
+  boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
   "&::-webkit-scrollbar": {
     width: 0,
     background: "transparent",
   },
-  bgcolor: "background.paper",
-  boxShadow: 24,
 };
+
 
 const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
   return (
@@ -33,7 +38,7 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
           <Typography mb={2} variant="h6" textAlign={"center"} fontWeight={700}>
             EN ÇOK SATANLAR
           </Typography>
-          {links.top_sellers.map((link, index) => (
+          {links.top_sellers?.map((link, index) => (
             <Grid container px={1} key={`top-seller-${link.slug || index}`}>
               <Grid item xs={12}>
                 <Stack direction={"row"} alignItems="center" mb={3}>
@@ -71,7 +76,7 @@ const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
               display: "flex",
               flexWrap: "wrap",
             }}>
-              {links.children.map((linkChild, childIndex) => (
+              {links.children?.map((linkChild, childIndex) => (
                 <Box key={`child-${linkChild.id || childIndex}`} sx={{ flex: "1 1 45%", mt: 2 }}>
                   <h4>{linkChild.name}</h4>
                   <ul>

@@ -7,7 +7,7 @@ import { usePaymentStore } from "../../services/Payement";
 import { base_url, photo_url } from "../Bestseller/Bestseller";
 import { useStore } from "../../services/Count";
 import CloseIcon from "@mui/icons-material/Close";
-import { LoaderData } from "../../Layout/Navbar";
+import { LoaderData } from "../../layout/Navbar";
 import { useState } from "react";
 
 export interface CartItem {
@@ -42,7 +42,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
   const { basketItems, removeItems, increaseCount, removeCountDrawer } =
     usePaymentStore();
   const { userCart, user } = useLoaderData() as LoaderData;
-  const [userCartData, setUserCartData] = useState(userCart)
+  const [userCartData, setUserCartData] = useState(userCart);
   const { removeCount } = useStore();
 
   const totolPrice = basketItems
@@ -69,48 +69,65 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
           pieces: userCartRemove.pieces,
         }),
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"), 
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
           "Content-Type": "application/json",
         },
       });
-      const deleteResponseJson = await deleteResponse.json() as {
-        product_id: number,
-        product_variant_id: string,
-        pieces: number,
-      }
+      const deleteResponseJson = (await deleteResponse.json()) as {
+        product_id: number;
+        product_variant_id: string;
+        pieces: number;
+      };
       console.log(deleteResponseJson);
-      setUserCartData((prevCart)=>({
+      const userCartUpadete = userCart.items.filter((_,i)=> i !== index)
+      const updateTotalPrice = userCartUpadete.reduce((total, item)=>(total + item.total_price),0)
+      setUserCartData((prevCart) => ({
         ...prevCart,
-        items:prevCart.items.filter((_,i)=> i !== index)
-      }))
-      
-    } catch (error) {console.log("Ürün silinemedi",error);
+        items: userCartUpadete,
+        total_price: updateTotalPrice,
+      }));
+    } catch (error) {
+      console.log("Ürün silinemedi", error);
     }
   };
-  const handlePiecesDecrease = (index: number) =>{
-    setUserCartData((prev)=>({
-      ...prev,
-      items: prev.items.map((item, i)=>
-      i ===index ? {
-        ...item,
-        pieces:item.pieces > 1 ? item.pieces - 1: item.pieces
-      }: item
-      )
-    }))
-  }
-  const handlePiecesincrease= (index: number)=>{
-    setUserCartData((prev)=>({
-      ...prev,
-      items: prev.items.map((item,i)=>
-      i === index ? {
-        ...item,
-        pieces: item.pieces > 1 ? item.pieces + 1 : item.pieces
-      }: item
-       
 
-      )
-    }))
-  }
+  const handlePiecesDecrease = (index: number) => {
+    setUserCartData((prev) =>{
+      const updateItems = prev.items.map((item, i)=>{
+        if(i === index){
+          const newPieces = item.pieces > 1 ? item.pieces -1 :item.pieces;
+          return{
+            ...item,
+            pieces:newPieces,
+            total_price: newPieces * item.unit_price
+          }
+        }
+        return item
+      })
+      const updateTotalPrice = updateItems.reduce(
+        (total, item)=> total + item.total_price,0
+      );
+      return {
+        ...prev,
+        items:updateItems,
+        total_price:updateTotalPrice
+      }
+    });
+  };
+  const handlePiecesincrease = (index: number) => {
+    setUserCartData((prev) => ({
+      ...prev,
+      items: prev.items.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              pieces: item.pieces >= 1 ? item.pieces + 1 : item.pieces,
+              total_price:(item.pieces >= 1 ? item.pieces + 1 : item.pieces) * item.unit_price
+            }
+          : item
+      ),
+    }));
+  };
   return (
     <Box
       sx={{
@@ -232,7 +249,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                           </button>
                         ) : (
                           <DeleteIcon
-                            onClick={(e) => handleDeleteUserCart(e,index)}
+                            onClick={(e) => handleDeleteUserCart(e, index)}
                             sx={{
                               fontSize: 20,
                               "&:hover": {
@@ -309,15 +326,16 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                       >
                         {(basket.price * basket.count).toFixed(2)} TL
                       </Typography>
-                      <Typography
+                      <Box
                         borderRadius={1}
                         padding={"2px 5px"}
                         bgcolor={"white"}
                         sx={{
                           boxShadow: `0 1px 1px rgba(0,1,1,0.5)`,
                           display: "flex",
+                          justifyContent: "space-between",
+                          my: 1,
                           alignItems: "center",
-                          justifyContent: "center",
                           minWidth: 80,
                           maxWidth: 80,
                         }}
@@ -340,7 +358,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                             }}
                           />
                         )}
-                        <strong style={{ margin: "0 15px" }}>
+                        <strong>
                           {basket.count}
                         </strong>
                         <button
@@ -349,7 +367,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                         >
                           +
                         </button>
-                      </Typography>
+                      </Box>
                     </Stack>
                   </Stack>
                 </Stack>
@@ -367,7 +385,9 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
           mr={5}
         >
           Toplam{" "}
-          {userCartData && userCartData.total_price ? userCartData.total_price : totolPrice}
+          {userCartData && userCartData.total_price
+            ? userCartData.total_price
+            : totolPrice}
           TL
         </Typography>
         <Button
@@ -386,11 +406,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
               }
             }}
             style={{ textDecoration: "none", color: "white" }}
-            to={
-              user && user.first_name
-                ? `PaymentPage`
-                : `SingUp?button=${encodeURIComponent("ÜYE OLMADAN DEVAM ET")}`
-            }
+            to={"PaymentPage"}
           >
             DEVAM ET
           </Link>{" "}

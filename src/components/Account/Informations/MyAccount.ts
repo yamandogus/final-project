@@ -9,6 +9,13 @@ export interface AccountProps {
   phone_number: null | string;
 }
 
+interface OrdersProps{
+  order_no: string;
+  order_status: string;
+  created_at: string;
+  total_price: number;
+}
+
 export async function userProfileLoader() {
   const accessToken = localStorage.getItem("access_token");
   if (!accessToken) {
@@ -89,11 +96,25 @@ export async function userProfileLoader() {
       },
     }
   );
-
   const responseJsonAddress = await responseAddress.json();
+
+  // orders
+  const responseOrders = await fetch(base_url + "/orders",{
+    method:"GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+      "Content-Type": "application/json",
+    },
+  })
+
+  const responseOrdersJson = await responseOrders.json();
+  
+  console.log(responseOrdersJson);
+  
   return {
     user: responseJson.data as AccountProps,
     datas: responseJsonAddress.data.results as AddedAddress[],
+    orders: responseOrdersJson.data as OrdersProps[],
   };
 }
 

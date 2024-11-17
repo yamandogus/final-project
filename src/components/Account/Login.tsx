@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { FormEvent,useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { handleRegister, LoginPayload } from "./LoginAndSingUp";
 import { base_url } from "../Bestseller/Bestseller";
 import useSnackbar from "../../hooks/alert";
@@ -21,7 +21,6 @@ import UpadatePasswordNew from "../updatePassword/upadatePassword ";
 
 const Login = () => {
   const [value, setValue] = useState("1");
-  const navigate = useNavigate();
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
   const [changePassword, setChangePassword] = useState(false);
@@ -66,8 +65,10 @@ const Login = () => {
         };
         localStorage.setItem("access_token", jsonResponse.access_token);
         localStorage.setItem("refresh_token", jsonResponse.refresh_token);
-        window.location.reload()
-        navigate("/");
+        window.location.href = ("/Home")
+        setTimeout(() => {
+          window.location.reload(); 
+        }, 300);
       }
     } catch (error) {
       console.log(error);

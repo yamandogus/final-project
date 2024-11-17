@@ -33,8 +33,8 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({ children, expanded, o
           <Box
             sx={{
               position: "absolute",
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: expanded ? "black": "white",
+              color:expanded ? "white" :"black",
               lineHeight: "20px",
               height: "20px",
               fontSize: 12,
@@ -46,6 +46,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({ children, expanded, o
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
+              border: "1px solid black",
             }}
           >
             {panelNumber}

@@ -165,22 +165,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <Typography>Ara Toplam</Typography>
             <Typography>{userCart && userCart.total_price ? userCart.total_price : total.toFixed(2)} TL</Typography>
           </Stack>
-          {total > 3000 ? (
-            <Stack
-              width={"100%"}
-              direction={"row"}
-              display="flex"
-              justifyContent="space-between"
-              color={"green"}
-            >
-              <Typography fontWeight={"bolder"}>%10 İndirim</Typography>
-              <Typography fontWeight={"bolder"}>
-                -{((total * 10) / 100).toFixed(2)} TL
-              </Typography>
-            </Stack>
-          ) : (
-            ""
-          )}
           {extra > 1 ? (
             <Stack
               width={"100%"}
@@ -202,7 +186,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           >
             <Typography fontWeight={"bolder"}>Toplam</Typography>
             <Typography fontWeight={"bolder"}>
-              {userCart && userCart.total_price ? userCart.total_price + extra:(total - (total * 10) / 100 + extra).toFixed(2)} TL
+              {userCart && userCart.total_price ? userCart.total_price + extra:(total + extra).toFixed(2)} TL
             </Typography>
           </Stack>
         </Grid>

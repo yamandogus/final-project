@@ -1,15 +1,22 @@
-.increase-button{
-    font-weight: bolder;
-    font-size: 20px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+.increase-button {
+  font-weight: bolder;
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
-.remove-button{
-    font-weight: bolder;
-    font-size: 20px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+.remove-button {
+  font-weight: bolder;
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.payment-btn {
+  position: relative;
+  color: green !important;
+  font-weight: bolder !important;
+  transition: font-weight 2s;
 }

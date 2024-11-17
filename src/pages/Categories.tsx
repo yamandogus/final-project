@@ -108,7 +108,9 @@ const Categories = () => {
       </Typography>
       <Container>
         <Grid container spacing={2}>
-          {product.map((cat, index) => (
+         {product ? (
+          <>
+           {product.map((cat, index) => (
             <Grid key={index} item xs={6} md={4} lg={3}>
               <Link
                 onClick={() =>
@@ -201,6 +203,8 @@ const Categories = () => {
               </Stack>
             </Grid>
           ))}
+          </>
+         ):("")}
         </Grid>
       </Container>
     </>

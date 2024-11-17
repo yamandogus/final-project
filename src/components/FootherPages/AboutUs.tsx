@@ -1,5 +1,5 @@
 import {Box,Container, Grid, Rating, Stack, Typography } from '@mui/material'
-import Yorumlar from '../comments/Yorumlar'
+import Comments from '../Comments/comment'
 
 const AboutUs = () => {
   return (
@@ -39,7 +39,7 @@ const AboutUs = () => {
               </Grid>
             </Grid>
         </Container>
-        <Yorumlar/>
+        <Comments/>
     </Box>
   )
 }

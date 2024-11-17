@@ -6,6 +6,7 @@ import {
   Rating,
   Slider,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -14,10 +15,20 @@ import { base_url } from "../components/Bestseller/Bestseller";
 import { Product } from "../hooks/types";
 import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
 import LastWiew from "../components/Bestseller/LastWiew";
-import Yorumlar from "../components/Comments/Yorumlar";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
 import { ProductProps } from "../components/Protein/Protein";
+import { FormEvent, useEffect, useState } from "react";
+import Comments from "../components/Comments/comment";
 
+interface CommentsDataProps{
+  stars: string;
+  comment: string;
+  title: string;
+  created_at: string;
+  aroma: string;
+  first_name: string;
+  last_name: string;
+}
 
 const commentData = 
 [
@@ -28,9 +39,15 @@ const commentData =
   { value: 1, count: 11, sliderValue: 5 },
 ]
 
+interface CommentsProps{
+  stars: number;
+  title: string;
+  comment: string;
+}
 
 export async function ProductLoader({ params }: { params: { productSlug: string } }) {
   const { productSlug } = params;
+
   const response = await fetch(base_url + `/products/${productSlug}`);
   const result = await response.json();
   const userResponse = await fetch(base_url + "/users/my-account", {
@@ -44,16 +61,56 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
   if(!result || !result.data){
     throw new Error("Product data is missing or invalid ");
   }
-  return { data: result.data, user: userResult.data};
+  return { data: result.data, user: userResult.data, params};
 }
 
 
 function ProductsDetails() {
-  const { data: productData, user } = useLoaderData() as {data: Product, user: AccountProps};
+  const { data: productData, user, params} = useLoaderData() as {data: Product, user: AccountProps, params: {productSlug:string}};
   const data = localStorage.getItem("last-visited")
   const lastViseted: ProductProps[] = data ? JSON.parse(data): [];
+  const [open, setOpen] = useState(false)
+  const [comment, setComment] = useState<CommentsDataProps[]>([])
 
-  
+  const commentSubmit= async(e:FormEvent) =>{
+    e.preventDefault()
+    const pramsSlug = params.productSlug
+    const formEl = e.target as HTMLFormElement;
+    const formData = new FormData(formEl);
+    const data = Object.fromEntries(
+      formData.entries()
+    ) as unknown as CommentsProps;
+    console.log("data",data);    
+    try {
+        const response = await fetch(base_url + `/products/${pramsSlug}/comments`, {
+          method:"POST",
+          body:JSON.stringify(data),
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          }
+        })
+        const responseJson = response.json() 
+        console.log(responseJson);
+    } catch (error) {
+      console.log("Yorum atılamadı", error);
+      
+    }
+  }
+
+  useEffect(()=>{
+    const Comments = async()=>{  
+      const pramsSlug = params.productSlug   
+      const responseComments = await fetch(base_url + `/products/${pramsSlug}/comments?limit=10&offset=0`,{
+        method:"GET",
+      })
+      const dataCom = await responseComments.json()
+      setComment(dataCom.data.results)
+      console.log(dataCom.data.results);
+    }
+    Comments()
+  },[])
+  console.log(comment);
    return (
     <>
       <Box sx={{ my:1 }}>
@@ -145,10 +202,76 @@ function ProductsDetails() {
                 ))}
               </Stack>
             </Grid>
+            <Grid item xs={12}>
+            <Box mt={2}>
+                <a
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                  onClick={(()=> setOpen((prev)=> !prev))}
+                >
+                  Yorum ekle
+                </a>
+               {open ? (
+                 <Box>
+                 <Box>
+                   <form onSubmit={(e)=>commentSubmit(e)}>
+                     <Box sx={{ mt: 2 }}>
+                       <Typography variant="subtitle2">
+                         Genel Puan
+                       </Typography>
+                       <Rating
+                        readOnly
+                        id="stars"
+                        name="stars"
+                       />
+                     </Box>
+                     <Box mt={2}>
+                       <Typography
+                         variant="subtitle2"
+                         sx={{ display: "flex", flexDirection: "column" }}
+                       >
+                         Bir Başlık Ekleyiniz
+                         <TextField 
+                           size="small"
+                           name="title"
+                           placeholder="Bilinmesi gereken önemli birşey nedir?"
+                           sx={{
+                             mt: 1,
+                             width: "80%",
+                           }}
+                           id="title"
+                           required
+                           multiline
+                         />
+                       </Typography>
+                     </Box>
+                     <Box mt={2}>
+                       <Typography variant="subtitle2">
+                         Yazılı bir yorum ekleyin
+                       </Typography>
+                       <TextField
+                         sx={{
+                           mt: 1,
+                           width: "80%",
+                         }}
+                         id="comment"
+                         name="comment"
+                         placeholder="Ürün hakkında bilinmesini istedikleriniz nelerdir?"
+                         required
+                         multiline
+                         rows={4}
+                       />
+                     </Box>
+                      <Button type='submit' variant='contained' sx={{ mt:2, backgroundColor:'black', ':hover':{backgroundColor:'black'}}}>Gönder</Button>
+                   </form>
+                 </Box>
+             </Box>
+               ):""}
+              </Box>
+            </Grid>
           </Grid>
         </Container>
       </Box>
-      <Yorumlar />
+      <Comments />
       <Box
         sx={{
           display: "flex",

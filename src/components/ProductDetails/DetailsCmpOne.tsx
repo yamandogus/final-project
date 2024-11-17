@@ -51,7 +51,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
   const [basketText, setBasketText] = useState(false);
  
   const hadleUserProductAdded= async(e:React.SyntheticEvent)=>{
-    e.preventDefault()
+    e.preventDefault()  
     try {
       const response = await fetch( base_url + "/users/cart", {
         method:"POST",
@@ -71,7 +71,6 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
         pieces: number,
       }
       setBasketText(true);
-      showSnackbar("Ürün sepete eklendi",'success')
       setTimeout(() => {
         setBasketText(false);
       }, 2100);
@@ -115,11 +114,10 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
     const discountedPercentage = (discountedAmount / total_price) * 100;
     return Math.round(discountedPercentage);
   };
-  console.log(product.id);
-  console.log(selectedVariant.id);
 
   const currentVariant = selectedVariant || product.variants[0];
   const currentPrice = currentVariant?.price;
+  
   return (
     <>
       <Box sx={{ mt: 5 }}>

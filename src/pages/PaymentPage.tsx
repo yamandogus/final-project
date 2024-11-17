@@ -72,6 +72,7 @@ const PaymentPage = () => {
                 setPaymentMade={setPaymentMade}
                 selectedAddressId={selectedAddressId}
                 selectedAddress={selectedAddress}
+                user={user}
               />
             </Grid>
             <Grid item xs={12} md={6}>
