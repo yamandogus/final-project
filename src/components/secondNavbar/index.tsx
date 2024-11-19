@@ -30,7 +30,7 @@ import { SearchPropsPt } from "../../services/type";
 import { base_url, photo_url } from "../Bestseller/Bestseller";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDebounce } from "../Navbar/Navbar";
-import SecondNavbarComponent from "../Navbar/SecondNavbarComponet";
+import SecondNavbarComponent from "../../layout/SecondNavbarComponet";
   interface LinksProps {
     id: string;
     name: string;

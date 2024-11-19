@@ -86,9 +86,9 @@ const Login = () => {
           <>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList textColor='inherit' TabIndicatorProps={{style:{backgroundColor:'black'}}} onChange={handleChange}>
-                  <Tab sx={{textTransform:'none'}} label="GİRİŞ YAP" value="1" />
-                  <Tab sx={{textTransform:'none'}} label="ÜYE OL" value="2" />
+                <TabList onChange={handleChange}>
+                  <Tab  label="GİRİŞ YAP" value="1" />
+                  <Tab  label="ÜYE OL" value="2" />
                 </TabList>
               </Box>
               <Box

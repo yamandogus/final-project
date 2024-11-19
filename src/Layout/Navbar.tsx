@@ -25,13 +25,14 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavbarModal from "../components/Navbar/NavbarPopover";
-import DrawerListCoponent, { CartItem } from "../components/MyCart/DrawerList";
+import DrawerListCoponent from "../components/MyCart/DrawerList";
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { useDebounce } from "../components/Navbar/Navbar";
-import { LinksProps, SearchPropsPt } from "../services/type";
+import { CartItem, LinksProps, SearchPropsPt } from "../services/type";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
 import SecondNavbar from "../components/secondNavbar";
 import { useStore } from "../services/Count";
+import { reviews } from "../data/comment-dumy";
 
 export async function LinksLoader() {
   try {
@@ -59,9 +60,10 @@ export async function LinksLoader() {
     });
     const responseJsonCart = await responseCart.json();
 
-    localStorage.setItem("login-user-carts",JSON.stringify(responseJsonCart))
+    localStorage.setItem("login-user-carts", JSON.stringify(responseJsonCart));
     console.log(responseJsonCart);
 
+    localStorage.setItem("product-comments", JSON.stringify(reviews))
     return {
       allProduct: data.data.data,
       user: responseJsonAccount.data || {},
@@ -83,7 +85,7 @@ export interface LoaderData {
 }
 
 function Navbar() {
-  const { allProduct = [], user} = useLoaderData() as LoaderData;
+  const { allProduct = [], user } = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -93,8 +95,10 @@ function Navbar() {
   const [searchModal, setSearchModal] = useState(false);
   const { countBasket } = useStore();
   const debouncedSearch = useDebounce(search, 1000);
-  const [userCartLocal, setUserCartLocal] = useState<LoaderData["userCart"] | null>(null);
-  
+  const [userCartLocal, setUserCartLocal] = useState<
+    LoaderData["userCart"] | null
+  >(null);
+
   useEffect(() => {
     const locaUserCart = localStorage.getItem("login-user-carts");
     if (locaUserCart) {
@@ -106,6 +110,24 @@ function Navbar() {
       }
     }
   }, []);
+  
+  const handleSearchResults = async () => {
+    if (search.length > 1) {
+      try {
+        const response = await fetch(
+          base_url + `/products/?limit=1000&search=${debouncedSearch}`
+        );
+        const data = await response.json();
+        setSearchResults(data.data.results);
+        setSearchModal(true);
+      } catch (error) {
+        console.log("Ürün bulunamadı: ", error);
+        setSearchResults([]);
+        setSearchModal(true);
+      }
+    }
+  };
+
 
   useEffect(() => {
     if (debouncedSearch) {
@@ -119,7 +141,7 @@ function Navbar() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     window.location.reload();
-    handleClose()
+    handleClose();
     navigate("/");
   };
 
@@ -150,22 +172,6 @@ function Navbar() {
     setOpen(newOpen);
   };
 
-  const handleSearchResults = async () => {
-    if (search.length > 1) {
-      try {
-        const response = await fetch(
-          base_url + `/products/?limit=1000&search=${debouncedSearch}`
-        );
-        const data = await response.json();
-        setSearchResults(data.data.results);
-        setSearchModal(true);
-      } catch (error) {
-        console.log("Ürün bulunamadı: ", error);
-        setSearchResults([]);
-        setSearchModal(true);
-      }
-    }
-  };
 
   const handleCloseClear = () => {
     setSearchModal(false);
@@ -368,30 +374,30 @@ function Navbar() {
                     </Box>
                   </Modal>
                 </FormGroup>
-                  <Button
-                    variant="outlined"
-                    color="inherit"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                    id="demo-positioned-button"
-                    aria-expanded={anchorEl ? "true" : undefined}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: 1,
-                      width: "130px",
-                      padding: "6px 10px",
-                    }}
-                  >
-                    <PersonOutlineIcon
-                      sx={{ fontSize: 20, position: "relative", top: "-1px" }}
-                    />
-                    {user && user.first_name ? user.first_name : "Hesap"}
-                    <ArrowDropDownIcon
-                      sx={{ fontSize: 22, position: "relative", top: "-1px" }}
-                    />
-                  </Button>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                  id="demo-positioned-button"
+                  aria-expanded={anchorEl ? "true" : undefined}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 0.7,
+                    width: "130px",
+                    padding: "6px 10px",
+                  }}
+                >
+                  <PersonOutlineIcon
+                    sx={{ fontSize: 18, position: "relative", top:"-1px"}}
+                  />
+                  {user && user.first_name ? user.first_name : "HESAP"}
+                  <ArrowDropDownIcon
+                    sx={{ fontSize: 20, position: "relative", top:"-1px"}}
+                  />
+                </Button>
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
@@ -435,13 +441,13 @@ function Navbar() {
                   variant="contained"
                   sx={{
                     backgroundColor: "gray",
-                    px: 3.5,
+                    px:4,
                     "&:hover": { backgroundColor: "gray" },
                   }}
-                  startIcon={<ShoppingCartIcon sx={{ fontSize: 30, mx: 1 }} />}
+                  startIcon={<ShoppingCartIcon sx={{ fontSize: 30}} />}
                   onClick={toggleDrawer(true)}
                 >
-                  Sepet
+                    SEPET
                   <span className="count-basket">
                     {userCartLocal && userCartLocal?.items
                       ? userCartLocal.items.length
@@ -498,19 +504,14 @@ function Navbar() {
                       disableEnforceFocus={true}
                       disableScrollLock={true}
                       disableAutoFocus={true}
-                      slots={{
-                        backdrop: Backdrop,
-                      }}
-                      slotProps={{
-                        backdrop: {
-                          timeout: 0,
-                        },
-                      }}
                       sx={{
                         zIndex: 1400,
                       }}
                     >
-                      <Box onMouseLeave={handleCloseModal}>
+                      <Box
+                        onMouseLeave={handleCloseModal}
+                        className="modal-box"
+                      >
                         <NavbarModal
                           links={allProduct[index]}
                           onClose={handleCloseModal}
@@ -546,4 +547,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar; 

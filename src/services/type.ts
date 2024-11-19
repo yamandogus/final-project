@@ -183,7 +183,7 @@ interface CartData {
   items: CartItem[];
 }
 
-interface CartItem {
+export interface CartItem {
   product_id: string;
   product_variant_id: string;
   product: string;
@@ -282,4 +282,27 @@ export interface ReviewResponse {
     previous: string | null;
     results: Review[];
   };
+}
+
+export interface CartItem {
+  product_id: string;
+  product_variant_id: string;
+  product: string;
+  product_variant_detail: {
+    size: {
+      gram: number;
+      pieces: number;
+      total_services: number;
+    };
+    aroma: string;
+    photo_src: string;
+  };
+  pieces: number;
+  unit_price: number;
+  total_price: number;
+}
+
+export interface CartProps {
+  total_price: number;
+  items: CartItem[];
 }

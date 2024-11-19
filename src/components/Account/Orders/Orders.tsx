@@ -10,10 +10,6 @@ const orderData = {
   title: "DEEP SLEEP",
 }
   
-   
-  
-
-
 const Orders = () => {
   const [open, setOpen] = useState(false);
   const {orders} = useLoaderData() as userProfileLoaderReturn

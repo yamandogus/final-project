@@ -12,15 +12,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({ children, expanded, o
   return (
     <Accordion 
       expanded={expanded} 
-      onChange={onChange}
-      sx={{
-        border: "none",
-        boxShadow: "none",
-        "&:before": {
-          display: "none",
-        },
-      }}
-    >
+      onChange={onChange}>
       <AccordionSummary
         sx={{
           borderBottom: "1px solid rgb(228, 227, 232)",

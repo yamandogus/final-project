@@ -59,21 +59,12 @@ const Footer: React.FC = () => {
     );
   };
 
-  const accordionStyle = {
-    border: "none",
-    boxShadow: "none",
-    "&:before": {
-      display: "none",
-    },
-    backgroundColor: "transparent",
-  };
-
   return (
     <>
       <Box
         className="footer1"
         component={"footer"}
-        sx={{ py: 6, backgroundColor: "#222222", color: "white" }}
+        sx={{ py: 6, backgroundColor: "#222222", color: "white"}}
       >
         <Container>
           <Grid container spacing={2}>
@@ -100,7 +91,7 @@ const Footer: React.FC = () => {
       </Box>
       <Box className="test" sx={{backgroundColor:'#222222'}}>
         <Container style={{border:'none !important'}}>
-          <Accordion sx={accordionStyle} className="accordion">
+          <Accordion  className="accordion">
             <AccordionSummary
               aria-controls="panel1-content"
               id="panel1-header"
@@ -111,7 +102,7 @@ const Footer: React.FC = () => {
               {renderLink(contactLinks)}
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={accordionStyle} className="accordion">
+          <Accordion  className="accordion">
             <AccordionSummary
               aria-controls="panel2-content"
               id="panel2-header"
@@ -122,7 +113,7 @@ const Footer: React.FC = () => {
               {renderLink(popularProductsLinks)}
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={accordionStyle} className="accordion">
+          <Accordion  className="accordion">
             <AccordionSummary
               aria-controls="panel3-content"
               id="panel3-header"

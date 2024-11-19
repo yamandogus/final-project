@@ -39,10 +39,11 @@
     background-color: red;
 }
 
+
 .navbar-list-item{
     transition: color 0.3s ease;
     transition: box-shadow 0.3s ease;
-
+    height: 50px; 
     &:hover{
         font-weight: bolder;
         color: #2657ec;

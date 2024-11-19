@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Button,
@@ -19,16 +20,8 @@ import { AccountProps } from "../components/Account/Informations/MyAccount";
 import { ProductProps } from "../components/Protein/Protein";
 import { FormEvent, useEffect, useState } from "react";
 import Comments from "../components/Comments/comment";
+import { CommentsDataProps } from "../components/Comments/homeComments";
 
-interface CommentsDataProps{
-  stars: string;
-  comment: string;
-  title: string;
-  created_at: string;
-  aroma: string;
-  first_name: string;
-  last_name: string;
-}
 
 const commentData = 
 [
@@ -70,8 +63,60 @@ function ProductsDetails() {
   const data = localStorage.getItem("last-visited")
   const lastViseted: ProductProps[] = data ? JSON.parse(data): [];
   const [open, setOpen] = useState(false)
-  const [comment, setComment] = useState<CommentsDataProps[]>([])
+  const [comments, setComments] = useState<CommentsDataProps[]>([])
 
+
+  const fetchComments = async () => {
+    try {
+      const pramsSlug = params.productSlug;
+      const responseComments = await fetch(
+        base_url + `/products/${pramsSlug}/comments?limit=10&offset=0`,
+        {
+          method: "GET",
+        }
+      );
+      const dataCom = await responseComments.json();
+  
+      // Önce localStorage'dan mevcut yorumları al
+      const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
+      
+      if (dataCom.data && dataCom.data.results) {
+        // API'den gelen yorumları ekle
+        const apiComments = dataCom.data.results;
+        
+        // Tüm yorumları birleştir ve benzersiz yap
+        const allComments = [...apiComments, ...storedComments].filter(
+          (comment, index, self) =>
+            index === self.findIndex(
+              (c) => c.created_at === comment.created_at && c.comment === comment.comment
+            )
+        );
+  
+        // State'i güncelle
+        setComments(allComments);
+      } else {
+        // API'den veri gelmezse sadece localStorage'daki verileri kullan
+        setComments(storedComments);
+      }
+    } catch (error) {
+      console.error("Yorumlar yüklenirken hata:", error);
+      // Hata durumunda localStorage'dan yükle
+      const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
+      setComments(storedComments);
+    }
+  };
+  
+  // useEffect hook'unu güncelle
+  useEffect(() => {
+    // Sayfa yüklendiğinde localStorage'dan yorumları yükle
+    const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
+    setComments(storedComments);
+    
+    // Ardından API'den yorumları getir
+    fetchComments();
+  }, [params.productSlug]); // params.productSlug değiştiğinde tekrar çalışsın
+
+  
   const commentSubmit= async(e:FormEvent) =>{
     e.preventDefault()
     const pramsSlug = params.productSlug
@@ -91,6 +136,9 @@ function ProductsDetails() {
           }
         })
         const responseJson = response.json() 
+        if(response.ok){
+         await fetchComments()
+        }
         console.log(responseJson);
     } catch (error) {
       console.log("Yorum atılamadı", error);
@@ -98,19 +146,7 @@ function ProductsDetails() {
     }
   }
 
-  useEffect(()=>{
-    const Comments = async()=>{  
-      const pramsSlug = params.productSlug   
-      const responseComments = await fetch(base_url + `/products/${pramsSlug}/comments?limit=10&offset=0`,{
-        method:"GET",
-      })
-      const dataCom = await responseComments.json()
-      setComment(dataCom.data.results)
-      console.log(dataCom.data.results);
-    }
-    Comments()
-  },[])
-  console.log(comment);
+  
    return (
     <>
       <Box sx={{ my:1 }}>
@@ -219,7 +255,7 @@ function ProductsDetails() {
                          Genel Puan
                        </Typography>
                        <Rating
-                        readOnly
+                        defaultValue={0}
                         id="stars"
                         name="stars"
                        />
@@ -271,7 +307,9 @@ function ProductsDetails() {
           </Grid>
         </Container>
       </Box>
-      <Comments />
+      <Comments 
+      reviews={comments}
+      />
       <Box
         sx={{
           display: "flex",
