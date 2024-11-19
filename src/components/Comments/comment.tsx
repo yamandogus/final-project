@@ -13,7 +13,6 @@ const Comments = ({reviews}: CommentsProps) => {
     setPage(p);
   };
 
-  // Güvenli bir şekilde reviews dizisini kontrol et
   const reviewsData = Array.isArray(reviews) ? reviews : [];
   const totalPages = Math.ceil(reviewsData.length / commentLimit);
   const startIndex = (page - 1) * commentLimit;

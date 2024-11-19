@@ -77,44 +77,34 @@ function ProductsDetails() {
       );
       const dataCom = await responseComments.json();
   
-      // Önce localStorage'dan mevcut yorumları al
       const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
       
       if (dataCom.data && dataCom.data.results) {
-        // API'den gelen yorumları ekle
         const apiComments = dataCom.data.results;
         
-        // Tüm yorumları birleştir ve benzersiz yap
         const allComments = [...apiComments, ...storedComments].filter(
           (comment, index, self) =>
             index === self.findIndex(
               (c) => c.created_at === comment.created_at && c.comment === comment.comment
             )
         );
-  
-        // State'i güncelle
         setComments(allComments);
       } else {
-        // API'den veri gelmezse sadece localStorage'daki verileri kullan
         setComments(storedComments);
       }
     } catch (error) {
       console.error("Yorumlar yüklenirken hata:", error);
-      // Hata durumunda localStorage'dan yükle
       const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
       setComments(storedComments);
     }
   };
   
-  // useEffect hook'unu güncelle
   useEffect(() => {
-    // Sayfa yüklendiğinde localStorage'dan yorumları yükle
     const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
     setComments(storedComments);
     
-    // Ardından API'den yorumları getir
     fetchComments();
-  }, [params.productSlug]); // params.productSlug değiştiğinde tekrar çalışsın
+  }, [params.productSlug]); 
 
   
   const commentSubmit= async(e:FormEvent) =>{

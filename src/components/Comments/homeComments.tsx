@@ -18,10 +18,8 @@ const HomeCooments = ({
   comment,
   title
 }: CommentsDataProps) => {
-  // stars string olarak geliyor, number'a çevir
   const starValue = typeof stars === 'string' ? parseFloat(stars) : stars;
   
-  // Tarih formatını düzelt
   const newDate = created_at.includes("T") 
     ? created_at.split("T")[0].split("-").reverse().join("-")
     : created_at.split("-").reverse().join("-");
