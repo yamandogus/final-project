@@ -245,6 +245,7 @@ interface ShoppingCart {
 interface ShoppingCartItem {
   product_id: string;
   product_variant_id: string;
+  product_slug:string,
   product: string;
   product_variant_detail: ProductVariantDetail;
   pieces: number;
@@ -306,3 +307,27 @@ export interface CartProps {
   total_price: number;
   items: CartItem[];
 }
+
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  password2?: string;
+  api_key?: string;
+  first_name: string;
+  last_name: string;
+}
+
+export interface LoginPayload{
+  username: string,
+  password: string,
+  api_key: string,
+}
+
+
+export interface CommentsProps{
+  stars: number;
+  title: string;
+  comment: string;
+}
+
+

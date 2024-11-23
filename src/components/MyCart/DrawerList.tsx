@@ -114,24 +114,33 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
       }
     });
   };
-  const handlePiecesincrease = (index: number) => {
-    setUserCartData((prev) => ({
-      ...prev,
-      items: prev.items.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              pieces: item.pieces >= 1 ? item.pieces + 1 : item.pieces,
-              total_price:(item.pieces >= 1 ? item.pieces + 1 : item.pieces) * item.unit_price
-            }
-          : item
-      ),
-    }));
+  const handlePiecesIncrease = (index: number) => {
+    setUserCartData((prev) => {
+      const updatedItems = prev.items.map((item, i)=>{
+        if(i ===index){
+          const updatedPieces = item.pieces + 1;
+          return{
+            ...item,
+            pieces:updatedPieces,
+            total_price: updatedPieces * item.unit_price,
+          }
+        }
+        return item
+      });
+      const updateTotalPrice = updatedItems.reduce(
+        (total, item)=> total + item.total_price,0
+      );
+      return{
+        ...prev,
+        items:updatedItems,
+        total_price: updateTotalPrice
+      }
+    });
   };
   return (
     <Box
       sx={{
-        width: 420,
+        width: 480,
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -262,7 +271,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
                           {basket.pieces}
                         </strong>
                         <button
-                          onClick={() => handlePiecesincrease(index)}
+                          onClick={() => handlePiecesIncrease(index)}
                           className="increase-button"
                         >
                           +
@@ -386,7 +395,7 @@ const DrawerList = ({ onCountine, onCloseDrawer }: DrawerProps) => {
         >
           Toplam{" "}
           {userCartData && userCartData.total_price
-            ? userCartData.total_price
+            ? userCartData.total_price.toFixed(2)
             : totolPrice}
           TL
         </Typography>

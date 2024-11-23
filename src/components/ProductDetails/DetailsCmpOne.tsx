@@ -27,6 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { color } from "./details";
 import { AccountProps } from "../Account/Informations/MyAccount";
 import { useStore } from "../../services/Count";
+import { useStoreUserCart } from "../../services/userCount";
 interface Props {
   product: Product;
   tags: string[];
@@ -45,6 +46,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
     selectSize,
   } = useProductVariants(product.variants ?? []);
   const { increaseCount } = useStore();
+  const { increaseCountUserCart } = useStoreUserCart();
   const { addBasketItems } = usePaymentStore();
   const [count, setCount] = useState<number>(1);
   const { showSnackbar, SnackbarComponent } = useSnackbar();
@@ -70,7 +72,11 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
         product_variant_id: string,
         pieces: number,
       }
+      if(response.ok){
+       localStorage.setItem("login-user-carts", JSON.stringify(responseJson));
+      }
       setBasketText(true);
+      increaseCountUserCart()
       setTimeout(() => {
         setBasketText(false);
       }, 2100);

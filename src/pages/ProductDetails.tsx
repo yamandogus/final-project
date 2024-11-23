@@ -7,7 +7,6 @@ import {
   Rating,
   Slider,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -21,6 +20,8 @@ import { ProductProps } from "../components/Protein/Protein";
 import { FormEvent, useEffect, useState } from "react";
 import Comments from "../components/Comments/comment";
 import { CommentsDataProps } from "../components/Comments/homeComments";
+import { CommentsProps } from "../services/type";
+import CommentsComponent from "../components/Account/Comment/Comment";
 
 
 const commentData = 
@@ -32,11 +33,6 @@ const commentData =
   { value: 1, count: 11, sliderValue: 5 },
 ]
 
-interface CommentsProps{
-  stars: number;
-  title: string;
-  comment: string;
-}
 
 export async function ProductLoader({ params }: { params: { productSlug: string } }) {
   const { productSlug } = params;
@@ -107,7 +103,7 @@ function ProductsDetails() {
   }, [params.productSlug]); 
 
   
-  const commentSubmit= async(e:FormEvent) =>{
+ const commentSubmit= async(e:FormEvent) =>{
     e.preventDefault()
     const pramsSlug = params.productSlug
     const formEl = e.target as HTMLFormElement;
@@ -240,54 +236,7 @@ function ProductsDetails() {
                  <Box>
                  <Box>
                    <form onSubmit={(e)=>commentSubmit(e)}>
-                     <Box sx={{ mt: 2 }}>
-                       <Typography variant="subtitle2">
-                         Genel Puan
-                       </Typography>
-                       <Rating
-                        defaultValue={0}
-                        id="stars"
-                        name="stars"
-                       />
-                     </Box>
-                     <Box mt={2}>
-                       <Typography
-                         variant="subtitle2"
-                         sx={{ display: "flex", flexDirection: "column" }}
-                       >
-                         Bir Başlık Ekleyiniz
-                         <TextField 
-                           size="small"
-                           name="title"
-                           placeholder="Bilinmesi gereken önemli birşey nedir?"
-                           sx={{
-                             mt: 1,
-                             width: "80%",
-                           }}
-                           id="title"
-                           required
-                           multiline
-                         />
-                       </Typography>
-                     </Box>
-                     <Box mt={2}>
-                       <Typography variant="subtitle2">
-                         Yazılı bir yorum ekleyin
-                       </Typography>
-                       <TextField
-                         sx={{
-                           mt: 1,
-                           width: "80%",
-                         }}
-                         id="comment"
-                         name="comment"
-                         placeholder="Ürün hakkında bilinmesini istedikleriniz nelerdir?"
-                         required
-                         multiline
-                         rows={4}
-                       />
-                     </Box>
-                      <Button type='submit' variant='contained' sx={{ mt:2, backgroundColor:'black', ':hover':{backgroundColor:'black'}}}>Gönder</Button>
+                   <CommentsComponent/>
                    </form>
                  </Box>
              </Box>

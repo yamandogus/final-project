@@ -1,77 +1,81 @@
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#1976d2",
-      },
-      secondary: {
-        main: "#dc004e",
-      },
-      mode: "light",
+  palette: {
+    primary: {
+      main: "#1976d2",
     },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: "4px",
-            textTransform: "none",
-          },
+    secondary: {
+      main: "#dc004e",
+    },
+    mode: "light",
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "4px",
+          textTransform: "none",
         },
       },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          root: {
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray",
-            },
-            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "black",
-            },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "gray",
           },
-          notchedOutline: {
-            borderColor: "lightgray",
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "black",
           },
         },
-      },
-      MuiInputLabel: {
-        styleOverrides: {
-          root: {
-            "&.Mui-focused ": {
-              color: "black",
-              fontWeight: "bolder",
-            },
-          },
+        notchedOutline: {
+          borderColor: "lightgray",
         },
       },
-      MuiAccordion: {
-        styleOverrides: {
-          root: {
-            border: "none",
-            boxShadow: "none",
-            "&:before": {
-              display: "none",
-            },
-          },
-        },
-      },
-      MuiTab: {
-        styleOverrides: {
-          root: {
-            textTransform: "none",
-            "&.Mui-selected": {
-              color: "black",
-            },
-          },
-        },
-      },
-      MuiTabs: {
-        styleOverrides: {
-          indicator: {
-            backgroundColor: "black",
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused ": {
+            color: "black",
+            fontWeight: "bolder",
           },
         },
       },
     },
-  });
-  
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          "& .MuiGrid-item": {
+            transition: "all 0.3s ease-in-out",
+          },
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          border: "none",
+          boxShadow: "none",
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: "black",
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});

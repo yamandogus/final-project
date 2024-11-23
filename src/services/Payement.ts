@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-interface Payment{
+export interface Payment{
     img: string;
     gram: number | undefined;
     name: string;

@@ -24,13 +24,13 @@ import {
   import { useEffect, useState } from "react";
   import NavigateNextIcon from "@mui/icons-material/NavigateNext";
   import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { usePaymentStore } from "../../services/Payement";
-import { useStore } from "../../services/Count";
-import { SearchPropsPt } from "../../services/type";
-import { base_url, photo_url } from "../Bestseller/Bestseller";
+import { usePaymentStore } from "../services/Payement";
+import { useStore } from "../services/Count";
+import { SearchPropsPt } from "../services/type";
+import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDebounce } from "../Navbar/Navbar";
-import SecondNavbarComponent from "../../layout/SecondNavbarComponet";
+import { useDebounce } from "../components/Navbar/Navbar";
+import MobilNavComponent from "../components/secondNavbar/NavbarDrawer";
   interface LinksProps {
     id: string;
     name: string;
@@ -191,8 +191,8 @@ import SecondNavbarComponent from "../../layout/SecondNavbarComponet";
                 >
                   <Stack direction={"row"} spacing={2}>
                     <img
-                      width={70}
-                      height={60}
+                      width={80}
+                      height={70}
                       style={{
                         aspectRatio:1/1,
                         objectFit:"cover"
@@ -486,7 +486,7 @@ import SecondNavbarComponent from "../../layout/SecondNavbarComponet";
           disableScrollLock
         >
           {selectedLink && (
-            <SecondNavbarComponent
+            <MobilNavComponent
               onOpen={toggleDrawer(true)}
               onClose={toggleDrawer3(null)}
               linksClose={toggleDrawer3(null)}

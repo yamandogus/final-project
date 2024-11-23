@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Button, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { LinksProps } from "../services/type";
+import { LinksProps } from "../../services/type";
 
 
-interface SecondNavbarComponentProps {
+interface MobilNavComponentProps {
   links: LinksProps;
   onOpen: () => void;
   onClose: () => void;
@@ -14,7 +14,7 @@ interface SecondNavbarComponentProps {
 
 
 
-const SecondNavbarComponent: React.FC<SecondNavbarComponentProps> = ({ links, onOpen, onClose, linksClose}) => {
+const MobilNavComponent: React.FC<MobilNavComponentProps> = ({ links, onOpen, onClose, linksClose}) => {
   const hadleClose = () =>{
     onOpen()
     onClose()
@@ -59,5 +59,5 @@ const SecondNavbarComponent: React.FC<SecondNavbarComponentProps> = ({ links, on
   );
 };
 
-export default SecondNavbarComponent;
+export default MobilNavComponent;
 

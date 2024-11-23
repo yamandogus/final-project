@@ -7,8 +7,8 @@ import {
   TextField,
 } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { base_url } from "../Bestseller/Bestseller";
-import useSnackbar from "../../hooks/alert";
+import { base_url } from "../../Bestseller/Bestseller";
+import useSnackbar from "../../../hooks/alert";
 
 const style = {
   display: "flex",

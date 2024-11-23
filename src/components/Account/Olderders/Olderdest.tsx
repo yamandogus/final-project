@@ -2,13 +2,12 @@ import {
   Box,
   Button,
   Grid,
-  Rating,
-  TextField,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import { base_url, photo_url } from "../../Bestseller/Bestseller";
-import { Order } from "../../../services/type";
+import { CommentsProps, Order } from "../../../services/type";
+import CommentsComponent from "../Comment/Comment";
 
 interface OlderdestProps {
   onCloseBsk: () => void;
@@ -17,7 +16,6 @@ interface OlderdestProps {
 
 export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
   const [ordersDetails, setOrderDetails] = useState<Order>();
-  const [value, setValue] = useState<number | null>(0);
   const [open, setOpen] = useState<boolean[]>([]);
 
   useEffect(() => {
@@ -42,6 +40,32 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
       return updated;
     });
   };
+
+  const commentSubmit= async(e:FormEvent, index: number) =>{
+    e.preventDefault()
+    const formEl = e.target as HTMLFormElement;
+    const formData = new FormData(formEl);
+    const data = Object.fromEntries(
+      formData.entries()
+    ) as unknown as CommentsProps;
+    console.log("data",data);    
+    try {
+        const response = await fetch(base_url + `/products/${ordersDetails?.shopping_cart.items[index].product_slug}/comments`, {
+          method:"POST",
+          body:JSON.stringify(data),
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          }
+        })
+        const responseJson = response.json() 
+        console.log(responseJson);
+    } catch (error) {
+      console.log("Yorum atılamadı", error);
+      
+    }
+  }
+
 
   return (
     <Grid container spacing={3}>
@@ -99,31 +123,9 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
               {open[index] && (
                 <Box mt={2}>
                   <Typography variant="subtitle2">Genel Puan</Typography>
-                  <Rating
-                    name={`rating-${index}`}
-                    value={value}
-                    onChange={(_event, newValue) => setValue(newValue)}
-                  />
-                  <Box mt={2}>
-                    <Typography variant="subtitle2">Bir Başlık Ekleyiniz</Typography>
-                    <TextField
-                      fullWidth
-                      size="small"
-                      sx={{ marginTop: 1 }}
-                      multiline
-                      defaultValue="Bilinmesi gereken önemli birşey nedir?"
-                    />
-                  </Box>
-                  <Box mt={2}>
-                    <Typography variant="subtitle2">Yazılı bir yorum ekleyin</Typography>
-                    <TextField
-                      fullWidth
-                      sx={{ marginTop: 1 }}
-                      multiline
-                      rows={4}
-                      defaultValue="Ürün hakkında bilinmesini istedikleriniz nelerdir?"
-                    />
-                  </Box>
+                  <form onSubmit={(e)=>commentSubmit(e,index)}>
+                    <CommentsComponent/>
+                  </form>
                 </Box>
               )}
             </Box>

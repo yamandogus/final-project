@@ -7,6 +7,7 @@ import OrderSummary from "../components/payment/orderSummary";
 import PaymentSection from "../components/payment/paymentSection";
 import { useLoaderData } from "react-router-dom";
 import { LoaderData } from "../layout/Navbar";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const PaymentPage = () => {
   const { basketItems } = usePaymentStore();
@@ -95,54 +96,14 @@ const PaymentPage = () => {
           }}
         >
           {user && user.first_name ? (
-              <Box
+            <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                flexDirection:'column',
-                gap:1
+                flexDirection: "column",
+                gap: 1,
               }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: 60,
-                    width: 60,
-                    fontWeight: "bolder",
-                    fontSize: 30,
-                    backgroundColor: "green",
-                    color: "white",
-                    borderRadius: "50%",
-                  }}
-                >
-                  ✓
-                </Box>
-                <Typography sx={{fontWeight:'bolder', color:'green'}} variant="subtitle1">
-                  ÖDEME İŞLEMİ BAŞARILI
-                </Typography>
-                <Typography variant="subtitle1" sx={{}}>
-                  Toplam Sipariş Tutarı:
-                </Typography>
-                <Typography variant="subtitle1" sx={{}}>
-                  Sipariş özetiniz e-posta adresinize gönderildi.
-                </Typography>
-                <Typography>
-                Şiparişlerinizi Hesabım sayfasından kontrol edebilirsiniz.
-              </Typography>
-                <Button  variant='contained' color='success' href={"/MyAccount?tab=olders"}> Hesabım </Button>
-              </Box>
-          ) : (
-            <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection:'column',
-              gap:1
-            }}
             >
               <Box
                 sx={{
@@ -160,7 +121,10 @@ const PaymentPage = () => {
               >
                 ✓
               </Box>
-              <Typography sx={{fontWeight:'bolder', color:'green'}} variant="subtitle1">
+              <Typography
+                sx={{ fontWeight: "bolder", color: "green" }}
+                variant="subtitle1"
+              >
                 ÖDEME İŞLEMİ BAŞARILI
               </Typography>
               <Typography variant="subtitle1" sx={{}}>
@@ -169,12 +133,54 @@ const PaymentPage = () => {
               <Typography variant="subtitle1" sx={{}}>
                 Sipariş özetiniz e-posta adresinize gönderildi.
               </Typography>
-              <Button variant='contained' color='success' href={"/"}> Anasayfa </Button>{" "}
+              <Typography>
+                Şiparişlerinizi Hesabım sayfasından kontrol edebilirsiniz.
+              </Typography>
+              <Button
+                variant="contained"
+                color="success"
+                href={"/MyAccount?tab=olders"}
+              >
+                {" "}
+                Hesabım{" "}
+              </Button>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                gap: 1,
+              }}
+            >
+              <DotLottieReact
+                src="https://lottie.host/6b0b00db-8ae6-45e3-993a-52aad9f1d68e/5M1MexEXOy.lottie"
+                loop
+                autoplay
+              />
+              <Typography
+                sx={{ fontWeight: "bolder", color: "green" }}
+                variant="subtitle1"
+              >
+                ÖDEME İŞLEMİ BAŞARILI
+              </Typography>
+              <Typography variant="subtitle1" sx={{}}>
+                Toplam Sipariş Tutarı:
+              </Typography>
+              <Typography variant="subtitle1" sx={{}}>
+                Sipariş özetiniz e-posta adresinize gönderildi.
+              </Typography>
+              <Button variant="contained" color="success" href={"/"}>
+                {" "}
+                Anasayfa{" "}
+              </Button>{" "}
             </Box>
           )}
         </Container>
       )}
-      </>
+    </>
   );
 };
 

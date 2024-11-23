@@ -16,7 +16,10 @@
 
 .payment-btn {
   position: relative;
-  color: green !important;
+  width: 100%;
+  color: white !important;
+  cursor: pointer !important;
   font-weight: bolder !important;
+  background-color: black !important;
   transition: font-weight 2s;
 }

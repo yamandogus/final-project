@@ -4,7 +4,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { userProfileLoaderReturn } from "./MyAccount";
 import { useLoaderData } from "react-router-dom";
 import { upadeteAccount } from "../../../services/updateAccount";
-import UpadatePasswordNew from "../../updatePassword/upadatePassword ";
+import UpadatePasswordNew from "../AuthComponents/upadatePassword ";
 
 const Informations: React.FC = () => {
   const { user } = useLoaderData() as userProfileLoaderReturn;
