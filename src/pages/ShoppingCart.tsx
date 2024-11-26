@@ -3,15 +3,15 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState } from "react";
 import { usePaymentStore } from "../services/Payement";
 import { LoaderData } from "../layout/Navbar";
 import { useStore } from "../services/Count";
 import { base_url } from "../components/Bestseller/Bestseller";
 import UserCartItems from "../components/MyCart/UserCart";
-import GuesCartItems from "../components/MyCart/GuesCartItems";
 import { useStoreUserCart } from "../services/userCount";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { userCartStore } from "../store/cartStore";
+import GuestCartItems from "../components/MyCart/GuesCartItems";
 
 interface ShoppingCartProps {
   onCountine: () => void;
@@ -22,30 +22,13 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
   const { basketItems, removeItems, increaseCount, removeCountDrawer } =
     usePaymentStore();
   const { userCart, user } = useLoaderData() as LoaderData;
-  const [userCartData, setUserCartData] = useState(userCart);
+  const { cartData, updateCartData } = userCartStore();
   const { removeCount } = useStore();
-  const { removeCountUserCart, increaseCountUserCart, decreaseCountUserCart } =
-    useStoreUserCart();
+  const { removeCountUserCart } = useStoreUserCart();
 
   const totolPrice = basketItems
     .reduce((arr, index) => arr + index.price * index.count, 0)
     .toFixed(2);
-
-  useEffect(() => {
-    console.log("useEffect");
-    const func = async () => {
-      const response = await fetch(base_url + "/users/cart", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-          "Content-Type": "application/json",
-        },
-      });
-      const responseJson = await response.json();
-      setUserCartData(responseJson.data);
-    };
-    func();
-  }, []);
 
   const handleRemove = (index: number) => {
     removeItems(index);
@@ -56,15 +39,16 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
     e: React.SyntheticEvent,
     index: number
   ) => {
-    const userCartRemove = userCart.items[index];
+    if(!cartData) return;
+    const itemToDelete  = cartData.items[index];
     e.preventDefault();
     try {
-      await fetch(base_url + "/users/cart", {
+    const responseDelete =  await fetch(base_url + "/users/cart", {
         method: "DELETE",
         body: JSON.stringify({
-          product_id: userCartRemove.product_id,
-          product_variant_id: userCartRemove.product_variant_id,
-          pieces: userCartRemove.pieces,
+          product_id: itemToDelete.product_id,
+          product_variant_id: itemToDelete.product_variant_id,
+          pieces: itemToDelete.pieces,
         }),
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
@@ -72,17 +56,19 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
         },
       });
 
-      const userCartUpdate = userCart.items.filter((_, i) => i !== index);
-      const updateTotalPrice = userCartUpdate.reduce(
-        (total, item) => total + item.total_price,
-        0
-      );
+      if(responseDelete.ok){
+        const updatedItems  = cartData.items.filter((_, i) => i !== index);
+        const updateTotalPrice = updatedItems .reduce(
+          (total, item) => total + item.total_price,
+          0
+        );
+        updateCartData({
+          items: updatedItems,
+          total_price: updateTotalPrice,
+        })
+      }
 
-      setUserCartData((prevCart) => ({
-        ...prevCart,
-        items: userCartUpdate,
-        total_price: updateTotalPrice,
-      }));
+
       removeCountUserCart();
     } catch (error) {
       console.log("Ürün silinemedi", error);
@@ -90,13 +76,17 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
   };
 
   const handlePiecesDecrease = async (index: number) => {
-    console.log("test");
+    if (!cartData) return;
+    
+    const currentItem = cartData.items[index];
+    if (currentItem.pieces <= 1) return;
+
     try {
       const response = await fetch(base_url + "/users/cart", {
         method: "DELETE",
         body: JSON.stringify({
-          product_id: userCart.items[index].product_id,
-          product_variant_id: userCart.items[index].product_variant_id,
+          product_id: currentItem.product_id,
+          product_variant_id: currentItem.product_variant_id,
           pieces: 1,
         }),
         headers: {
@@ -104,82 +94,65 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
           "Content-Type": "application/json",
         },
       });
-      const update = await response.json();
-      console.log(update);
+
       if (response.ok) {
-        setUserCartData((prev) => {
-          const updateItems = prev.items.map((item, i) => {
-            if (i === index) {
-              const newPieces = item.pieces > 1 ? item.pieces - 1 : item.pieces;
-              return {
-                ...item,
-                pieces: newPieces,
-                total_price: newPieces * item.unit_price,
-              };
-            }
-            return item;
-          });
-          const updateTotalPrice = updateItems.reduce(
-            (total, item) => total + item.total_price,
-            0
-          );
-          return {
-            ...prev,
-            items: updateItems,
-            total_price: updateTotalPrice,
-          };
+        const updatedItems = cartData.items.map((item, i) => {
+          if (i === index) {
+            const newPieces = item.pieces - 1;
+            return {
+              ...item,
+              pieces: newPieces,
+              total_price: newPieces * item.unit_price,
+            };
+          }
+          return item;
         });
-        decreaseCountUserCart();
+
+        const updateTotalPrice = updatedItems.reduce(
+          (total, item) => total + item.total_price,
+          0
+        );
+
+        updateCartData({
+          items: updatedItems,
+          total_price: updateTotalPrice,
+        });
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log("güncellenen veri log", userCartData);
-  console.log("backend log", userCart);
-
   const handlePiecesIncrease = async (index: number) => {
-    console.log("test kes aq ");
+    if(!cartData) return;
+    const currentItems = cartData.items[index]
 
-    setUserCartData((prev) => {
-      const updatedItems = prev.items.map((item, i) => {
-        console.log("girdi");
-
-        if (i === index) {
-          console.log("girdi 2");
-
-          const updatedPieces = item.pieces + 1;
-          return {
-            ...item,
-            pieces: updatedPieces,
-            total_price: updatedPieces * item.unit_price,
-          };
+    const updatedItems = cartData.items.map((item, i)=>{
+      if(i === index){
+        const updatedPecies = item.pieces + 1;
+        return{
+          ...item,
+          pieces: updatedPecies,
+          total_price: updatedPecies * item.unit_price
         }
-        console.log("item", item);
-        return item;
-      });
-      const updateTotalPrice = updatedItems.reduce(
-        (total, item) => total + item.total_price,
-        0
-      );
-      console.log("totol", updateTotalPrice);
+      }
+      return item;  
+    })
+    const updatedTotalPrice = updatedItems.reduce(
+      (total, item) => total + item.total_price,0
+    )
 
-      return {
-        ...prev,
-        items: updatedItems,
-        total_price: updateTotalPrice,
-      };
-    });
-    increaseCountUserCart();
-    console.log("güncellenen veri", userCartData);
-    console.log("backend", userCart);
+    updateCartData({
+      items: updatedItems,
+      total_price: updatedTotalPrice
+    })
+
     try {
       const response = await fetch(base_url + "/users/cart", {
         method: "POST",
         body: JSON.stringify({
-          product_id: userCart.items[index].product_id,
-          product_variant_id: userCart.items[index].product_variant_id,
+          product_id: currentItems.product_id,
+          product_variant_id: currentItems.product_variant_id,
           pieces: 1,
         }),
         headers: {
@@ -194,10 +167,11 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
     }
   };
 
+
   return (
     <Box
       sx={{
-        width: 480,
+        width: { xs: 350, md: 480 },
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -233,26 +207,44 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
       </Box>
       <Divider sx={{ mb: 1 }} />
       <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", p: 1 }}>
-        {userCart && userCart.items && userCart.items.length > 0 ? (
-          <UserCartItems
-            items={userCartData.items}
-            onDecrease={handlePiecesDecrease}
-            onIncrease={handlePiecesIncrease}
-            onDelete={handleDeleteUserCart}
-          />
-        ) : basketItems.length === 0 ? (
-          <DotLottieReact
-            src="https://lottie.host/c8c3c54d-7fd8-45b7-84cc-c5c1468ba7ca/XiO6bs4uDh.lottie"
-            loop
-            autoplay
-          />
+        {cartData && cartData?.items ? (
+          <>
+            {cartData.items.length > 0 ? (
+              <UserCartItems
+                items={cartData.items}
+                onDecrease={handlePiecesDecrease}
+                onIncrease={handlePiecesIncrease}
+                onDelete={handleDeleteUserCart}
+              />
+            ) : (
+              <Box>
+                <DotLottieReact
+                  src="https://lottie.host/c8c3c54d-7fd8-45b7-84cc-c5c1468ba7ca/XiO6bs4uDh.lottie"
+                  loop
+                  autoplay
+                />
+              </Box>
+            )}
+          </>
         ) : (
-          <GuesCartItems
-            items={basketItems}
-            onDecrease={removeCountDrawer}
-            onIncrease={increaseCount}
-            onDelete={handleRemove}
-          />
+          <>
+            {basketItems.length > 0 ? (
+              <GuestCartItems
+                items={basketItems}
+                onDecrease={removeCountDrawer}
+                onIncrease={increaseCount}
+                onDelete={handleRemove}
+              />
+            ) : (
+              <Box>
+                <DotLottieReact
+                  src="https://lottie.host/c8c3c54d-7fd8-45b7-84cc-c5c1468ba7ca/XiO6bs4uDh.lottie"
+                  loop
+                  autoplay
+                />
+              </Box>
+            )}
+          </>
         )}
       </Box>
       <Box sx={{ padding: "16px", borderTop: "1px solid #ddd" }}>
@@ -263,11 +255,19 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
           textAlign="end"
           mr={5}
         >
-          Toplam{" "}
-          {userCartData && userCartData.total_price
-            ? userCartData.total_price.toFixed(2)
-            : totolPrice}
-          TL
+          {cartData && cartData?.items ? (
+            <>
+              {cartData.items.length > 0
+                ? `Toplam ${" "}${cartData.total_price.toFixed(2)}${" "} TL`
+                : "SEPET BOŞ"}
+            </>
+          ) : (
+            <>
+              {basketItems.length > 0
+                ? `Toplam ${" "}${totolPrice}${" "} TL`
+                : "SEPET BOŞ"}
+            </>
+          )}
         </Typography>
         <Button
           variant="contained"
@@ -281,14 +281,21 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
           <Link
             onClick={() => {
               if (user) {
-                console.log("cart istekleme");
                 onCountine();
               }
             }}
             style={{ textDecoration: "none", color: "white" }}
-            to="PaymentPage"
+            to={userCart && userCart?.items ? (
+              userCart.items.length > 0 ? "PaymentPage" : "AllProducts"
+            ) : (
+              basketItems.length > 0 ? "PaymentPage" : "AllProducts"
+            )}
           >
-            DEVAM ET
+            {userCart && userCart?.items ? (
+              <>{userCart.items.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
+            ) : (
+              <>{basketItems.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
+            )}
           </Link>{" "}
           <ArrowRightIcon />
         </Button>

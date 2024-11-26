@@ -4,14 +4,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { photo_url } from "../Bestseller/Bestseller";
 
 
-interface GuesCartItemsProps {
+interface GuestCartItemsProps {
     items: Payment[];
     onDecrease: (index: number) => void;
     onIncrease: (index: number) => void;
     onDelete: (index: number) => void;
   }
   
-const GuesCartItems = ({items,onDecrease, onDelete, onIncrease}:GuesCartItemsProps) => {
+const GuestCartItems = ({items,onDecrease, onDelete, onIncrease}:GuestCartItemsProps) => {
   return (
     <>
     {items.map((basket, index)=>(
@@ -115,4 +115,4 @@ const GuesCartItems = ({items,onDecrease, onDelete, onIncrease}:GuesCartItemsPro
   )
 }
 
-export default GuesCartItems
+export default GuestCartItems

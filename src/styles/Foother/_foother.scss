@@ -1,36 +1,40 @@
-.test{
+.footer-mobil {
     border: none;
     display: block;
     background-color: #222222;
-    .accordion{
+    .accordion {
         background-color: #222222;
         color: white;
         border: none;
     }
 }
-@media(max-width: 767px){
-    .footer1{
-        display: none,
+
+// Mobil ekranlar için (600px ve altı)
+@media (max-width: 600px) {
+    .footer-desktop {
+        display: none
     }
-    .test{
+    .footer-mobil {
         border: none;
-        display: block,
+        display: block
     }
 }
 
-@media(min-width: 768px){
-    .footer1{
-        padding: 5px 0;
+// Tablet ve desktop ekranlar için (601px ve üstü)
+@media (min-width: 601px) {
+    .footer-desktop {
+        padding: 0;
+        display: block;
     }
-    .test{
-        display: none,
+    .footer-mobil {
+        display: none
     }
 }
 
-.footerLink{
+.footerLink {
     text-decoration: none;
     color: rgba(153, 153, 153, 1);
-    &:hover{
+    &:hover {
         color: white;
     }
 }

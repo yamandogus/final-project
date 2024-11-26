@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Drawer,
@@ -7,29 +7,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import ShoppingCart from "../../pages/ShoppingCart";
 import { useStore } from "../../services/Count";
-import { LoaderData } from "../../layout/Navbar";
-import { useStoreUserCart } from "../../services/userCount";
+import { userCartStore } from "../../store/cartStore";
+
 
 function CartSection() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { countBasket } = useStore();
-  const { userCartBasket } = useStoreUserCart();
-  const [userCartLocal, setUserCartLocal] = useState<
-    LoaderData["userCart"] | null
-  >(null);
-
-  useEffect(() => {
-    const locaUserCart = localStorage.getItem("login-user-carts");
-    if (locaUserCart) {
-      try {
-        const parsedData = JSON.parse(locaUserCart);
-        setUserCartLocal(parsedData.data);
-      } catch (error) {
-        console.error("Geçersiz :", error);
-      }
-    }
-  }, []);
+  const { cartData } = userCartStore();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -55,7 +40,7 @@ function CartSection() {
       >
         Sepetim
         <span className="count-basket">
-          {userCartLocal && userCartLocal?.items ? userCartBasket || 0 : countBasket}
+          {cartData && cartData?.items ? cartData.items.length || 0 : countBasket}
         </span>
       </Button>
       <Drawer

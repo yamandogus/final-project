@@ -331,3 +331,18 @@ export interface CommentsProps{
 }
 
 
+export interface ProductProps {
+  name: string;
+  short_explanation: string;
+  price_info: {
+    profit?: null;
+    total_price: number;
+    discounted_price?: number | null;
+    price_per_servings?: number;
+    discount_percentage?: number | null;
+  };
+  photo_src: string;
+  comment_count?: number;
+  average_star: number;
+  slug?: string;
+}

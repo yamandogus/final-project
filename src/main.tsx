@@ -15,8 +15,8 @@ import { userProfileLoader } from './components/Account/Informations/MyAccount'
 import { LinksLoader } from './layout/Navbar'
 import Categories, { CategoryLoader } from './pages/Categories'
 
-import AboutUs from './components/FootherPages/AboutUs'
-import SSS from './components/FootherPages/SSS'
+import AboutUs from './components/FooterPages/AboutUs'
+import SSS from './components/FooterPages/SSS'
 import { userAddressLoader } from './services/paymentAddress'
 import Account from './pages/Account'
 

@@ -48,6 +48,11 @@ export interface LoaderDataAccount {
     items: CartItem[];
   };
 }
+export interface GuestAddress{
+  title: string,
+  full_address: string, 
+  phone: string,
+}
 
 const AddressSection: React.FC<AddressSectionProps> = ({
   handleChangePanel,
@@ -73,6 +78,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   const [id, setİd] = useState("");
   const [editIndex, setEditIndex] = useState(false);
   const [selectedAddressValue, setSelectedAddressValue] = useState<string>("");
+  const [guestAddress, setGuestAddress] = useState<GuestAddress |undefined>()
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -115,6 +121,21 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     }
   };
 
+  const guestAddressSubmit = (e:React.SyntheticEvent)=>{
+    e.preventDefault()
+    const formEl = e.target as HTMLFormElement 
+    const formData = new FormData(formEl);
+    const data = Object.fromEntries(formData.entries()) as unknown as Address;
+    const newData = {
+      title: title,
+      full_address: `${addres}${city}/${district}`,
+      phone: data.phone,
+    }
+    setGuestAddress(newData)
+    handleClose(); 
+    resetForm(); 
+  }
+
   useEffect(() => {
     async function fetchCity() {
       try {
@@ -129,6 +150,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     }
     fetchCity();
   }, [open]);
+
   async function fetchDistrict(selectedCity: string) {
     try {
       const responseDistrict = await fetch(
@@ -141,6 +163,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       console.error("İlçeler yüklenirken hata oluştu:", error);
     }
   }
+
   const resetForm = () => {
     setTitle("");
     setAddres("");
@@ -153,6 +176,8 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     setDistricts([]);
     setİd("");
   };
+
+
   const upadeteAddress = async (id: string) => {
     const updateData = {
       title: title,
@@ -287,7 +312,49 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                       </Box>
                     </Box>
                   ))
-                : ""}
+                : (
+                  guestAddress && (
+                    <Box
+                      sx={{
+                        px: 2,
+                        borderRadius: 3,
+                        border: "1px solid black",
+                        my: 2,
+                      }}
+                    >
+                      <Box display={"flex"} justifyContent={"space-between"}>
+                        <FormControlLabel
+                          control={
+                            <Radio
+                              value={guestAddress.full_address}
+                              onChange={(e) => {
+                                setSelectedAddress(e.target.value);
+                                setSelectedAddressValue(e.target.value);
+                              }}
+                            />
+                          }
+                          label={
+                            <Typography
+                              sx={{
+                                fontWeight: "bolder",
+                                ":hover": {
+                                  color: "#0a5f05",
+                                },
+                              }}
+                            >
+                              {guestAddress.title}
+                            </Typography>
+                          }
+                        />
+                      </Box>
+                      <Box>
+                        <Typography variant="subtitle1">
+                          {guestAddress.full_address}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  )
+                )}
               <Box
                 sx={{
                   px: 2,
@@ -382,10 +449,14 @@ const AddressSection: React.FC<AddressSectionProps> = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (!editIndex) {
-                upadeteAddress(id);
-              } else {
-                handleAddressSubmit(e);
+              if(user && user.first_name){
+                if (!editIndex) {
+                  upadeteAddress(id);
+                } else {
+                  handleAddressSubmit(e);
+                }
+              }else{
+                guestAddressSubmit(e)
               }
             }}
           >

@@ -60,9 +60,9 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <>
+    <Box>
       <Box
-        className="footer1"
+        className="footer-desktop"
         component={"footer"}
         sx={{ py: 6, backgroundColor: "#222222", color: "white"}}
       >
@@ -89,14 +89,14 @@ const Footer: React.FC = () => {
           </Grid>
         </Container>
       </Box>
-      <Box className="test" sx={{backgroundColor:'#222222'}}>
+      <Box className="footer-mobil" sx={{backgroundColor:'#222222'}}>
         <Container style={{border:'none !important'}}>
           <Accordion  className="accordion">
             <AccordionSummary
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <strong>+ OJS <br /> NUTRITION</strong> 
+              <strong>+ OJS NUTRITION </strong> 
             </AccordionSummary>
             <AccordionDetails>
               {renderLink(contactLinks)}
@@ -126,7 +126,7 @@ const Footer: React.FC = () => {
           </Accordion>
         </Container>
       </Box>
-    </>
+    </Box>
   );
 };
 

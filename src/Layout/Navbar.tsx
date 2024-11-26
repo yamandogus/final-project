@@ -6,6 +6,7 @@ import { CartItem, LinksProps } from "../services/type";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
 import { reviews } from "../data/comment-dumy";
 import MainNavbar from "../components/Navbar/MainNavbar";
+import { userCartStore } from "../store/cartStore";
 
 
 export interface LoaderData {
@@ -42,6 +43,10 @@ export async function LinksLoader() {
       accountResponse.json(),
       cartResponse.json(),
     ]);
+    
+    if(cartData.data){
+      userCartStore.getState().initializeCart(cartData.data)
+    }
 
     console.log("Category Data:", categories);
     console.log("Account Data:", accountData);

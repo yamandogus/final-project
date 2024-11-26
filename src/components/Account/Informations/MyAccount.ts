@@ -15,65 +15,59 @@ interface OrdersProps{
   created_at: string;
   total_price: number;
 }
+async function refreshAccessToken() {
+  const accessToken = localStorage.getItem("access_token");
+  if (!accessToken) return;
+
+  const accessTokenPayload = JSON.parse(atob(accessToken.split(".")[1])) as {
+    exp: number;
+  };
+
+  const expDate = new Date(accessTokenPayload.exp * 1000);
+  const now = new Date();
+
+  if (expDate < now) {
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (!refreshToken) {
+      console.error("Refresh token bulunamadı");
+      return;
+    }
+
+    try {
+      const response = await fetch(base_url + "/auth/token/refresh", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      });
+
+      if (!response.ok) {
+        console.error("Refresh token yenileme başarısız:", await response.json());
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem("access_token", data.access_token);
+      console.log("Yeni access token alındı:", data.access_token);
+    } catch (error) {
+      console.error("Token yenileme sırasında hata:", error);
+    }
+  }
+}
+
+
+export function startTokenRefreshInterval(){
+  const intervalId = setInterval(()=>{
+    refreshAccessToken()
+    console.log("kontrol edildi");
+    
+  }, 5*60*1000)
+  return intervalId;
+}
 
 export async function userProfileLoader() {
-  const accessToken = localStorage.getItem("access_token");
-  if (!accessToken) {
-    throw new Error("Access token bulunmadı");
-  }
-
-  // REFRESH
-  const accessTokenPayload = JSON.parse(atob(accessToken.split(".")[1])) as {
-    token_type: string;
-    exp: number;
-    iat: number;
-    jti: string;
-    user_id: number;
-  };
-  
-  const exp = accessTokenPayload.exp;
-  const expDate = new Date(exp * 1000);
-  console.log(expDate);
-  
-  const now = new Date();
-  const isPast = expDate < now;
-  console.log(accessToken);
-  
-  console.log(isPast);
-  
-  if (isPast) {
-    const refreshToken = localStorage.getItem("refresh_token");
-    console.log(refreshToken);
-    
-    const refreshTokenResponse = await fetch(base_url + "/auth/token/refresh", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        refresh_token: refreshToken
-      })
-    });
-
-    console.log(refreshTokenResponse);
-    
-    if (!refreshTokenResponse.ok) {
-      const errorResponse = await refreshTokenResponse.json();
-      console.error("Refresh token hatası:", errorResponse);
-      throw new Error("Refresh token hatası");
-  }
-
-    const refreshTokenResponseJson = await refreshTokenResponse.json() as {
-      access_token: string;
-    };
-    console.log(refreshTokenResponseJson);
-    
-    localStorage.setItem("access_token", refreshTokenResponseJson.access_token); 
-    console.log("Yeni access token:", refreshTokenResponseJson.access_token);
-  }
-
-  
-
+ 
   // ACCOUNT
   const response = await fetch(base_url + "/users/my-account", {
     method: "GET",

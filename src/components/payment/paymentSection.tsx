@@ -14,11 +14,11 @@ import {
 import { useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
 import CustomAccordion from "./customAccordion";
-import useSnackbar from "../../hooks/alert";
 import { base_url } from "../Bestseller/Bestseller";
 import { AccountProps } from "../Account/Informations/MyAccount";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LoadingButton } from "@mui/lab";
+import { usePaymentStore } from "../../services/Payement";
 interface PaymentSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -53,9 +53,10 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   const [open, setOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("credit_cart");
   const [security, setSecurity] = useState(false);
+  const { basketItems } = usePaymentStore();
   const [sales, setSales] = useState(false);
-  const { showSnackbar, SnackbarComponent } = useSnackbar();
-  const [paymentText, setPaymentText] = useState(false);
+  const [paymentControl, setPaymentControl] = useState(false);
+  const [paymentError, setPaymentError] = useState(false);
 
   const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(e.target.value);
@@ -92,19 +93,26 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
         card_type: string;
       };
       console.log(responsePaymentJson);
-      if (responsePayment.ok) {
-        showSnackbar("Ödeme Yapıldı", "success");
-        setPaymentMade(true);
-      }
+      setPaymentControl(true);
+      setTimeout(() => {
+        if(responsePayment.ok){
+          setPaymentMade(true)
+        }else{
+          setPaymentError(true)
+        }
+      }, 7000);
     } catch (error) {
       console.log("ödeme hatası", error);
-      showSnackbar("Ödeme Başarısız", "error");
     }
   };
   const handlePaymentFree = () => {
-    setPaymentText(true);
+    setPaymentControl(true);
     setTimeout(() => {
-      setPaymentMade(true);
+      if (basketItems.length === 0) {
+        setPaymentError(true);
+      } else {
+        setPaymentMade(true)
+      }
     }, 7000);
   };
   return (
@@ -115,7 +123,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
       panelNumber={3}
     >
       <Box sx={{ overflow: "hidden" }}>
-        {!paymentText ? (
+        {!paymentControl ? (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -429,30 +437,54 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                 backgroundColor: "black",
               }}
             >
-              {!paymentText ? "Ödeme Yap" : "Ödeme Yapılıyor..."}
+              {!paymentControl ? "Ödeme Yap" : "Ödeme Yapılıyor..."}
             </Button>
           </form>
         ) : (
-          <>
-            <DotLottieReact
-              src="https://lottie.host/cc2e55e4-6b7c-4145-a7f4-6f0b50ae2138/CX07qgFKCn.lottie"
-              loop
-              autoplay
-            />
-            <Box mt={2}>
-            <LoadingButton
-            className="payment-btn"
-            sx={{
-              cursor:'pointer',
-            }}
-              loading={!paymentText ? false : true}
-              loadingPosition="end"
-              variant="contained"
-            >
-              {!paymentText ? "Ödeme Yap" : "Ödeme Yapılıyor..."}
-            </LoadingButton>
-            </Box>
-          </>
+          <Box>
+            {!paymentError ? (
+              <>
+                <DotLottieReact
+                  src="https://lottie.host/cc2e55e4-6b7c-4145-a7f4-6f0b50ae2138/CX07qgFKCn.lottie"
+                  loop
+                  autoplay
+                />
+                <Box mt={2}>
+                  <LoadingButton
+                    className="payment-btn"
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                    loading={!paymentControl ? false : true}
+                    loadingPosition="end"
+                    variant="contained"
+                  >
+                    {!paymentControl ? "Ödeme Yap" : "Ödeme Yapılıyor..."}
+                  </LoadingButton>
+                </Box>
+              </>
+            ) : (
+              <>
+                <DotLottieReact
+                  src="https://lottie.host/18aeb844-0759-49d5-97b9-4380cdf39aea/XHjGFluLRG.lottie"
+                  loop
+                  autoplay
+                />
+                <Box mt={2}>
+                  <Button
+                    className="payment-btn"
+                    onClick={() => setPaymentControl(false)}
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                    variant="contained"
+                  >
+                    Tekrar Dene
+                  </Button>
+                </Box>
+              </>
+            )}
+          </Box>
         )}
       </Box>
       <Box mt={2}>
@@ -467,7 +499,6 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           Ödemeler güvenli ve şifrelidir.
         </Typography>
       </Box>
-      <SnackbarComponent />
     </CustomAccordion>
   );
 };

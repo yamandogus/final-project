@@ -16,11 +16,10 @@ import { Product } from "../hooks/types";
 import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
 import LastWiew from "../components/Bestseller/LastWiew";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
-import { ProductProps } from "../components/Protein/Protein";
 import { FormEvent, useEffect, useState } from "react";
 import Comments from "../components/Comments/comment";
 import { CommentsDataProps } from "../components/Comments/homeComments";
-import { CommentsProps } from "../services/type";
+import { CommentsProps, ProductProps } from "../services/type";
 import CommentsComponent from "../components/Account/Comment/Comment";
 
 
@@ -94,7 +93,7 @@ function ProductsDetails() {
       setComments(storedComments);
     }
   };
-  
+
   useEffect(() => {
     const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
     setComments(storedComments);
@@ -246,9 +245,11 @@ function ProductsDetails() {
           </Grid>
         </Container>
       </Box>
+      <div id="commnets">
       <Comments 
       reviews={comments}
       />
+      </div>
       <Box
         sx={{
           display: "flex",

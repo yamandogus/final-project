@@ -1,22 +1,8 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { lastVisited } from "../../services/lastVisited";
+import { ProductProps } from "../../services/type";
 
-export interface ProductProps {
-  name: string;
-  short_explanation: string;
-  price_info: {
-    profit?: null;
-    total_price: number;
-    discounted_price?: number | null;
-    price_per_servings?: number;
-    discount_percentage?: number | null;
-  };
-  photo_src: string;
-  comment_count?: number;
-  average_star: number;
-  slug?: string;
-}
 
 export const calculateDiscount = (
   total_price: number,
@@ -75,7 +61,7 @@ const Protein = ({
             }}
           />
         </Link>
-        <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>
+        <Stack direction={"column"} sx={{ alignItems: "center", mt: 2,gap:0.2 }}>
           <Typography fontSize={16} fontWeight={"bolder"} className="text">
             {name}
           </Typography>
@@ -83,7 +69,7 @@ const Protein = ({
             <span className="centered-span">{short_explanation}</span>
           </Typography>
           <Rating name="half-rating" defaultValue={average_star} readOnly />
-          <Typography>{comment_count} Yorum</Typography>
+          <Link to={`/products/${slug}#comments`}>{comment_count} Yorum</Link>
           <Typography>
             {discounted_price ? (
               <>

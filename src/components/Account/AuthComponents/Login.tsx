@@ -65,7 +65,7 @@ const Login = ({ setChangePassword }: LoginProps) => {
 
   return (
       <form onSubmit={handleLogin}>
-          <Grid container spacing={3} mt={1}>
+          <Grid container spacing={2} mt={1}>
               <Grid item xs={12}>
                   <FormControl fullWidth>
                       <TextField
