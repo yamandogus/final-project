@@ -11,14 +11,14 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import MobilNavComponent from "../components/secondNavbar/NavbarDrawer";
 import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
-import { useStoreUserCart } from "../services/userCount";
-import { LoaderData } from "./Navbar";
 import DrawerListMenu from "../components/secondNavbar/DrawerList";
 import SearchModal from "../components/secondNavbar/SearchModal";
+import { userCartStore } from "../store/cartStore";
+import { LoaderData } from "./Navbar";
 export interface LinksProps {
   id: string;
   name: string;
@@ -36,25 +36,11 @@ const SecondNavbar = () => {
   const [openList, setOpenList] = useState(false);
   const [selectedLink, setSelectedLink] = useState<LinksProps | null>(null);
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
+  const { userCart} = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const { countBasket } = useStore();
-  const { userCartBasket } = useStoreUserCart();
-  const [userCartLocal, setUserCartLocal] = useState<
-    LoaderData["userCart"] | null
-  >(null);
+  const { cartData } = userCartStore();
 
-
-  useEffect(() => {
-    const locaUserCart = localStorage.getItem("login-user-carts");
-    if (locaUserCart) {
-      try {
-        const parsedData = JSON.parse(locaUserCart);
-        setUserCartLocal(parsedData.data);
-      } catch (error) {
-        console.error("Geçersiz :", error);
-      }
-    }
-  }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -110,8 +96,8 @@ const SecondNavbar = () => {
               <Button onClick={toggleDrawerBasket(true)} className="shoppingCart">
                 <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
                 <span className="count-basket">
-                  {userCartLocal && userCartLocal?.items
-                    ? userCartBasket || 0
+                  {userCart && userCart?.items
+                    ?cartData && cartData.items.length || 0
                     : countBasket}
                 </span>
               </Button>

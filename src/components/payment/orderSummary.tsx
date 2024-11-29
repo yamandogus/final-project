@@ -22,7 +22,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   const { userCart } = useLoaderData() as LoaderDataAccount;
 
   return (
-    <Box sx={{ position: "relative", height: "calc(100vh - 100px)" }}>
+    <Box sx={{ position: "relative", height:"calc(100vh - 100px)"}}>
       {userCart && userCart.items? (
         <Grid
           container
@@ -144,7 +144,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           ))}
         </Grid>
       )}
-      <Box sx={{ position: "absolute", bottom: 0, width: "100%" }}>
+      <Box sx={{pr:{xs:4}, position: {xs:'fixed',md:"absolute"}, bottom: 0, width: "100%" }}>
         <Grid
           container
           justifyContent="space-between"
@@ -154,6 +154,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             pt: 2,
             borderTop: "1px solid gray",
             gap: 1,
+            pb:{xs:1}
           }}
         >
           <Stack

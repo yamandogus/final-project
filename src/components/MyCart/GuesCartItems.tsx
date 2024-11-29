@@ -44,13 +44,15 @@ const GuestCartItems = ({items,onDecrease, onDelete, onIncrease}:GuestCartItemsP
                  variant="subtitle1"
                  mt={1}
                  fontWeight={"bolder"}
+                 sx={{fontSize:{xs:13,md:16}}}
                >
                  {basket.name}
                </Typography>
-               <Typography variant="subtitle1">
+               <Typography variant="subtitle1"
+               sx={{fontSize:{xs:13,md:15}}}>
                  {basket.aroma}
                </Typography>
-               <Typography variant="subtitle1">
+               <Typography variant="subtitle1"sx={{fontSize:{xs:13,md:14}}}>
                  {basket.gram ? basket.gram + "gr" : ""}{" "}
                </Typography>
              </Box>
@@ -59,6 +61,7 @@ const GuestCartItems = ({items,onDecrease, onDelete, onIncrease}:GuestCartItemsP
                  sx={{
                    fontWeight: "bolder",
                    pt: 1,
+                   fontSize:{xs:13,md:16}
                  }}
                >
                  {(basket.price * basket.count).toFixed(2)} TL

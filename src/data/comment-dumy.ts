@@ -542,3 +542,107 @@ export const reviews: CommentsDataProps[] = [
       last_name: "Kucuk",
     },
   ];
+
+
+export const Comments = [
+    {
+      date: "01/01/24",
+      title: "Harika bir ürün!",
+      details: "Ürün tam istediğim gibi. Kesinlikle tavsiye ederim.",
+    },
+    {
+      date: "02/01/24",
+      title: "Fiyat performans ürünü",
+      details: "Bu fiyata alınabilecek en iyi ürünlerden biri.",
+    },
+    {
+      date: "03/01/24",
+      title: "Beklentimin üzerinde",
+      details: "Ürünü tereddüt ederek almıştım ama çok memnun kaldım.",
+    },
+    {
+      date: "04/01/24",
+      title: "Paketleme mükemmel",
+      details: "Paketleme çok özenliydi, teşekkürler.",
+    },
+    {
+      date: "05/01/24",
+      title: "Hızlı kargo",
+      details: "Siparişim ertesi gün elime ulaştı. Harikasınız!",
+    },
+    {
+      date: "06/01/24",
+      title: "Kaliteli ürün",
+      details: "Kalitesi gerçekten çok iyi, parasını hak ediyor.",
+    },
+    {
+      date: "07/01/24",
+      title: "Kullanışlı bir ürün",
+      details: "Ürün oldukça kullanışlı, tavsiye ederim.",
+    },
+    {
+      date: "08/01/24",
+      title: "Eksik ürün gönderildi",
+      details: "Ürün güzel ama eksik parçalar vardı. İade ettim.",
+    },
+    {
+      date: "09/01/24",
+      title: "Tam zamanında geldi",
+      details: "Kargo zamanında ulaştı. Teşekkürler!",
+    },
+    {
+      date: "10/01/24",
+      title: "Görseldeki gibi değil",
+      details: "Ürün görseldekinden farklı geldi, hayal kırıklığı oldu.",
+    },
+    {
+      date: "11/01/24",
+      title: "Memnun kaldım",
+      details: "Beklediğimden çok daha iyi çıktı. Teşekkür ederim.",
+    },
+    {
+      date: "12/01/24",
+      title: "Kötü bir deneyim",
+      details: "Maalesef ürün beklentilerimi karşılamadı.",
+    },
+    {
+      date: "13/01/24",
+      title: "Sorunsuz alışveriş",
+      details: "Ürün sorunsuz bir şekilde ulaştı, memnun kaldım.",
+    },
+    {
+      date: "14/01/24",
+      title: "İade süreci kolaydı",
+      details: "Ürünü iade etmek zorunda kaldım, süreç çok kolaydı.",
+    },
+    {
+      date: "15/01/24",
+      title: "Çok şık bir tasarım",
+      details: "Tasarımı çok güzel, herkes nereden aldığımı soruyor.",
+    },
+    {
+      date: "16/01/24",
+      title: "Dayanıklı bir ürün",
+      details: "Ürünü uzun zamandır kullanıyorum, hala ilk günkü gibi.",
+    },
+    {
+      date: "17/01/24",
+      title: "Ürün açıklaması yetersiz",
+      details: "Ürün açıklamalarında daha fazla bilgi olmasını isterdim.",
+    },
+    {
+      date: "18/01/24",
+      title: "Hediye için aldım",
+      details: "Arkadaşıma hediye olarak aldım, çok beğendi.",
+    },
+    {
+      date: "19/01/24",
+      title: "Müşteri hizmetleri harika",
+      details: "Bir sorun yaşadım ama müşteri hizmetleri hemen çözdü.",
+    },
+    {
+      date: "20/01/24",
+      title: "Beklentimi karşılamadı",
+      details: "Fiyatına göre performansı düşük, memnun kalmadım.",
+    },
+  ];

@@ -69,7 +69,7 @@ const Protein = ({
             <span className="centered-span">{short_explanation}</span>
           </Typography>
           <Rating name="half-rating" defaultValue={average_star} readOnly />
-          <Link to={`/products/${slug}#comments`}>{comment_count} Yorum</Link>
+          <Link style={{textDecoration:'none'}} to={`/products/${slug}#comments`}>{comment_count} Yorum</Link>
           <Typography>
             {discounted_price ? (
               <>

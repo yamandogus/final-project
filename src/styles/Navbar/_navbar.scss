@@ -145,11 +145,18 @@
 
 /* Stiller */
 .accountLinkNav {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 12px 0px;
+    font: 1em sans-serif;
     text-decoration: none;
     color: black;
 }
 
 .accountLinkNav:hover {
+    transition: color 0.5s;
     color: blue;
 }
 

@@ -42,6 +42,17 @@ const modalStyle = {
   p: 4,
 };
 
+const extraSection = [
+  {
+    section: "Kapıda Ödeme (Nakit)",
+    price: 39,
+  },
+  {
+    section: "Kapıda Ödeme (Kredi Kartı)",
+    price: 45,
+  },
+];
+
 const PaymentSection: React.FC<PaymentSectionProps> = ({
   expanded,
   handleChangePanel,
@@ -50,7 +61,6 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   selectedAddressId,
   user,
 }) => {
-  const [open, setOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("credit_cart");
   const [security, setSecurity] = useState(false);
   const { basketItems } = usePaymentStore();
@@ -95,10 +105,10 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
       console.log(responsePaymentJson);
       setPaymentControl(true);
       setTimeout(() => {
-        if(responsePayment.ok){
-          setPaymentMade(true)
-        }else{
-          setPaymentError(true)
+        if (responsePayment.ok) {
+          setPaymentMade(true);
+        } else {
+          setPaymentError(true);
         }
       }, 7000);
     } catch (error) {
@@ -111,7 +121,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
       if (basketItems.length === 0) {
         setPaymentError(true);
       } else {
-        setPaymentMade(true)
+        setPaymentMade(true);
       }
     }, 7000);
   };
@@ -145,22 +155,43 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
               >
                 <Box
                   sx={{
+                    borderRadius: 3,
                     width: "100%",
+                    border: "1px solid black",
+                    mb: 1,
                   }}
                 >
                   <FormControlLabel
                     value="credit_cart"
                     control={<Radio />}
-                    label="Kredi Kartı"
+                    label={
+                      <Typography variant='subtitle2'>Kredi Kartı</Typography>
+                    }
+                    sx={{
+                      width: "100%",
+                      margin: 0,
+                      "& .MuiFormControlLabel-label": {
+                        width: "100%",
+                      },
+                    }}
                   />
-                  {selectedPayment === "credit_cart" && (
-                    <Box>
+                </Box>
+                {selectedPayment === "credit_cart" && (
+                  <Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
                       <Box
                         sx={{
                           border: "1px solid #ccc",
                           p: 3,
+                          width: { lg: "80%" },
                           borderRadius: 2,
-                          backgroundColor: "#f9f9f9",
+                          backgroundColor: "#d2d4d6",
                           boxShadow: 2,
                         }}
                       >
@@ -176,6 +207,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                             fullWidth
                             id="card_digits"
                             type="text"
+                            size="small"
                             placeholder="Kart Numarası"
                             inputProps={{
                               inputMode: "numeric",
@@ -191,6 +223,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                             }}
                           />
                           <TextField
+                            size="small"
                             sx={{
                               backgroundColor: "white",
                               borderRadius: 1,
@@ -207,6 +240,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
 
                         <Stack direction={"row"} gap={3} mt={3}>
                           <TextField
+                            size="small"
                             sx={{
                               backgroundColor: "white",
                               borderRadius: 1,
@@ -233,6 +267,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                             }}
                           />
                           <TextField
+                            size="small"
                             id="card_security_code"
                             sx={{
                               backgroundColor: "white",
@@ -252,101 +287,78 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                           />
                         </Stack>
                       </Box>
-
-                      <Stack
-                        sx={{
-                          display: "flex",
-                          justifyContent: "start",
-                          alignItems: "center",
-                          gap: 1,
-                        }}
-                        direction={"row"}
-                      >
-                        <Checkbox
-                          onClick={() => setOpen((newOpen) => !newOpen)}
-                          size="small"
-                        />
-                        Kartımı{" "}
-                        <img
-                          width={70}
-                          src="/images/master/master.png"
-                          alt=""
-                        />
-                        altyapısında kullanmak <a href="">istiyorum.</a>
-                      </Stack>
-                      {open ? (
-                        <Stack gap={2} mb={1}>
-                          <TextField fullWidth placeholder="Kart ismi" />
-                          <TextField
-                            fullWidth
-                            placeholder="+90 111 111 11 11"
-                          />
-                        </Stack>
-                      ) : (
-                        ""
-                      )}
                     </Box>
-                  )}
-                </Box>
-                <Box
-                  sx={{
-                    borderRadius: 3,
-                    width: "100%",
-                  }}
-                >
-                  <FormControlLabel
-                    control={<Radio />}
-                    value="Adreste nakit ödeme"
-                    label={
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        width="100%"
-                        gap={17}
-                      >
-                        <Typography variant="subtitle1">
-                          Kapıda Ödeme (Nakit)
-                        </Typography>
-                        <Typography
-                          sx={{ fontWeight: "bolder" }}
-                          variant="subtitle1"
+                    <Box >
+                    <Typography variant='subtitle2' >
+                      <Checkbox
+                        size="small"
+                      />
+                      Kartımı{" "}
+                      <img width={70} src="/images/master/master.png" alt="" />
+                      altyapısında kullanmak istiyorum.
+                      </Typography>
+                    </Box>
+                  </Box>
+                )}
+                 
+                {extraSection.map((extra, index) => (
+                  <Box
+                    sx={{
+                      borderRadius: 3,
+                      width: "100%",
+                      border: "1px solid black",
+                      mb: 1,
+                    }}
+                  >
+                    <FormControlLabel
+                      key={index}
+                      control={<Radio />}
+                      value={extra.section}
+                      label={
+                        <Box
+                          sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            flexWrap: "nowrap",
+                            gap: { xs: 2, sm: 4, md: 10 },
+                            "& > *": { flexShrink: 0 },
+                          }}
                         >
-                          39 TL işlem bedeli
-                        </Typography>
-                      </Box>
-                    }
-                    sx={{ width: "100%" }}
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                  }}
-                >
-                  <FormControlLabel
-                    control={<Radio />}
-                    value="Adreste kart ile ödeme"
-                    label={
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        width="100%"
-                        gap={12}
-                      >
-                        <Typography variant="subtitle1">
-                          Kapıda Ödeme (Kredi Kartı)
-                        </Typography>
-                        <Typography
-                          sx={{ fontWeight: "bolder" }}
-                          variant="subtitle1"
-                        >
-                          45 TL işlem bedeli
-                        </Typography>
-                      </Box>
-                    }
-                    sx={{ width: "100%" }}
-                  />
-                </Box>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              textAlign: "left",
+                              minWidth: "fit-content",
+                            }}
+                          >
+                            {extra.section}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              fontWeight: "bold",
+                              textAlign: "right",
+                              whiteSpace: "nowrap",
+                              color: "text.secondary",
+                            }}
+                          >
+                            {extra.price} TL işlem bedeli
+                          </Typography>
+                        </Box>
+                      }
+                      sx={{
+                        width: "90%",
+                        boder: "1px solid red",
+                        margin: 0,
+                        "& .MuiFormControlLabel-label": {
+                          width: "100%",
+                        },
+                      }}
+                    />
+                  </Box>
+                ))}
               </RadioGroup>
             </FormControl>
             <Box
@@ -357,7 +369,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                 alignItems: "center",
               }}
             >
-              <Checkbox required /> Fatura adresim teslimat adresimle aynı
+              <Checkbox required /> Fatura adresim teslimat adresimle aynı.
             </Box>
             <Box
               sx={{

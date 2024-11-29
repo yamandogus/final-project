@@ -4,10 +4,11 @@ import {
   Drawer,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import ShoppingCart from "../../pages/ShoppingCart";
 import { useStore } from "../../services/Count";
 import { userCartStore } from "../../store/cartStore";
+import { LoaderData } from "../../layout/Navbar";
 
 
 function CartSection() {
@@ -15,7 +16,7 @@ function CartSection() {
   const [open, setOpen] = useState(false);
   const { countBasket } = useStore();
   const { cartData } = userCartStore();
-
+  const { userCart} = useLoaderData() as LoaderData;
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -40,11 +41,10 @@ function CartSection() {
       >
         Sepetim
         <span className="count-basket">
-          {cartData && cartData?.items ? cartData.items.length || 0 : countBasket}
+          {userCart && userCart?.items ? cartData && cartData.items.length || 0 : countBasket}
         </span>
       </Button>
       <Drawer
-        disableScrollLock
         anchor="right"
         open={open}
         onClose={toggleDrawer(false)}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -33,6 +33,21 @@ function MainNavbar() {
   const handleCloseModal = () => {
     setOpenModalIndex(null);
   };
+
+
+  useEffect(()=>{
+    const scrollY = window.scrollY;
+    const windowHeigth = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    if(scrollY + windowHeigth >= documentHeight - 100){
+      handleCloseModal()
+    }
+    window.addEventListener("scroll", handleCloseModal);
+
+    return () =>{
+      window.removeEventListener("scroll", handleCloseModal)
+    }
+  },[])
 
   return (
     <>

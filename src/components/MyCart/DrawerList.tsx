@@ -9,24 +9,7 @@ import { useStore } from "../../services/Count";
 import CloseIcon from "@mui/icons-material/Close";
 import { LoaderData } from "../../layout/Navbar";
 import { useState } from "react";
-
-export interface CartItem {
-  product_id: string;
-  product_variant_id: string;
-  product: string;
-  product_variant_detail: {
-    size: {
-      gram: number;
-      pieces: number;
-      total_services: number;
-    };
-    aroma: string;
-    photo_src: string;
-  };
-  pieces: number;
-  unit_price: number;
-  total_price: number;
-}
+import { CartItem } from "../../services/type";
 
 export interface CartProps {
   total_price: number;

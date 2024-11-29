@@ -1,13 +1,16 @@
 
 
-@media (min-width: 600px) and (max-width: 912px) {
+@media (min-width: 885px) and (max-width: 915px) {
     .nameComp{
         display: inline;
         font-size: 20px!important;
+        transition: ease font-size 1s ;
     }
     .homeConmtImg{
         width: 233px!important;
         height: 127px!important;
+        transition: ease height 1s ;
+        transition: ease width 1s ;
     }
     .cardTyp{
         height: 127px!important;
@@ -15,6 +18,31 @@
     .buttonComp{
         width: 85px;
         height: 27px;
+        transition: ease width 1s ;
+        transition: ease height 1s ;
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 885px) {
+    .nameComp{
+        display: inline;
+        font-size: 20px!important;
+        transition: ease font-size 1s ;
+    }
+    .homeConmtImg{
+        width: 233px!important;
+        height: 127px!important;
+        transition: ease height 1s ;
+        transition: ease width 1s ;
+    }
+    .cardTyp{
+        height: 127px!important;
+    }
+    .buttonComp{
+        width: 85px;
+        height: 27px;
+        transition: ease width 1s  ;
+        transition: ease height 1s  ;
     }
   }
 

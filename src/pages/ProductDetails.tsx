@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { Link, useLoaderData} from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { base_url } from "../components/Bestseller/Bestseller";
 import { Product } from "../hooks/types";
 import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
@@ -22,18 +22,19 @@ import { CommentsDataProps } from "../components/Comments/homeComments";
 import { CommentsProps, ProductProps } from "../services/type";
 import CommentsComponent from "../components/Account/Comment/Comment";
 
-
-const commentData = 
-[
+const commentData = [
   { value: 5, count: 9184, sliderValue: 90 },
   { value: 4, count: 1316, sliderValue: 50 },
   { value: 3, count: 226, sliderValue: 30 },
   { value: 2, count: 32, sliderValue: 10 },
   { value: 1, count: 11, sliderValue: 5 },
-]
+];
 
-
-export async function ProductLoader({ params }: { params: { productSlug: string } }) {
+export async function ProductLoader({
+  params,
+}: {
+  params: { productSlug: string };
+}) {
   const { productSlug } = params;
 
   const response = await fetch(base_url + `/products/${productSlug}`);
@@ -46,20 +47,26 @@ export async function ProductLoader({ params }: { params: { productSlug: string 
     },
   });
   const userResult = await userResponse.json();
-  if(!result || !result.data){
+  if (!result || !result.data) {
     throw new Error("Product data is missing or invalid ");
   }
-  return { data: result.data, user: userResult.data, params};
+  return { data: result.data, user: userResult.data, params };
 }
 
-
 function ProductsDetails() {
-  const { data: productData, user, params} = useLoaderData() as {data: Product, user: AccountProps, params: {productSlug:string}};
-  const data = localStorage.getItem("last-visited")
-  const lastViseted: ProductProps[] = data ? JSON.parse(data): [];
-  const [open, setOpen] = useState(false)
-  const [comments, setComments] = useState<CommentsDataProps[]>([])
-
+  const {
+    data: productData,
+    user,
+    params,
+  } = useLoaderData() as {
+    data: Product;
+    user: AccountProps;
+    params: { productSlug: string };
+  };
+  const data = localStorage.getItem("last-visited");
+  const lastViseted: ProductProps[] = data ? JSON.parse(data) : [];
+  const [open, setOpen] = useState(false);
+  const [comments, setComments] = useState<CommentsDataProps[]>([]);
 
   const fetchComments = async () => {
     try {
@@ -71,16 +78,21 @@ function ProductsDetails() {
         }
       );
       const dataCom = await responseComments.json();
-  
-      const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
-      
+
+      const storedComments = JSON.parse(
+        localStorage.getItem("product-comments") || "[]"
+      );
+
       if (dataCom.data && dataCom.data.results) {
         const apiComments = dataCom.data.results;
-        
+
         const allComments = [...apiComments, ...storedComments].filter(
           (comment, index, self) =>
-            index === self.findIndex(
-              (c) => c.created_at === comment.created_at && c.comment === comment.comment
+            index ===
+            self.findIndex(
+              (c) =>
+                c.created_at === comment.created_at &&
+                c.comment === comment.comment
             )
         );
         setComments(allComments);
@@ -89,53 +101,61 @@ function ProductsDetails() {
       }
     } catch (error) {
       console.error("Yorumlar yüklenirken hata:", error);
-      const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
+      const storedComments = JSON.parse(
+        localStorage.getItem("product-comments") || "[]"
+      );
       setComments(storedComments);
     }
   };
 
   useEffect(() => {
-    const storedComments = JSON.parse(localStorage.getItem("product-comments") || "[]");
+    const storedComments = JSON.parse(
+      localStorage.getItem("product-comments") || "[]"
+    );
     setComments(storedComments);
-    
-    fetchComments();
-  }, [params.productSlug]); 
 
-  
- const commentSubmit= async(e:FormEvent) =>{
-    e.preventDefault()
-    const pramsSlug = params.productSlug
+    fetchComments();
+  }, [params.productSlug]);
+
+  const commentSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const pramsSlug = params.productSlug;
     const formEl = e.target as HTMLFormElement;
     const formData = new FormData(formEl);
     const data = Object.fromEntries(
       formData.entries()
     ) as unknown as CommentsProps;
-    console.log("data",data);    
+    console.log("data", data);
     try {
-        const response = await fetch(base_url + `/products/${pramsSlug}/comments`, {
-          method:"POST",
-          body:JSON.stringify(data),
+      const response = await fetch(
+        base_url + `/products/${pramsSlug}/comments`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token"),
             "Content-Type": "application/json",
-          }
-        })
-        const responseJson = response.json() 
-        if(response.ok){
-         await fetchComments()
+          },
         }
-        console.log(responseJson);
+      );
+      const responseJson = response.json();
+      if (response.ok) {
+        await fetchComments();
+      }
+      console.log(responseJson);
     } catch (error) {
       console.log("Yorum atılamadı", error);
-      
     }
-  }
+  };
 
-  
-   return (
+  return (
     <>
-      <Box sx={{ my:1 }}>
-      <DetailsCmpOne user={user} tags={productData.tags || []} product={productData} />
+      <Box sx={{ my: 1 }}>
+        <DetailsCmpOne
+          user={user}
+          tags={productData.tags || []}
+          product={productData}
+        />
         <Typography
           sx={{
             my: 3,
@@ -170,7 +190,7 @@ function ProductsDetails() {
               md={6}
               sx={{
                 display: "flex",
-                justifyContent: 'space-between',
+                justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
@@ -224,31 +244,31 @@ function ProductsDetails() {
               </Stack>
             </Grid>
             <Grid item xs={12}>
-            <Box mt={2}>
+              <Box mt={2}>
                 <a
                   style={{ textDecoration: "underline", cursor: "pointer" }}
-                  onClick={(()=> setOpen((prev)=> !prev))}
+                  onClick={() => setOpen((prev) => !prev)}
                 >
                   Yorum ekle
                 </a>
-               {open ? (
-                 <Box>
-                 <Box>
-                   <form onSubmit={(e)=>commentSubmit(e)}>
-                   <CommentsComponent/>
-                   </form>
-                 </Box>
-             </Box>
-               ):""}
+                {open ? (
+                  <Box>
+                    <Box>
+                      <form onSubmit={(e) => commentSubmit(e)}>
+                        <CommentsComponent />
+                      </form>
+                    </Box>
+                  </Box>
+                ) : (
+                  ""
+                )}
               </Box>
             </Grid>
           </Grid>
         </Container>
       </Box>
       <div id="commnets">
-      <Comments 
-      reviews={comments}
-      />
+        <Comments reviews={comments} />
       </div>
       <Box
         sx={{

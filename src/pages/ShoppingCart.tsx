@@ -21,7 +21,7 @@ interface ShoppingCartProps {
 const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
   const { basketItems, removeItems, increaseCount, removeCountDrawer } =
     usePaymentStore();
-  const { userCart, user } = useLoaderData() as LoaderData;
+  const { userCart,user } = useLoaderData() as LoaderData;
   const { cartData, updateCartData } = userCartStore();
   const { removeCount } = useStore();
   const { removeCountUserCart } = useStoreUserCart();
@@ -167,6 +167,7 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
     }
   };
 
+console.log(basketItems);
 
   return (
     <Box
@@ -207,9 +208,9 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
       </Box>
       <Divider sx={{ mb: 1 }} />
       <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", p: 1 }}>
-        {cartData && cartData?.items ? (
+        {userCart && userCart?.items ? (
           <>
-            {cartData.items.length > 0 ? (
+            {cartData && cartData.items.length > 0 ? (
               <UserCartItems
                 items={cartData.items}
                 onDecrease={handlePiecesDecrease}
@@ -223,6 +224,7 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
                   loop
                   autoplay
                 />
+                user
               </Box>
             )}
           </>
@@ -242,6 +244,7 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
                   loop
                   autoplay
                 />
+                basket
               </Box>
             )}
           </>
@@ -255,9 +258,9 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
           textAlign="end"
           mr={5}
         >
-          {cartData && cartData?.items ? (
+          {userCart && userCart?.items ? (
             <>
-              {cartData.items.length > 0
+              {cartData && cartData.items.length > 0
                 ? `Toplam ${" "}${cartData.total_price.toFixed(2)}${" "} TL`
                 : "SEPET BOŞ"}
             </>
@@ -286,13 +289,13 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
             }}
             style={{ textDecoration: "none", color: "white" }}
             to={userCart && userCart?.items ? (
-              userCart.items.length > 0 ? "PaymentPage" : "AllProducts"
+              cartData && cartData.items.length > 0 ? "PaymentPage" : "AllProducts"
             ) : (
               basketItems.length > 0 ? "PaymentPage" : "AllProducts"
             )}
           >
             {userCart && userCart?.items ? (
-              <>{userCart.items.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
+              <>{cartData && cartData.items.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
             ) : (
               <>{basketItems.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
             )}

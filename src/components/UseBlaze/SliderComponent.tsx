@@ -4,13 +4,8 @@ import "blaze-slider/dist/blaze.css";
 import { useEffect, useRef } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { Comments } from "../../data/comment-dumy";
 
-const Comments = Array(20).fill({
-  date: "03/05/24",
-  title: "Beğendim Gayet Güzeldi",
-  details:
-    "Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.",
-});
 
 const SliderComponent = () => {
   const sliderRef = useRef(null);

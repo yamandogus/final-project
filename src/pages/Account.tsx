@@ -57,6 +57,7 @@ const Account = () => {
           </>
         )}
       </Container>
+
       <SnackbarComponent />
     </Box>
   );

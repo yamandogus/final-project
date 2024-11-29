@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
   FormGroup,
-  InputAdornment,
   Modal,
   Stack,
   TextField,
@@ -43,6 +42,19 @@ function SearchSection() {
     setSearch("");
   };
 
+  useEffect(()=>{
+    const scrollY = window.scrollY;
+    const windowHeigth = window.innerHeight;
+    const documentHeigth = document.documentElement.scrollHeight;
+    if(scrollY + windowHeigth >= documentHeigth -100){
+      handleCloseClear()
+    }
+    window.addEventListener("scroll", handleCloseClear)
+    return () => {
+      window.removeEventListener('scroll', handleCloseClear)
+    }
+  },[])
+
   useEffect(() => {
     if (debouncedSearch) {
       handleSearchResults();
@@ -64,159 +76,158 @@ function SearchSection() {
         handleSearchResults();
       }}
     >
-      <TextField
-        sx={{ zIndex: 2000 }}
-        size="small"
-        placeholder="Lütfen bir ürün arayınız"
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearchResults();
-          }
-        }}
-        InputProps={{
-          style: {
-            backgroundColor: "white",
-          },
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                type="submit"
-                onClick={handleSearchResults}
-                sx={{
-                  padding: "6.5px 0 5.8px 0px",
-                  zIndex: 15,
-                  color: "white",
-                  borderRadius: "0 1px 1px 0",
-                  backgroundColor: "rgba(145, 145, 145, 1)",
-                  "&:hover": {
+      <Box id="search-container" position={'relative'}>
+        <TextField
+          sx={{ zIndex: 2000 }}
+          size="small"
+          placeholder="Lütfen bir ürün arayınız"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearchResults();
+            }
+          }}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <Button
+                  onClick={handleSearchResults} 
+                  sx={{
+                    zIndex: 1000,
+                    mt: -0.1,
                     backgroundColor: "rgba(145, 145, 145, 1)",
-                  },
-                  border: "2px solid rgba(145, 145, 145, 1)",
-                }}
-              >
-                Ara
-              </Button>
-            </InputAdornment>
-          ),
-          sx: {
-            width: "100%",
-            maxWidth: 400,
-            padding: 0,
-          },
-        }}
-      />
-      <Modal
-        open={searchModal}
-        disableScrollLock={true}
-        onClose={handleCloseClear}
-        slots={{
-          backdrop: Backdrop,
-        }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-            style: {
-              position: "fixed",
-            },
-          },
-        }}
-        sx={{
-          zIndex: 1500,
-        }}
-        disableAutoFocus={true}
-        disableEnforceFocus={true}
-      >
-        <Box
-          onMouseLeave={handleCloseClear}
-          sx={{
-            mt: 10,
-            width: "35vw",
-            transform: "translateX(120%)",
-            py: 1,
-            backgroundColor: "white",
-            borderRadius: 2,
-            position: "relative",
-            maxHeight: "450px",
-            overflowY: "scroll",
-            "&::-webkit-scrollbar": {
-              width: 0,
-              background: "transparent",
+                    border: "2.5px solid rgba(145, 145, 145, 1)",
+                  }}
+                  variant="contained"
+                >
+                  Ara
+                </Button>
+              ),
+              sx: {
+                padding: 0,
+              },
             },
           }}
+        />
+        <Modal
+          open={searchModal}
+          disableScrollLock={true}
+          hideBackdrop={true}
+          onClose={handleCloseClear}
+          slots={{
+            backdrop: Backdrop,
+          }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+              style: {
+                position: "fixed",
+              },
+            },
+          }}
+          sx={{
+            zIndex: 1500,
+            boxShadow:4 
+          }}
+          disableAutoFocus={true}
+          disableEnforceFocus={true}
         >
-          {searchResults.length > 0 ? (
-            searchResults.map((search) => (
-              <Box
-                sx={{
-                  mx: 2,
-                  my: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: 1,
-                  alignItems: "self-start",
-                  textTransform: "none",
-                  textDecoration: "none",
-                  color: "black",
-                  p: 1,
-                  borderRadius: 2,
-                  border: "1px solid gray",
-                }}
-                key={search.id}
-                onClick={handleCloseClear}
-                component={Link}
-                to={`/products/${search.slug}`}
-              >
-                <Box>
-                  <img
-                    src={photo_url + search.photo_src}
-                    alt=""
-                    style={{
-                      borderRadius: 5,
-                      width: 90,
-                      aspectRatio: 1 / 1,
+          <Box
+            onMouseLeave={handleCloseClear}
+            sx={{
+              mt: 9,
+              width: "35vw",
+              transform: "translateX(120%)",
+              py: 1,
+              backgroundColor: "white",
+              borderRadius: 2,
+              position: "relative",
+              maxHeight: "450px",
+              overflowY: "scroll",
+              border: "1px solid rgba(0,0,0,0.1)",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.5)",
+              "&::-webkit-scrollbar": {
+                width: 0,
+                background: "transparent",
+              },
+            }}
+          >
+            {searchResults.length > 0 ? (
+              searchResults.map((search) => (
+                <Box
+                  sx={{
+                    mx: 2,
+                    my: 2,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 1,
+                    alignItems: "self-start",
+                    textTransform: "none",
+                    textDecoration: "none",
+                    color: "black",
+                    p: 1,
+                    borderRadius: 2,
+                    border: "1px solid gray",
+                    transition: "background-color 0.2s ease",
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 0, 0, 0.04)",
+                    },
+                  }}
+                  key={search.id}
+                  onClick={handleCloseClear}
+                  component={Link}
+                  to={`/products/${search.slug}`}
+                >
+                  <Box>
+                    <img
+                      src={photo_url + search.photo_src}
+                      alt=""
+                      style={{
+                        borderRadius: 5,
+                        width: 90,
+                        aspectRatio: 1 / 1,
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Stack direction="column">
+                      <Typography variant="subtitle1">{search.name}</Typography>
+                      <Typography
+                        textTransform={"lowercase"}
+                        color="gray"
+                        variant="subtitle2"
+                      >
+                        {search.short_explanation}
+                      </Typography>
+                    </Stack>
+                  </Box>
+                  <Stack
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "flex-end",
+                      ml: "auto",
                     }}
-                  />
-                </Box>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Stack direction="column">
-                    <Typography variant="subtitle1">
-                      {search.name}
-                    </Typography>
-                    <Typography
-                      textTransform={"lowercase"}
-                      color="gray"
-                      variant="subtitle2"
-                    >
-                      {search.short_explanation}
+                  >
+                    <Typography fontWeight={"bolder"}>
+                      {search.price_info.discounted_price
+                        ? search.price_info.discounted_price
+                        : search.price_info.total_price}{" "}
+                      TL
                     </Typography>
                   </Stack>
                 </Box>
-                <Stack
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                    ml: "auto",
-                  }}
-                >
-                  <Typography fontWeight={"bolder"}>
-                    {search.price_info.discounted_price
-                      ? search.price_info.discounted_price
-                      : search.price_info.total_price}{" "}
-                    TL
-                  </Typography>
-                </Stack>
-              </Box>
-            ))
-          ) : (
-            <Typography>
-              {debouncedSearch} adında bir ürün bulunamadı
-            </Typography>
-          )}
-        </Box>
-      </Modal>
+              ))
+            ) : (
+              <Typography sx={{ py: 4, textAlign: "center" }}>
+                {debouncedSearch} adında bir ürün bulunamadı
+              </Typography>
+            )}
+          </Box>
+        </Modal>
+      </Box>
     </FormGroup>
   );
 }

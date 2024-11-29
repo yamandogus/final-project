@@ -44,13 +44,13 @@ const UserCartItems = ({
                 justifyContent={"space-between"}
               >
                 <Box>
-                  <Typography variant="subtitle1" mt={1} fontWeight={"bolder"}>
+                  <Typography variant="subtitle1" mt={1} fontWeight={"bolder"} sx={{fontSize:{xs:13,md:16}}}>
                     {basket.product}
                   </Typography>
-                  <Typography variant="subtitle1">
+                  <Typography variant="subtitle1" sx={{fontSize:{xs:13,md:15}}}>
                     {basket.product_variant_detail.aroma}
                   </Typography>
-                  <Typography variant="subtitle1">
+                  <Typography variant="subtitle1" sx={{fontSize:{xs:13,md:14}}}>
                     {basket.product_variant_detail.size.total_services
                       ? basket.product_variant_detail.size.total_services + "gr"
                       : ""}{" "}
@@ -61,6 +61,7 @@ const UserCartItems = ({
                     sx={{
                       fontWeight: "bolder",
                       pt: 1,
+                      fontSize:{xs:13,md:16}
                     }}
                   >
                     {(basket.unit_price * basket.pieces).toFixed(2)} TL

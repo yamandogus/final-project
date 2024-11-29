@@ -1,8 +1,8 @@
-import { Box,Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
-import {useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { CategoryProps } from "../services/type";
 import CategoryProducts from "../components/HomePage/HomeComp";
 import SliderComponent from "../components/UseBlaze/SliderComponent";
@@ -62,7 +62,6 @@ const products = [
 const Home = () => {
   const { category } = useLoaderData() as { category: CategoryProps[] };
 
-  
   return (
     <>
       <Box component={"div"} className="sliderRek">
@@ -112,21 +111,21 @@ const Home = () => {
       </Box>
       <Container sx={{ boxShadow: "none", border: "none", p: 2, pt: 5 }}>
         <Grid container spacing={2}>
-            {category.map((cat, index)=>{
-              const product = products[index];
-              return(
-                <CategoryProducts
-                  key={cat.id}
-                  name={cat.name}
-                  bg={product.bg}
-                  image={product.image}
-                  description={product.description}
-                  link={cat.id}
-                  review={product.review}
-                />
-              )
-            })}
-         <CategoryProducts
+          {category.map((cat, index) => {
+            const product = products[index];
+            return (
+              <CategoryProducts
+                key={cat.id}
+                name={cat.name}
+                bg={product.bg}
+                image={product.image}
+                description={product.description}
+                link={cat.id}
+                review={product.review}
+              />
+            );
+          })}
+          <CategoryProducts
             key={products[5].name}
             name={products[5].name}
             bg={products[5].bg}

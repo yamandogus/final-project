@@ -14,6 +14,17 @@ interface OrdersProps{
   order_status: string;
   created_at: string;
   total_price: number;
+  cart_detail: [
+    {
+        variant_id: string,
+        name: string,
+        photo_src: string,
+        pieces: string,
+        unit_price: string,
+        total_price: string,
+        slug: string
+    }
+]
 }
 async function refreshAccessToken() {
   const accessToken = localStorage.getItem("access_token");
@@ -103,7 +114,7 @@ export async function userProfileLoader() {
 
   const responseOrdersJson = await responseOrders.json();
   
-  console.log(responseOrdersJson);
+  console.log("orders",responseOrdersJson);
   
   return {
     user: responseJson.data as AccountProps,

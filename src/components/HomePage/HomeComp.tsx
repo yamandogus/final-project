@@ -29,7 +29,7 @@ const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) =>
             <Grid item xs={6}>
               <img
                 className="homeConmtImg"
-                style={{ height: 164, width: 294 }}
+                style={{ height: 164, width: 294}}
                 height={"auto"}
                 src={image}
                 alt=""
@@ -41,6 +41,7 @@ const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) =>
               sx={{
                 display: "flex",
                 justifyContent: "end",
+                alignItems: "end",
                 pr: 2,
               }}
             >

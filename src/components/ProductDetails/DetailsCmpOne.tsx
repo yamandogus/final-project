@@ -28,6 +28,8 @@ import { color } from "./details";
 import { AccountProps } from "../Account/Informations/MyAccount";
 import { useStore } from "../../services/Count";
 import { useStoreUserCart } from "../../services/userCount";
+import { userCartStore } from "../../store/cartStore";
+import { CartItem } from "../../services/type";
 interface Props {
   product: Product;
   tags: string[];
@@ -51,9 +53,10 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
   const [count, setCount] = useState<number>(1);
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [basketText, setBasketText] = useState(false);
- 
+  const { cartData, updateCartData } = userCartStore();
+
   const hadleUserProductAdded= async(e:React.SyntheticEvent)=>{
-    e.preventDefault()  
+    e.preventDefault() 
     try {
       const response = await fetch( base_url + "/users/cart", {
         method:"POST",
@@ -73,9 +76,35 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
         pieces: number,
       }
       if(response.ok){
-       localStorage.setItem("login-user-carts", JSON.stringify(responseJson));
+        const newItem:CartItem = {
+          product_id: product.id,
+          product_variant_id: selectedVariant.id,
+          product: product.name,
+          product_variant_detail: {
+            size: {
+              gram: selectedVariant.size.gram || 0,
+              pieces: selectedVariant.size.pieces,
+              total_services: selectedVariant.size.total_services,
+            },
+            aroma: selectedVariant.aroma,
+            photo_src: selectedVariant.photo_src,
+          },
+          pieces: count,
+          unit_price: selectedVariant.price.discounted_price || selectedVariant.price.total_price,
+          total_price:(selectedVariant.price.discounted_price || selectedVariant.price.total_price )* count,
+        }
+        const updateItems = cartData?.items ? [...cartData.items, newItem] :[newItem];
+        const updatedtotalPrice = updateItems.reduce((total, item)=>
+          total + item.total_price, 0
+        )
+
+        updateCartData({
+          items: updateItems,
+          total_price: updatedtotalPrice
+        })
       }
       setBasketText(true);
+      setCount(1);
       increaseCountUserCart()
       setTimeout(() => {
         setBasketText(false);

@@ -16,6 +16,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import {
   AddedAddress,
   Address,
+  CartItem,
   CityProps,
   DistrictProps,
 } from "../../services/type";
@@ -24,7 +25,6 @@ import { base_url } from "../Bestseller/Bestseller";
 import MuiPhoneNumber from "material-ui-phone-number";
 import useSnackbar from "../../hooks/alert";
 import { AccountProps } from "../Account/Informations/MyAccount";
-import { CartItem } from "../MyCart/DrawerList";
 interface AddressSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -131,6 +131,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       full_address: `${addres}${city}/${district}`,
       phone: data.phone,
     }
+    localStorage.setItem("guest-address",JSON.stringify(newData))
     setGuestAddress(newData)
     handleClose(); 
     resetForm(); 
