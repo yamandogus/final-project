@@ -39,7 +39,7 @@ const AboutUs = () => {
               </Grid>
             </Grid>
         </Container>
-        <Comments/>
+        <Comments reviews={[]}/>
     </Box>
   )
 }

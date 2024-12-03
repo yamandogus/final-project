@@ -11,7 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import {useState } from "react";
+import { useState } from "react";
 import MobilNavComponent from "../components/secondNavbar/NavbarDrawer";
 import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
@@ -19,16 +19,7 @@ import DrawerListMenu from "../components/secondNavbar/DrawerList";
 import SearchModal from "../components/secondNavbar/SearchModal";
 import { userCartStore } from "../store/cartStore";
 import { LoaderData } from "./Navbar";
-export interface LinksProps {
-  id: string;
-  name: string;
-  icon?: JSX.Element;
-  link?: string;
-  slug?: string;
-  order?: number;
-  top_sellers?: boolean;
-  children?: LinksProps[];
-}
+import { LinksProps } from "../services/type";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);
@@ -36,11 +27,10 @@ const SecondNavbar = () => {
   const [openList, setOpenList] = useState(false);
   const [selectedLink, setSelectedLink] = useState<LinksProps | null>(null);
   const { allProduct = [] } = useLoaderData() as { allProduct: LinksProps[] };
-  const { userCart} = useLoaderData() as LoaderData;
+  const { user } = useLoaderData() as LoaderData;
   const navigate = useNavigate();
   const { countBasket } = useStore();
   const { cartData } = userCartStore();
-
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -65,7 +55,6 @@ const SecondNavbar = () => {
     setOpen(false);
     navigate("/PaymentPage");
   };
-
 
   return (
     <>
@@ -93,37 +82,36 @@ const SecondNavbar = () => {
               </Link>
             </Typography>
             <Stack position={"relative"}>
-              <Button onClick={toggleDrawerBasket(true)} className="shoppingCart">
+              <Button
+                onClick={toggleDrawerBasket(true)}
+                className="shoppingCart"
+              >
                 <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30, mx: 1 }} />
                 <span className="count-basket">
-                  {userCart && userCart?.items
-                    ?cartData && cartData.items.length || 0
+                  {user && user.first_name
+                    ? (cartData && cartData.items?.length) || 0
                     : countBasket}
                 </span>
               </Button>
             </Stack>
           </Toolbar>
         </AppBar>
-          <SearchModal/>
+        <SearchModal />
       </Box>
-      <Drawer
-        sx={{ zIndex: 99999 }}
-        open={open}
-        onClose={toggleDrawer(false)}
-        disableScrollLock
-      >
-        <DrawerListMenu
-        allProduct={allProduct}
-        toggleDrawer={toggleDrawer}
-        toggleDrawerLink={toggleDrawerLink}
-        />
+      <Drawer sx={{ zIndex: 99999 }} open={open} onClose={toggleDrawer(false)}>
+        <Box sx={{ backgroundColor: "rgba(229, 229, 229, 1)", height: "100%" }}>
+          <DrawerListMenu
+            allProduct={allProduct}
+            toggleDrawer={toggleDrawer}
+            toggleDrawerLink={toggleDrawerLink}
+          />
+        </Box>
       </Drawer>
       <Drawer
         sx={{ zIndex: 99999 }}
         anchor="right"
         open={cartOpen}
         onClose={toggleDrawerBasket(false)}
-        disableScrollLock
       >
         <ShoppingCart
           onCloseDrawer={toggleDrawerBasket(false)}

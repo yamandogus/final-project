@@ -1,23 +1,35 @@
 .footer-mobil {
     border: none;
     display: block;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background-color: #222222;
+    
     .accordion {
         background-color: #222222;
         color: white;
         border: none;
+        margin: 0;
+        
+        .MuiAccordionSummary-root {
+            min-height: 48px;
+            padding: 0 16px;
+        }
+        
+        .MuiAccordionDetails-root {
+            padding: 8px 16px 16px;
+        }
     }
 }
 
 // Mobil ekranlar için (600px ve altı)
 @media (max-width: 600px) {
     .footer-desktop {
-        display: none
+        display: none;
     }
     .footer-mobil {
         border: none;
-        display: block
+        display: block;
     }
 }
 
@@ -28,7 +40,7 @@
         display: block;
     }
     .footer-mobil {
-        display: none
+        display: none;
     }
 }
 

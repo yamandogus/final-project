@@ -229,6 +229,7 @@ function ProductsDetails() {
                       disabled
                       sx={{
                         height: "10px",
+                        borderRadius:'none',
                         flex: 1,
                         "& .MuiSlider-thumb": {
                           display: "none",
@@ -244,7 +245,7 @@ function ProductsDetails() {
               </Stack>
             </Grid>
             <Grid item xs={12}>
-              <Box mt={2}>
+              <Box mt={2} >
                 <a
                   style={{ textDecoration: "underline", cursor: "pointer" }}
                   onClick={() => setOpen((prev) => !prev)}
@@ -252,7 +253,7 @@ function ProductsDetails() {
                   Yorum ekle
                 </a>
                 {open ? (
-                  <Box>
+                  <Box mt={3}>
                     <Box>
                       <form onSubmit={(e) => commentSubmit(e)}>
                         <CommentsComponent />

@@ -208,9 +208,10 @@ console.log(basketItems);
       </Box>
       <Divider sx={{ mb: 1 }} />
       <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", p: 1 }}>
-        {userCart && userCart?.items ? (
+        {user && user?.first_name ? (
           <>
-            {cartData && cartData.items.length > 0 ? (
+          user
+            {cartData && cartData.items?.length > 0 ? (
               <UserCartItems
                 items={cartData.items}
                 onDecrease={handlePiecesDecrease}
@@ -230,6 +231,7 @@ console.log(basketItems);
           </>
         ) : (
           <>
+          guest
             {basketItems.length > 0 ? (
               <GuestCartItems
                 items={basketItems}
@@ -258,9 +260,9 @@ console.log(basketItems);
           textAlign="end"
           mr={5}
         >
-          {userCart && userCart?.items ? (
+          {user && user.first_name ? (
             <>
-              {cartData && cartData.items.length > 0
+              {cartData && cartData.items?.length > 0
                 ? `Toplam ${" "}${cartData.total_price.toFixed(2)}${" "} TL`
                 : "SEPET BOŞ"}
             </>

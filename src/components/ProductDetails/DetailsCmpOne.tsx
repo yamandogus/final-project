@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import {base_url, photo_url } from "../Bestseller/Bestseller";
+import { base_url, photo_url } from "../Bestseller/Bestseller";
 import { useProductVariants } from "../../hooks/use-product-variants";
 import { Product } from "../../hooks/types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,10 +33,10 @@ import { CartItem } from "../../services/type";
 interface Props {
   product: Product;
   tags: string[];
-  user?:AccountProps;
+  user?: AccountProps;
 }
 
-const DetailsCmpOne = ({ product, tags,user}: Props) => {
+const DetailsCmpOne = ({ product, tags, user }: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -55,66 +55,96 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
   const [basketText, setBasketText] = useState(false);
   const { cartData, updateCartData } = userCartStore();
 
-  const hadleUserProductAdded= async(e:React.SyntheticEvent)=>{
-    e.preventDefault() 
+  const hadleUserProductAdded = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     try {
-      const response = await fetch( base_url + "/users/cart", {
-        method:"POST",
+      const response = await fetch(base_url + "/users/cart", {
+        method: "POST",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"), 
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-            product_id: product.id,
-            product_variant_id: selectedVariant.id,
-            pieces: count,
-        })
-      })
-      const responseJson = await response.json() as {
-        product_id: string,
-        product_variant_id: string,
-        pieces: number,
-      }
-      if(response.ok){
-        const newItem:CartItem = {
+        body: JSON.stringify({
           product_id: product.id,
           product_variant_id: selectedVariant.id,
-          product: product.name,
-          product_variant_detail: {
-            size: {
-              gram: selectedVariant.size.gram || 0,
-              pieces: selectedVariant.size.pieces,
-              total_services: selectedVariant.size.total_services,
-            },
-            aroma: selectedVariant.aroma,
-            photo_src: selectedVariant.photo_src,
-          },
           pieces: count,
-          unit_price: selectedVariant.price.discounted_price || selectedVariant.price.total_price,
-          total_price:(selectedVariant.price.discounted_price || selectedVariant.price.total_price )* count,
-        }
-        const updateItems = cartData?.items ? [...cartData.items, newItem] :[newItem];
-        const updatedtotalPrice = updateItems.reduce((total, item)=>
-          total + item.total_price, 0
-        )
+        }),
+      });
+      const responseJson = (await response.json()) as {
+        product_id: string;
+        product_variant_id: string;
+        pieces: number;
+      };
+      if (response.ok) {
+        const existingIndex = cartData?.items.find(
+          (item) =>
+            item.product_id === product.id &&
+            item.product_variant_id === selectedVariant.id
+        );
 
+        let updateItems: CartItem[] = [];
+
+        if (existingIndex) {
+          updateItems =
+            cartData?.items.map((item) =>
+              item.product_id === product.id &&
+              item.product_variant_id === selectedVariant.id
+                ? {
+                    ...item,
+                    pieces: item.pieces + count,
+                    total_price: item.unit_price * (item.pieces + count),
+                  }
+                : item
+            ) || [];
+        } else {
+          const newCartItem: CartItem = {
+            product_id: product.id,
+            product_variant_id: selectedVariant.id,
+            product: product.name,
+            product_variant_detail: {
+              size: {
+                gram: selectedVariant.size.gram || 0,
+                pieces: selectedVariant.size.pieces,
+                total_services: selectedVariant.size.total_services,
+              },
+              aroma: selectedVariant.aroma,
+              photo_src: selectedVariant.photo_src,
+            },
+            pieces: count,
+            unit_price:
+              selectedVariant.price.discounted_price ||
+              selectedVariant.price.total_price,
+            total_price:
+              (selectedVariant.price.discounted_price ||
+                selectedVariant.price.total_price) * count,
+          };
+          updateItems = cartData?.items
+            ? [...cartData.items, newCartItem]
+            : [newCartItem];
+        }
+
+        const updatedtotalPrice = updateItems.reduce(
+          (total, item) => total + item.total_price,
+          0
+        );
         updateCartData({
           items: updateItems,
-          total_price: updatedtotalPrice
-        })
+          total_price: updatedtotalPrice,
+        });
       }
       setBasketText(true);
       setCount(1);
-      increaseCountUserCart()
+      increaseCountUserCart();
+      showSnackbar("Ürün sepete eklendi", "success");
       setTimeout(() => {
         setBasketText(false);
       }, 2100);
-      console.log(responseJson);   
+      console.log(responseJson);
     } catch (error) {
       console.log(error);
-      showSnackbar("Ürün sepete eklenemedi",'error')
+      showSnackbar("Ürün sepete eklenemedi", "error");
     }
-  }
+  };
 
   const handleProductAdded = () => {
     if (selectedVariant) {
@@ -139,7 +169,6 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
     }
   };
 
-
   const culculateDiscount = (
     total_price: number,
     discounted_price: number | null
@@ -152,7 +181,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
 
   const currentVariant = selectedVariant || product.variants[0];
   const currentPrice = currentVariant?.price;
-  
+
   return (
     <>
       <Box sx={{ mt: 5 }}>
@@ -167,156 +196,164 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
               />
               <div className="zoom-preview"></div>
               <Box component={"div"} className="mobileAccordion">
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      ÖZELLİKLER
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      {product.explanation.features || " "}
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel2-content"
-                      id="panel2-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      BESİN İÇERİĞİ
-                    </AccordionSummary>
+                <Accordion sx={{ border: "none", boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    sx={{ fontWeight: "bolder" }}
+                  >
+                    ÖZELLİKLER
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {product.explanation.features || " "}
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ border: "none", boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2-content"
+                    id="panel2-header"
+                    sx={{ fontWeight: "bolder" }}
+                  >
+                    BESİN İÇERİĞİ
+                  </AccordionSummary>
 
-                    <AccordionDetails>
-                      <Stack
-                        direction={"row"}
+                  <AccordionDetails>
+                    <Stack
+                      direction={"row"}
+                      sx={{
+                        display: "flex",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "bolder", fontSize: 18 }}>
+                        BESİN DEĞERİ
+                      </Typography>
+                      <Typography
                         sx={{
-                          display: "flex",
+                          fontWeight: "bolder",
+                          ml: "auto",
+                          textAlign: "right",
+                          fontSize: 18,
                         }}
                       >
-                        <Typography sx={{ fontWeight: "bolder",fontSize:18 }}>
-                          BESİN DEĞERİ
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontWeight: "bolder",
-                            ml: "auto",
-                            textAlign: "right",
-                            fontSize:18
-                          }}
-                        >
-                          25 g servis için
-                        </Typography>
-                      </Stack>
-                      <Stack>
-                        {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
-                          (ing, index) => (
-                            <Stack
-                              key={index}
-                              direction={"row"}
-                              sx={{
-                                borderBottom: "1px solid #dbdbdb",
-                                justifyContent: "space-between",
-                                py: 1,
-                              }}
-                            >
-                              <Typography>{ing.name}</Typography>
-                              <Typography sx={{ textAlign: "right" }}>
-                                {ing.amounts}
-                              </Typography>
-                            </Stack>
-                          )
-                        )}
-                      </Stack>
+                        25 g servis için
+                      </Typography>
+                    </Stack>
+                    <Stack>
+                      {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
+                        (ing, index) => (
+                          <Stack
+                            key={index}
+                            direction={"row"}
+                            sx={{
+                              borderBottom: "1px solid #dbdbdb",
+                              justifyContent: "space-between",
+                              py: 1,
+                            }}
+                          >
+                            <Typography>{ing.name}</Typography>
+                            <Typography sx={{ textAlign: "right" }}>
+                              {ing.amounts}
+                            </Typography>
+                          </Stack>
+                        )
+                      )}
+                    </Stack>
 
-                      <Box sx={{my:4}}>
-                        <Typography variant="subtitle1" fontWeight='bolder' fontSize={18}>İÇİNDEKİLER</Typography>
-                        {product.explanation.nutritional_content.ingredients ? (
-                          <>
-                            {product.explanation.nutritional_content.ingredients.map(
-                              (extra, index) => (
-                                <Typography key={index} variant="subtitle2">
-                                  <strong>{extra.aroma + ": "}</strong>
-                                  {extra.value}
-                                </Typography>
-                              )
-                            )}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </Box>
-
-                      <Stack
-                        direction={"row"}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
+                    <Box sx={{ my: 4 }}>
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight="bolder"
+                        fontSize={18}
                       >
-                        <Typography sx={{ fontWeight: "bolder", fontSize:18}}>
-                          AMİNO ASİT DEĞERLERİ
-                        </Typography>
-                        <Typography
-                          sx={{ fontWeight: "bolder", textAlign: "right",fontSize:18}}
-                        >
-                          100 g
-                        </Typography>
-                      </Stack>
-
-                      <Stack>
-                        {product.explanation.nutritional_content.amino_acid_facts?.ingredients.map(
-                          (ing, index) => (
-                            <Stack
-                              key={index}
-                              direction={"row"}
-                              sx={{
-                                justifyContent: "space-between",
-                                borderBottom: "1px solid #dbdbdb",
-                                py: 1,
-                              }}
-                            >
-                              <Typography>{ing.name}</Typography>
-                              <Typography sx={{ textAlign: "right" }}>
-                                {ing.amounts}
+                        İÇİNDEKİLER
+                      </Typography>
+                      {product.explanation.nutritional_content.ingredients ? (
+                        <>
+                          {product.explanation.nutritional_content.ingredients.map(
+                            (extra, index) => (
+                              <Typography key={index} variant="subtitle2">
+                                <strong>{extra.aroma + ": "}</strong>
+                                {extra.value}
                               </Typography>
-                            </Stack>
-                          )
-                        )}
-                      </Stack>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel3-content"
-                      id="panel3-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      KULLANIM ŞEKLİ
-                    </AccordionSummary>
-
-                    {product.explanation.usage
-                      .split("\n")
-                      .map((usag, index) => (
-                        <AccordionDetails sx={{ px: 2, py: 0.6 }} key={index}>
-                          {usag.includes("Önemli Not") ? (
-                            <>
-                              {usag.split("Önemli Not")[0]}
-                              <strong>Önemli Not</strong>
-                              {usag.split("Önemli Not")[1]}
-                            </>
-                          ) : (
-                            usag
+                            )
                           )}
-                        </AccordionDetails>
-                      ))}
-                  </Accordion>
-                </Box>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </Box>
+
+                    <Stack
+                      direction={"row"}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "bolder", fontSize: 18 }}>
+                        AMİNO ASİT DEĞERLERİ
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "bolder",
+                          textAlign: "right",
+                          fontSize: 18,
+                        }}
+                      >
+                        100 g
+                      </Typography>
+                    </Stack>
+
+                    <Stack>
+                      {product.explanation.nutritional_content.amino_acid_facts?.ingredients.map(
+                        (ing, index) => (
+                          <Stack
+                            key={index}
+                            direction={"row"}
+                            sx={{
+                              justifyContent: "space-between",
+                              borderBottom: "1px solid #dbdbdb",
+                              py: 1,
+                            }}
+                          >
+                            <Typography>{ing.name}</Typography>
+                            <Typography sx={{ textAlign: "right" }}>
+                              {ing.amounts}
+                            </Typography>
+                          </Stack>
+                        )
+                      )}
+                    </Stack>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ border: "none", boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3-content"
+                    id="panel3-header"
+                    sx={{ fontWeight: "bolder" }}
+                  >
+                    KULLANIM ŞEKLİ
+                  </AccordionSummary>
+
+                  {product.explanation.usage.split("\n").map((usag, index) => (
+                    <AccordionDetails sx={{ px: 2, py: 0.6 }} key={index}>
+                      {usag.includes("Önemli Not") ? (
+                        <>
+                          {usag.split("Önemli Not")[0]}
+                          <strong>Önemli Not</strong>
+                          {usag.split("Önemli Not")[1]}
+                        </>
+                      ) : (
+                        usag
+                      )}
+                    </AccordionDetails>
+                  ))}
+                </Accordion>
+              </Box>
             </Grid>
             <Grid item container sm={12} md={6}>
               <Box width="100%">
@@ -357,7 +394,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                 </Box>
                 <Box my={2}>
                   <FormControl>
-                    <FormLabel component="legend" sx={{ mb: 1 }}>
+                    <FormLabel component="legend" sx={{ mb: 1}}>
                       <strong>AROMA:</strong>
                     </FormLabel>
                     <RadioGroup
@@ -404,14 +441,14 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                 </Box>
                 <Box>
                   <FormControl>
-                    <FormLabel component="legend" sx={{ mb: 1 }}>
+                    <FormLabel component="legend" sx={{ mb: 2}}>
                       <strong>BOYUT:</strong>
                     </FormLabel>
                     <RadioGroup
                       aria-labelledby="aroma"
                       name="radio-buttons-group"
                     >
-                      <Grid container spacing={2}>
+                      <Grid container spacing={2} mb={1}>
                         {productSizes.map((size, index) => (
                           <Grid item key={index}>
                             <FormControlLabel
@@ -429,14 +466,30 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                               label={
                                 <Box
                                   display="flex"
+                                  width={110}
+                                  flexDirection={"column"}
                                   justifyContent="center"
                                   alignItems="center"
                                   position="relative"
                                 >
-                                  {size.pieces}{" "}
-                                  {size.gram
-                                    ? " x " + size.gram + " gr "
-                                    : "adet"}
+                                  <Typography
+                                    variant="subtitle2"
+                                    fontWeight={"bolder"}
+                                  >
+                                    {size?.gram
+                                      ? size.gram === 1600
+                                        ? "1.6KG" + (size?.total_services === 128 
+                                              ? ` X 2 ADET` :"")
+                                        : `${size.gram}G${
+                                            size?.total_services === 128 
+                                              ? ` X 2 ADET`
+                                              : ""
+                                          }`
+                                      : "adet"}
+                                  </Typography>
+                                  <Typography variant="subtitle2">
+                                    {size.total_services} servis
+                                  </Typography>
                                   <span>
                                     {!isSizeAvailable(size) &&
                                       product.variants[index].price
@@ -444,13 +497,12 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                                         <span
                                           style={{
                                             position: "absolute",
-                                            top: -34,
+                                            top: -25,
                                             left: "50%",
-                                            padding: 2,
-                                            fontSize: "14px",
+                                            padding: "3px 5px",
+                                            fontSize: 12,
                                             transform: "translateX(-50%)",
                                             fontWeight: "bolder",
-                                            borderRadius: 2,
                                             backgroundColor: "red",
                                             color: "white",
                                             whiteSpace: "nowrap",
@@ -465,7 +517,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                                             product.variants[index].price
                                               .discounted_price
                                           )}{" "}
-                                          İndirim
+                                          İNDİRİM
                                         </span>
                                       )}
                                   </span>
@@ -511,8 +563,8 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                         <span
                           style={{
                             fontWeight: "bolder",
-                            color: "red",
-                            fontSize: 30,
+                            color: "black",
+                            fontSize: 35,
                             marginRight: 3,
                           }}
                         >
@@ -521,23 +573,25 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                         <span
                           style={{
                             fontWeight: "bolder",
-                            fontSize: 30,
+                            color: "red",
+                            fontSize: 35,
                             textDecoration: "line-through",
+                            textDecorationThickness:"1.5px"
                           }}
                         >
                           {currentPrice.total_price} TL
                         </span>
                       </>
                     ) : (
-                      <span style={{ fontWeight: "bolder", fontSize: 30 }}>
+                      <span style={{ fontWeight: "bolder", fontSize: 30}}>
                         {currentPrice.total_price} TL
                       </span>
                     )}
                   </Stack>
                   <Box>
-                    <span>
+                    <strong>
                       {selectedVariant?.size?.total_services}TL /Servis
-                    </span>
+                    </strong>
                   </Box>
                 </Box>
                 <Box
@@ -549,7 +603,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                 >
                   <Box component={"div"} className="countDiv">
                     <button
-                      className="countButton"
+                      className="disCountButton"
                       onClick={() => setCount(count > 1 ? count - 1 : 1)}
                     >
                       -
@@ -557,6 +611,7 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                     <span className="countCart">{count}</span>
                     <button
                       className="countButton"
+                      style={{marginRight:"-0.5px"}}
                       onClick={() => setCount(count + 1)}
                     >
                       +
@@ -566,18 +621,20 @@ const DetailsCmpOne = ({ product, tags,user}: Props) => {
                     id="added"
                     className="ShoppinAdButton"
                     variant="contained"
-                    onClick={(e)=> user ? hadleUserProductAdded(e) : handleProductAdded()}
+                    onClick={(e) =>
+                      user ? hadleUserProductAdded(e) : handleProductAdded()
+                    }
                   >
                     <ShoppingCartCheckoutIcon
                       color={!basketText ? "inherit" : "success"}
-                      sx={{ mr: 1,}}
+                      sx={{ mr: 1 }}
                     />
                     {!basketText ? "SEPETE EKLE" : "ÜRÜN SEPETE EKLENDİ"}
                   </Button>
                 </Box>
               </Box>
               <Stack sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" fontSize={11}>
+                <Typography variant="subtitle2" fontSize={13}>
                   Son Kullanma Tarihi: 07.2025
                 </Typography>
                 <Typography mt={2}>

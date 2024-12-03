@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Pagination, Typography } from "@mui/material";
 import OrdersComp from "./OrdersComponents/OrdersComp";
 import { useState } from "react";
 import Olderdest from "../Olderders/Olderdest";
@@ -11,6 +11,19 @@ const Orders = () => {
   const [open, setOpen] = useState(false);
   const {orders} = useLoaderData() as userProfileLoaderReturn
   const [orderId, setOrderId] = useState("")
+  const [page, setPage] = useState(1)
+  const ordersLimit = 4;
+
+  const handleChangePage = (_: React.ChangeEvent<unknown>, p: number) => {
+    setPage(p);
+  };
+
+  const ordersData = Array.isArray(orders) ? orders : [];
+  const totalPages = Math.ceil(ordersData.length / ordersLimit);
+  const startIndex = (page - 1 ) * ordersLimit;
+  const selectedOrders = ordersData.slice(startIndex, startIndex + ordersLimit)
+
+
   return (
     <>
       <Box>
@@ -22,14 +35,15 @@ const Orders = () => {
               </Typography>
             </Box>
             <Box sx={{ display: "grid", gap: 5 }}>
-              {orders.map((data, index) =>(
+              <Divider/>
+              {selectedOrders.map((data, index) =>(
                 <OrdersComp
                 key={index}
                 image={photo_url+ data.cart_detail[0].photo_src}
                 status={
-                  data.order_status ==="delivered" ? "Teslim Edildi":
-                  data.order_status ==="in_cargo" ? "Korgoda":
-                  data.order_status === "getting_ready"? "Hazırlanıyor":""
+                  data.order_status ==="delivered" ? "✅ Sipariş Teslim Edildi":
+                  data.order_status ==="in_cargo" ? "📦 Sipariş Kargoda":
+                  data.order_status === "getting_ready"? "⏳ Sipariş Hazırlanıyor":""
                 }
                 title={data.cart_detail[0].name}
                 date={data.created_at.split("T")[0].split("-").reverse().join(".")}
@@ -40,6 +54,14 @@ const Orders = () => {
                 }}
               />
               ))}
+            </Box>
+            <Box sx={{display:'flex', justifyContent:'center',my:5}}>
+              <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handleChangePage}
+              color="primary" 
+              />
             </Box>
           </>
         ) : (

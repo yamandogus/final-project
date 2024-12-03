@@ -1,4 +1,5 @@
-import { ProductProps } from "../components/Protein/Protein";
+import { ProductProps } from "./type";
+
 
 export const lastVisited =(product:ProductProps)=>{
   const visitProduct = JSON.parse(localStorage.getItem("last-visited") || "[]");

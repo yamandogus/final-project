@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import { startTokenRefreshInterval } from "./components/Account/Informations/MyAccount";
+import { Box } from "@mui/material";
 
 const Root = () => {
   const { pathname } = useLocation();
@@ -20,11 +21,27 @@ const Root = () => {
   },[])
 
   return (
-    <>
+    <Box
+    sx={{
+      display:'flex',
+      flexDirection:'column',
+      minHeight:'100vh'
+    }}
+    >
       {!isPagePayment && <Navbar />}
+      <Box
+      component="main"
+      sx={{
+        flex:1,
+        display:'flex',
+        flexDirection:'column'
+      }}
+      >
+
       <Outlet />
+      </Box>
       {!isPagePayment && <Footer />}
-    </>
+    </Box>
   );
 };
 

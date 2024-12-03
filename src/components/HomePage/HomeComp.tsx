@@ -8,16 +8,21 @@ interface ProductPropsHome {
   review: string;
   link: string;
   bg: string;
-
 }
-const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) => {
-  const CategoryLink= ()=>{
-    if(link ==="/AllProducts"){
-      return link
-    }else{
+const CategoryProducts = ({
+  name,
+  image,
+  review,
+  link,
+  bg,
+}: ProductPropsHome) => {
+  const CategoryLink = () => {
+    if (link === "/AllProducts") {
+      return link;
+    } else {
       return `/category/${link}/${encodeURIComponent(name)}`;
     }
-  }
+  };
   return (
     <Grid item xs={6} sm={4}>
       <Box>
@@ -29,7 +34,7 @@ const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) =>
             <Grid item xs={6}>
               <img
                 className="homeConmtImg"
-                style={{ height: 164, width: 294}}
+                style={{ height: 164, width: 294 }}
                 height={"auto"}
                 src={image}
                 alt=""
@@ -40,9 +45,10 @@ const CategoryProducts = ({ name, image, review, link, bg}: ProductPropsHome) =>
               xs={6}
               sx={{
                 display: "flex",
-                justifyContent: "end",
-                alignItems: "end",
-                pr: 2,
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                paddingRight: 2,
               }}
             >
               <Stack

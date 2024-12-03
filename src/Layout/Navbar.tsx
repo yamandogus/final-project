@@ -70,7 +70,7 @@ export async function LinksLoader() {
 
 function Navbar() {
   return (
-    <Box>
+    <Box >
       <MainNavbar />
     </Box>
   );

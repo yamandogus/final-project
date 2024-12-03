@@ -24,7 +24,7 @@ const Account = () => {
   };
 
   return (
-    <Box sx={{ mt: 5 }}>
+    <Box sx={{ mt: 5, mb:15}}>
       <Container maxWidth="xs">
         {!changePassword ? (
           <>

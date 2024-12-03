@@ -19,7 +19,7 @@ interface LoginProps {
 }
 
 const Login = ({ setChangePassword }: LoginProps) => {
-  const { showSnackbar } = useSnackbar();
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
 
   const handleShow = () => {
@@ -127,6 +127,7 @@ const Login = ({ setChangePassword }: LoginProps) => {
                   </FormControl>
               </Grid>
           </Grid>
+          <SnackbarComponent/>
       </form>
   );
 };

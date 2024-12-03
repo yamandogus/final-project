@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box,Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
@@ -144,6 +144,7 @@ const Home = () => {
           src="/images/6card/box3.png"
           alt=""
         />
+        <img style={{position:'absolute',zIndex:10, top:'40%', left:"7%"}} src="/images/deneme/logoTwo.png" alt="" />
       </Box>
       <Box>
         <Container sx={{ my: 5, overflow: "hidden" }}>

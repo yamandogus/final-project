@@ -19,6 +19,7 @@ import AboutUs from './components/FooterPages/AboutUs'
 import SSS from './components/FooterPages/SSS'
 import { userAddressLoader } from './services/paymentAddress'
 import Account from './pages/Account'
+import ContactUs from './components/FooterPages/ContactUs'
 
 
 const router = createBrowserRouter([
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "SSS",
         element:<SSS/>
+      },
+      {
+        path: "ContactUs",
+        element:<ContactUs/>
       },
       {
         path: "PaymentPage",

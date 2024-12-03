@@ -78,7 +78,7 @@ function SearchSection() {
     >
       <Box id="search-container" position={'relative'}>
         <TextField
-          sx={{ zIndex: 2000 }}
+          sx={{ zIndex: 2000, borderColor:'red'}}
           size="small"
           placeholder="Lütfen bir ürün arayınız"
           onChange={(e) => setSearch(e.target.value)}
@@ -98,6 +98,7 @@ function SearchSection() {
                     mt: -0.1,
                     backgroundColor: "rgba(145, 145, 145, 1)",
                     border: "2.5px solid rgba(145, 145, 145, 1)",
+                    borderRadius:"0px 2px 2px 0px"
                   }}
                   variant="contained"
                 >
@@ -137,8 +138,8 @@ function SearchSection() {
             onMouseLeave={handleCloseClear}
             sx={{
               mt: 9,
-              width: "35vw",
-              transform: "translateX(120%)",
+              width:{xs:"60vw", lg:"35vw"} ,
+              transform: {xs:"translateX(35%)", lg:"translateX(120%)"},
               py: 1,
               backgroundColor: "white",
               borderRadius: 2,

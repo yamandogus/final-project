@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
       <Box
         className="footer-desktop"
         component={"footer"}
-        sx={{ py: 6, backgroundColor: "#222222", color: "white"}}
+        sx={{ backgroundColor: "#222222", color: "white", py: { xs: 2, sm: 6 } }}
       >
         <Container>
           <Grid container spacing={2}>
@@ -90,8 +90,8 @@ const Footer: React.FC = () => {
         </Container>
       </Box>
       <Box className="footer-mobil" sx={{backgroundColor:'#222222'}}>
-        <Container style={{border:'none !important'}}>
-          <Accordion  className="accordion">
+        <Container sx={{ p: 0 }}>
+        <Accordion  className="accordion">
             <AccordionSummary
               aria-controls="panel1-content"
               id="panel1-header"

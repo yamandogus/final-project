@@ -1,7 +1,18 @@
-import { Box, Divider, List, ListItem, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import {
+  Avatar,
+  Box,
+  Divider,
+  List,
+  ListItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { LinksProps } from "../../layout/MobilNavbar";
+import { LinksProps } from "../../services/type";
+import { photo_url } from "../Bestseller/Bestseller";
+import { LoaderData } from "../../layout/Navbar";
+import { userCartStore } from "../../store/cartStore";
 
 interface DrawerListProps {
   allProduct: LinksProps[];
@@ -9,48 +20,124 @@ interface DrawerListProps {
   toggleDrawer: (newOpen: boolean) => () => void;
 }
 
-const DrawerListMenu = ({ allProduct, toggleDrawerLink, toggleDrawer }: DrawerListProps) => {
+
+
+const DrawerListMenu = ({
+  allProduct,
+  toggleDrawerLink,
+  toggleDrawer,
+}: DrawerListProps) => {
+  const { user } = useLoaderData() as LoaderData;
+  const {updateCartData} = userCartStore()
+  const navigate = useNavigate();
+  
+  const handlelogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.reload();
+    navigate("/");
+    updateCartData({
+      items: [],
+      total_price: 0,
+    });
+  };
+
+
+
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ width: 280}}>
+      <Box sx={{backgroundColor:'white'}}>
       <List>
         {allProduct.map((links, index) => (
           <ListItem
             key={index}
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              color: "black",
+            }}
+            component={Link}
+            to={links.link ? `${links.link}` : "#"}
+            onClick={
+              links.children ? toggleDrawerLink(links) : toggleDrawer(false)
+            }
           >
-            <Link
-              className="mobileNvlink"
-              onClick={
-                links.children ? toggleDrawerLink(links) : toggleDrawer(false)
-              }
-              to={links.link ? `${links.link}` : "#"}
-            >
+            <Stack flexDirection={"row"}>
+              <Avatar
+              variant="square"
+                src={
+                  links?.top_sellers?.[0].picture_src
+                    ? `${photo_url}${links?.top_sellers?.[0].picture_src}`
+                    : undefined
+                }
+                sx={{ mr: 2 }}
+              />
               <Typography sx={{ fontWeight: 700 }}>{links.name}</Typography>
-            </Link>
+            </Stack>
             {links.children && <NavigateNextIcon />}
           </ListItem>
         ))}
       </List>
+      </Box>
       <Divider />
-      <Box sx={{ height: "185%", backgroundColor: "rgba(229, 229, 229, 1)" }}>
+      <Box>
         <List>
-          <Link
-            className="mobileNvlink"
-            to={"/MyAccount"}
+          {user && user?.first_name ? (
+           <>
+            <ListItem
+              sx={{color:'black'}}
+              component={Link}
+              to={"MyAccount"}
+              onClick={toggleDrawer(false)}
+            >
+              HESABIM
+            </ListItem>
+            <ListItem
+            sx={{color:'black'}}
+              component={Link}
+              to={"MyAccount"}
+              onClick={handlelogout}
+            >
+              ÇIKIŞ YAP
+            </ListItem>
+           </>
+          ) : (
+            <>
+              <ListItem
+              sx={{color:'black'}}
+                component={Link}
+                to={
+                  user && user?.first_name
+                    ? "MyAccount"
+                    : `Account?value=${"1"}`
+                }
+                onClick={toggleDrawer(false)}
+              >
+                ÜYE GİRİŞİ
+              </ListItem>
+              <ListItem
+              sx={{color:'black'}}
+                component={Link}
+                to={
+                  user && user?.first_name
+                    ? "MyAccount"
+                    : `Account?value=${"2"}`
+                }
+                onClick={toggleDrawer(false)}
+              >
+                ÜYE OL
+              </ListItem>
+            </>
+          )}
+
+          <ListItem onClick={toggleDrawer(false)}>MÜŞTERİ YORUMLARI</ListItem>
+          <ListItem
+            component={Link}
+            to={"ContactUs"}
             onClick={toggleDrawer(false)}
           >
-            <ListItem>HESABIM</ListItem>
-          </Link>
-          <Link className="mobileNvlink" to={"#"} onClick={toggleDrawer(false)}>
-            <ListItem>MÜŞTERİ YORUMLARI</ListItem>
-          </Link>
-          <Link
-            className="mobileNvlink"
-            to={"/ContactUs"}
-            onClick={toggleDrawer(false)}
-          >
-            <ListItem>İLETİŞİM</ListItem>
-          </Link>
+            İLETİŞİM
+          </ListItem>
         </List>
       </Box>
     </Box>

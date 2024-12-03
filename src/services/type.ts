@@ -1,9 +1,10 @@
 export interface LinksProps {
   id: string;
   name: string;
-  slug?: string; 
-  order?: number; 
-  children?: { 
+  slug: string;
+  order: number;
+  link?: string;
+  children?: {
     id: string;
     name: string;
     slug: string;

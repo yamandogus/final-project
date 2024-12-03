@@ -16,7 +16,7 @@ function CartSection() {
   const [open, setOpen] = useState(false);
   const { countBasket } = useStore();
   const { cartData } = userCartStore();
-  const { userCart} = useLoaderData() as LoaderData;
+  const {user} = useLoaderData() as LoaderData;
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -41,7 +41,7 @@ function CartSection() {
       >
         Sepetim
         <span className="count-basket">
-          {userCart && userCart?.items ? cartData && cartData.items.length || 0 : countBasket}
+          {user && user.first_name ? cartData && cartData.items?.length || 0 : countBasket}
         </span>
       </Button>
       <Drawer

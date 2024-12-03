@@ -1,7 +1,7 @@
 import { base_url } from "../../Bestseller/Bestseller";
 const accessToken = localStorage.getItem("access_token");
 
-const accessTokenPayload = JSON.parse(atob(accessToken.split(".")[1])) as {
+const accessTokenPayload = JSON.parse(atob(accessToken?.split(".")[1] ?? "")) as {
     token_type: string;
     exp: number;
     iat: number;

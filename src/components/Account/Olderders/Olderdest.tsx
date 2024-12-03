@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   Grid,
   Typography,
 } from "@mui/material";
@@ -8,6 +9,7 @@ import { FC, FormEvent, useEffect, useState } from "react";
 import { base_url, photo_url } from "../../Bestseller/Bestseller";
 import { CommentsProps, Order } from "../../../services/type";
 import CommentsComponent from "../Comment/Comment";
+import useSnackbar from "../../../hooks/alert";
 
 interface OlderdestProps {
   onCloseBsk: () => void;
@@ -17,6 +19,7 @@ interface OlderdestProps {
 export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
   const [ordersDetails, setOrderDetails] = useState<Order>();
   const [open, setOpen] = useState<boolean[]>([]);
+  const {showSnackbar, SnackbarComponent} = useSnackbar()
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -60,8 +63,11 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
         })
         const responseJson = response.json() 
         console.log(responseJson);
+        setOpen([])
+        showSnackbar("Yorum eklendi", "success")
     } catch (error) {
       console.log("Yorum atılamadı", error);
+      showSnackbar("Yorum eklenemedi", "error")
       
     }
   }
@@ -77,11 +83,11 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
       <Grid item xs={12} md={8}>
         <Typography variant="h5" sx={{ paddingBottom: 3 }}>
           {ordersDetails?.order_status === "delivered"
-            ? "Sipariş Teslim Edildi"
+            ? "✅ Sipariş Teslim Edildi"
             : ordersDetails?.order_status === "in_cargo"
-            ? "Sipariş Kargoda"
+            ? "📦 Sipariş Kargoda"
             : ordersDetails?.order_status === "getting_ready"
-            ? "Sipariş Hazırlanıyor"
+            ? "⏳ Sipariş Hazırlanıyor"
             : ""}
         </Typography>
         <Typography
@@ -94,17 +100,19 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
         {ordersDetails?.shopping_cart.items.map((item, index) => (
           <Box key={index} sx={{ marginBottom: 2 }}>
             <Box display="flex" gap={2} alignItems="center">
+              <Box>
               <img
                 src={photo_url + item.product_variant_detail.photo_src}
                 alt=""
                 style={{ width: 100, height: 100 }}
               />
+              </Box>
               <Box>
                 <Typography variant="subtitle2">
                   {item.product} X {item.pieces}
                 </Typography>
                 <Typography variant="subtitle1" sx={{fontSize:14}}>
-                  {item.unit_price * item.pieces} TL
+                 Fiyat: {item.unit_price * item.pieces} TL
                 </Typography>
                 <Typography variant="subtitle1" sx={{fontSize:14}}>
                   Boyut: {item.product_variant_detail.size.gram} gr /{" "}
@@ -129,15 +137,17 @@ export const Olderdest: FC<OlderdestProps> = ({ onCloseBsk, orderId }) => {
                 </Box>
               )}
             </Box>
+            <Divider style={{marginTop:5}}/>
+            <SnackbarComponent/>
           </Box>
         ))}
-        <Box display="flex" gap={1} mt={3}>
+        <Box display="flex" gap={1} my={3}>
           <Typography>hepsiJet</Typography>
           <Typography>Takip Numarası:</Typography>
           <Typography>HJ{ordersDetails?.shipment_tracking_number}</Typography>
         </Box>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={4} mb={2}>
         <Box sx={{ borderBottom: "1px solid black", paddingBottom: 2, marginBottom: 3 }}>
           <Typography variant="subtitle1" fontWeight="bold">
             Adres

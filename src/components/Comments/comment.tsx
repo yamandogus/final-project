@@ -9,7 +9,7 @@ const Comments = ({reviews}: CommentsProps) => {
   const [page, setPage] = useState(1);
   const commentLimit = 6;
 
-  const handleChangePage = (e: React.ChangeEvent<unknown>, p: number) => {
+  const handleChangePage = (_: React.ChangeEvent<unknown>, p: number) => {
     setPage(p);
   };
 
@@ -43,6 +43,7 @@ const Comments = ({reviews}: CommentsProps) => {
                 count={totalPages}
                 page={page}
                 onChange={handleChangePage}
+                color="primary" 
               />
             </Box>
           </>

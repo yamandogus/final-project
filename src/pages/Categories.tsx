@@ -57,6 +57,8 @@ const Categories = () => {
   const [loading, setLoading] = useState(false);
   const itemPerPage = 12;
 
+console.log("product",product);
+
   useEffect(() => {
     const MoreProduct = async () => {
       if (loading) {
@@ -68,6 +70,9 @@ const Categories = () => {
         const result = await response.json();
         setProduct((prevItems) => [...prevItems, ...result.data.results]);
         setLoading(false);
+
+        console.log(product);
+        
       }
     };
     if (currentPage > 1) {
@@ -106,7 +111,7 @@ const Categories = () => {
       >
         {categoryName}
       </Typography>
-      <Container>
+      <Container sx={{mb:10}}>
         <Grid container spacing={2}>
          {product ? (
           <>
