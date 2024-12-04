@@ -11,7 +11,7 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { LinksProps } from "../../services/type";
 import { photo_url } from "../Bestseller/Bestseller";
-import { LoaderData } from "../../layout/Navbar";
+import { LoaderData } from "../../Layout/Navbar";
 import { userCartStore } from "../../store/cartStore";
 
 interface DrawerListProps {

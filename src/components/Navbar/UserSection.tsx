@@ -5,6 +5,7 @@ import { AccountProps } from "../Account/Informations/MyAccount";
 import { userCartStore } from "../../store/cartStore";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
+
 interface UserSectionProps {
   user: AccountProps;
 }
