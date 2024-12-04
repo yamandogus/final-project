@@ -6,7 +6,7 @@ import ShippingSection from "../components/payment/shippingSections";
 import OrderSummary from "../components/payment/orderSummary";
 import PaymentSection from "../components/payment/paymentSection";
 import { useLoaderData } from "react-router-dom";
-import { LoaderData } from "../layout/Navbar";
+import { LoaderData } from "../Layout/Navbar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const PaymentPage = () => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Drawer,
@@ -8,8 +8,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import ShoppingCart from "../../pages/ShoppingCart";
 import { useStore } from "../../services/Count";
 import { userCartStore } from "../../store/cartStore";
-import { LoaderData } from "../../layout/Navbar";
-
+import { LoaderData } from "../../Layout/Navbar";
 
 function CartSection() {
   const navigate = useNavigate();

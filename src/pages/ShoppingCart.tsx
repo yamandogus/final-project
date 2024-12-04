@@ -4,7 +4,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../services/Payement";
-import { LoaderData } from "../layout/Navbar";
+import { LoaderData } from "../Layout/Navbar";
 import { useStore } from "../services/Count";
 import { base_url } from "../components/Bestseller/Bestseller";
 import UserCartItems from "../components/MyCart/UserCart";

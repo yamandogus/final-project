@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "./layout/Navbar";
-import Footer from "./layout/Footer";
 import { startTokenRefreshInterval } from "./components/Account/Informations/MyAccount";
 import { Box } from "@mui/material";
+import Navbar from "./Layout/Navbar";
+import Footer from "./Layout/Footer";
 
 const Root = () => {
   const { pathname } = useLocation();

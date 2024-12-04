@@ -15,11 +15,11 @@ import {
 import { Link, useLoaderData } from "react-router-dom";
 import NavbarModal from "./NavbarPopover";
 import { LinksProps } from "../../services/type";
-import SecondNavbar from "../../layout/MobilNavbar";
+import SecondNavbar from "../../Layout/MobilNavbar";
 import SearchSection from "./SearchSection";
 import UserSection from "./UserSection";
 import CartSection from "./CartSection";
-import { LoaderData } from "../../layout/Navbar";
+import { LoaderData } from "../../Layout/Navbar";
 
 function MainNavbar() {
   const { allProduct = [], user } = useLoaderData() as LoaderData;
