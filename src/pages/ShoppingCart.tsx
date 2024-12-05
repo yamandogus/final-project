@@ -167,8 +167,6 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
     }
   };
 
-console.log(basketItems);
-
   return (
     <Box
       sx={{
@@ -287,6 +285,7 @@ console.log(basketItems);
             onClick={() => {
               if (user) {
                 onCountine();
+                onCloseDrawer();
               }
             }}
             style={{ textDecoration: "none", color: "white" }}

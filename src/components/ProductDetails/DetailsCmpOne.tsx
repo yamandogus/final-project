@@ -1,7 +1,4 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Container,
@@ -23,13 +20,13 @@ import { Product } from "../../hooks/types";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../../services/Payement";
 import useSnackbar from "../../hooks/alert";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { color } from "./details";
 import { AccountProps } from "../Account/Informations/MyAccount";
 import { useStore } from "../../services/Count";
 import { useStoreUserCart } from "../../services/userCount";
 import { userCartStore } from "../../store/cartStore";
 import { CartItem } from "../../services/type";
+import ProductAccordion from "../Accordions/ProductAccordion";
 interface Props {
   product: Product;
   tags: string[];
@@ -196,163 +193,9 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
               />
               <div className="zoom-preview"></div>
               <Box component={"div"} className="mobileAccordion">
-                <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1-content"
-                    id="panel1-header"
-                    sx={{ fontWeight: "bolder" }}
-                  >
-                    ÖZELLİKLER
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    {product.explanation.features || " "}
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2-content"
-                    id="panel2-header"
-                    sx={{ fontWeight: "bolder" }}
-                  >
-                    BESİN İÇERİĞİ
-                  </AccordionSummary>
-
-                  <AccordionDetails>
-                    <Stack
-                      direction={"row"}
-                      sx={{
-                        display: "flex",
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: "bolder", fontSize: 18 }}>
-                        BESİN DEĞERİ
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontWeight: "bolder",
-                          ml: "auto",
-                          textAlign: "right",
-                          fontSize: 18,
-                        }}
-                      >
-                        25 g servis için
-                      </Typography>
-                    </Stack>
-                    <Stack>
-                      {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
-                        (ing, index) => (
-                          <Stack
-                            key={index}
-                            direction={"row"}
-                            sx={{
-                              borderBottom: "1px solid #dbdbdb",
-                              justifyContent: "space-between",
-                              py: 1,
-                            }}
-                          >
-                            <Typography>{ing.name}</Typography>
-                            <Typography sx={{ textAlign: "right" }}>
-                              {ing.amounts}
-                            </Typography>
-                          </Stack>
-                        )
-                      )}
-                    </Stack>
-
-                    <Box sx={{ my: 4 }}>
-                      <Typography
-                        variant="subtitle1"
-                        fontWeight="bolder"
-                        fontSize={18}
-                      >
-                        İÇİNDEKİLER
-                      </Typography>
-                      {product.explanation.nutritional_content.ingredients ? (
-                        <>
-                          {product.explanation.nutritional_content.ingredients.map(
-                            (extra, index) => (
-                              <Typography key={index} variant="subtitle2">
-                                <strong>{extra.aroma + ": "}</strong>
-                                {extra.value}
-                              </Typography>
-                            )
-                          )}
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </Box>
-
-                    <Stack
-                      direction={"row"}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: "bolder", fontSize: 18 }}>
-                        AMİNO ASİT DEĞERLERİ
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontWeight: "bolder",
-                          textAlign: "right",
-                          fontSize: 18,
-                        }}
-                      >
-                        100 g
-                      </Typography>
-                    </Stack>
-
-                    <Stack>
-                      {product.explanation.nutritional_content.amino_acid_facts?.ingredients.map(
-                        (ing, index) => (
-                          <Stack
-                            key={index}
-                            direction={"row"}
-                            sx={{
-                              justifyContent: "space-between",
-                              borderBottom: "1px solid #dbdbdb",
-                              py: 1,
-                            }}
-                          >
-                            <Typography>{ing.name}</Typography>
-                            <Typography sx={{ textAlign: "right" }}>
-                              {ing.amounts}
-                            </Typography>
-                          </Stack>
-                        )
-                      )}
-                    </Stack>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel3-content"
-                    id="panel3-header"
-                    sx={{ fontWeight: "bolder" }}
-                  >
-                    KULLANIM ŞEKLİ
-                  </AccordionSummary>
-
-                  {product.explanation.usage.split("\n").map((usag, index) => (
-                    <AccordionDetails sx={{ px: 2, py: 0.6 }} key={index}>
-                      {usag.includes("Önemli Not") ? (
-                        <>
-                          {usag.split("Önemli Not")[0]}
-                          <strong>Önemli Not</strong>
-                          {usag.split("Önemli Not")[1]}
-                        </>
-                      ) : (
-                        usag
-                      )}
-                    </AccordionDetails>
-                  ))}
-                </Accordion>
+                <ProductAccordion
+                product={product}
+                />
               </Box>
             </Grid>
             <Grid item container sm={12} md={6}>
@@ -485,7 +328,7 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                                               ? ` X 2 ADET`
                                               : ""
                                           }`
-                                      : "adet"}
+                                      : size.pieces + " ADET"}
                                   </Typography>
                                   <Typography variant="subtitle2">
                                     {size.total_services} servis
@@ -554,38 +397,39 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems:'center',
                     my: 2,
                   }}
                 >
                   <Stack direction={"row"} spacing={1}>
                     {currentPrice?.discounted_price ? (
                       <>
-                        <span
-                          style={{
+                        <Typography 
+                          sx={{
                             fontWeight: "bolder",
                             color: "black",
-                            fontSize: 35,
+                            fontSize: {xs:30, md:35},
                             marginRight: 3,
                           }}
                         >
                           {Math.floor(currentPrice.discounted_price)} TL <br />
-                        </span>
-                        <span
-                          style={{
+                        </Typography>
+                        <Typography
+                          sx={{
                             fontWeight: "bolder",
                             color: "red",
-                            fontSize: 35,
+                            fontSize: {xs:30, md:35},
                             textDecoration: "line-through",
                             textDecorationThickness:"1.5px"
                           }}
                         >
                           {currentPrice.total_price} TL
-                        </span>
+                        </Typography>
                       </>
                     ) : (
-                      <span style={{ fontWeight: "bolder", fontSize: 30}}>
+                      <Typography sx={{ fontWeight: "bolder",fontSize: {xs:30, md:35},}}>
                         {currentPrice.total_price} TL
-                      </span>
+                      </Typography>
                     )}
                   </Stack>
                   <Box>
@@ -656,153 +500,9 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                   </ul>
                 </Box>
                 <Box component={"div"} className="lgAccordion">
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      ÖZELLİKLER
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      {product.explanation.features || " "}
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel2-content"
-                      id="panel2-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      BESİN İÇERİĞİ
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-                      <Stack
-                        direction={"row"}
-                        sx={{
-                          display: "flex",
-                        }}
-                      >
-                        <Typography sx={{ fontWeight: "bolder" }}>
-                          BESİN DEĞERİ
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontWeight: "bolder",
-                            ml: "auto",
-                            textAlign: "right",
-                          }}
-                        >
-                          25 g servis için
-                        </Typography>
-                      </Stack>
-                      <Stack>
-                        {product.explanation.nutritional_content.nutrition_facts.ingredients.map(
-                          (ing, index) => (
-                            <Stack
-                              key={index}
-                              direction={"row"}
-                              sx={{
-                                borderBottom: "1px solid #dbdbdb",
-                                justifyContent: "space-between",
-                                py: 1,
-                              }}
-                            >
-                              <Typography>{ing.name}</Typography>
-                              <Typography sx={{ textAlign: "right" }}>
-                                {ing.amounts}
-                              </Typography>
-                            </Stack>
-                          )
-                        )}
-                      </Stack>
-
-                      <Box>
-                        {product.explanation.nutritional_content.ingredients ? (
-                          <>
-                            {product.explanation.nutritional_content.ingredients.map(
-                              (extra, index) => (
-                                <Typography key={index} variant="subtitle2">
-                                  <strong>{extra.aroma + ": "}</strong>
-                                  {extra.value}
-                                </Typography>
-                              )
-                            )}
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </Box>
-
-                      <Stack
-                        direction={"row"}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Typography sx={{ fontWeight: "bolder" }}>
-                          AMİNO ASİT DEĞERLERİ
-                        </Typography>
-                        <Typography
-                          sx={{ fontWeight: "bolder", textAlign: "right" }}
-                        >
-                          100 g
-                        </Typography>
-                      </Stack>
-
-                      <Stack>
-                        {product.explanation.nutritional_content.amino_acid_facts?.ingredients.map(
-                          (ing, index) => (
-                            <Stack
-                              key={index}
-                              direction={"row"}
-                              sx={{
-                                justifyContent: "space-between",
-                                borderBottom: "1px solid #dbdbdb",
-                                py: 1,
-                              }}
-                            >
-                              <Typography>{ing.name}</Typography>
-                              <Typography sx={{ textAlign: "right" }}>
-                                {ing.amounts}
-                              </Typography>
-                            </Stack>
-                          )
-                        )}
-                      </Stack>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion sx={{ border: "none", boxShadow: "none" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel3-content"
-                      id="panel3-header"
-                      sx={{ fontWeight: "bolder" }}
-                    >
-                      KULLANIM ŞEKLİ
-                    </AccordionSummary>
-
-                    {product.explanation.usage
-                      .split("\n")
-                      .map((usag, index) => (
-                        <AccordionDetails sx={{ px: 2, py: 0.6 }} key={index}>
-                          {usag.includes("Önemli Not") ? (
-                            <>
-                              {usag.split("Önemli Not")[0]}
-                              <strong>Önemli Not</strong>
-                              {usag.split("Önemli Not")[1]}
-                            </>
-                          ) : (
-                            usag
-                          )}
-                        </AccordionDetails>
-                      ))}
-                  </Accordion>
+                <ProductAccordion
+                product={product}
+                />
                 </Box>
               </Stack>
             </Grid>

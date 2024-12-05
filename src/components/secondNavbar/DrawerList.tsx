@@ -106,11 +106,7 @@ const DrawerListMenu = ({
               <ListItem
               sx={{color:'black'}}
                 component={Link}
-                to={
-                  user && user?.first_name
-                    ? "MyAccount"
-                    : `Account?value=${"1"}`
-                }
+                to={`Account?value=${"1"}`}
                 onClick={toggleDrawer(false)}
               >
                 ÜYE GİRİŞİ
@@ -118,11 +114,7 @@ const DrawerListMenu = ({
               <ListItem
               sx={{color:'black'}}
                 component={Link}
-                to={
-                  user && user?.first_name
-                    ? "MyAccount"
-                    : `Account?value=${"2"}`
-                }
+                to={`Account?value=${"2"}`}
                 onClick={toggleDrawer(false)}
               >
                 ÜYE OL
@@ -130,10 +122,11 @@ const DrawerListMenu = ({
             </>
           )}
 
-          <ListItem onClick={toggleDrawer(false)}>MÜŞTERİ YORUMLARI</ListItem>
+          <ListItem  onClick={toggleDrawer(false)}>MÜŞTERİ YORUMLARI</ListItem>
           <ListItem
             component={Link}
             to={"ContactUs"}
+            sx={{color:'black'}}
             onClick={toggleDrawer(false)}
           >
             İLETİŞİM

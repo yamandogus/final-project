@@ -17,5 +17,7 @@ export const color: ColorProps = {
   "Fruit Fusion": "#FF4500",
   "Yeşil Elma": "#8DB600",
   "Lemon Cheesecake": "#F5EA7E",
-  Muhallebi: "#F5E3D7"
+  Muhallebi: "#F5E3D7",
+  Ahududu: "#D32F2F", 
+  Şeftali: "#FFB07C"  // 
 };

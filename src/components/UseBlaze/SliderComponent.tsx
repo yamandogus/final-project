@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import BlazeSlider from "blaze-slider";
 import "blaze-slider/dist/blaze.css";
 import { useEffect, useRef } from "react";
@@ -21,10 +21,10 @@ const SliderComponent = () => {
           transitionDuration: 300,
         },
         "(max-width: 768px)": {
-          slidesToShow: 2,
+          slidesToShow: 4,
         },
         "(max-width: 480px)": {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       });
       const prevButton = document.querySelector(".blaze-prev");
@@ -42,27 +42,21 @@ const SliderComponent = () => {
     <Box>
       <Box sx={{ mt: 3 }} className="pic2Border">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6} sx={{fontWeight:'bolder'}}>
+          <Grid item xs={12} sm={6} sx={{fontWeight:'bolder'}}>
             GERÇEK MÜŞTERİ YORUMLARI
           </Grid>
-          <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'end'}}>
-            <Stack direction={'row'} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} spacing={3}>
+           <Grid item xs={12} sm={6} sx={{display:{xs:"",sm:'flex'}, justifyContent:{xs:"",sm:'end'}}}>
+            <Stack direction={'row'} sx={{display:'flex', justifyContent:{xs:'space-between',sm:'center'}, alignItems:'center'}}>
+              <Box sx={{display:'flex', alignItems:'center'}}>
               <Rating name="half-rating" defaultValue={5} readOnly />
               <span style={{ textDecoration: "underline", margin: "0 4px" }}>
                 198543 Yorum
               </span>
-              <div className="my-structure">
-                <Button
-                  style={{ backgroundColor:'none'}}
-                  className="blaze-prev"
-                  aria-label="Go to previous slide"
-                >
-                  <KeyboardArrowLeftIcon />
-                </Button>
-                <Button className="blaze-next" aria-label="Go to next slide">
-                  <ChevronRightIcon />
-                </Button>
-              </div>
+              </Box>
+               <Stack direction={'row'} className="my-structure">
+                  <KeyboardArrowLeftIcon className="blaze-prev" aria-label="Go to previous slide"/>
+                  <ChevronRightIcon className="blaze-next" aria-label="Go to next slide"/>
+              </Stack>
             </Stack>
           </Grid>
         </Grid>
@@ -74,19 +68,19 @@ const SliderComponent = () => {
               <div className="blaze-track">
                 {Comments.map((comment, index) => (
                   <div key={index}>
-                    <Grid container>
-                      <Grid item xs={12}>
-                        <Stack direction="column">
+                    <Grid container mt={3}>
+                      <Grid item xs={12} sm={12}>
+                        <Box>
                           <Typography variant="subtitle2">
                             {comment.date}
                           </Typography>
-                          <Typography variant="body1" component="strong">
+                          <Typography sx={{display:'flex', justifyContent:'start'}} fontWeight={'bolder'} variant="body2">
                             {comment.title}
                           </Typography>
-                          <Typography variant="body2">
+                           <Typography variant='body2' sx={{display:'flex', justifyContent:'start'}}>
                             {comment.details}
                           </Typography>
-                        </Stack>
+                        </Box>
                       </Grid>
                     </Grid>
                   </div>

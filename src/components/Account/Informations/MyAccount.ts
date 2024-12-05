@@ -118,7 +118,7 @@ export async function userProfileLoader() {
   
   return {
     user: responseJson.data as AccountProps,
-    datas: responseJsonAddress.data.results as AddedAddress[] || [],
+    datas: responseJsonAddress?.data?.results as AddedAddress[] || [],
     orders: responseOrdersJson.data as OrdersProps[],
   };
 }
