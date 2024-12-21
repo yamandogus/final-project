@@ -33,7 +33,7 @@ interface Props {
   user?: AccountProps;
 }
 
-const DetailsCmpOne = ({ product, tags, user }: Props) => {
+const ProductsView = ({ product, tags, user }: Props) => {
   const {
     selectedVariant,
     productAromas,
@@ -144,6 +144,7 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
   };
 
   const handleProductAdded = () => {
+   try {
     if (selectedVariant) {
       const newItem = {
         img: selectedVariant.photo_src,
@@ -164,6 +165,10 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
         setBasketText(false);
       }, 2100);
     }
+   } catch (error) {
+    console.error("Sepete ürün eklenirken bir hata oluştu:", error);
+    showSnackbar("Ürün sepete eklenirken bir hata oluştu", "error");
+   }
   };
 
   const culculateDiscount = (
@@ -235,6 +240,9 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                       ))}
                   </Stack>
                 </Box>
+
+
+                {/* AROMA */}
                 <Box my={2}>
                   <FormControl>
                     <FormLabel component="legend" sx={{ mb: 1}}>
@@ -282,6 +290,8 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                     </RadioGroup>
                   </FormControl>
                 </Box>
+
+                {/* BOYUT */}
                 <Box>
                   <FormControl>
                     <FormLabel component="legend" sx={{ mb: 2}}>
@@ -393,6 +403,8 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                     </RadioGroup>
                   </FormControl>
                 </Box>
+
+                {/* Price */}
                 <Box
                   sx={{
                     display: "flex",
@@ -438,6 +450,8 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                     </strong>
                   </Box>
                 </Box>
+
+                {/*AddedProduct*/}
                 <Box
                   sx={{
                     display: "flex",
@@ -477,6 +491,7 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
                   </Button>
                 </Box>
               </Box>
+              
               <Stack sx={{ mb: 3 }}>
                 <Typography variant="subtitle2" fontSize={13}>
                   Son Kullanma Tarihi: 07.2025
@@ -514,4 +529,4 @@ const DetailsCmpOne = ({ product, tags, user }: Props) => {
   );
 };
 
-export default DetailsCmpOne;
+export default ProductsView;

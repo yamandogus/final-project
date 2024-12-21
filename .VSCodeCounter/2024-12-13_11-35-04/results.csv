@@ -1,0 +1,107 @@
+"filename", "language", "HTML", "JSON", "TypeScript", "JSON with Comments", "JavaScript", "Markdown", "TypeScript JSX", "YAML", "SCSS", "comment", "blank", "total"
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\.pnpm\lock.yaml", "YAML", 0, 0, 0, 0, 0, 0, 0, 2218, 0, 0, 574, 2792
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\README.md", "Markdown", 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 11, 51
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\eslint.config.js", "JavaScript", 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 2, 29
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\index.html", "HTML", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\package.json", "JSON", 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\pnpm-lock.yaml", "YAML", 0, 0, 0, 0, 0, 0, 0, 2564, 0, 0, 678, 3242
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\Footer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 126, 0, 0, 0, 7, 133
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\MobilNavbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 133, 0, 0, 0, 8, 141
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\Navbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 65, 0, 0, 1, 13, 79
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Root.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 9, 49
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Accordions\Accordions.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 2, 29
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Accordions\ProductAccordion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 168, 0, 0, 0, 9, 177
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Addresses\Addresses.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 452, 0, 0, 0, 14, 466
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\Login.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 128, 0, 0, 0, 7, 135
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\SingUp.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 119, 0, 0, 0, 9, 128
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\upadatePassword .tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 180, 0, 0, 0, 13, 193
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Comment\Comment.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 4, 59
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\MyAccount.ts", "TypeScript", 0, 0, 122, 0, 0, 0, 0, 0, 0, 0, 17, 139
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\information.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 133, 0, 0, 0, 7, 140
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\refresh.ts", "TypeScript", 0, 0, 35, 0, 0, 0, 0, 0, 0, 1, 5, 41
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Olderders\Olderdest.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 201, 0, 0, 0, 10, 211
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Orders\Orders.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 73, 0, 0, 0, 8, 81
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Orders\OrdersComponents\OrdersComp.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 4, 67
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Aroma\Aroma.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 6, 27
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\Bestseller.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 46, 0, 0, 0, 10, 56
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\LastWiew.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 7, 64
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\Products.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 108, 0, 0, 0, 5, 113
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Comments\comment.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 8, 61
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Comments\homeComments.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 4, 61
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\DrawerList\DrawerList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 4, 61
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\AboutUs.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 2, 47
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\ContactUs.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 8, 65
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\SSS.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 133, 0, 0, 0, 8, 141
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\HomePage\HomeComp.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 97, 0, 0, 0, 3, 100
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\MyCart\GuesCartItems.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 117, 0, 0, 0, 4, 121
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\MyCart\UserCart.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 117, 0, 0, 0, 3, 120
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\CartSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 5, 64
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\MainNavbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 154, 0, 0, 2, 8, 164
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\Navbar.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 6, 19
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\NavbarPopover.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 110, 0, 0, 0, 5, 115
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\SearchSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 228, 0, 0, 0, 8, 236
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\UserSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 98, 0, 0, 0, 8, 106
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\ProductDetails\details.ts", "TypeScript", 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 2, 24
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\ProductDetails\productView.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 512, 0, 0, 4, 17, 533
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Protein\Protein.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 101, 0, 0, 0, 5, 106
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\UseBlaze\SliderComponent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 5, 97
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\UseBlaze\UseBlazeSlider.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 13, 0, 0, 1, 4, 18
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\addressSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 572, 0, 0, 1, 13, 586
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\customAccordion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 3, 53
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\orderSummary.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 195, 0, 0, 0, 5, 200
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentExtra.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 3, 80
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 367, 0, 0, 0, 9, 376
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentSecurity.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 87, 0, 0, 0, 4, 91
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\shippingSections.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 54, 0, 0, 1, 4, 59
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\DrawerList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 130, 0, 0, 0, 11, 141
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\NavbarDrawer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 9, 64
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\SearchModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 177, 0, 0, 1, 12, 190
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\data\comment-dumy.ts", "TypeScript", 0, 0, 645, 0, 0, 0, 0, 0, 0, 0, 3, 648
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\alert.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 8, 40
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\types.ts", "TypeScript", 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 5, 64
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\use-product-variants.ts", "TypeScript", 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 15, 105
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 88, 0, 0, 1, 6, 95
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Account.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 62, 0, 0, 0, 7, 69
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\AccountHomePage.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 84, 0, 0, 0, 7, 91
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\AllProducts.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 98, 0, 0, 0, 12, 110
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Categories.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 13, 220
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Home.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 176, 0, 0, 0, 5, 181
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\PaymentPage.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 188, 0, 0, 2, 7, 197
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\ProductDetails.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 285, 0, 0, 1, 14, 300
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\ShoppingCart.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 290, 0, 0, 1, 21, 312
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\Count.ts", "TypeScript", 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\Payement.ts", "TypeScript", 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 3, 71
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\addresDelete.ts", "TypeScript", 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 3, 28
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\allProduct.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\api-client.ts", "TypeScript", 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 4, 45
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\lastVisited.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\paymentAddress.ts", "TypeScript", 0, 0, 38, 0, 0, 0, 0, 0, 0, 3, 6, 47
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\storge.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 8, 39
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\type.ts", "TypeScript", 0, 0, 329, 0, 0, 0, 0, 0, 0, 0, 40, 369
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\updateAccount.ts", "TypeScript", 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 6, 34
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\userCount.ts", "TypeScript", 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 4, 31
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\store\cartStore.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 6, 36
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\AboutUs\_AboutUs.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 1, 8
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Accordion\_accordion.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 2, 15
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Account\_myAccount.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 3, 26
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Account\_singUp.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Foother\_foother.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 45, 2, 6, 53
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\HomeStyles\_HomeComp.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 62, 0, 4, 66
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\HomeStyles\_home.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 2, 21
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Navbar\_navbar.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 181, 4, 30, 215
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\PaymentPage\_paymentPage.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 3, 26
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\ProductsDetailts\_productdetails.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 193, 2, 22, 217
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Products\_products.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 113, 0, 15, 128
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Slider\_Slider.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\evryStyles.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 8, 30
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\theme\theme.ts", "TypeScript", 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 2, 82
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\src\vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.json", "JSON with Comments", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.node.json", "JSON", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.node.tsbuildinfo", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.tsbuildinfo", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\vercel.json", "JSON", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.d.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.js", "JavaScript", 0, 0, 0, 0, 13, 0, 0, 0, 0, 1, 1, 15
+"c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 0, 1, 2, 16
+"Total", "-", 13, 64, 1730, 24, 40, 40, 7569, 4782, 701, 31, 1948, 16942

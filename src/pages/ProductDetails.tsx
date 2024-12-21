@@ -13,7 +13,6 @@ import StarIcon from "@mui/icons-material/Star";
 import { Link, useLoaderData } from "react-router-dom";
 import { base_url } from "../components/Bestseller/Bestseller";
 import { Product } from "../hooks/types";
-import DetailsCmpOne from "../components/ProductDetails/DetailsCmpOne";
 import LastWiew from "../components/Bestseller/LastWiew";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
 import { FormEvent, useEffect, useState } from "react";
@@ -21,6 +20,7 @@ import Comments from "../components/Comments/comment";
 import { CommentsDataProps } from "../components/Comments/homeComments";
 import { CommentsProps, ProductProps } from "../services/type";
 import CommentsComponent from "../components/Account/Comment/Comment";
+import ProductsView from "../components/ProductDetails/productView";
 
 const commentData = [
   { value: 5, count: 9184, sliderValue: 90 },
@@ -151,7 +151,7 @@ function ProductsDetails() {
   return (
     <>
       <Box sx={{ my: 1 }}>
-        <DetailsCmpOne
+        <ProductsView
           user={user}
           tags={productData.tags || []}
           product={productData}

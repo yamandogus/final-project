@@ -3,6 +3,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { base_url, photo_url } from '../components/Bestseller/Bestseller';
 import { useEffect, useState } from 'react';
 import Protein from '../components/Protein/Protein';
+import { getAllProducts } from '../services/allProduct';
 
 interface PriceInfo {
   profit?: null;
@@ -20,10 +21,6 @@ interface BestsellerProps {
   photo_src: string;
   comment_count?: number;
   average_star: number;
-}
-
-export function getAllProducts(page:number, limit:number){
-  return (page - 1) * limit
 }
 
 export async function AllProLoader(page = 1) {

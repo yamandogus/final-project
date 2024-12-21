@@ -1,3 +1,5 @@
+import { AccountProps } from "../components/Account/Informations/MyAccount";
+
 export interface LinksProps {
   id: string;
   name: string;
@@ -160,7 +162,10 @@ export interface AddedAddress {
         name: string;
       };
     };
-  }[];
+
+  };
+  first_name: string,
+  last_name: string
 };
 
 
@@ -346,4 +351,20 @@ export interface ProductProps {
   comment_count?: number;
   average_star: number;
   slug?: string;
+}
+
+
+export interface LoaderDataAccount {
+  datas: AddedAddress[];
+  user: AccountProps;
+  userCart: {
+    total_price: string;
+    items: CartItem[];
+  };
+  cityData: CityProps[];
+}
+export interface GuestAddress{
+  title: string,
+  full_address: string, 
+  phone: string,
 }

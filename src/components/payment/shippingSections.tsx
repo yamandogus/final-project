@@ -20,7 +20,6 @@ const ShippingSection: React.FC<ShippingSectionProps> = ({
       title="Kargo"
       panelNumber={2}
     >
-      <Typography variant="subtitle1">Teslimat Adresi</Typography>
       {selectedAddress && (
         <Box px={2}>
           <Box
@@ -31,7 +30,7 @@ const ShippingSection: React.FC<ShippingSectionProps> = ({
               border: "1px solid blue",
             }}
           >
-            {selectedAddress}
+            <Typography variant="subtitle1"><strong>Teslimat Adresi: </strong>{selectedAddress}</Typography>
           </Box>
         </Box>
       )}

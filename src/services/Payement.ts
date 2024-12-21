@@ -27,6 +27,7 @@ interface PaymentProps{
     basketItems:Payment[],
     addBasketItems: (newItems: Payment) => void;  
     removeItems: (index: number) => void;
+    clearBasket : () => void;
 }
 
 export const usePaymentStore = create(
@@ -59,7 +60,8 @@ export const usePaymentStore = create(
             removeItems: (index : number) =>
                 set((state)=>({
                     basketItems: state.basketItems.filter((_, i)=> i !== index)
-                }))
+                })),
+            clearBasket: () => set({basketItems:[]})
         }),
         {
             name: "basketItems-storage",

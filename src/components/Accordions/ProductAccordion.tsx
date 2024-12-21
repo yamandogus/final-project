@@ -1,22 +1,22 @@
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Stack,
-    Typography,
-  } from "@mui/material";
-  import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Stack,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Product } from "../../hooks/types";
 
 interface Props {
-    product: Product;
-  }
+  product: Product;
+}
 
-const ProductAccordion = ({product}:Props) => {
+const ProductAccordion = ({ product }: Props) => {
   return (
     <>
-      <Accordion >
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
@@ -29,7 +29,7 @@ const ProductAccordion = ({product}:Props) => {
           {product.explanation.features || " "}
         </AccordionDetails>
       </Accordion>
-      <Accordion >
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2-content"
@@ -145,7 +145,7 @@ const ProductAccordion = ({product}:Props) => {
           </Stack>
         </AccordionDetails>
       </Accordion>
-      <Accordion >
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3-content"

@@ -1,6 +1,5 @@
 // src/components/Cart/ShoppingCart.tsx
 import { Box, Button, Divider, Typography } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../services/Payement";
@@ -208,7 +207,6 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
       <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", p: 1 }}>
         {user && user?.first_name ? (
           <>
-          user
             {cartData && cartData.items?.length > 0 ? (
               <UserCartItems
                 items={cartData.items}
@@ -223,13 +221,11 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
                   loop
                   autoplay
                 />
-                user
               </Box>
             )}
           </>
         ) : (
           <>
-          guest
             {basketItems.length > 0 ? (
               <GuestCartItems
                 items={basketItems}
@@ -244,7 +240,6 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
                   loop
                   autoplay
                 />
-                basket
               </Box>
             )}
           </>
@@ -277,23 +272,24 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
           sx={{
             mt: 3,
             width: "100%",
+            p:0,
             backgroundColor: "black",
             "&:hover": { backgroundColor: "black" },
           }}
         >
           <Link
+            style={{ textDecoration: "none", color: "white",width:'100%',margin:'8px 0' }}
+            to={userCart && userCart?.items ? (
+              cartData && cartData.items.length > 0 ? "PaymentPage" : "AllProducts"
+            ) : (
+              basketItems.length > 0 ? "PaymentPage" : "AllProducts"
+            )}
             onClick={() => {
               if (user) {
                 onCountine();
                 onCloseDrawer();
               }
             }}
-            style={{ textDecoration: "none", color: "white" }}
-            to={userCart && userCart?.items ? (
-              cartData && cartData.items.length > 0 ? "PaymentPage" : "AllProducts"
-            ) : (
-              basketItems.length > 0 ? "PaymentPage" : "AllProducts"
-            )}
           >
             {userCart && userCart?.items ? (
               <>{cartData && cartData.items.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
@@ -301,7 +297,6 @@ const ShoppingCart = ({ onCountine, onCloseDrawer }: ShoppingCartProps) => {
               <>{basketItems.length > 0 ? "DEVAM ET" : "SEPETE ÜRÜN EKLE"}</>
             )}
           </Link>{" "}
-          <ArrowRightIcon />
         </Button>
       </Box>
     </Box>

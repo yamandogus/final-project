@@ -21,70 +21,67 @@ interface PasswordUpdate {
   password2: string;
 }
 
-
-
 const UpadatePasswordNew = ({ update }: { update: () => void }) => {
-  const {showSnackbar, SnackbarComponent} = useSnackbar()
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showOldPassword, setShowOldPassword] = useState(true);
   const [showNewPassword, setShowNewPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
-  const [textError, setTextError] = useState("")
+  const [textError, setTextError] = useState("");
 
   const handleShowOldPassword = () => setShowOldPassword((prev) => !prev);
   const handleShowNewPassword = () => setShowNewPassword((prev) => !prev);
-  const handleShowConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
+  const handleShowConfirmPassword = () =>
+    setShowConfirmPassword((prev) => !prev);
 
-
-  const hadlePasswordUpdate = async(e:FormEvent) =>{
+  const hadlePasswordUpdate = async (e: FormEvent) => {
     e.preventDefault();
     const formEl = e.target as HTMLFormElement;
     const formData = new FormData(formEl);
     const data = Object.fromEntries(
-        formData.entries()
+      formData.entries()
     ) as unknown as PasswordUpdate;
     console.log(data);
     const passwordData = {
       old_password: data.old_password,
       password: data.password,
-      password2: data.password2
-    }
-    if(passwordData.password !== passwordData.password2) {
+      password2: data.password2,
+    };
+    if (passwordData.password !== passwordData.password2) {
       showSnackbar("Yeni şifreler eşleşmiyor", "error");
-      setTextError("Yeni şifreler eşleşmiyor")
+      setTextError("Yeni şifreler eşleşmiyor");
       return;
-    }else{
-      setTextError("")
+    } else {
+      setTextError("");
     }
-       try {
-        const response = await fetch(base_url + "/users/change-password",{
-            method:"POST",
-            body:JSON.stringify(data),
-            headers:{
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
-                "Content-Type": "application/json", 
-            }
-        });
-        const jsonResponse = await response.json()
-        if(response.ok){
-          showSnackbar("Şifre değiştirildi.","success")
-          setTimeout(()=>{
-            update()
-          },3000)
-        }else{
-          showSnackbar("Şifre değiştirme başarısız", "error");
-        }      
-        console.log(jsonResponse);
-       } catch (error) {
-        console.log("Şifre yenileme hatası:" + error)
-       }
-  }
-  
+    try {
+      const response = await fetch(base_url + "/users/change-password", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+      });
+      const jsonResponse = await response.json();
+      if (response.ok) {
+        showSnackbar("Şifre değiştirildi.", "success");
+        setTimeout(() => {
+          update();
+        }, 3000);
+      } else {
+        showSnackbar("Şifre değiştirme başarısız", "error");
+      }
+      console.log(jsonResponse);
+    } catch (error) {
+      console.log("Şifre yenileme hatası:" + error);
+    }
+  };
 
-  const handleSubmit = async(e: React.FormEvent) => {
-    hadlePasswordUpdate(e)
+  const handleSubmit = async (e: React.FormEvent) => {
+    hadlePasswordUpdate(e);
   };
   return (
-    <form onSubmit={handleSubmit} style={{marginBottom:"10rem"}}>
+    <form onSubmit={handleSubmit} style={{ marginBottom: "10rem" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sx={style}>
           <TextField
@@ -140,12 +137,12 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
             type={showConfirmPassword ? "password" : "text"}
             autoComplete="password2"
             error={!!textError}
-            helperText={textError ||" "}
-            onChange={(e)=>{
-              if(e.target.value === ""){
-                setTextError("")
-              }else if(textError){
-                setTextError("")
+            helperText={textError || " "}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setTextError("");
+              } else if (textError) {
+                setTextError("");
               }
             }}
             required
@@ -169,24 +166,33 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
           xs={12}
           sx={{
             display: "flex",
-            justifyContent:'center',
-            gap:3
+            justifyContent: "center",
+            gap: 3,
           }}
         >
-          <Button sx={{
-            backgroundColor:'black',
-          }} variant='contained' onClick={()=>update()}>⬅ Giriş</Button>
-          <Button  variant="contained" sx={{
-            backgroundColor:'black',
-          }} type="submit">
+          <Button
+            sx={{
+              backgroundColor: "black",
+            }}
+            variant="contained"
+            onClick={() => update()}
+          >
+            ⬅ Giriş
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "black",
+            }}
+            type="submit"
+          >
             Güncelle
           </Button>
         </Grid>
       </Grid>
-      <SnackbarComponent/>
+      <SnackbarComponent />
     </form>
   );
 };
 
 export default UpadatePasswordNew;
-

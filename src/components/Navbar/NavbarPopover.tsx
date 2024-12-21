@@ -29,7 +29,6 @@ const style = {
   },
 };
 
-
 const NavbarModal: React.FC<NavbarModalProps> = ({ links, onClose }) => {
   return (
     <Box sx={style}>

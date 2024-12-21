@@ -7,24 +7,21 @@ import {
   FormControlLabel,
   Radio,
   Drawer,
-  Grid,
-  TextField,
-  MenuItem,
 } from "@mui/material";
 import CustomAccordion from "./customAccordion";
 import { Link, useLoaderData } from "react-router-dom";
 import {
   AddedAddress,
   Address,
-  CartItem,
   CityProps,
   DistrictProps,
+  GuestAddress,
+  LoaderDataAccount,
 } from "../../services/type";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { base_url } from "../Bestseller/Bestseller";
-import MuiPhoneNumber from "material-ui-phone-number";
 import useSnackbar from "../../hooks/alert";
-import { AccountProps } from "../Account/Informations/MyAccount";
+import AddressesForm from "../Account/Addresses/component/form";
 interface AddressSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -40,27 +37,13 @@ const style = {
   pb: 3,
 };
 
-export interface LoaderDataAccount {
-  datas: AddedAddress[];
-  user: AccountProps;
-  userCart: {
-    total_price: string;
-    items: CartItem[];
-  };
-}
-export interface GuestAddress{
-  title: string,
-  full_address: string, 
-  phone: string,
-}
-
 const AddressSection: React.FC<AddressSectionProps> = ({
   handleChangePanel,
   expanded,
   setSelectedAddress,
   setSelectedAddressId,
 }) => {
-  const { datas, user } = useLoaderData() as LoaderDataAccount;
+  const { datas, user, cityData } = useLoaderData() as LoaderDataAccount;
   const [title, setTitle] = useState("");
   const [addres, setAddres] = useState("");
   const [city, setCity] = useState("");
@@ -70,7 +53,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [phone, setPhone] = useState("");
   const [addresssNew, setAddresssNew] = useState<AddedAddress[]>(datas);
-  const [cities, setCities] = useState<CityProps[]>([]);
+  const [cities, setCities] = useState<CityProps[]>(cityData);
   const [districts, setDistricts] = useState<DistrictProps[]>([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -78,7 +61,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   const [id, setİd] = useState("");
   const [editIndex, setEditIndex] = useState(false);
   const [selectedAddressValue, setSelectedAddressValue] = useState<string>("");
-  const [guestAddress, setGuestAddress] = useState<GuestAddress |undefined>()
+  const [guestAddress, setGuestAddress] = useState<GuestAddress | undefined>();
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -97,6 +80,8 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     const newData = {
       title: title,
       country_id: 226,
+      first_name: firstName,
+      last_name: lastName,
       region_id: cities.find((c) => c.name === city)?.id,
       subregion_id: districts.find((d) => d.name === district)?.id,
       full_address: `${addres}${city}/${district}`,
@@ -121,36 +106,21 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     }
   };
 
-  const guestAddressSubmit = (e:React.SyntheticEvent)=>{
-    e.preventDefault()
-    const formEl = e.target as HTMLFormElement 
+  const guestAddressSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const formEl = e.target as HTMLFormElement;
     const formData = new FormData(formEl);
     const data = Object.fromEntries(formData.entries()) as unknown as Address;
     const newData = {
       title: title,
       full_address: `${addres}${city}/${district}`,
       phone: data.phone,
-    }
-    localStorage.setItem("guest-address",JSON.stringify(newData))
-    setGuestAddress(newData)
-    handleClose(); 
-    resetForm(); 
-  }
-
-  useEffect(() => {
-    async function fetchCity() {
-      try {
-        const responseCity = await fetch(
-          base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-        );
-        const dataCity = await responseCity.json();
-        setCities(dataCity.data.results);
-      } catch (error) {
-        console.error("Şehirler yüklenirken hata oluştu:", error);
-      }
-    }
-    fetchCity();
-  }, [open]);
+    };
+    localStorage.setItem("guest-address", JSON.stringify(newData));
+    setGuestAddress(newData);
+    handleClose();
+    resetForm();
+  };
 
   async function fetchDistrict(selectedCity: string) {
     try {
@@ -173,21 +143,20 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     setFirstName("");
     setLastName("");
     setPhone("");
-    setCities([]);
+    setCities(cityData);
     setDistricts([]);
     setİd("");
   };
-
 
   const upadeteAddress = async (id: string) => {
     const updateData = {
       title: title,
       country_id: 226,
+      first_name: firstName,
+      last_name: lastName,
       region_id: cities.find((c) => c.name === city)?.id,
       subregion_id: districts.find((d) => d.name === district)?.id,
-      full_address: `${addres}, ${city ? city.split("Province")[0] : ""}/${
-        district ? district.split("İlçesi")[0] : ""
-      }`,
+      full_address: `${addres}`,
       phone_number: phone,
     };
 
@@ -219,6 +188,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       showSnackbar("Adres güncellenemedi", "error");
     }
   };
+
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems={"center"}>
@@ -308,13 +278,22 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                       </Box>
                       <Box>
                         <Typography variant="subtitle1">
-                          {address.full_address}
+                          {address.full_address +
+                            " " +
+                            address.region.name.split(" ")[0] +
+                            " / " +
+                            address.subregion.name.split(" ")[0]}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ mt: 1, fontWeight: "bolder" }}
+                        >
+                          {address.first_name + " " + address.last_name}
                         </Typography>
                       </Box>
                     </Box>
                   ))
-                : (
-                  guestAddress && (
+                : guestAddress && (
                     <Box
                       sx={{
                         px: 2,
@@ -354,8 +333,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                         </Typography>
                       </Box>
                     </Box>
-                  )
-                )}
+                  )}
               <Box
                 sx={{
                   px: 2,
@@ -450,138 +428,39 @@ const AddressSection: React.FC<AddressSectionProps> = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if(user && user.first_name){
+              if (user && user.first_name) {
                 if (!editIndex) {
                   upadeteAddress(id);
                 } else {
                   handleAddressSubmit(e);
                 }
-              }else{
-                guestAddressSubmit(e)
+              } else {
+                guestAddressSubmit(e);
               }
             }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6} mb={2}>
-                <TextField
-                  fullWidth
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                  label="Adres Başlığı"
-                  placeholder="ev, iş vb..."
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  label="Ad"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  label="Soyad"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  value={addres}
-                  onChange={(e) => setAddres(e.target.value)}
-                  label="Adres"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  select
-                  value={city}
-                  SelectProps={{
-                    MenuProps: {
-                      PaperProps: {
-                        style: {
-                          maxHeight: 140,
-                        },
-                      },
-                      disableScrollLock: true,
-                    },
-                  }}
-                  onChange={(e) => {
-                    setCity(e.target.value);
-                    fetchDistrict(e.target.value);
-                  }}
-                  required
-                  label="İl"
-                >
-                  {cities.map((option, index) => (
-                    <MenuItem key={index} value={option.name}>
-                      {option.name.split(" ")[0]}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  select
-                  value={district}
-                  SelectProps={{
-                    MenuProps: {
-                      PaperProps: {
-                        style: {
-                          maxHeight: 140,
-                        },
-                      },
-                      disableScrollLock: true,
-                    },
-                  }}
-                  onChange={(e) => setDistrict(e.target.value)}
-                  required
-                  label="İlçe"
-                >
-                  {districts.map((district, index) => (
-                    <MenuItem key={index} value={district.name}>
-                      {district.name.split(" ")[0]}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={12}>
-                <MuiPhoneNumber
-                  defaultCountry="tr"
-                  fullWidth
-                  variant="outlined"
-                  label="Telefon Numarası"
-                  name="phone"
-                  value={phone}
-                  onChange={handlePhone}
-                />
-              </Grid>
-              <Grid item xs={12} textAlign="end">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    py: 1,
-                    textTransform: "none",
-                    backgroundColor: "black",
-                    "&:hover": { backgroundColor: "black" },
-                  }}
-                >
-                  {!editIndex ? "Güncelle" : "Kaydet"}
-                </Button>
-              </Grid>
-            </Grid>
+            <AddressesForm
+              title={title}
+              setTitle={setTitle}
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+              address={addres}
+              setAddress={setAddres}
+              city={city}
+              setCity={setCity}
+              district={district}
+              setDistrict={setDistrict}
+              phone={phone}
+              cities={cities}
+              districts={districts}
+              fetchDistrict={fetchDistrict}
+              handlePhone={handlePhone}
+              editIndex={editIndex}
+              id={id}
+              updateAddress={upadeteAddress}
+            />
           </form>
         </Box>
       </Drawer>

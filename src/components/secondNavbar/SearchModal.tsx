@@ -14,6 +14,7 @@ const SearchModal = () => {
     const debouncedSearch = useDebounce(search, 1000);
     const [debounced, setDebounced] = useState("");
     const [anchorEl, setAnchorEl] = useState(false);
+    
     const handleSearchResults = async () => {
         try {
           const response = await fetch(
@@ -32,10 +33,13 @@ const SearchModal = () => {
           setSearchResults([]);
         }
       };
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleSearchChange = (e: any) => {
         setSearch(e.target.value);
-        setAnchorEl(e.currentTarget);
+        if(search.length >= 1){
+          setAnchorEl(true);
+        }
       };
     
       useEffect(() => {
@@ -48,8 +52,12 @@ const SearchModal = () => {
 
       const handleClosePopper = () => {
         setAnchorEl(false);
+        console.log("girdi");
+        
         setSearch("");
       };
+
+
   return (
     <ClickAwayListener onClickAway={handleClosePopper}>
       <Box>
@@ -80,7 +88,7 @@ const SearchModal = () => {
         />
         <Modal
           open={anchorEl}
-          onClose={() => setAnchorEl(false)}
+          onClose={handleClosePopper}
           style={{ width: "100%" }}
           slots={{
             backdrop: Backdrop,
@@ -156,7 +164,7 @@ const SearchModal = () => {
                 <div
                   style={{
                     position: "absolute",
-                    top: "20%",
+                    top: "12%",
                     padding: 10,
                     display: "flex",
                     width: "95%",

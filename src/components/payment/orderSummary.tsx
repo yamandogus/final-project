@@ -1,11 +1,11 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { photo_url } from "../Bestseller/Bestseller";
 import { useLoaderData } from "react-router-dom";
-import { LoaderDataAccount } from "./addressSection";
+import { LoaderDataAccount } from "../../services/type";
+import { Payment } from "../../services/Payement";
 
 interface OrderSummaryProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  basketItems: any[];
+  basketItems: Payment[];
   paymentMethod: string;
   extra: number;
 }

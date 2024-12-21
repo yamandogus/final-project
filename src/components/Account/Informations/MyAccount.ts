@@ -1,5 +1,5 @@
 
-import { AddedAddress } from "../../../services/type";
+import { AddedAddress, CityProps } from "../../../services/type";
 import { base_url } from "../../Bestseller/Bestseller";
 
 export interface AccountProps {
@@ -73,54 +73,65 @@ export function startTokenRefreshInterval(){
     refreshAccessToken()
     console.log("kontrol edildi");
     
-  }, 5*60*1000)
+  }, 2*60*1000)
   return intervalId;
 }
 
 export async function userProfileLoader() {
  
-  // ACCOUNT
-  const response = await fetch(base_url + "/users/my-account", {
-    method: "GET",
-    headers: {
+try {
+  const [responseAccount,responseAddress,responseOrders,responseCity] = await Promise.all([
+    fetch(base_url + "/users/my-account",{
+      method: "GET",
+      headers: {
       Authorization: "Bearer " + localStorage.getItem("access_token"), 
       "Content-Type": "application/json",
     },
-  });
-
-  const responseJson = await response.json();
-
-  // ADRESS
-  const responseAddress = await fetch(
-    base_url + "/users/addresses?limit=10&offset=0",
-    {
-      method: "GET",
+    }),
+    fetch(
+      base_url + "/users/addresses?limit=10&offset=0",
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+      }
+    ),
+    fetch(base_url + "/orders",{
+      method:"GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
         "Content-Type": "application/json",
       },
-    }
-  );
-  const responseJsonAddress = await responseAddress.json();
+    }),
+    fetch(
+      base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+    )
+  ]);
+  const [responseAccountJson, responseAddressJson,responseOrdersJson, responseCityJson] = await Promise.all([
+    responseAccount.json(),
+    responseAddress.json(),
+    responseOrders.json(),
+    responseCity.json()
+  ]);
 
-  // orders
-  const responseOrders = await fetch(base_url + "/orders",{
-    method:"GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-
-  const responseOrdersJson = await responseOrders.json();
-  
-  console.log("orders",responseOrdersJson);
-  
   return {
-    user: responseJson.data as AccountProps,
-    datas: responseJsonAddress?.data?.results as AddedAddress[] || [],
+    user: responseAccountJson.data as AccountProps,
+    datas: responseAddressJson?.data?.results as AddedAddress[] || [],
     orders: responseOrdersJson.data as OrdersProps[],
+    citysData: responseCityJson.data.results as CityProps[] || [],
   };
+} catch (error) {
+  console.log("data çekilemedi",error);
+  return {
+    user: {} as AccountProps,
+    datas: [],
+    orders: [],
+    citysData: []
+  };
+}
+
 }
 
 export type userProfileLoaderReturn = Awaited<

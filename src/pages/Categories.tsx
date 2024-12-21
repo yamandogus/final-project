@@ -7,9 +7,9 @@ import {
 import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import { calculateDiscount } from "../components/Protein/Protein";
-import { getAllProducts } from "./AllProducts";
 import { useEffect, useState } from "react";
 import { lastVisited } from "../services/lastVisited";
+import { getAllProducts } from "../services/allProduct";
 
 interface CatPropsconst {
   name: string;

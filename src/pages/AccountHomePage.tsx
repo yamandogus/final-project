@@ -34,8 +34,8 @@ const AccountHomePage = () => {
         return <Orders />;
       case "addresses":
         return <Addresses />;
-      case "orders":
-        return <Orders />;
+      default:
+        return <Informations />;
     }
   };
 
@@ -57,22 +57,25 @@ const AccountHomePage = () => {
                 <ListItem
                   className="accountLink"
                   onClick={() => setActiveSation("accountInfo")}
+                  sx={activeSation === "accountInfo" ?{color:'#3D52D5'}:{color:'black'}}
                 >
-                  <ContactMailIcon className="momileIcon" sx={{ mr: 1 }} />
+                  <ContactMailIcon className="momileIcon" sx={{mr:1}}/>
                   Hesap Bilgilerim
                 </ListItem>
                 <ListItem
                   className="accountLink"
                   onClick={() => setActiveSation("olders")}
+                  sx={activeSation === "olders" ?{ color:'#3D52D5'}:{color:'black'}}
                 >
-                  <ShoppingBagIcon className="momileIcon" sx={{ mr: 1 }} />
+                  <ShoppingBagIcon className="momileIcon" sx={{mr:1}}/>
                   Siparişlerim
                 </ListItem>
                 <ListItem
                   className="accountLink"
                   onClick={() => setActiveSation("addresses")}
+                  sx={activeSation === "addresses" ?{ color:'#3D52D5'}:{color:'black'}}
                 >
-                  <LocationOnIcon className="momileIcon" sx={{ mr: 1 }} />
+                  <LocationOnIcon className="momileIcon" sx={{mr:1}}/>
                   Adreslerim
                 </ListItem>
               </List>

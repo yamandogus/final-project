@@ -27,7 +27,6 @@ function UserSection({ user }: UserSectionProps) {
 const handlelogout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    window.location.reload();
     navigate("/");
     updateCartData({
       items: [],
@@ -84,7 +83,7 @@ const handlelogout = () => {
                 Hesabım
               </MenuItem>,
               <Divider key={'divider-1'}/>,
-              <MenuItem key="logout"   style={menuStyle} component={Link} to="/" onClick={handlelogout}>Çıkış Yap</MenuItem>
+              <MenuItem key="logout"   style={menuStyle} onClick={handlelogout}>Çıkış Yap</MenuItem>
             ]
            : [
               <MenuItem key="login"  style={menuStyle} component={Link}  to={`Account?value=${"1"}`}>

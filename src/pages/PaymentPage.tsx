@@ -18,7 +18,6 @@ const PaymentPage = () => {
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [paymentMade, setPaymentMade] = useState(false);
   const { user, userCart} = useLoaderData() as LoaderData;
-
   const handleChangePanel =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);

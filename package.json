@@ -21,6 +21,7 @@
     "blaze-slider": "^1.9.3",
     "material-ui-phone-number": "^3.0.0",
     "react": "^18.3.1",
+    "react-credit-cards-2": "^1.0.3",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
     "sass": "^1.80.6",

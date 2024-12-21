@@ -1,0 +1,184 @@
+Date : 2024-12-13 11:35:04
+Directory : c:\Users\yaman\OneDrive\Masaüstü\final-project
+Total : 105 files,  14963 codes, 31 comments, 1948 blanks, all 16942 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript JSX     |         57 |      7,569 |         16 |        434 |      8,019 |
+| YAML               |          2 |      4,782 |          0 |      1,252 |      6,034 |
+| TypeScript         |         23 |      1,730 |          6 |        145 |      1,881 |
+| SCSS               |         13 |        701 |          8 |         98 |        807 |
+| JSON               |          5 |         64 |          0 |          3 |         67 |
+| JavaScript         |          2 |         40 |          1 |          3 |         44 |
+| Markdown           |          1 |         40 |          0 |         11 |         51 |
+| JSON with Comments |          1 |         24 |          0 |          1 |         25 |
+| HTML               |          1 |         13 |          0 |          1 |         14 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                            |        105 |     14,963 |         31 |      1,948 |     16,942 |
+| . (Files)                                                                                                    |         13 |      2,760 |          2 |        700 |      3,462 |
+| .pnpm                                                                                                        |          1 |      2,218 |          0 |        574 |      2,792 |
+| src                                                                                                          |         91 |      9,985 |         29 |        674 |     10,688 |
+| src (Files)                                                                                                  |          3 |        128 |          2 |         16 |        146 |
+| src\Layout                                                                                                   |          3 |        324 |          1 |         28 |        353 |
+| src\components                                                                                               |         47 |      5,887 |         11 |        327 |      6,225 |
+| src\components\Accordions                                                                                    |          2 |        195 |          0 |         11 |        206 |
+| src\components\Account                                                                                       |         11 |      1,561 |          1 |         98 |      1,660 |
+| src\components\Account\Addresses                                                                             |          1 |        452 |          0 |         14 |        466 |
+| src\components\Account\AuthComponents                                                                        |          3 |        427 |          0 |         29 |        456 |
+| src\components\Account\Comment                                                                               |          1 |         55 |          0 |          4 |         59 |
+| src\components\Account\Informations                                                                          |          3 |        290 |          1 |         29 |        320 |
+| src\components\Account\Olderders                                                                             |          1 |        201 |          0 |         10 |        211 |
+| src\components\Account\Orders                                                                                |          2 |        136 |          0 |         12 |        148 |
+| src\components\Account\Orders (Files)                                                                        |          1 |         73 |          0 |          8 |         81 |
+| src\components\Account\Orders\OrdersComponents                                                               |          1 |         63 |          0 |          4 |         67 |
+| src\components\Aroma                                                                                         |          1 |         21 |          0 |          6 |         27 |
+| src\components\Bestseller                                                                                    |          3 |        211 |          0 |         22 |        233 |
+| src\components\Comments                                                                                      |          2 |        110 |          0 |         12 |        122 |
+| src\components\DrawerList                                                                                    |          1 |         57 |          0 |          4 |         61 |
+| src\components\FooterPages                                                                                   |          3 |        235 |          0 |         18 |        253 |
+| src\components\HomePage                                                                                      |          1 |         97 |          0 |          3 |        100 |
+| src\components\MyCart                                                                                        |          2 |        234 |          0 |          7 |        241 |
+| src\components\Navbar                                                                                        |          6 |        662 |          2 |         40 |        704 |
+| src\components\ProductDetails                                                                                |          2 |        534 |          4 |         19 |        557 |
+| src\components\Protein                                                                                       |          1 |        101 |          0 |          5 |        106 |
+| src\components\UseBlaze                                                                                      |          2 |        105 |          1 |          9 |        115 |
+| src\components\payment                                                                                       |          7 |      1,402 |          2 |         41 |      1,445 |
+| src\components\secondNavbar                                                                                  |          3 |        362 |          1 |         32 |        395 |
+| src\data                                                                                                     |          1 |        645 |          0 |          3 |        648 |
+| src\hooks                                                                                                    |          3 |        181 |          0 |         28 |        209 |
+| src\pages                                                                                                    |          8 |      1,390 |          4 |         86 |      1,480 |
+| src\services                                                                                                 |         11 |        619 |          3 |         80 |        702 |
+| src\store                                                                                                    |          1 |         30 |          0 |          6 |         36 |
+| src\styles                                                                                                   |         13 |        701 |          8 |         98 |        807 |
+| src\styles (Files)                                                                                           |          1 |         22 |          0 |          8 |         30 |
+| src\styles\AboutUs                                                                                           |          1 |          7 |          0 |          1 |          8 |
+| src\styles\Accordion                                                                                         |          1 |         13 |          0 |          2 |         15 |
+| src\styles\Account                                                                                           |          2 |         23 |          0 |          4 |         27 |
+| src\styles\Foother                                                                                           |          1 |         45 |          2 |          6 |         53 |
+| src\styles\HomeStyles                                                                                        |          2 |         81 |          0 |          6 |         87 |
+| src\styles\Navbar                                                                                            |          1 |        181 |          4 |         30 |        215 |
+| src\styles\PaymentPage                                                                                       |          1 |         23 |          0 |          3 |         26 |
+| src\styles\Products                                                                                          |          1 |        113 |          0 |         15 |        128 |
+| src\styles\ProductsDetailts                                                                                  |          1 |        193 |          2 |         22 |        217 |
+| src\styles\Slider                                                                                            |          1 |          0 |          0 |          1 |          1 |
+| src\theme                                                                                                    |          1 |         80 |          0 |          2 |         82 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                     | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\.pnpm\lock.yaml                                               | YAML               |      2,218 |          0 |        574 |      2,792 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\README.md                                                     | Markdown           |         40 |          0 |         11 |         51 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\eslint.config.js                                              | JavaScript         |         27 |          0 |          2 |         29 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\index.html                                                    | HTML               |         13 |          0 |          1 |         14 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\package.json                                                  | JSON               |         43 |          0 |          1 |         44 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\pnpm-lock.yaml                                                | YAML               |      2,564 |          0 |        678 |      3,242 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\Footer.tsx                                         | TypeScript JSX     |        126 |          0 |          7 |        133 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\MobilNavbar.tsx                                    | TypeScript JSX     |        133 |          0 |          8 |        141 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Layout\Navbar.tsx                                         | TypeScript JSX     |         65 |          1 |         13 |         79 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\Root.tsx                                                  | TypeScript JSX     |         40 |          0 |          9 |         49 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Accordions\Accordions.tsx                      | TypeScript JSX     |         27 |          0 |          2 |         29 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Accordions\ProductAccordion.tsx                | TypeScript JSX     |        168 |          0 |          9 |        177 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Addresses\Addresses.tsx                | TypeScript JSX     |        452 |          0 |         14 |        466 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\Login.tsx               | TypeScript JSX     |        128 |          0 |          7 |        135 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\SingUp.tsx              | TypeScript JSX     |        119 |          0 |          9 |        128 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\AuthComponents\upadatePassword .tsx    | TypeScript JSX     |        180 |          0 |         13 |        193 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Comment\Comment.tsx                    | TypeScript JSX     |         55 |          0 |          4 |         59 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\MyAccount.ts              | TypeScript         |        122 |          0 |         17 |        139 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\information.tsx           | TypeScript JSX     |        133 |          0 |          7 |        140 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Informations\refresh.ts                | TypeScript         |         35 |          1 |          5 |         41 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Olderders\Olderdest.tsx                | TypeScript JSX     |        201 |          0 |         10 |        211 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Orders\Orders.tsx                      | TypeScript JSX     |         73 |          0 |          8 |         81 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Account\Orders\OrdersComponents\OrdersComp.tsx | TypeScript JSX     |         63 |          0 |          4 |         67 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Aroma\Aroma.tsx                                | TypeScript JSX     |         21 |          0 |          6 |         27 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\Bestseller.tsx                      | TypeScript JSX     |         46 |          0 |         10 |         56 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\LastWiew.tsx                        | TypeScript JSX     |         57 |          0 |          7 |         64 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Bestseller\Products.tsx                        | TypeScript JSX     |        108 |          0 |          5 |        113 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Comments\comment.tsx                           | TypeScript JSX     |         53 |          0 |          8 |         61 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Comments\homeComments.tsx                      | TypeScript JSX     |         57 |          0 |          4 |         61 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\DrawerList\DrawerList.tsx                      | TypeScript JSX     |         57 |          0 |          4 |         61 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\AboutUs.tsx                        | TypeScript JSX     |         45 |          0 |          2 |         47 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\ContactUs.tsx                      | TypeScript JSX     |         57 |          0 |          8 |         65 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\FooterPages\SSS.tsx                            | TypeScript JSX     |        133 |          0 |          8 |        141 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\HomePage\HomeComp.tsx                          | TypeScript JSX     |         97 |          0 |          3 |        100 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\MyCart\GuesCartItems.tsx                       | TypeScript JSX     |        117 |          0 |          4 |        121 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\MyCart\UserCart.tsx                            | TypeScript JSX     |        117 |          0 |          3 |        120 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\CartSection.tsx                         | TypeScript JSX     |         59 |          0 |          5 |         64 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\MainNavbar.tsx                          | TypeScript JSX     |        154 |          2 |          8 |        164 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\Navbar.ts                               | TypeScript         |         13 |          0 |          6 |         19 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\NavbarPopover.tsx                       | TypeScript JSX     |        110 |          0 |          5 |        115 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\SearchSection.tsx                       | TypeScript JSX     |        228 |          0 |          8 |        236 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Navbar\UserSection.tsx                         | TypeScript JSX     |         98 |          0 |          8 |        106 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\ProductDetails\details.ts                      | TypeScript         |         22 |          0 |          2 |         24 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\ProductDetails\productView.tsx                 | TypeScript JSX     |        512 |          4 |         17 |        533 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\Protein\Protein.tsx                            | TypeScript JSX     |        101 |          0 |          5 |        106 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\UseBlaze\SliderComponent.tsx                   | TypeScript JSX     |         92 |          0 |          5 |         97 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\UseBlaze\UseBlazeSlider.tsx                    | TypeScript JSX     |         13 |          1 |          4 |         18 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\addressSection.tsx                     | TypeScript JSX     |        572 |          1 |         13 |        586 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\customAccordion.tsx                    | TypeScript JSX     |         50 |          0 |          3 |         53 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\orderSummary.tsx                       | TypeScript JSX     |        195 |          0 |          5 |        200 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentExtra.tsx                       | TypeScript JSX     |         77 |          0 |          3 |         80 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentSection.tsx                     | TypeScript JSX     |        367 |          0 |          9 |        376 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\paymentSecurity.tsx                    | TypeScript JSX     |         87 |          0 |          4 |         91 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\payment\shippingSections.tsx                   | TypeScript JSX     |         54 |          1 |          4 |         59 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\DrawerList.tsx                    | TypeScript JSX     |        130 |          0 |         11 |        141 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\NavbarDrawer.tsx                  | TypeScript JSX     |         55 |          0 |          9 |         64 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\components\secondNavbar\SearchModal.tsx                   | TypeScript JSX     |        177 |          1 |         12 |        190 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\data\comment-dumy.ts                                      | TypeScript         |        645 |          0 |          3 |        648 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\alert.tsx                                           | TypeScript JSX     |         32 |          0 |          8 |         40 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\types.ts                                            | TypeScript         |         59 |          0 |          5 |         64 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\hooks\use-product-variants.ts                             | TypeScript         |         90 |          0 |         15 |        105 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\main.tsx                                                  | TypeScript JSX     |         88 |          1 |          6 |         95 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Account.tsx                                         | TypeScript JSX     |         62 |          0 |          7 |         69 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\AccountHomePage.tsx                                 | TypeScript JSX     |         84 |          0 |          7 |         91 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\AllProducts.tsx                                     | TypeScript JSX     |         98 |          0 |         12 |        110 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Categories.tsx                                      | TypeScript JSX     |        207 |          0 |         13 |        220 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\Home.tsx                                            | TypeScript JSX     |        176 |          0 |          5 |        181 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\PaymentPage.tsx                                     | TypeScript JSX     |        188 |          2 |          7 |        197 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\ProductDetails.tsx                                  | TypeScript JSX     |        285 |          1 |         14 |        300 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\pages\ShoppingCart.tsx                                    | TypeScript JSX     |        290 |          1 |         21 |        312 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\Count.ts                                         | TypeScript         |         21 |          0 |          3 |         24 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\Payement.ts                                      | TypeScript         |         68 |          0 |          3 |         71 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\addresDelete.ts                                  | TypeScript         |         25 |          0 |          3 |         28 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\allProduct.ts                                    | TypeScript         |          3 |          0 |          1 |          4 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\api-client.ts                                    | TypeScript         |         41 |          0 |          4 |         45 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\lastVisited.ts                                   | TypeScript         |          8 |          0 |          2 |         10 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\paymentAddress.ts                                | TypeScript         |         38 |          3 |          6 |         47 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\storge.ts                                        | TypeScript         |         31 |          0 |          8 |         39 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\type.ts                                          | TypeScript         |        329 |          0 |         40 |        369 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\updateAccount.ts                                 | TypeScript         |         28 |          0 |          6 |         34 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\services\userCount.ts                                     | TypeScript         |         27 |          0 |          4 |         31 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\store\cartStore.ts                                        | TypeScript         |         30 |          0 |          6 |         36 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\AboutUs\_AboutUs.scss                              | SCSS               |          7 |          0 |          1 |          8 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Accordion\_accordion.scss                          | SCSS               |         13 |          0 |          2 |         15 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Account\_myAccount.scss                            | SCSS               |         23 |          0 |          3 |         26 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Account\_singUp.scss                               | SCSS               |          0 |          0 |          1 |          1 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Foother\_foother.scss                              | SCSS               |         45 |          2 |          6 |         53 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\HomeStyles\_HomeComp.scss                          | SCSS               |         62 |          0 |          4 |         66 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\HomeStyles\_home.scss                              | SCSS               |         19 |          0 |          2 |         21 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Navbar\_navbar.scss                                | SCSS               |        181 |          4 |         30 |        215 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\PaymentPage\_paymentPage.scss                      | SCSS               |         23 |          0 |          3 |         26 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\ProductsDetailts\_productdetails.scss              | SCSS               |        193 |          2 |         22 |        217 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Products\_products.scss                            | SCSS               |        113 |          0 |         15 |        128 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\Slider\_Slider.scss                                | SCSS               |          0 |          0 |          1 |          1 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\styles\evryStyles.scss                                    | SCSS               |         22 |          0 |          8 |         30 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\theme\theme.ts                                            | TypeScript         |         80 |          0 |          2 |         82 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\src\vite-env.d.ts                                             | TypeScript         |          0 |          1 |          1 |          2 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.json                                                 | JSON with Comments |         24 |          0 |          1 |         25 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.node.json                                            | JSON               |         11 |          0 |          1 |         12 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.node.tsbuildinfo                                     | JSON               |          1 |          0 |          0 |          1 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\tsconfig.tsbuildinfo                                          | JSON               |          1 |          0 |          0 |          1 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\vercel.json                                                   | JSON               |          8 |          0 |          1 |          9 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.d.ts                                              | TypeScript         |          2 |          0 |          1 |          3 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.js                                                | JavaScript         |         13 |          1 |          1 |         15 |
+| c:\Users\yaman\OneDrive\Masaüstü\final-project\vite.config.ts                                                | TypeScript         |         13 |          1 |          2 |         16 |
+| Total                                                                                                        |                    |     14,963 |         31 |      1,948 |     16,942 |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

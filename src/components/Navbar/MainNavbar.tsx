@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
@@ -26,7 +24,7 @@ function MainNavbar() {
   const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
 
   const handleOpenModal =
-    (index: number) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    (index: number) => () => {
       setOpenModalIndex(index);
     };
 

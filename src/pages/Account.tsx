@@ -46,7 +46,9 @@ const Account = () => {
                 {value === "1" ? (
                   <Login setChangePassword={setChangePassword} />
                 ) : (
-                  <SignUp />
+                  <SignUp 
+                  setValue={setValue}
+                  />
                 )}
               </Box>
             </TabContext>

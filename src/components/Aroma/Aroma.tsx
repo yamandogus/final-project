@@ -1,10 +1,7 @@
-
-
 interface AromaProps  {
      aroma: string;
      color: string;  
 }
-
 
 const Aroma = ({ aroma, color}:AromaProps) => {
   return (
