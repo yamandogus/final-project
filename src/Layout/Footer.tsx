@@ -10,7 +10,7 @@ const contactLinks: Link[] = [
   { to: "/ContactUs", label: "İletişim" },
   { to: "/AboutUs", label: "Hakkımızda" },
   { to: "/SSS", label: "Sıkça Sorulan Sorular" },
-  { to: "/KVKK", label: "KVKK" },
+  { to: "/", label: "KVKK" },
   { to: "/", label: "Çalışma İlkelerimiz" },
   { to: "/", label: "Satış Sözleşmesi" },
   { to: "/", label: "Garanti ve İade Koşulları" },

@@ -14,12 +14,12 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
-import { userCartStore } from "../store/CartStore";
+import { userCartStore } from "../store/cartStore";
 import { LoaderData } from "./Navbar";
-import { LinksProps } from "../services/Type";
+import { LinksProps } from "../services/type";
 import SearchModal from "../components/SecondNavbar/SearchModal";
-import DrawerListMenu from "../components/SecondNavbar/DrawerList";
-import MobilNavComponent from "../components/SecondNavbar/NavbarDrawer";
+import DrawerList from "../components/SecondNavbar/DrawerList";
+import NavbarDrawer from "../components/SecondNavbar/NavbarDrawer";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);
@@ -100,7 +100,7 @@ const SecondNavbar = () => {
       </Box>
       <Drawer sx={{ zIndex: 99999 }} open={open} onClose={toggleDrawer(false)}>
         <Box sx={{ backgroundColor: "rgba(229, 229, 229, 1)", height: "100%" }}>
-          <DrawerListMenu
+          <DrawerList
             allProduct={allProduct}
             toggleDrawer={toggleDrawer}
             toggleDrawerLink={toggleDrawerLink}
@@ -125,7 +125,7 @@ const SecondNavbar = () => {
         disableScrollLock
       >
         {selectedLink && (
-          <MobilNavComponent
+          <NavbarDrawer
             onOpen={toggleDrawer(true)}
             onClose={toggleDrawerLink(null)}
             linksClose={toggleDrawerLink(null)}
