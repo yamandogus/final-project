@@ -1,7 +1,7 @@
 import { Grid, TextField, MenuItem, Button } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent } from "react";
-import { CityProps, DistrictProps } from "../../../../services/type";
+import { CityProps, DistrictProps } from "../../../../services/Type";
 
 interface AddressesFormProps { 
     title: string;

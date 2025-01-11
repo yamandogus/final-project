@@ -1,6 +1,6 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { lastVisited } from "../../services/lastVisited";
+import { lastVisited } from "../../services/LastVisited";
 
 export interface BestsellerProps {
   name: string;

@@ -1,7 +1,8 @@
 import { Box, Container,Grid,Typography } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
-import { BestsellerPropsCS, LinksProps } from '../../services/type';
-import ProductCard from './Products';
+import { BestsellerPropsCS } from '../../services/Type';
+import {LinksProps } from '../../services/Type';
+import ProductCard from './ProductsPage';
 
 export const base_url = "https://fe1111.projects.academy.onlyjs.com/api/v1"
 export const photo_url = "https://fe1111.projects.academy.onlyjs.com"

@@ -1,6 +1,6 @@
 import { Box, Container, Pagination, Typography} from "@mui/material";
 import { useState } from "react";
-import HomeCooments, { CommentsDataProps } from "./homeComments";
+import HomeCooments, { CommentsDataProps } from "./HomeComments";
 
 interface CommentsProps {
   reviews: CommentsDataProps[];

@@ -1,18 +1,18 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
-import { base_url } from "../../Bestseller/Bestseller";
-import useSnackbar from "../../../hooks/alert";
+import { base_url } from "../../Bestseller/BestsellerPage";
+import useSnackbar from "../../../hooks/Alert";
 import {
   AddedAddress,
   Address,
   CityProps,
   DistrictProps,
-} from "../../../services/type";
-import { deleteAddress } from "../../../services/addresDelete";
+} from "../../../services/Type";
+import { deleteAddress } from "../../../services/AddresDelete";
 import { useLoaderData } from "react-router-dom";
 import { userProfileLoaderReturn } from "../Informations/MyAccount";
-import AddressesForm from "./component/form";
-import UserAddedAddress from "./component/address";
+import AddressesForm from "./Component/Form";
+import UserAddedAddress from "./Component/Address";
 
 const AddressForm: React.FC = () => {
   const { datas, citysData } = useLoaderData() as userProfileLoaderReturn;

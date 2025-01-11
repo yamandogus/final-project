@@ -61,7 +61,10 @@ export const usePaymentStore = create(
                 set((state)=>({
                     basketItems: state.basketItems.filter((_, i)=> i !== index)
                 })),
-            clearBasket: () => set({basketItems:[]})
+            clearBasket: () => {
+                set({basketItems:[]});
+                localStorage.removeItem("basketItems-storage");
+            }
         }),
         {
             name: "basketItems-storage",

@@ -3,10 +3,10 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import { useLoaderData } from "react-router-dom";
-import { CategoryProps } from "../services/type";
+import { CategoryProps } from "../services/Type";
 import CategoryProducts from "../components/HomePage/HomeComp";
 import SliderComponent from "../components/UseBlaze/SliderComponent";
-import BestSeller from "../components/Bestseller/Bestseller";
+import BestSeller from "../components/Bestseller/BestsellerPage";
 
 const products = [
   {

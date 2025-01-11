@@ -1,10 +1,12 @@
 import { Box, Divider, Pagination, Typography } from "@mui/material";
-import OrdersComp from "./OrdersComponents/OrdersComp";
 import { useState } from "react";
-import Olderdest from "../Olderders/Olderdest";
 import { useLoaderData } from "react-router-dom";
 import { userProfileLoaderReturn } from "../Informations/MyAccount";
-import { photo_url } from "../../Bestseller/Bestseller";
+import OrdersComp from "./OrdersComponents/OrdersComp";
+import Olderdest from "../Olderders/Olderdest";
+import { photo_url } from "../../Bestseller/BestsellerPage";
+
+
 
   
 const Orders = () => {

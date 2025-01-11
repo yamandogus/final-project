@@ -11,13 +11,13 @@ import {
   Modal,
 } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
-import NavbarModal from "./NavbarPopover";
-import { LinksProps } from "../../services/type";
-import SecondNavbar from "../../Layout/MobilNavbar";
+import { LinksProps } from "../../services/Type";
+import SecondNavbar from "../../layout/MobilNavbar";
+import { LoaderData } from "../../layout/Navbar";
 import SearchSection from "./SearchSection";
 import UserSection from "./UserSection";
 import CartSection from "./CartSection";
-import { LoaderData } from "../../Layout/Navbar";
+import NavbarModal from "./NavbarPopover";
 
 function MainNavbar() {
   const { allProduct = [], user } = useLoaderData() as LoaderData;

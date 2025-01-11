@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { LinksProps } from "../../services/type";
-import { photo_url } from "../Bestseller/Bestseller";
-import { LoaderData } from "../../Layout/Navbar";
-import { userCartStore } from "../../store/cartStore";
+import { LinksProps } from "../../services/Type";
+import { photo_url } from "../Bestseller/BestsellerPage";
+import { LoaderData } from "../../layout/Navbar";
+import { userCartStore } from "../../store/CartStore";
 
 interface DrawerListProps {
   allProduct: LinksProps[];

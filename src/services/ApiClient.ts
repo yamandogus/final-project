@@ -1,5 +1,5 @@
-import { base_url } from "../components/Bestseller/Bestseller";
-import { getAccessToken, getRefreshToken, setTokenAndAuthUser } from "./storge";
+import { base_url } from "../components/Bestseller/BestsellerPage";
+import { getAccessToken, getRefreshToken, setTokenAndAuthUser } from "./Storge";
 
 export async function fetchWithAuth(url: string, options: RequestInit = {}) {
   const access_token = getAccessToken();

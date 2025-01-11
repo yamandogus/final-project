@@ -1,13 +1,13 @@
 import { Box, Button, Container, Grid,Typography } from "@mui/material";
 import { useState } from "react";
 import { usePaymentStore } from "../services/Payement";
-import AddressSection from "../components/payment/addressSection";
-import ShippingSection from "../components/payment/shippingSections";
-import OrderSummary from "../components/payment/orderSummary";
-import PaymentSection from "../components/payment/paymentSection";
+import OrderSummary from "../components/Payment/OrderSummary";
+import PaymentSection from "../components/Payment/PaymentSection";
 import { useLoaderData } from "react-router-dom";
-import { LoaderData } from "../Layout/Navbar";
+import { LoaderData } from "../layout/Navbar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import AddressSection from "../components/Payment/AddressSection";
+import ShippingSection from "../components/Payment/ShippingSections";
 
 const PaymentPage = () => {
   const { basketItems } = usePaymentStore();

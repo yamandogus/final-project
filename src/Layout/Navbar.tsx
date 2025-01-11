@@ -1,13 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import { Box } from "@mui/material";
-import { base_url } from "../components/Bestseller/Bestseller";
-import { CartItem, LinksProps } from "../services/type";
+import { CartItem, LinksProps } from "../services/Type";
+import { reviews } from "../data/CommentDumy";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
-import { reviews } from "../data/comment-dumy";
 import MainNavbar from "../components/Navbar/MainNavbar";
-import { userCartStore } from "../store/cartStore";
-
+import { userCartStore } from "../store/CartStore";
+import { base_url } from "../components/Bestseller/BestsellerPage";
 
 export interface LoaderData {
   allProduct: LinksProps[];
@@ -18,35 +15,35 @@ export interface LoaderData {
   };
 }
 
-
-
 export async function LinksLoader() {
   try {
-    const [categoryResponse, accountResponse, cartResponse] = await Promise.all([
-      fetch(base_url + "/categories"),
-      fetch(base_url + "/users/my-account", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-          "Content-Type": "application/json",
-        },
-      }),
-      fetch(base_url + "/users/cart", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-          "Content-Type": "application/json",
-        },
-      }),
-    ]);
+    const [categoryResponse, accountResponse, cartResponse] = await Promise.all(
+      [
+        fetch(base_url + "/categories"),
+        fetch(base_url + "/users/my-account", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch(base_url + "/users/cart", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }),
+      ]
+    );
     const [categories, accountData, cartData] = await Promise.all([
       categoryResponse.json(),
       accountResponse.json(),
       cartResponse.json(),
     ]);
-    
-    if(cartData.data){
-      userCartStore.getState().initializeCart(cartData.data)
+
+    if (cartData.data) {
+      userCartStore.getState().initializeCart(cartData.data);
     }
 
     console.log("Category Data:", categories);
@@ -67,10 +64,9 @@ export async function LinksLoader() {
   }
 }
 
-
 function Navbar() {
   return (
-    <Box >
+    <Box>
       <MainNavbar />
     </Box>
   );

@@ -12,14 +12,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import MobilNavComponent from "../components/secondNavbar/NavbarDrawer";
 import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
-import DrawerListMenu from "../components/secondNavbar/DrawerList";
-import SearchModal from "../components/secondNavbar/SearchModal";
-import { userCartStore } from "../store/cartStore";
+import { userCartStore } from "../store/CartStore";
 import { LoaderData } from "./Navbar";
-import { LinksProps } from "../services/type";
+import { LinksProps } from "../services/Type";
+import SearchModal from "../components/SecondNavbar/SearchModal";
+import DrawerListMenu from "../components/SecondNavbar/DrawerList";
+import MobilNavComponent from "../components/SecondNavbar/NavbarDrawer";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);

@@ -14,19 +14,20 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { base_url, photo_url } from "../Bestseller/Bestseller";
-import { useProductVariants } from "../../hooks/use-product-variants";
-import { Product } from "../../hooks/types";
+import { base_url, photo_url } from "../Bestseller/BestsellerPage";
+import { useProductVariants } from "../../hooks/UseProductVariant";
+import { Product } from "../../hooks/Types";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../../services/Payement";
-import useSnackbar from "../../hooks/alert";
-import { color } from "./details";
-import { AccountProps } from "../Account/Informations/MyAccount";
+import useSnackbar from "../../hooks/Alert";
 import { useStore } from "../../services/Count";
-import { useStoreUserCart } from "../../services/userCount";
-import { userCartStore } from "../../store/cartStore";
-import { CartItem } from "../../services/type";
+import { useStoreUserCart } from "../../services/UserCount";
+import { userCartStore } from "../../store/CartStore";
+import { CartItem } from "../../services/Type";
+import { AccountProps } from "../Account/Informations/MyAccount";
 import ProductAccordion from "../Accordions/ProductAccordion";
+import { color } from "./Details";
+
 interface Props {
   product: Product;
   tags: string[];
@@ -144,31 +145,31 @@ const ProductsView = ({ product, tags, user }: Props) => {
   };
 
   const handleProductAdded = () => {
-   try {
-    if (selectedVariant) {
-      const newItem = {
-        img: selectedVariant.photo_src,
-        gram: selectedVariant.size?.gram,
-        name: product.name,
-        aroma: selectedVariant.aroma,
-        price:
-          selectedVariant.price.discounted_price ||
-          selectedVariant.price.total_price,
-        count: count,
-      };
-      addBasketItems(newItem);
-      increaseCount();
-      setCount(1);
-      showSnackbar("Ürün sepete eklendi", "success");
-      setBasketText(true);
-      setTimeout(() => {
-        setBasketText(false);
-      }, 2100);
+    try {
+      if (selectedVariant) {
+        const newItem = {
+          img: selectedVariant.photo_src,
+          gram: selectedVariant.size?.gram,
+          name: product.name,
+          aroma: selectedVariant.aroma,
+          price:
+            selectedVariant.price.discounted_price ||
+            selectedVariant.price.total_price,
+          count: count,
+        };
+        addBasketItems(newItem);
+        increaseCount();
+        setCount(1);
+        showSnackbar("Ürün sepete eklendi", "success");
+        setBasketText(true);
+        setTimeout(() => {
+          setBasketText(false);
+        }, 2100);
+      }
+    } catch (error) {
+      console.error("Sepete ürün eklenirken bir hata oluştu:", error);
+      showSnackbar("Ürün sepete eklenirken bir hata oluştu", "error");
     }
-   } catch (error) {
-    console.error("Sepete ürün eklenirken bir hata oluştu:", error);
-    showSnackbar("Ürün sepete eklenirken bir hata oluştu", "error");
-   }
   };
 
   const culculateDiscount = (
@@ -190,17 +191,16 @@ const ProductsView = ({ product, tags, user }: Props) => {
         <Container>
           <Grid container spacing={3}>
             <Grid item sm={12} md={6} key={product.id}>
-              <img
-                id="detail-img-id"
-                className="detail-img"
-                src={photo_url + selectedVariant.photo_src}
-                alt=""
-              />
-              <div className="zoom-preview"></div>
-              <Box component={"div"} className="mobileAccordion">
-                <ProductAccordion
-                product={product}
+              <Box sx={{ position: { xs: "static", lg: "sticky", top: 0 } }}>
+                <img
+                  id="detail-img-id"
+                  className="detail-img"
+                  src={photo_url + selectedVariant.photo_src}
+                  alt=""
                 />
+              </Box>
+              <Box component={"div"} className="mobileAccordion">
+                <ProductAccordion product={product} />
               </Box>
             </Grid>
             <Grid item container sm={12} md={6}>
@@ -241,11 +241,10 @@ const ProductsView = ({ product, tags, user }: Props) => {
                   </Stack>
                 </Box>
 
-
                 {/* AROMA */}
                 <Box my={2}>
                   <FormControl>
-                    <FormLabel component="legend" sx={{ mb: 1}}>
+                    <FormLabel component="legend" sx={{ mb: 1 }}>
                       <strong>AROMA:</strong>
                     </FormLabel>
                     <RadioGroup
@@ -294,7 +293,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                 {/* BOYUT */}
                 <Box>
                   <FormControl>
-                    <FormLabel component="legend" sx={{ mb: 2}}>
+                    <FormLabel component="legend" sx={{ mb: 2 }}>
                       <strong>BOYUT:</strong>
                     </FormLabel>
                     <RadioGroup
@@ -331,10 +330,12 @@ const ProductsView = ({ product, tags, user }: Props) => {
                                   >
                                     {size?.gram
                                       ? size.gram === 1600
-                                        ? "1.6KG" + (size?.total_services === 128 
-                                              ? ` X 2 ADET` :"")
+                                        ? "1.6KG" +
+                                          (size?.total_services === 128
+                                            ? ` X 2 ADET`
+                                            : "")
                                         : `${size.gram}G${
-                                            size?.total_services === 128 
+                                            size?.total_services === 128
                                               ? ` X 2 ADET`
                                               : ""
                                           }`
@@ -409,18 +410,18 @@ const ProductsView = ({ product, tags, user }: Props) => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    alignItems:'center',
+                    alignItems: "center",
                     my: 2,
                   }}
                 >
                   <Stack direction={"row"} spacing={1}>
                     {currentPrice?.discounted_price ? (
                       <>
-                        <Typography 
+                        <Typography
                           sx={{
                             fontWeight: "bolder",
                             color: "black",
-                            fontSize: {xs:30, md:35},
+                            fontSize: { xs: 30, md: 35 },
                             marginRight: 3,
                           }}
                         >
@@ -430,16 +431,21 @@ const ProductsView = ({ product, tags, user }: Props) => {
                           sx={{
                             fontWeight: "bolder",
                             color: "red",
-                            fontSize: {xs:30, md:35},
+                            fontSize: { xs: 30, md: 35 },
                             textDecoration: "line-through",
-                            textDecorationThickness:"1.5px"
+                            textDecorationThickness: "1.5px",
                           }}
                         >
                           {currentPrice.total_price} TL
                         </Typography>
                       </>
                     ) : (
-                      <Typography sx={{ fontWeight: "bolder",fontSize: {xs:30, md:35},}}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bolder",
+                          fontSize: { xs: 30, md: 35 },
+                        }}
+                      >
                         {currentPrice.total_price} TL
                       </Typography>
                     )}
@@ -469,7 +475,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                     <span className="countCart">{count}</span>
                     <button
                       className="countButton"
-                      style={{marginRight:"-0.5px"}}
+                      style={{ marginRight: "-0.5px" }}
                       onClick={() => setCount(count + 1)}
                     >
                       +
@@ -491,7 +497,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                   </Button>
                 </Box>
               </Box>
-              
+
               <Stack sx={{ mb: 3 }}>
                 <Typography variant="subtitle2" fontSize={13}>
                   Son Kullanma Tarihi: 07.2025
@@ -515,9 +521,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                   </ul>
                 </Box>
                 <Box component={"div"} className="lgAccordion">
-                <ProductAccordion
-                product={product}
-                />
+                  <ProductAccordion product={product} />
                 </Box>
               </Stack>
             </Grid>

@@ -1,8 +1,8 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { photo_url } from "../Bestseller/Bestseller";
 import { useLoaderData } from "react-router-dom";
-import { LoaderDataAccount } from "../../services/type";
+import { LoaderDataAccount } from "../../services/Type";
 import { Payment } from "../../services/Payement";
+import { photo_url } from "../Bestseller/BestsellerPage";
 
 interface OrderSummaryProps {
   basketItems: Payment[];

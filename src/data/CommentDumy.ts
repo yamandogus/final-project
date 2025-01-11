@@ -1,4 +1,4 @@
-import { CommentsDataProps } from "../components/Comments/homeComments";
+import { CommentsDataProps } from "../components/Comments/HomeComments";
 
 export const reviews: CommentsDataProps[] = [ 
     {

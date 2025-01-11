@@ -4,7 +4,7 @@ import "blaze-slider/dist/blaze.css";
 import { useEffect, useRef } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { Comments } from "../../data/comment-dumy";
+import { Comments } from "../../data/CommentDumy";
 
 
 const SliderComponent = () => {

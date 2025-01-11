@@ -1,6 +1,6 @@
 
-import { AddedAddress, CityProps } from "../../../services/type";
-import { base_url } from "../../Bestseller/Bestseller";
+import { AddedAddress, CityProps } from "../../../services/Type";
+import { base_url } from "../../Bestseller/BestsellerPage";
 
 export interface AccountProps {
   email: string;

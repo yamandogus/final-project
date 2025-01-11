@@ -1,7 +1,7 @@
 import { Box, Divider, List, ListItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { LinksProps } from "../../services/type";
+import { LinksProps } from "../../services/Type";
 
 interface DrawerListProps {
   allProduct: LinksProps[];

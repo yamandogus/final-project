@@ -11,8 +11,8 @@ import {
 import { FormEvent, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { base_url } from "../../Bestseller/Bestseller";
-import { RegisterPayload } from "../../../services/type";
+import { base_url } from "../../Bestseller/BestsellerPage";
+import { RegisterPayload } from "../../../services/Type";
 
 interface ValueProps {
   setValue: (prev: string) => void;

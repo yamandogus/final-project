@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { base_url } from "../components/Bestseller/Bestseller";
+import { base_url } from "../components/Bestseller/BestsellerPage";
 
 
 export interface UpdateProps {

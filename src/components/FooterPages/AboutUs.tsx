@@ -1,5 +1,5 @@
 import {Box,Container, Grid, Rating, Stack, Typography } from '@mui/material'
-import Comments from '../Comments/comment'
+import Comments from '../Comments/Comment'
 
 const AboutUs = () => {
   return (

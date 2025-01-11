@@ -8,7 +8,7 @@ import {
   Radio,
   Drawer,
 } from "@mui/material";
-import CustomAccordion from "./customAccordion";
+import CustomAccordion from "./CustomAccordion";
 import { Link, useLoaderData } from "react-router-dom";
 import {
   AddedAddress,
@@ -17,11 +17,11 @@ import {
   DistrictProps,
   GuestAddress,
   LoaderDataAccount,
-} from "../../services/type";
+} from "../../services/Type";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { base_url } from "../Bestseller/Bestseller";
-import useSnackbar from "../../hooks/alert";
-import AddressesForm from "../Account/Addresses/component/form";
+import { base_url } from "../Bestseller/BestsellerPage";
+import useSnackbar from "../../hooks/Alert";
+import AddressesForm from "../Account/Addresses/Component/Form";
 interface AddressSectionProps {
   expanded: string | false;
   handleChangePanel: (

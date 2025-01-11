@@ -9,14 +9,17 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
-import CustomAccordion from "./customAccordion";
-import { base_url } from "../Bestseller/Bestseller";
-import { AccountProps } from "../Account/Informations/MyAccount";
 import { usePaymentStore } from "../../services/Payement";
-import PaymentSecurity from "./paymentSecurity";
-import PaymentExtra from "./paymentExtra";
-import PaymentControl from "./paymentControl";
-import CreditCart from "./creditCart";
+import { base_url } from "../Bestseller/BestsellerPage";
+import { useStore } from "../../services/Count";
+import { AccountProps } from "../Account/Informations/MyAccount";
+import CustomAccordion from "./CustomAccordion";
+import CreditCart from "./CreditCart";
+import PaymentExtra from "./PaymentExtra";
+import PaymentSecurity from "./PaymentSecurity";
+import PaymentControl from "./PaymentControl";
+
+
 interface PaymentSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -38,7 +41,8 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   user,
 }) => {
   const [selectedPayment, setSelectedPayment] = useState("credit_cart");
-  const { basketItems} = usePaymentStore();
+  const { basketItems, clearBasket} = usePaymentStore();
+  const { resetCount } = useStore();
   const [paymentControl, setPaymentControl] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
 
@@ -91,13 +95,21 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   };
 
 
-  const handlePaymentFree = () => {
+  const handlePaymentGuest = () => {
     setPaymentControl(true);
     setTimeout(() => {
-      if (basketItems.length === 0) {
-        setPaymentError(true);
-      } else {
+      if (basketItems.length > 0) {
+        console.log("guest ödeme");
+        clearBasket();
+        resetCount();
+        localStorage.removeItem("basketItems-storage");
         setPaymentMade(true);
+        console.log("ife girdi");
+        ("if")
+      } else {
+        setPaymentError(true);
+        setPaymentMade(false);
+        console.log("elsegirdi");
       }
     }, 7000);
   };
@@ -117,7 +129,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
               if (user && user.first_name) {
                 handlePayment(e);
               } else {
-                handlePaymentFree();
+                handlePaymentGuest();
               }
             }}
           >

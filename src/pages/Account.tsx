@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Tab } from "@mui/material";
 import { TabContext, TabList } from "@mui/lab";
-import useSnackbar from "../hooks/alert";
-import UpadatePasswordNew from "../components/Account/AuthComponents/upadatePassword ";
+import useSnackbar from "../hooks/Alert";
 import Login from "../components/Account/AuthComponents/Login";
 import SignUp from "../components/Account/AuthComponents/SingUp";
+import UpadatePasswordNew from "../components/Account/AuthComponents/UpadatePassword ";
 
 const Account = () => {
   const [value, setValue] = useState("1");

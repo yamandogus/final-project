@@ -2,7 +2,7 @@ import { Box, Button, Grid, Typography, Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
-import {AddedAddress} from "../../../../services/type";
+import {AddedAddress} from "../../../../services/Type";
 
 interface AddedAddressProps {
     addresssNew: AddedAddress[];

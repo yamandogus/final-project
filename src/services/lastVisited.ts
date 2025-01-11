@@ -1,4 +1,4 @@
-import { ProductProps } from "./type";
+import { ProductProps } from "./Type";
 
 
 export const lastVisited =(product:ProductProps)=>{

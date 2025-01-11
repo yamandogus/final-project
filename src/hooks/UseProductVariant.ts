@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProductVariant, ProductVariantSize } from "./types";
+import { ProductVariant, ProductVariantSize } from "./Types";
 
 export function useProductVariants(productVariants: ProductVariant[]) {
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(

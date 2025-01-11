@@ -10,9 +10,9 @@ import {
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { base_url } from "../../Bestseller/Bestseller";
-import useSnackbar from "../../../hooks/alert";
-import { LoginPayload } from "../../../services/type";
+import { base_url } from "../../Bestseller/BestsellerPage";
+import useSnackbar from "../../../hooks/Alert";
+import { LoginPayload } from "../../../services/Type";
 
 interface LoginProps {
   setChangePassword: (value: boolean) => void;

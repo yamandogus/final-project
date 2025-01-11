@@ -4,12 +4,12 @@ import {
   useLoaderData,
   useParams,
 } from "react-router-dom";
-import { base_url, photo_url } from "../components/Bestseller/Bestseller";
 import { Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import { calculateDiscount } from "../components/Protein/Protein";
 import { useEffect, useState } from "react";
-import { lastVisited } from "../services/lastVisited";
-import { getAllProducts } from "../services/allProduct";
+import { lastVisited } from "../services/LastVisited";
+import { getAllProducts } from "../services/AllProduct";
+import { base_url, photo_url } from "../components/Bestseller/BestsellerPage";
 
 interface CatPropsconst {
   name: string;

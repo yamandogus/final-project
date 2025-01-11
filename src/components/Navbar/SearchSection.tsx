@@ -10,9 +10,9 @@ import {
   Backdrop,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { base_url, photo_url } from "../Bestseller/Bestseller";
+import { base_url, photo_url } from "../Bestseller/BestsellerPage";
 import { useDebounce } from "./Navbar";
-import { SearchPropsPt } from "../../services/type";
+import { SearchPropsPt } from "../../services/Type";
 
 function SearchSection() {
   const [search, setSearch] = useState("");

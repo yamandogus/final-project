@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
-import CustomAccordion from "./customAccordion";
+import CustomAccordion from "./CustomAccordion";
 
 interface ShippingSectionProps {
   expanded: string | false;

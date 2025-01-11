@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Divider, Menu, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { AccountProps } from "../Account/Informations/MyAccount";
-import { userCartStore } from "../../store/cartStore";
+import { userCartStore } from "../../store/CartStore";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
+import { AccountProps } from "../Account/Informations/MyAccount";
 
 interface UserSectionProps {
   user: AccountProps;

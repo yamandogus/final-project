@@ -51,7 +51,7 @@ const CreditCart = () => {
       </Box>
       <form style={{display: "flex", justifyContent: "center"}}>
         <Grid container sx={{ mt: 2, width:"90%"}} spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               type="text"
               label="Kart Numarası"
@@ -74,7 +74,7 @@ const CreditCart = () => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               type="text"
               name="name"
@@ -87,7 +87,7 @@ const CreditCart = () => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               type="text"
               name="expiry"
@@ -120,7 +120,7 @@ const CreditCart = () => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               type="text"
               name="cvc"

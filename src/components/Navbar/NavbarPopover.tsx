@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { photo_url } from "../Bestseller/Bestseller";
+import { photo_url } from "../Bestseller/BestsellerPage";
 import { Link } from "react-router-dom";
-import { LinksProps } from "../../services/type";
+import { LinksProps } from "../../services/Type";
 
 interface NavbarModalProps {
   links: LinksProps;

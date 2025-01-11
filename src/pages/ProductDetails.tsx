@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Button,
@@ -10,17 +9,17 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { Link, useLoaderData } from "react-router-dom";
-import { base_url } from "../components/Bestseller/Bestseller";
-import { Product } from "../hooks/types";
-import LastWiew from "../components/Bestseller/LastWiew";
-import { AccountProps } from "../components/Account/Informations/MyAccount";
+import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { Product } from "../hooks/Types";
 import { FormEvent, useEffect, useState } from "react";
-import Comments from "../components/Comments/comment";
-import { CommentsDataProps } from "../components/Comments/homeComments";
-import { CommentsProps, ProductProps } from "../services/type";
+import { CommentsProps, ProductProps } from "../services/Type";
+import { AccountProps } from "../components/Account/Informations/MyAccount";
+import { CommentsDataProps } from "../components/Comments/HomeComments";
+import LastWiew from "../components/Bestseller/LastWiew";
 import CommentsComponent from "../components/Account/Comment/Comment";
-import ProductsView from "../components/ProductDetails/productView";
+import Comments from "../components/Comments/Comment";
+import ProductsView from "../components/ProductDetails/ProductView";
+import { base_url } from "../components/Bestseller/BestsellerPage";
 
 const commentData = [
   { value: 5, count: 9184, sliderValue: 90 },
@@ -30,11 +29,7 @@ const commentData = [
   { value: 1, count: 11, sliderValue: 5 },
 ];
 
-export async function ProductLoader({
-  params,
-}: {
-  params: { productSlug: string };
-}) {
+export async function ProductLoader({ params }: LoaderFunctionArgs) {
   const { productSlug } = params;
 
   const response = await fetch(base_url + `/products/${productSlug}`);

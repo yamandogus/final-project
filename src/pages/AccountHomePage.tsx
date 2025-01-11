@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import Orders from "../components/Account/Orders/Orders";
 import Addresses from "../components/Account/Addresses/Addresses";
-import Informations from "../components/Account/Informations/information";
+import Informations from "../components/Account/Informations/Information";
 
 const AccountHomePage = () => {
   const [activeSation, setActiveSation] = useState("accountInfo");

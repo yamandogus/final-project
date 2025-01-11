@@ -1,7 +1,7 @@
-import { CartItem } from "../../services/type";
+import { CartItem } from "../../services/Type";
 import { Box, Card, Stack, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {  photo_url } from "../Bestseller/Bestseller";
+import {  photo_url } from "../Bestseller/BestsellerPage";
 
 interface UserCartItemsProps {
   items: CartItem[];

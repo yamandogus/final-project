@@ -1,7 +1,7 @@
 import { Grid, Rating, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { lastVisited } from "../../services/lastVisited";
-import { ProductProps } from "../../services/type";
+import { lastVisited } from "../../services/LastVisited";
+import { ProductProps } from "../../services/Type";
 
 
 export const calculateDiscount = (

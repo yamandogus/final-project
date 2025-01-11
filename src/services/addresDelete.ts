@@ -1,4 +1,4 @@
-import { base_url } from "../components/Bestseller/Bestseller";
+import { base_url } from "../components/Bestseller/BestsellerPage";
 
 export const deleteAddress = async (
   id: string,

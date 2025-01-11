@@ -1,10 +1,10 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { userProfileLoaderReturn } from "./MyAccount";
 import { useLoaderData } from "react-router-dom";
-import { upadeteAccount } from "../../../services/updateAccount";
-import UpadatePasswordNew from "../AuthComponents/upadatePassword ";
+import { upadeteAccount } from "../../../services/UpdateAccount";
+import { userProfileLoaderReturn } from "./MyAccount";
+import UpadatePasswordNew from "../AuthComponents/UpadatePassword ";
 
 const Informations: React.FC = () => {
   const { user } = useLoaderData() as userProfileLoaderReturn;

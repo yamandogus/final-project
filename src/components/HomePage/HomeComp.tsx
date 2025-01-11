@@ -25,7 +25,14 @@ const CategoryProducts = ({
   };
   return (
     <Grid item xs={6} sm={4}>
-      <Box>
+      <Box
+        sx={{
+          cursor: "pointer",
+          textDecoration: "none",
+        }}
+        to={CategoryLink()}
+        component={Link}
+      >
         <Card
           className="cardTyp"
           sx={{ backgroundColor: bg, height: 165, borderRadius: 3 }}

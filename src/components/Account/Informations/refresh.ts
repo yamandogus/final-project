@@ -1,4 +1,4 @@
-import { base_url } from "../../Bestseller/Bestseller";
+import { base_url } from "../../Bestseller/BestsellerPage";
 const accessToken = localStorage.getItem("access_token");
 
 const accessTokenPayload = JSON.parse(atob(accessToken?.split(".")[1] ?? "")) as {

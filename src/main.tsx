@@ -2,24 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
-import { theme } from './theme/theme'
 import Root from './Root'
 import Home from './pages/Home'
 import "./styles/evryStyles.scss"
 import ProductsDetails, { ProductLoader } from './pages/ProductDetails'
 import AccountHomePage from './pages/AccountHomePage'
 import PaymentPage from './pages/PaymentPage'
-import { loader } from './components/Bestseller/Bestseller'
 import AllProducts, { AllProLoader } from './pages/AllProducts'
-import { userProfileLoader } from './components/Account/Informations/MyAccount'
-import { LinksLoader } from './Layout/Navbar'
+import { LinksLoader } from './layout/Navbar'
 import Categories, { CategoryLoader } from './pages/Categories'
-
-import AboutUs from './components/FooterPages/AboutUs'
-import SSS from './components/FooterPages/SSS'
-import { userAddressLoader } from './services/paymentAddress'
+import { userAddressLoader } from './services/PaymentAddress'
 import Account from './pages/Account'
+import { SearchPropsPt } from './services/Type'
+import { userProfileLoader } from './components/Account/Informations/MyAccount'
+import AboutUs from './components/FooterPages/AboutUs'
 import ContactUs from './components/FooterPages/ContactUs'
+import SSS from './components/FooterPages/SSS'
+import { theme } from './theme/Themes'
+import { loader } from './components/Bestseller/BestsellerPage'
 
 
 const router = createBrowserRouter([
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
       },
       {
         path: "AllProducts",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        loader: AllProLoader as any,
+        
+        loader: AllProLoader as ()=> Promise<{data: SearchPropsPt[]}>,
         element: <AllProducts/>
       },
       {

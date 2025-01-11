@@ -6,10 +6,10 @@ import {
   Typography,
 } from "@mui/material";
 import { FC, FormEvent, useEffect, useState } from "react";
-import { base_url, photo_url } from "../../Bestseller/Bestseller";
-import { CommentsProps, Order } from "../../../services/type";
+import { base_url, photo_url } from "../../Bestseller/BestsellerPage";
+import { CommentsProps, Order } from "../../../services/Type";
 import CommentsComponent from "../Comment/Comment";
-import useSnackbar from "../../../hooks/alert";
+import useSnackbar from "../../../hooks/Alert";
 
 interface OlderdestProps {
   onCloseBsk: () => void;

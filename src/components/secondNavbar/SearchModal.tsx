@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { SearchPropsPt } from "../../services/type";
+import { SearchPropsPt } from "../../services/Type";
 import { Backdrop, Box, ClickAwayListener, InputAdornment, List, ListItem, Modal, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useDebounce } from "../Navbar/Navbar";
-import { base_url, photo_url } from "../Bestseller/Bestseller";
+import { base_url, photo_url } from "../Bestseller/BestsellerPage";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { useDebounce } from "../Navbar/Navbar";
 
 
 const SearchModal = () => {
