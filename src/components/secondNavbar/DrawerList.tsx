@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { LinksProps } from "../../services/Type";
 import { photo_url } from "../Bestseller/BestsellerPage";
+import { LinksProps } from "../../services/Type";
 import { LoaderData } from "../../layout/Navbar";
 import { userCartStore } from "../../store/CartStore";
 

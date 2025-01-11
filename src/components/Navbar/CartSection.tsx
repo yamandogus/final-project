@@ -8,7 +8,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import ShoppingCart from "../../pages/ShoppingCart";
 import { useStore } from "../../services/Count";
 import { LoaderData } from "../../layout/Navbar";
-import { userCartStore } from "../../store/cartStore";
+import { userCartStore } from "../../store/CartStore";
 
 function CartSection() {
   const navigate = useNavigate();
