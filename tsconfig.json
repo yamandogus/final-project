@@ -16,10 +16,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "preserveSymlinks": true
   },
   "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
