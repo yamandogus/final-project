@@ -18,8 +18,8 @@ import { userProfileLoader } from './components/Account/Informations/MyAccount'
 import AboutUs from './components/FooterPages/AboutUs'
 import ContactUs from './components/FooterPages/ContactUs'
 import SSS from './components/FooterPages/SSS'
-import { theme } from './theme/Themes'
 import { loader } from './components/Bestseller/BestsellerPage'
+import { theme } from './theme/Themes'
 
 
 const router = createBrowserRouter([

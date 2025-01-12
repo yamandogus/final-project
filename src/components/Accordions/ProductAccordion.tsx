@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Product } from "../../hooks/Types";
+import { Product } from "../../services/Type";
 
 interface Props {
   product: Product;

@@ -11,8 +11,8 @@ import {
 import { deleteAddress } from "../../../services/AddresDelete";
 import { useLoaderData } from "react-router-dom";
 import { userProfileLoaderReturn } from "../Informations/MyAccount";
-import AddressesForm from "./Component/Form";
 import UserAddedAddress from "./Component/Address";
+import AddressesForm from "./Component/Form";
 
 const AddressForm: React.FC = () => {
   const { datas, citysData } = useLoaderData() as userProfileLoaderReturn;

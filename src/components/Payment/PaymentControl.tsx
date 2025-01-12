@@ -1,5 +1,4 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LoadingButton } from "@mui/lab";
 

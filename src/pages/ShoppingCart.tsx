@@ -1,4 +1,3 @@
-// src/components/Cart/ShoppingCart.tsx
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,7 +9,7 @@ import { useStoreUserCart } from "../services/UserCount";
 import UserCartItems from "../components/MyCart/UserCart";
 import GuestCartItems from "../components/MyCart/GuesCartItems";
 import { base_url } from "../components/Bestseller/BestsellerPage";
-import { userCartStore } from "../store/CartStore";
+import { userCartStore } from "../store/cartStore";
 
 interface ShoppingCartProps {
   onCountine: () => void;

@@ -12,8 +12,6 @@ import ContactUs from './ContactUs';
 import Accordions from '../Accordions/AccordionsPage';
 
 
-
-
 const questions = [
   {
     title: 'OJS Nutrition ürünlerinin menşei neresi?',

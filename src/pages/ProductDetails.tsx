@@ -10,9 +10,8 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
-import { Product } from "../hooks/Types";
 import { FormEvent, useEffect, useState } from "react";
-import { CommentsProps, ProductProps } from "../services/Type";
+import { CommentsProps, Product, ProductProps } from "../services/Type";
 import { AccountProps } from "../components/Account/Informations/MyAccount";
 import { CommentsDataProps } from "../components/Comments/HomeComments";
 import LastWiew from "../components/Bestseller/LastWiew";
