@@ -16,10 +16,10 @@ import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
 import { userCartStore } from "../store/cartStore";
 import { LinksProps } from "../services/Type";
-import SearchModal from "../components/secondnavbar/SearchModal";
-import DrawerList from "../components/secondnavbar/DrawerList";
-import NavbarDrawer from "../components/secondnavbar/NavbarDrawer";
 import { LoaderData } from "./navbar";
+import SearchModal from "../components/SecondNavbar/SearchModal";
+import DrawerList from "../components/DrawerList/DrawerList";
+import NavbarDrawer from "../components/SecondNavbar/NavbarDrawer";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);
