@@ -1,20 +1,23 @@
 import { Box, Checkbox, Modal, Typography } from "@mui/material";
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { LoaderData } from "../../layout/navbar";
 
 const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
-  };
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 const PaymentSecurity = () => {
-    const [security, setSecurity] = useState(false);
-    const [sales, setSales] = useState(false);
+  const [security, setSecurity] = useState(false);
+  const [sales, setSales] = useState(false);
+  const { user } = useLoaderData() as LoaderData;
   return (
     <div>
       <Box
@@ -28,22 +31,26 @@ const PaymentSecurity = () => {
           mb: 2,
         }}
       >
-        <Box><Checkbox required /> Fatura adresim teslimat adresimle aynı.</Box>
-        <Box><Checkbox required />
-        <a
-          style={{ color: "green", cursor: "pointer" }}
-          onClick={() => setSecurity(true)}
-        >
-          Gizlilik sözleşmemi
-        </a>
-        {" "}ve{" "}
-        <a
-          style={{ color: "green", cursor: "pointer" }}
-          onClick={() => setSales(true)}
-        >
-          Satış sözleşmemi {" "}
-        </a>
-        okudum, onaylıyorum.</Box>
+        <Box>
+          <Checkbox required /> Fatura adresim teslimat adresimle aynı.
+        </Box>
+        <Box>
+          <Checkbox required />
+          <a
+            style={{ color: "green", cursor: "pointer" }}
+            onClick={() => setSecurity(true)}
+          >
+            Gizlilik sözleşmemi
+          </a>{" "}
+          ve{" "}
+          <a
+            style={{ color: "green", cursor: "pointer" }}
+            onClick={() => setSales(true)}
+          >
+            Satış sözleşmemi{" "}
+          </a>
+          okudum, onaylıyorum.
+        </Box>
       </Box>
       <Modal open={security} onClose={() => setSecurity(false)}>
         <Box sx={modalStyle}>

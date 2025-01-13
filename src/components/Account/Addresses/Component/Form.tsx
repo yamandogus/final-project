@@ -112,7 +112,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             required
             label="İl"
           >
-            {cities.map((option, index) => (
+            {cities?.map((option, index) => (
               <MenuItem key={index} value={option.name}>
                 {option.name.split(" ")[0]}
               </MenuItem>
@@ -138,7 +138,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             required
             label="İlçe"
           >
-            {districts.map((district, index) => (
+            {districts?.map((district, index) => (
               <MenuItem key={index} value={district.name}>
                 {district.name.split(" ")[0]}
               </MenuItem>
@@ -154,6 +154,15 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             name="phone"
             value={phone}
             onChange={handlePhone}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            label="Fatura ve sipariş detayı için mail adresi giriniz."
+            required
           />
         </Grid>
         <Grid item xs={12} textAlign="end">

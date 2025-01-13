@@ -16,9 +16,9 @@ import ShoppingCart from "../pages/ShoppingCart";
 import { useStore } from "../services/Count";
 import { userCartStore } from "../store/cartStore";
 import { LinksProps } from "../services/Type";
-import SearchModal from "../components/SecondNavbar/SearchModal";
-import DrawerList from "../components/SecondNavbar/DrawerList";
-import NavbarDrawer from "../components/SecondNavbar/NavbarDrawer";
+import SearchModal from "../components/secondNavbar/SearchModal";
+import DrawerList from "../components/secondNavbar/DrawerList";
+import NavbarDrawer from "../components/secondNavbar/NavbarDrawer";
 import { LoaderData } from "./navbar";
 
 const SecondNavbar = () => {

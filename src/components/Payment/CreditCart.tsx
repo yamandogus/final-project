@@ -151,7 +151,7 @@ const CreditCart = () => {
           <Checkbox size="small" />
           Kartımı <img width={70} src="/images/master/master.png" alt="" />
           altyapısında kullanmak istiyorum.
-        </Typography>
+        </Typography>   
       </Box>
     </Box>
   );
