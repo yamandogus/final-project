@@ -2,7 +2,7 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePaymentStore } from "../services/Payement";
-import { LoaderData } from "../layout/Navbar";
+import { LoaderData } from "../layout/navbar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useStore } from "../services/Count";
 import { useStoreUserCart } from "../services/UserCount";

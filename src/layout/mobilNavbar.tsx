@@ -19,7 +19,7 @@ import { LinksProps } from "../services/Type";
 import SearchModal from "../components/SecondNavbar/SearchModal";
 import DrawerList from "../components/SecondNavbar/DrawerList";
 import NavbarDrawer from "../components/SecondNavbar/NavbarDrawer";
-import { LoaderData } from "./Navbar";
+import { LoaderData } from "./navbar";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);

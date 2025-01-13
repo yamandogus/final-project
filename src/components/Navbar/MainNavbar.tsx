@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import { LinksProps } from "../../services/Type";
-import SecondNavbar from "../../layout/MobilNavbar";
-import { LoaderData } from "../../layout/Navbar";
+import SecondNavbar from "../../layout/mobilNavbar";
+import { LoaderData } from "../../layout/navbar";
 import SearchSection from "./SearchSection";
 import UserSection from "./UserSection";
 import CartSection from "./CartSection";

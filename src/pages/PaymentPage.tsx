@@ -4,7 +4,7 @@ import { usePaymentStore } from "../services/Payement";
 import OrderSummary from "../components/Payment/OrderSummary";
 import PaymentSection from "../components/Payment/PaymentSection";
 import { useLoaderData } from "react-router-dom";
-import { LoaderData } from "../layout/Navbar";
+import { LoaderData } from "../layout/navbar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import AddressSection from "../components/Payment/AddressSection";
 import ShippingSection from "../components/Payment/ShippingSections";

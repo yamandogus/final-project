@@ -7,7 +7,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import ShoppingCart from "../../pages/ShoppingCart";
 import { useStore } from "../../services/Count";
-import { LoaderData } from "../../layout/Navbar";
+import { LoaderData } from "../../layout/navbar";
 import { userCartStore } from "../../store/cartStore";
 
 function CartSection() {
