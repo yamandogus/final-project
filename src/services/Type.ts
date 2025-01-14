@@ -1,4 +1,4 @@
-import { AccountProps } from "../components/Account/Informations/MyAccount";
+import { AccountProps } from "../pages/Account/components/Informations/MyAccount";
 
 export interface LinksProps {
   id: string;
