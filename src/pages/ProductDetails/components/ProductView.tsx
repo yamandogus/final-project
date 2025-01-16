@@ -54,6 +54,10 @@ const ProductsView = ({ product, tags, user }: Props) => {
 
   const hadleUserProductAdded = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (!selectedVariant){
+      showSnackbar("Bir variant secmelisiniz", "error");
+      return
+    }
     try {
       const response = await fetch(base_url + "/users/cart", {
         method: "POST",
@@ -378,7 +382,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                                     style={{
                                       position: "absolute",
                                       height: 80,
-                                      right: 0,
+                                      right: 20,
                                       display: "flex",
                                       justifyContent: "center",
                                       alignItems: "center",

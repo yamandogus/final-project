@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { RegisterPayload } from "../../../../services/Type";
 import { base_url } from "../../../../components/Bestseller/BestsellerPage";
+import useSnackbar from "../../../../hooks/Alert";
 
 interface ValueProps {
   setValue: (prev: string) => void;
@@ -20,6 +21,8 @@ interface ValueProps {
 
 const SignUp = ({ setValue }: ValueProps) => {
   const [showPassword, setShowPassword] = useState(true);
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
+  const [passwordError, setPasswordError] = useState("");
 
   const handleShow = () => {
     setShowPassword((prev) => !prev);
@@ -35,7 +38,6 @@ const SignUp = ({ setValue }: ValueProps) => {
 
     data.password2 = data.password;
     data.api_key = "100807";
-
     const response = await fetch(base_url + "/auth/register", {
       method: "POST",
       body: JSON.stringify(data),
@@ -43,9 +45,17 @@ const SignUp = ({ setValue }: ValueProps) => {
         "Content-Type": "application/json",
       },
     });
-
     const jsonResponse = await response.json();
     console.log(jsonResponse);
+
+    if (response.ok) {
+      showSnackbar("Kullanıcı oluşturuldu", "success");
+      setTimeout(() => {
+        setValue("1");
+      }, 3000);
+    } else {
+      showSnackbar("Kullanıcı oluşturulamadı", "error");
+    }
   };
 
   return (
@@ -82,6 +92,13 @@ const SignUp = ({ setValue }: ValueProps) => {
               id="password"
               name="password"
               label="Şifre"
+              onChange={(e) => {
+                if (e.target.value.length < 8) {
+                  setPasswordError("Şifre 8 karakterden az olamaz");
+                } else {
+                  setPasswordError("");
+                }
+              }}
               type={showPassword ? "password" : "text"}
               autoComplete="password"
               required
@@ -96,6 +113,11 @@ const SignUp = ({ setValue }: ValueProps) => {
               }}
             />
           </FormControl>
+          {passwordError && (
+            <Typography variant="subtitle1" color="error">
+              {passwordError}.
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={12}>
           <FormControl fullWidth>
@@ -122,6 +144,7 @@ const SignUp = ({ setValue }: ValueProps) => {
           </FormControl>
         </Grid>
       </Grid>
+      <SnackbarComponent />
     </form>
   );
 };

@@ -1,7 +1,6 @@
 import { base_url } from "../../../../components/Bestseller/BestsellerPage";
 import { AddedAddress, CityProps } from "../../../../services/Type";
 
-
 export interface AccountProps {
   email: string;
   first_name: string;
@@ -9,22 +8,22 @@ export interface AccountProps {
   phone_number: null | string;
 }
 
-interface OrdersProps{
+interface OrdersProps {
   order_no: string;
   order_status: string;
   created_at: string;
   total_price: number;
   cart_detail: [
     {
-        variant_id: string,
-        name: string,
-        photo_src: string,
-        pieces: string,
-        unit_price: string,
-        total_price: string,
-        slug: string
+      variant_id: string;
+      name: string;
+      photo_src: string;
+      pieces: string;
+      unit_price: string;
+      total_price: string;
+      slug: string;
     }
-]
+  ];
 }
 async function refreshAccessToken() {
   const accessToken = localStorage.getItem("access_token");
@@ -54,7 +53,10 @@ async function refreshAccessToken() {
       });
 
       if (!response.ok) {
-        console.error("Refresh token yenileme başarısız:", await response.json());
+        console.error(
+          "Refresh token yenileme başarısız:",
+          await response.json()
+        );
         return;
       }
 
@@ -67,71 +69,70 @@ async function refreshAccessToken() {
   }
 }
 
-
-export function startTokenRefreshInterval(){
-  const intervalId = setInterval(()=>{
-    refreshAccessToken()
+export function startTokenRefreshInterval() {
+  const intervalId = setInterval(() => {
+    refreshAccessToken();
     console.log("kontrol edildi");
-    
-  }, 2*60*1000)
+  }, 2 * 60 * 1000);
   return intervalId;
 }
 
 export async function userProfileLoader() {
- 
-try {
-  const [responseAccount,responseAddress,responseOrders,responseCity] = await Promise.all([
-    fetch(base_url + "/users/my-account",{
-      method: "GET",
-      headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"), 
-      "Content-Type": "application/json",
-    },
-    }),
-    fetch(
-      base_url + "/users/addresses?limit=10&offset=0",
-      {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-          "Content-Type": "application/json",
-        },
-      }
-    ),
-    fetch(base_url + "/orders",{
-      method:"GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/json",
-      },
-    }),
-    fetch(
-      base_url + "/world/region?limit=81&offset=0&country-name=turkey"
-    )
-  ]);
-  const [responseAccountJson, responseAddressJson,responseOrdersJson, responseCityJson] = await Promise.all([
-    responseAccount.json(),
-    responseAddress.json(),
-    responseOrders.json(),
-    responseCity.json()
-  ]);
+  try {
+    const [responseAccount, responseAddress, responseOrders, responseCity] =
+      await Promise.all([
+        fetch(base_url + "/users/my-account", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch(base_url + "/users/addresses?limit=10&offset=0", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch(base_url + "/orders", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch(base_url + "/world/region?limit=81&offset=0&country-name=turkey"),
+      ]);
+    const [
+      responseAccountJson,
+      responseAddressJson,
+      responseOrdersJson,
+      responseCityJson,
+    ] = await Promise.all([
+      responseAccount.json(),
+      responseAddress.json(),
+      responseOrders.json(),
+      responseCity.json(),
+    ]);
 
-  return {
-    user: responseAccountJson.data as AccountProps,
-    datas: responseAddressJson?.data?.results as AddedAddress[] || [],
-    orders: responseOrdersJson.data as OrdersProps[],
-    citysData: responseCityJson.data.results as CityProps[] || [],
-  };
-} catch (error) {
-  console.log("data çekilemedi",error);
-  return {
-    user: {} as AccountProps,
-    datas: [],
-    orders: [],
-    citysData: []
-  };
-}
+    console.log("TEST", responseCityJson);
 
+    return {
+      user: responseAccountJson.data as AccountProps,
+      datas: (responseAddressJson?.data?.results as AddedAddress[]) || [],
+      orders: responseOrdersJson.data as OrdersProps[],
+      citysData: (responseCityJson.data.results as CityProps[]) || [],
+    };
+  } catch (error) {
+    console.log("data çekilemedi", error);
+    return {
+      user: {} as AccountProps,
+      datas: [],
+      orders: [],
+      citysData: [],
+    };
+  }
 }
 
 export type userProfileLoaderReturn = Awaited<

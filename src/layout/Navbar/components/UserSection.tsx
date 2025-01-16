@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Divider, Menu, MenuItem } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { userCartStore } from "../../../store/cartStore";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,7 +12,6 @@ interface UserSectionProps {
 const menuStyle = {padding:"4px 30px", display:'block'}
 
 function UserSection({ user }: UserSectionProps) {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const { updateCartData } = userCartStore();
@@ -24,16 +23,20 @@ function UserSection({ user }: UserSectionProps) {
     setAnchorEl(null);
   };
 
-const handlelogout = () => {
+  const handlelogout = async () => {
+    // Önce local storage'ı temizle
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    navigate("/");
-    updateCartData({
+    
+    // Cart state'ini sıfırla
+    await updateCartData({
       items: [],
       total_price: 0,
     });
+    
+    // Sayfayı yenile ve ana sayfaya yönlendir
+    window.location.href = "/";
   };
-
 
   return (
     <>

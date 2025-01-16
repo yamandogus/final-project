@@ -9,6 +9,7 @@ interface ProductPropsHome {
   link: string;
   bg: string;
 }
+
 const CategoryProducts = ({
   name,
   image,
@@ -23,16 +24,10 @@ const CategoryProducts = ({
       return `/category/${link}/${encodeURIComponent(name)}`;
     }
   };
+
   return (
     <Grid item xs={6} sm={4}>
-      <Box
-        sx={{
-          cursor: "pointer",
-          textDecoration: "none",
-        }}
-        to={CategoryLink()}
-        component={Link}
-      >
+      <Link to={CategoryLink()} style={{ textDecoration: "none" }}>
         <Card
           className="cardTyp"
           sx={{ backgroundColor: bg, height: 165, borderRadius: 3 }}
@@ -78,27 +73,25 @@ const CategoryProducts = ({
                 >
                   {name}
                 </Typography>
-                <Link to={CategoryLink()} style={{ textDecoration: "none" }}>
-                  <Button
-                    className="buttonComp"
-                    sx={{
-                      backgroundColor: "rgba(0, 0, 0, 1)",
-                      borderRadius: 2,
-                      width: "100%",
-                      fontWeight: "bolder",
-                      px: 4,
-                      "&:hover": { backgroundColor: "rgba(0, 0, 0, 1)" },
-                    }}
-                    variant="contained"
-                  >
-                    {review}
-                  </Button>
-                </Link>
+                <Button
+                  className="buttonComp"
+                  sx={{
+                    backgroundColor: "rgba(0, 0, 0, 1)",
+                    borderRadius: 2,
+                    width: "100%",
+                    fontWeight: "bolder",
+                    px: 4,
+                    "&:hover": { backgroundColor: "rgba(0, 0, 0, 1)" },
+                  }}
+                  variant="contained"
+                >
+                  {review}
+                </Button>
               </Stack>
             </Grid>
           </Grid>
         </Card>
-      </Box>
+      </Link>
     </Grid>
   );
 };

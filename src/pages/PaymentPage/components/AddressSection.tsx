@@ -18,10 +18,11 @@ import {
   GuestAddress,
   LoaderDataAccount,
 } from "../../../services/Type";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { base_url } from "../../../components/Bestseller/BestsellerPage";
 import useSnackbar from "../../../hooks/Alert";
 import AddressesForm from "../../Account/components/Addresses/Component/Form";
+
 interface AddressSectionProps {
   expanded: string | false;
   handleChangePanel: (
@@ -30,6 +31,7 @@ interface AddressSectionProps {
   setSelectedAddress: (address: string) => void;
   setSelectedAddressId: (id: string) => void;
 }
+
 const style = {
   left: "50%",
   width: "100%",
@@ -87,6 +89,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       full_address: `${addres}${city}/${district}`,
       phone_number: data.phone,
     };
+
     try {
       const response = await fetch(base_url + "/users/addresses", {
         method: "POST",
@@ -110,23 +113,47 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     e.preventDefault();
     const formEl = e.target as HTMLFormElement;
     const formData = new FormData(formEl);
-    const data = Object.fromEntries(formData.entries()) as unknown as Address;
+    const data = {
+      title: formData.get("title") as string,
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      address: formData.get("address") as string,
+      city: formData.get("city") as string,
+      district: formData.get("district") as string,
+      phone: formData.get("phone") as string,
+    };
+    const fullAddress = `${data.firstName} ${data.lastName}, ${data.address}, ${data.city}/${data.district}`;
     const newData = {
-      title: title,
-      full_address: `${addres}${city}/${district}`,
+      title: data.title,
+      full_address: fullAddress,
       phone: data.phone,
     };
+
     localStorage.setItem("guest-address", JSON.stringify(newData));
     setGuestAddress(newData);
     handleClose();
     resetForm();
+    showSnackbar("Adres başarıyla kaydedildi", "success");
   };
+
+useEffect(() => {
+  async function fetchCity() {
+    try {
+      const responseCity = await fetch(base_url + "/world/region?limit=81&offset=0&country-name=turkey");
+      const dataCity = await responseCity.json();
+      setCities(dataCity.data.results);
+    } catch (error) {
+      console.error("Sehirler yüklenirken hata oluştu:", error);
+    }
+  }
+  fetchCity();
+ }, []);
 
   async function fetchDistrict(selectedCity: string) {
     try {
       const responseDistrict = await fetch(
         base_url +
-          `/world/subregion?limit=30&offset=0&region-name=${selectedCity}`
+          `/world/subregion?limit=100&offset=0&region-name=${selectedCity}`
       );
       const dataDistrict = await responseDistrict.json();
       setDistricts(dataDistrict.data.results);
@@ -187,6 +214,35 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       console.log(error);
       showSnackbar("Adres güncellenemedi", "error");
     }
+  };
+
+  const handleEdit = (address: AddedAddress) => {
+    setEditIndex(true);
+    setTitle(address.title);
+    setAddres(address.full_address.split(",")[0]);
+    setPhone(address.phone_number);
+    setİd(address.id);
+    handleOpen();
+  };
+
+  const handleNewAddress = () => {
+    setEditIndex(false);
+    resetForm();
+    handleOpen();
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (user && user.first_name) {
+      if (editIndex) {
+        await upadeteAddress(id);
+      } else {
+        await handleAddressSubmit(e);
+      }
+    } else {
+      await guestAddressSubmit(e);
+    }
+    handleClose();
   };
 
   return (
@@ -264,13 +320,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                           }
                         />
                         <Button
-                          onClick={() => {
-                            setTitle(address.title);
-                            setAddres(address.full_address.split(",")[0]);
-                            setPhone(address.phone_number);
-                            handleOpen();
-                            setİd(address.id);
-                          }}
+                          onClick={() => handleEdit(address)}
                           sx={{ textTransform: "none" }}
                         >
                           Düzenle
@@ -346,10 +396,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                   <FormControlLabel
                     control={
                       <Radio
-                        onClick={() => {
-                          handleOpen();
-                          setEditIndex(true);
-                        }}
+                        onClick={handleNewAddress}
                         value={""}
                         onChange={(e) => {
                           setSelectedAddress(e.target.value);
@@ -425,20 +472,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
             p: 2,
           }}
         >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (user && user.first_name) {
-                if (!editIndex) {
-                  upadeteAddress(id);
-                } else {
-                  handleAddressSubmit(e);
-                }
-              } else {
-                guestAddressSubmit(e);
-              }
-            }}
-          >
+          <form onSubmit={handleFormSubmit}>
             <AddressesForm
               title={title}
               setTitle={setTitle}

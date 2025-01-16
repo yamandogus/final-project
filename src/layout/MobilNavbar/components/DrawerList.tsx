@@ -35,11 +35,11 @@ const DrawerListMenu = ({
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     window.location.reload();
-    navigate("/");
     updateCartData({
       items: [],
       total_price: 0,
     });
+    navigate("/");
   };
 
 

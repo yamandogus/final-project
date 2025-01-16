@@ -59,7 +59,6 @@ function ProductsDetails() {
   };
   const data = localStorage.getItem("last-visited");
   const lastViseted: ProductProps[] = data ? JSON.parse(data) : [];
-  const [open, setOpen] = useState(false);
   const [comments, setComments] = useState<CommentsDataProps[]>([]);
 
   const fetchComments = async () => {
@@ -111,36 +110,6 @@ function ProductsDetails() {
     fetchComments();
   }, [params.productSlug]);
 
-  const commentSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const pramsSlug = params.productSlug;
-    const formEl = e.target as HTMLFormElement;
-    const formData = new FormData(formEl);
-    const data = Object.fromEntries(
-      formData.entries()
-    ) as unknown as CommentsProps;
-    console.log("data", data);
-    try {
-      const response = await fetch(
-        base_url + `/products/${pramsSlug}/comments`,
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("access_token"),
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseJson = response.json();
-      if (response.ok) {
-        await fetchComments();
-      }
-      console.log(responseJson);
-    } catch (error) {
-      console.log("Yorum atılamadı", error);
-    }
-  };
 
   return (
     <>
@@ -237,27 +206,6 @@ function ProductsDetails() {
                   </Stack>
                 ))}
               </Stack>
-            </Grid>
-            <Grid item xs={12}>
-              <Box mt={2} >
-                <a
-                  style={{ textDecoration: "underline", cursor: "pointer" }}
-                  onClick={() => setOpen((prev) => !prev)}
-                >
-                  Yorum ekle
-                </a>
-                {open ? (
-                  <Box mt={3}>
-                    <Box>
-                      <form onSubmit={(e) => commentSubmit(e)}>
-                        <CommentsComponent />
-                      </form>
-                    </Box>
-                  </Box>
-                ) : (
-                  ""
-                )}
-              </Box>
             </Grid>
           </Grid>
         </Container>

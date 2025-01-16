@@ -24,7 +24,7 @@ const Account = () => {
   };
 
   return (
-    <Box sx={{ mt: 5, mb:15}}>
+    <Box sx={{ mt: 5, mb: 15 }}>
       <Container maxWidth="xs">
         {!changePassword ? (
           <>
@@ -46,9 +46,7 @@ const Account = () => {
                 {value === "1" ? (
                   <Login setChangePassword={setChangePassword} />
                 ) : (
-                  <SignUp 
-                  setValue={setValue}
-                  />
+                  <SignUp setValue={setValue} />
                 )}
               </Box>
             </TabContext>

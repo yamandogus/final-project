@@ -1,4 +1,4 @@
-import { Box,Checkbox, Grid, TextField, Typography } from "@mui/material";
+import { Box, Checkbox, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Cards, { Focused } from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
@@ -49,109 +49,97 @@ const CreditCart = () => {
           focused={state.focus as Focused}
         />
       </Box>
-      <form style={{display: "flex", justifyContent: "center"}}>
-        <Grid container sx={{ mt: 2, width:"90%"}} spacing={2}>
-          <Grid item xs={12} sm={6}>
+      <Box sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
             <TextField
               type="text"
-              label="Kart Numarası"
               name="number"
+              label="Kart Numarası"
               size="small"
-              fullWidth
               value={state.number}
               onChange={(e) => {
-                const value = formatCardNumber(e.target.value);
-                if (value.length <= 19) {
-                  setState((prev) => ({ ...prev, number: value }));
+                const formattedValue = formatCardNumber(e.target.value);
+                if (formattedValue.length <= 19) {
+                  handleInputChange({
+                    ...e,
+                    target: { ...e.target, value: formattedValue },
+                  });
                 }
               }}
               onFocus={handleInputFocus}
-              slotProps={{
-                input: {
-                  maxRows: 19,
-                },
-              }}
+              fullWidth
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <TextField
               type="text"
               name="name"
+              label="Kart Üzerindeki İsim"
               size="small"
-              label="İsim Soyisim"
-              fullWidth
               value={state.name}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="text"
-              name="expiry"
-              size="small"
-              label="Son Kullanma Tarihi"
-              value={state.expiry}
-              onChange={(e) => {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length >= 2) {
-                  value = value.slice(0, 2) + '/' + value.slice(2);
-                }
-                if (value.length <= 5) {
-                  const month = parseInt(value.slice(0, 2));
-                  if (value.length <= 2 && month > 12) {
-                    value = '12';
-                  }
-                  if (value.length <= 2 && month === 0) {
-                    value = '01';
-                  }
-                  setState((prev) => ({ ...prev, expiry: value }));
-                }
-              }}
-              onFocus={handleInputFocus}
-              slotProps={{
-                input: {
-                  maxRows: 5,
-                },
-              }}
               fullWidth
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6}>
+            <TextField
+              type="text"
+              name="expiry"
+              label="Son Kullanma Tarihi"
+              size="small"
+              value={state.expiry}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 4) {
+                  const formattedValue = value
+                    .replace(/(\d{2})/, '$1/')
+                    .replace(/(\d{2})\/?(\d{2})/, '$1/$2');
+                  handleInputChange({
+                    ...e,
+                    target: { ...e.target, value: formattedValue },
+                  });
+                }
+              }}
+              onFocus={handleInputFocus}
+              placeholder="MM/YY"
+              fullWidth
+              required
+            />
+          </Grid>
+          <Grid item xs={6}>
             <TextField
               type="text"
               name="cvc"
               label="CVC"
               size="small"
-              fullWidth
               value={state.cvc}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, '');
                 if (value.length <= 3) {
-                  setState((prev) => ({ ...prev, cvc: value }));
+                  handleInputChange({
+                    ...e,
+                    target: { ...e.target, value },
+                  });
                 }
               }}
               onFocus={handleInputFocus}
-              slotProps={{
-                input:{
-                  inputMode: "numeric",
-                  maxRows: 3,
-                }
-              }}
+              fullWidth
               required
             />
           </Grid>
+          <Grid item xs={12}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Checkbox />
+              <Typography variant="body2">
+                Kart bilgilerimi sonraki alışverişlerim için kaydet
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
-      </form>
-      <Box sx={{ mt: 2 }}>
-        <Typography variant="subtitle2">
-          <Checkbox size="small" />
-          Kartımı <img width={70} src="/images/master/master.png" alt="" />
-          altyapısında kullanmak istiyorum.
-        </Typography>   
       </Box>
     </Box>
   );
