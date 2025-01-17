@@ -17,8 +17,8 @@ export interface LoaderData {
 
 export async function LinksLoader() {
   try {
-    const [categoryResponse, accountResponse, cartResponse] = await Promise.all(
-      [
+    const [categoryResponse, accountResponse, cartResponse, regionResponse] =
+      await Promise.all([
         fetch(base_url + "/categories"),
         fetch(base_url + "/users/my-account", {
           method: "GET",
@@ -34,25 +34,22 @@ export async function LinksLoader() {
             "Content-Type": "application/json",
           },
         }),
+        fetch(base_url + "/world/region?limit=81&offset=0&country-name=turkey"),
       ]
     );
-    const [categories, accountData, cartData] = await Promise.all([
+    const [categories, accountData, cartData, regionData] = await Promise.all([
       categoryResponse.json(),
       accountResponse.json(),
       cartResponse.json(),
+      regionResponse.json(),
     ]);
 
     if (cartData.data) {
       userCartStore.getState().initializeCart(cartData.data);
     }
-
-    console.log("Category Data:", categories);
-    console.log("Account Data:", accountData);
-    console.log("Cart Data:", cartData);
-
     localStorage.setItem("login-user-carts", JSON.stringify(cartData));
     localStorage.setItem("product-comments", JSON.stringify(reviews));
-
+    localStorage.setItem("region-data", JSON.stringify(regionData.data.results));
     return {
       allProduct: categories.data.data,
       user: accountData.data || {},

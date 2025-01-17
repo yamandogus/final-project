@@ -1,4 +1,4 @@
-import { Grid, Typography, Button, Card, Stack, Box } from "@mui/material";
+import { Grid, Typography, Button, Card, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 interface ProductPropsHome {

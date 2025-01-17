@@ -2,56 +2,58 @@ import { Grid, TextField, MenuItem, Button } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent } from "react";
 import { CityProps, DistrictProps } from "../../../../../services/Type";
-import { log } from "console";
 
-interface AddressesFormProps { 
-    title: string;
-    setTitle: (e: string) => void;
-    firstName: string;
-    setFirstName: (e: string) => void;
-    lastName: string;
-    setLastName: (e: string) => void;
-    address: string;
-    setAddress: (e: string) => void;
-    city: string;
-    setCity: (e: string) => void;
-    district: string;
-    setDistrict: (e: string) => void;
-    phone: string;
-    cities:CityProps[];
-    districts: DistrictProps[];
-    fetchDistrict: (e: string) => void;
-    handlePhone: (e: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    editIndex: boolean;
-    id: string;
-    updateAddress: (e: string) => void;
+interface AddressesFormProps {
+  title: string;
+  setTitle: (e: string) => void;
+  firstName: string;
+  setFirstName: (e: string) => void;
+  lastName: string;
+  setLastName: (e: string) => void;
+  address: string;
+  setAddress: (e: string) => void;
+  city: string;
+  setCity: (e: string) => void;
+  district: string;
+  setDistrict: (e: string) => void;
+  phone: string;
+  cities: CityProps[];
+  districts: DistrictProps[];
+  fetchDistrict: (e: string) => void;
+  handlePhone: (
+    e: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  editIndex: boolean;
+  id: string;
+  updateAddress: (e: string) => void;
 }
 
 const AddressesForm: React.FC<AddressesFormProps> = ({
-    title,
-    setTitle,
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    address,
-    setAddress,
-    city,
-    setCity,
-    district,
-    setDistrict,
-    phone,
-    cities,
-    districts,
-    fetchDistrict,
-    handlePhone,
-    editIndex,
-    id,
-    updateAddress
+  title,
+  setTitle,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  address,
+  setAddress,
+  city,
+  setCity,
+  district,
+  setDistrict,
+  phone,
+  cities,
+  districts,
+  fetchDistrict,
+  handlePhone,
+  editIndex,
+  id,
+  updateAddress,
 }) => {
-
-  console.log("cities", cities);
-  console.log("districts", districts);
+  const regionCity = localStorage.getItem("region-data");
+  const regionCityJson: CityProps[] = regionCity
+    ? JSON.parse(regionCity)
+    : null;
   return (
     <>
       <Grid container spacing={2}>
@@ -116,11 +118,24 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             required
             label="İl"
           >
-            {cities?.map((option, index) => (
-              <MenuItem key={index} value={option.name}>
-                {option.name.split(" ")[0]}
-              </MenuItem>
-            ))}
+            {regionCityJson && regionCityJson.length > 0 ? (
+              regionCityJson.map((city) => (
+                <MenuItem key={city.id} value={city.name}>
+                  {city.name.split("Province")[0]}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem disabled>Yükleniyor...</MenuItem>
+            )}
+            {cities && cities.length > 0 ? (
+              cities.map((city) => (
+                <MenuItem key={city.id} value={city.name}>
+                  {city.name.split("İlçesi")[0]}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem disabled>Yükleniyor...</MenuItem>
+            )}
           </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -142,11 +157,15 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             required
             label="İlçe"
           >
-            {districts?.map((district, index) => (
-              <MenuItem key={index} value={district.name}>
-                {district.name.split(" ")[0]}
-              </MenuItem>
-            ))}
+            {districts && districts.length > 0 ? (
+              districts.map((district) => (
+                <MenuItem key={district.id} value={district.name}>
+                  {district.name}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem disabled>İl seçimi bekleniyor...</MenuItem>
+            )}
           </TextField>
         </Grid>
         <Grid item xs={12}>
@@ -158,15 +177,6 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             name="phone"
             value={phone}
             onChange={handlePhone}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            label="Fatura ve sipariş detayı için mail adresi giriniz."
-            required
           />
         </Grid>
         <Grid item xs={12} textAlign="end">

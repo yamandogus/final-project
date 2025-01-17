@@ -77,17 +77,18 @@ const ProductsView = ({ product, tags, user }: Props) => {
         pieces: number;
       };
       if (response.ok) {
-        const existingIndex = cartData?.items.find(
+        const items = cartData?.items ?? [];
+        const existingIndex = items.find(
           (item) =>
             item.product_id === product.id &&
             item.product_variant_id === selectedVariant.id
         );
 
-        let updateItems: CartItem[] = [];
+        let updateItems: CartItem[] = [...items];
 
         if (existingIndex) {
           updateItems =
-            cartData?.items.map((item) =>
+            items.map((item) =>
               item.product_id === product.id &&
               item.product_variant_id === selectedVariant.id
                 ? {

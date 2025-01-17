@@ -38,6 +38,6 @@ export async function userAddressLoader(){
     return {datas:responseJsonAddress.data.results || [], user: responseJsonAccount.data || null, userCart: responseJsonCart.data || {},cityData: responseJsonCity.data.results || []};
   } catch (error) {
     console.log("Veri alınamadı", error);
-    return{datas:[], user: null,userCart:{},responseJsonCity:[]};
+    return{datas:[], user: null,userCart:{},cityData:[]};
   }
 }

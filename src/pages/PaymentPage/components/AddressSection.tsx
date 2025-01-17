@@ -111,22 +111,12 @@ const AddressSection: React.FC<AddressSectionProps> = ({
 
   const guestAddressSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const formEl = e.target as HTMLFormElement;
-    const formData = new FormData(formEl);
-    const data = {
-      title: formData.get("title") as string,
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      address: formData.get("address") as string,
-      city: formData.get("city") as string,
-      district: formData.get("district") as string,
-      phone: formData.get("phone") as string,
-    };
-    const fullAddress = `${data.firstName} ${data.lastName}, ${data.address}, ${data.city}/${data.district}`;
+  
+    const fullAddress = `${firstName} ${lastName}, ${addres}, ${city}/${district}`;
     const newData = {
-      title: data.title,
+      title: title,
       full_address: fullAddress,
-      phone: data.phone,
+      phone:phone,
     };
 
     localStorage.setItem("guest-address", JSON.stringify(newData));

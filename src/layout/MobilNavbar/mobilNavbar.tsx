@@ -17,9 +17,9 @@ import { useStore } from "../../services/Count";
 import { userCartStore } from "../../store/cartStore";
 import { LinksProps } from "../../services/Type";
 import { LoaderData } from "../Navbar/navbar";
-import DrawerList from "../../components/DrawerList/DrawerList";
 import SearchModal from "./components/SearchModal";
 import NavbarDrawer from "./components/NavbarDrawer";
+import DrawerList from "./components/DrawerList";
 
 const SecondNavbar = () => {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,6 @@
 import { Grid, TextField, MenuItem, Button } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { CityProps, DistrictProps } from "../../services/Type";
 
 interface AddressesFormProps { 
@@ -48,6 +48,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
     id,
     updateAddress
 }) => {
+
   return (
     <>
       <Grid container spacing={2}>
@@ -156,15 +157,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             onChange={handlePhone}
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            label="Fatura ve sipariş detayı için mail adresi giriniz."
-            required
-          />
-        </Grid>
+          {}
         <Grid item xs={12} textAlign="end">
           <Button
             type="submit"

@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useSnackbar from "../../../../hooks/Alert";
 import { LoginPayload } from "../../../../services/Type";
@@ -21,6 +21,7 @@ interface LoginProps {
 const Login = ({ setChangePassword }: LoginProps) => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
+  const navigate = useNavigate();
 
   const handleShow = () => {
     setShowPassword((prev) => !prev);
@@ -52,7 +53,7 @@ const Login = ({ setChangePassword }: LoginProps) => {
         };
         localStorage.setItem("access_token", jsonResponse.access_token);
         localStorage.setItem("refresh_token", jsonResponse.refresh_token);
-        window.location.href = "/";
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
