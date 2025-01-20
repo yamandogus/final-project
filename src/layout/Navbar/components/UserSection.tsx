@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Divider, Menu, MenuItem } from "@mui/material";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { userCartStore } from "../../../store/cartStore";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
@@ -15,6 +15,7 @@ function UserSection({ user }: UserSectionProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const { updateCartData } = userCartStore();
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -24,18 +25,14 @@ function UserSection({ user }: UserSectionProps) {
   };
 
   const handlelogout = async () => {
-    // Önce local storage'ı temizle
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    
-    // Cart state'ini sıfırla
-    await updateCartData({
+    updateCartData({
       items: [],
       total_price: 0,
     });
-    
-    // Sayfayı yenile ve ana sayfaya yönlendir
-    window.location.href = "/";
+    window.location.reload();
+    navigate("/");
   };
 
   return (
@@ -89,11 +86,23 @@ function UserSection({ user }: UserSectionProps) {
               <MenuItem key="logout"   style={menuStyle} onClick={handlelogout}>Çıkış Yap</MenuItem>
             ]
            : [
-              <MenuItem key="login"  style={menuStyle} component={Link}  to={`Account?value=${"1"}`}>
+              <MenuItem 
+                key="login" 
+                style={menuStyle} 
+                component={Link} 
+                onClick={handleClose} 
+                to={`Account?value=${"1"}`}
+              >
                 Üye Girişi
               </MenuItem>,
               <Divider key="divider-2"/>,
-              <MenuItem key="signup"   style={menuStyle} component={Link}  to={`Account?value=${"2"}`}>
+              <MenuItem 
+                key="signup" 
+                style={menuStyle} 
+                component={Link} 
+                onClick={handleClose} 
+                to={`Account?value=${"2"}`}
+              >
                 Üye Ol
               </MenuItem>
            ]

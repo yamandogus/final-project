@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Popper, Rating, Stack, Typography, Button } from "@mui/material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
@@ -7,6 +7,7 @@ import { CategoryProps } from "../../services/Type";
 import CategoryProducts from "./components/HomeComp";
 import SliderComponent from "../../hooks/UseBlaze/SliderComponent";
 import BestSeller from "../../components/Bestseller/BestsellerPage";
+import { useState } from "react";
 
 const products = [
   {

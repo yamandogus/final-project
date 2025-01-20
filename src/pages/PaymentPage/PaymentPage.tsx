@@ -175,7 +175,7 @@ const PaymentPage = () => {
                   ÖDEME İŞLEMİ BAŞARILI
                 </Typography>
                 <Typography variant="subtitle1" sx={{}}>
-                  Sipariş özetiniz telefon numarasına gönderildi.
+                  Sipariş özetiniz ve faturanız telefon numarasına gönderildi.
                 </Typography>
                 <Button variant="contained" color="success" href={"/"}>
                   {" "}

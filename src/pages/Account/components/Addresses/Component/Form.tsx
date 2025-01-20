@@ -105,7 +105,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
               MenuProps: {
                 PaperProps: {
                   style: {
-                    maxHeight: 140,
+                    maxHeight: 180,
                   },
                 },
                 disableScrollLock: true,
@@ -130,7 +130,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             {cities && cities.length > 0 ? (
               cities.map((city) => (
                 <MenuItem key={city.id} value={city.name}>
-                  {city.name.split("İlçesi")[0]}
+                  {city.name.split("Province")[0]}
                 </MenuItem>
               ))
             ) : (
@@ -147,7 +147,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
               MenuProps: {
                 PaperProps: {
                   style: {
-                    maxHeight: 140,
+                    maxHeight: 180,
                   },
                 },
                 disableScrollLock: true,
@@ -160,7 +160,7 @@ const AddressesForm: React.FC<AddressesFormProps> = ({
             {districts && districts.length > 0 ? (
               districts.map((district) => (
                 <MenuItem key={district.id} value={district.name}>
-                  {district.name}
+                  {district.name.split("İlçesi")[0]}
                 </MenuItem>
               ))
             ) : (

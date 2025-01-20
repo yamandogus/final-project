@@ -21,7 +21,7 @@ const  LastWiew= ({
   }
   return (
     <Grid item xs={6} md={4} lg={2} >
-      <Link style={{position:'relative'}} to={'#'}>
+      <Link to={'#'} style={{position:'relative'}}>
         {discounted_price && (
           <Stack className="discount">
                 <strong style={{fontSize:'15px'}}>%{calculateDiscount(total_price, discounted_price)} </strong> İNDİRİM

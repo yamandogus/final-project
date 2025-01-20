@@ -367,6 +367,8 @@ export interface GuestAddress{
   title: string,
   full_address: string, 
   phone: string,
+  first_name: string,
+  last_name: string
 }
 
 export interface Product {

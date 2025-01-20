@@ -4,12 +4,23 @@ import {
   useLoaderData,
   useParams,
 } from "react-router-dom";
-import { Container, Grid, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { calculateDiscount } from "../AllProduct/components/Protein";
 import { useEffect, useState } from "react";
 import { lastVisited } from "../../services/LastVisited";
 import { getAllProducts } from "../../services/AllProduct";
-import { base_url, photo_url } from "../../components/Bestseller/BestsellerPage";
+import {
+  base_url,
+  photo_url,
+} from "../../components/Bestseller/BestsellerPage";
 
 interface CatPropsconst {
   name: string;
@@ -57,7 +68,7 @@ const Categories = () => {
   const [loading, setLoading] = useState(false);
   const itemPerPage = 12;
 
-console.log("product",product);
+  console.log("product", product);
 
   useEffect(() => {
     const MoreProduct = async () => {
@@ -72,7 +83,6 @@ console.log("product",product);
         setLoading(false);
 
         console.log(product);
-        
       }
     };
     if (currentPage > 1) {
@@ -111,106 +121,147 @@ console.log("product",product);
       >
         {categoryName}
       </Typography>
-      <Container sx={{mb:10}}>
+      <Container sx={{ mb: 10 }}>
         <Grid container spacing={2}>
-         {product ? (
-          <>
-           {product.map((cat, index) => (
-            <Grid key={index} item xs={6} md={4} lg={3}>
-              <Link
-                onClick={() =>
-                {
-                  const selected= product[index]
-                  lastVisited({
-                    name: selected.name,
-                    photo_src:selected.photo_src,
-                    short_explanation:selected.short_explanation,
-                    average_star: selected.average_star,
-                    comment_count: selected.comment_count,
-                    slug: selected.slug,
-                    price_info: { total_price :selected.price_info.total_price, discounted_price:selected.price_info.discounted_price },
-                  })
-                }
-                }
-                style={{ position: "relative" }}
-                to={`/products/${cat.slug}`}
-              >
-                {cat.price_info.discounted_price && (
-                  <Stack className="discount">
-                    <strong style={{ fontSize: "16px" }}>
-                      %
-                      {calculateDiscount(
-                        cat.price_info.total_price,
-                        cat.price_info.discounted_price
-                      )}{" "}
-                    </strong>
-                    İNDİRİM
+          {product ? (
+            <>
+              {product.map((cat, index) => (
+                <Grid key={index} item xs={6} md={4} lg={3}>
+                  <Link
+                    onClick={() => {
+                      const selected = product[index];
+                      lastVisited({
+                        name: selected.name,
+                        photo_src: selected.photo_src,
+                        short_explanation: selected.short_explanation,
+                        average_star: selected.average_star,
+                        comment_count: selected.comment_count,
+                        slug: selected.slug,
+                        price_info: {
+                          total_price: selected.price_info.total_price,
+                          discounted_price:
+                            selected.price_info.discounted_price,
+                        },
+                      });
+                    }}
+                    style={{ position: "relative" }}
+                    to={`/products/${cat.slug}`}
+                  >
+                    {cat.price_info.discounted_price && (
+                      <Stack className="discount">
+                        <strong style={{ fontSize: "16px" }}>
+                          %
+                          {calculateDiscount(
+                            cat.price_info.total_price,
+                            cat.price_info.discounted_price
+                          )}{" "}
+                        </strong>
+                        İNDİRİM
+                      </Stack>
+                    )}
+                    <img
+                      className="imgHover"
+                      src={photo_url + cat.photo_src}
+                      alt={cat.name}
+                      style={{
+                        maxWidth: "90%",
+                        display: "block",
+                        margin: "auto",
+                        aspectRatio: 1 / 1,
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Link>
+                  <Stack
+                    direction={"column"}
+                    sx={{ alignItems: "center", mt: 2 }}
+                  >
+                    <Typography
+                      fontSize={16}
+                      fontWeight={"bolder"}
+                      className="text"
+                    >
+                      {cat.name}
+                    </Typography>
+                    <Typography>
+                      <span className="centered-span">
+                        {cat.short_explanation}
+                      </span>
+                    </Typography>
+                    <Rating
+                      name="half-rating"
+                      defaultValue={cat.average_star}
+                      readOnly
+                    />
+                    <Typography>{cat.comment_count} Yorum</Typography>
+                    <Typography>
+                      {cat.price_info.discounted_price ? (
+                        <>
+                          <span
+                            style={{
+                              fontWeight: "bolder",
+                              color: "red",
+                              fontSize: 16,
+                              marginRight: 3,
+                            }}
+                          >
+                            {Math.floor(cat.price_info.discounted_price)} TL{" "}
+                            <br />
+                          </span>
+                          <span
+                            style={{
+                              fontWeight: "bolder",
+                              textDecoration: "line-through",
+                            }}
+                          >
+                            {cat.price_info.total_price} TL
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ fontWeight: "bolder" }}>
+                          {cat.price_info.total_price} TL
+                        </span>
+                      )}
+                    </Typography>
                   </Stack>
-                )}
-                <img
-                  className="imgHover"
-                  src={photo_url + cat.photo_src}
-                  alt={cat.name}
-                  style={{
-                    maxWidth: "90%",
-                    display: "block",
-                    margin: "auto",
-                    aspectRatio: 1 / 1,
-                    objectFit: "cover",
-                  }}
-                />
-              </Link>
-              <Stack direction={"column"} sx={{ alignItems: "center", mt: 2 }}>
-                <Typography
-                  fontSize={16}
-                  fontWeight={"bolder"}
-                  className="text"
-                >
-                  {cat.name}
-                </Typography>
-                <Typography>
-                  <span className="centered-span">{cat.short_explanation}</span>
-                </Typography>
-                <Rating
-                  name="half-rating"
-                  defaultValue={cat.average_star}
-                  readOnly
-                />
-                <Typography>{cat.comment_count} Yorum</Typography>
-                <Typography>
-                  {cat.price_info.discounted_price ? (
-                    <>
-                      <span
-                        style={{
-                          fontWeight: "bolder",
-                          color: "red",
-                          fontSize: 16,
-                          marginRight: 3,
-                        }}
-                      >
-                        {Math.floor(cat.price_info.discounted_price)} TL <br />
-                      </span>
-                      <span
-                        style={{
-                          fontWeight: "bolder",
-                          textDecoration: "line-through",
-                        }}
-                      >
-                        {cat.price_info.total_price} TL
-                      </span>
-                    </>
-                  ) : (
-                    <span style={{ fontWeight: "bolder" }}>
-                      {cat.price_info.total_price} TL
-                    </span>
-                  )}
-                </Typography>
-              </Stack>
-            </Grid>
-          ))}
-          </>
-         ):("")}
+                </Grid>
+              ))}
+            </>
+          ) : (
+            ""
+          )}
         </Grid>
+        {categoryName === "VİTAMİN" && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              minHeight: "50vh",
+              flexGrow: 1,
+            }}
+          >
+            <Typography sx={{ display: "block" }} variant="subtitle1">
+              {categoryName} kategorisinde henuz herhangi bir ürün
+              bulunmamaktadır.
+            </Typography>
+            <Box>
+              <Button
+                sx={{
+                  mt: 2,
+                  backgroundColor: "black",
+                  "&:hover": { backgroundColor: "black" },
+                }}
+                component={Link}
+                to={"/AllProducts"}
+                variant="contained"
+              >
+                Tüm Ürünleri Gör
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Container>
     </>
   );

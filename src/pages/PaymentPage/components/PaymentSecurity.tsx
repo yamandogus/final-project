@@ -54,39 +54,92 @@ const PaymentSecurity = () => {
       </Box>
       <Modal open={security} onClose={() => setSecurity(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h6" component="h2" gutterBottom>
             Gizlilik Sözleşmesi
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            1. Kişisel Veriler: Kişisel verileriniz gizli tutulacak ve üçüncü
-            taraflarla paylaşılmayacaktır.
+          <Typography variant="body1" >
+            1. Kişisel Verilerin Korunması
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            2. Veri Güvenliği: Verilerinizi korumak için en son güvenlik
-            önlemlerini kullanıyoruz.
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Müşterilerimizin kişisel bilgileri (ad, adres, telefon, e-posta vb.) gizli tutulacaktır.
+            • Veriler şifrelenmiş ve güvenli sistemlerde saklanacaktır.
+            • Hiçbir durumda üçüncü taraflarla paylaşılmayacak veya satılmayacaktır.
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            3. Veri Kullanımı: Verileriniz sadece siparişinizi işlemek için
-            kullanılacaktır.
+          
+          <Typography variant="body1" >
+            2. Veri Güvenliği ve Koruma Önlemleri
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • SSL şifreleme teknolojisi ile verileriniz korunmaktadır.
+            • Düzenli güvenlik denetimleri yapılmaktadır.
+            • En son güvenlik yazılımları ve protokolleri kullanılmaktadır.
+          </Typography>
+          
+          <Typography variant="body1" >
+            3. Veri Kullanım Amacı
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Siparişlerinizin işlenmesi ve takibi
+            • Ürün teslimatının sağlanması
+            • Müşteri hizmetleri desteği
+            • Yasal yükümlülüklerin yerine getirilmesi
+          </Typography>
+          
+          <Typography variant="body1" >
+            4. Müşteri Hakları
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Verilerinize erişim hakkı
+            • Verilerinizin düzeltilmesini talep etme hakkı
+            • Verilerinizin silinmesini talep etme hakkı
+            • Veri işleme faaliyetlerine itiraz etme hakkı
           </Typography>
         </Box>
       </Modal>
+      
       <Modal open={sales} onClose={() => setSales(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h6" component="h2" gutterBottom>
             Satış Sözleşmesi
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            1. Sipariş ve Teslimat: Siparişiniz, belirtilen teslimat süresi
-            içinde adresinize gönderilecektir.
+          <Typography variant="body1" >
+            1. Sipariş ve Teslimat Koşulları
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            2. İade Politikası: Ürünleri, teslim tarihinden itibaren 14 gün
-            içinde iade edebilirsiniz.
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Siparişler 1-3 iş günü içinde kargoya verilir
+            • Teslimat süresi lokasyona göre 1-5 iş günüdür
+            • Kargo takip numarası SMS ve e-posta ile iletilir
+            • Teslimat adresi değişikliği kargo sürecine girmeden yapılabilir
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            3. Garanti Şartları: Satın aldığınız ürünler, 1 yıl boyunca garanti
-            kapsamındadır.
+
+          <Typography variant="body1" >
+            2. Ödeme ve Fiyatlandırma
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Tüm fiyatlara KDV dahildir
+            • Kredi kartı, havale/EFT ve kapıda ödeme seçenekleri mevcuttur
+            • Taksit seçenekleri banka ve kart türüne göre değişiklik gösterir
+            • Fiyat değişikliği hakkı saklıdır
+          </Typography>
+
+          <Typography variant="body1" paragraph>
+            3. İade ve Değişim Politikası
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • 14 gün içinde koşulsuz iade hakkı
+            • Ürünler kullanılmamış ve orijinal ambalajında olmalıdır
+            • İade kargo ücreti firmamıza aittir
+            • Para iadesi 5-7 iş günü içinde yapılır
+          </Typography>
+
+          <Typography variant="body1" >
+            4. Garanti Koşulları
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 2, mb: 2 }}>
+            • Tüm ürünler 2 yıl garanti kapsamındadır
+            • Kullanıcı hatası kaynaklı hasarlar garanti kapsamı dışındadır
+            • Garanti süresi fatura tarihinden itibaren başlar
+            • Servis hizmeti tüm Türkiye'de geçerlidir
           </Typography>
         </Box>
       </Modal>

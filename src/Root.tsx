@@ -25,19 +25,20 @@ const Root = () => {
     sx={{
       display:'flex',
       flexDirection:'column',
-      minHeight:'100vh'
+      minHeight:'100vh',
+      position:'relative',
     }}
     >
       {!isPagePayment && <Navbar />}
       <Box
       component="main"
       sx={{
-        flex:1,
-        display:'flex',
-        flexDirection:'column'
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
       }}
       >
-
       <Outlet />
       </Box>
       {!isPagePayment && <Footer />}

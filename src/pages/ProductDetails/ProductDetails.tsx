@@ -223,8 +223,14 @@ function ProductsDetails() {
       >
         <Button
           variant="contained"
-          color="primary"
-          sx={{ px: 10, fontWeight: "bolder" }}
+          sx={{
+            px: 10,
+            fontWeight: "bolder",
+            backgroundColor: "black",
+            "&:hover": {
+              backgroundColor: "black",
+            },
+          }}
         >
           <Link
             style={{ textDecoration: "none", color: "white" }}

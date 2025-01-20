@@ -6,7 +6,7 @@ const extraSection = [
     price: 39,
   },
   {
-    section: "Kapıda Ödeme (Kredi Kartı)",
+    section: "Kapıda Ödeme (KK)",
     price: 45,
   },
 ];
@@ -35,7 +35,7 @@ const PaymentExtra = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   flexWrap: "nowrap",
-                  gap: { xs: 2, sm: 4, md: 10 },
+                  gap: { xs: 1, sm: 4, md: 10 },
                   "& > *": { flexShrink: 0 },
                 }}
               >

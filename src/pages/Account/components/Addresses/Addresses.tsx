@@ -61,8 +61,7 @@ const AddressForm: React.FC = () => {
     e.preventDefault();
     const FormEl = e.target as HTMLFormElement;
     const formData = new FormData(FormEl);
-    const data = Object.fromEntries(formData.entries()) as unknown as Address;
-
+    const data = Object.fromEntries(formData.entries()) as unknown as Address
     const newData = {
       title: title,
       country_id: 226,
@@ -70,7 +69,9 @@ const AddressForm: React.FC = () => {
       last_name: lastName,
       region_id: cities.find((c) => c.name === city)?.id,
       subregion_id: districts.find((d) => d.name === district)?.id,
-      full_address: `${address}${city}/${district}`,
+      full_address: `${address}, ${city.split("Province")[0]}/${
+        district.split("İlçesi")[0]
+      }`,
       phone_number: data.phone,
     };
     try {

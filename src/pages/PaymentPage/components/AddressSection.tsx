@@ -86,7 +86,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       last_name: lastName,
       region_id: cities.find((c) => c.name === city)?.id,
       subregion_id: districts.find((d) => d.name === district)?.id,
-      full_address: `${addres}${city}/${district}`,
+      full_address: `${addres} ${city.split("Province")[0]}/${district.split("İlçesi")[0]}`,
       phone_number: data.phone,
     };
 
@@ -111,12 +111,16 @@ const AddressSection: React.FC<AddressSectionProps> = ({
 
   const guestAddressSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-  
-    const fullAddress = `${firstName} ${lastName}, ${addres}, ${city}/${district}`;
+
+    const fullAddress = `${addres}, ${
+      city.split("Province")[0]
+    }/${district.split("İlçesi")[0]}`;
     const newData = {
       title: title,
       full_address: fullAddress,
-      phone:phone,
+      phone: phone,
+      first_name: firstName,
+      last_name: lastName,
     };
 
     localStorage.setItem("guest-address", JSON.stringify(newData));
@@ -126,18 +130,20 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     showSnackbar("Adres başarıyla kaydedildi", "success");
   };
 
-useEffect(() => {
-  async function fetchCity() {
-    try {
-      const responseCity = await fetch(base_url + "/world/region?limit=81&offset=0&country-name=turkey");
-      const dataCity = await responseCity.json();
-      setCities(dataCity.data.results);
-    } catch (error) {
-      console.error("Sehirler yüklenirken hata oluştu:", error);
+  useEffect(() => {
+    async function fetchCity() {
+      try {
+        const responseCity = await fetch(
+          base_url + "/world/region?limit=81&offset=0&country-name=turkey"
+        );
+        const dataCity = await responseCity.json();
+        setCities(dataCity.data.results);
+      } catch (error) {
+        console.error("Sehirler yüklenirken hata oluştu:", error);
+      }
     }
-  }
-  fetchCity();
- }, []);
+    fetchCity();
+  }, []);
 
   async function fetchDistrict(selectedCity: string) {
     try {
@@ -230,7 +236,7 @@ useEffect(() => {
         await handleAddressSubmit(e);
       }
     } else {
-      await guestAddressSubmit(e);
+      guestAddressSubmit(e);
     }
     handleClose();
   };
@@ -318,11 +324,7 @@ useEffect(() => {
                       </Box>
                       <Box>
                         <Typography variant="subtitle1">
-                          {address.full_address +
-                            " " +
-                            address.region.name.split(" ")[0] +
-                            " / " +
-                            address.subregion.name.split(" ")[0]}
+                          {address.full_address}
                         </Typography>
                         <Typography
                           variant="subtitle1"
@@ -370,6 +372,9 @@ useEffect(() => {
                       <Box>
                         <Typography variant="subtitle1">
                           {guestAddress.full_address}
+                        </Typography>
+                        <Typography sx={{ color: "gray", my:1 }} variant="subtitle2">
+                         Alıcı: {guestAddress.first_name + " " + guestAddress.last_name}
                         </Typography>
                       </Box>
                     </Box>

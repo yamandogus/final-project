@@ -176,8 +176,9 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
             }}
             variant="contained"
             onClick={() => update()}
+            href="/account"
           >
-            ⬅ Giriş
+            ⬅ Hesap
           </Button>
           <Button
             variant="contained"

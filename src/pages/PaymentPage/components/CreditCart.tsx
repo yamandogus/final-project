@@ -1,5 +1,5 @@
 import { Box, Checkbox, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cards, { Focused } from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
@@ -12,31 +12,23 @@ const CreditCart = () => {
     focus: "",
   });
 
-  const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-    const matches = v.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || '';
-    const parts = [];
+  console.log(state.number);
 
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
-    }
-
-    if (parts.length) {
-      return parts.join(' ');
-    } else {
-      return value;
-    }
-  };
-
-  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = evt.target;
     setState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleInputFocus = (evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputFocus = (
+    evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
   };
+  useEffect(() => {
+    console.log("Current state:", state);
+  }, [state]);
 
   return (
     <Box>
@@ -59,12 +51,12 @@ const CreditCart = () => {
               size="small"
               value={state.number}
               onChange={(e) => {
-                const formattedValue = formatCardNumber(e.target.value);
-                if (formattedValue.length <= 19) {
-                  handleInputChange({
-                    ...e,
-                    target: { ...e.target, value: formattedValue },
-                  });
+                const value = e.target.value.replace(/\D/g, "");
+                if (value.length <= 16) {
+                  setState(prev => ({ 
+                    ...prev, 
+                    number: value.replace(/(\d{4})/g, "$1 ").trim()
+                  }));
                 }
               }}
               onFocus={handleInputFocus}
@@ -93,15 +85,14 @@ const CreditCart = () => {
               size="small"
               value={state.expiry}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '');
+                const value = e.target.value.replace(/\D/g, "");
                 if (value.length <= 4) {
-                  const formattedValue = value
-                    .replace(/(\d{2})/, '$1/')
-                    .replace(/(\d{2})\/?(\d{2})/, '$1/$2');
-                  handleInputChange({
-                    ...e,
-                    target: { ...e.target, value: formattedValue },
-                  });
+                  const month = value.slice(0, 2);
+                  const year = value.slice(2);
+                  setState(prev => ({
+                    ...prev,
+                    expiry: value.length > 2 ? `${month}/${year}` : month
+                  }));
                 }
               }}
               onFocus={handleInputFocus}
@@ -118,26 +109,18 @@ const CreditCart = () => {
               size="small"
               value={state.cvc}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '');
+                const value = e.target.value.replace(/\D/g, "");
                 if (value.length <= 3) {
-                  handleInputChange({
-                    ...e,
-                    target: { ...e.target, value },
-                  });
+                  setState(prev => ({
+                    ...prev,
+                    cvc: value
+                  }));
                 }
               }}
               onFocus={handleInputFocus}
               fullWidth
               required
             />
-          </Grid>
-          <Grid item xs={12}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Checkbox />
-              <Typography variant="body2">
-                Kart bilgilerimi sonraki alışverişlerim için kaydet
-              </Typography>
-            </Box>
           </Grid>
         </Grid>
       </Box>

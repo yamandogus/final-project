@@ -26,7 +26,11 @@ const ProductAccordion = ({ product }: Props) => {
           ÖZELLİKLER
         </AccordionSummary>
         <AccordionDetails>
-          {product.explanation.features || " "}
+          {product.explanation.features
+            .split("\n")
+            .map((ing, index) => (
+              <Typography key={index}>{ing}</Typography>
+            ))}
         </AccordionDetails>
       </Accordion>
       <Accordion>

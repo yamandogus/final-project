@@ -20,91 +20,93 @@ interface DrawerListProps {
   toggleDrawer: (newOpen: boolean) => () => void;
 }
 
-
-
 const DrawerListMenu = ({
   allProduct,
   toggleDrawerLink,
   toggleDrawer,
 }: DrawerListProps) => {
   const { user } = useLoaderData() as LoaderData;
-  const {updateCartData} = userCartStore()
+  const { updateCartData } = userCartStore();
   const navigate = useNavigate();
-  
+
   const handlelogout = () => {
+    // First clear all data
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    window.location.reload();
     updateCartData({
       items: [],
       total_price: 0,
     });
+    
+    // Then close drawer and navigate
+    toggleDrawer(false)();
     navigate("/");
   };
 
-
-
   return (
-    <Box sx={{ width: 280}}>
-      <Box sx={{backgroundColor:'white'}}>
-      <List>
-        {allProduct.map((links, index) => (
-          <ListItem
-            key={index}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              color: "black",
-            }}
-            component={Link}
-            to={links.link ? `${links.link}` : "#"}
-            onClick={
-              links.children ? toggleDrawerLink(links) : toggleDrawer(false)
-            }
-          >
-            <Stack flexDirection={"row"}>
-              <Avatar
-              variant="square"
-                src={
-                  links?.top_sellers?.[0].picture_src
-                    ? `${photo_url}${links?.top_sellers?.[0].picture_src}`
-                    : undefined
-                }
-                sx={{ mr: 2 }}
-              />
-              <Typography sx={{ fontWeight: 700 }}>{links.name}</Typography>
-            </Stack>
-            {links.children && <NavigateNextIcon />}
-          </ListItem>
-        ))}
-      </List>
+    <Box sx={{ width: 280 }}>
+      <Box sx={{ backgroundColor: "white" }}>
+        <List>
+          {allProduct.map((links, index) => (
+            <ListItem
+              key={index}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                color: "black",
+              }}
+              component={Link}
+              to={links.link ? `${links.link}` : "#"}
+              onClick={
+                links.children ? toggleDrawerLink(links) : toggleDrawer(false)
+              }
+            >
+              <Stack flexDirection={"row"}>
+                <Avatar
+                  variant="square"
+                  src={
+                    links?.top_sellers?.[0].picture_src
+                      ? `${photo_url}${links?.top_sellers?.[0].picture_src}`
+                      : undefined
+                  }
+                  sx={{ mr: 2 }}
+                />
+                <Typography sx={{ fontWeight: 700 }}>{links.name}</Typography>
+              </Stack>
+              {links.children && <NavigateNextIcon />}
+            </ListItem>
+          ))}
+        </List>
       </Box>
       <Divider />
       <Box>
         <List>
           {user && user?.first_name ? (
-           <>
-            <ListItem
-              sx={{color:'black'}}
-              component={Link}
-              to={"MyAccount"}
-              onClick={toggleDrawer(false)}
-            >
-              HESABIM
-            </ListItem>
-            <ListItem
-            sx={{color:'black'}}
-              component={Link}
-              to={"MyAccount"}
-              onClick={handlelogout}
-            >
-              ÇIKIŞ YAP
-            </ListItem>
-           </>
+            <>
+              <ListItem
+                sx={{ color: "black" }}
+                component={Link}
+                to={"MyAccount"}
+                onClick={toggleDrawer(false)}
+              >
+                HESABIM
+              </ListItem>
+              <ListItem
+                sx={{ color: "black" }}
+                component={Link}
+                to={"/"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlelogout();
+                }}
+              >
+                ÇIKIŞ YAP
+              </ListItem>
+            </>
           ) : (
             <>
               <ListItem
-              sx={{color:'black'}}
+                sx={{ color: "black" }}
                 component={Link}
                 to={`Account?value=${"1"}`}
                 onClick={toggleDrawer(false)}
@@ -112,7 +114,7 @@ const DrawerListMenu = ({
                 ÜYE GİRİŞİ
               </ListItem>
               <ListItem
-              sx={{color:'black'}}
+                sx={{ color: "black" }}
                 component={Link}
                 to={`Account?value=${"2"}`}
                 onClick={toggleDrawer(false)}
@@ -122,11 +124,11 @@ const DrawerListMenu = ({
             </>
           )}
 
-          <ListItem  onClick={toggleDrawer(false)}>MÜŞTERİ YORUMLARI</ListItem>
+          <ListItem onClick={toggleDrawer(false)}>MÜŞTERİ YORUMLARI</ListItem>
           <ListItem
             component={Link}
             to={"ContactUs"}
-            sx={{color:'black'}}
+            sx={{ color: "black" }}
             onClick={toggleDrawer(false)}
           >
             İLETİŞİM
