@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, TextField, Typography } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import Cards, { Focused } from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
@@ -53,9 +53,9 @@ const CreditCart = () => {
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "");
                 if (value.length <= 16) {
-                  setState(prev => ({ 
-                    ...prev, 
-                    number: value.replace(/(\d{4})/g, "$1 ").trim()
+                  setState((prev) => ({
+                    ...prev,
+                    number: value.replace(/(\d{4})/g, "$1 ").trim(),
                   }));
                 }
               }}
@@ -89,9 +89,9 @@ const CreditCart = () => {
                 if (value.length <= 4) {
                   const month = value.slice(0, 2);
                   const year = value.slice(2);
-                  setState(prev => ({
+                  setState((prev) => ({
                     ...prev,
-                    expiry: value.length > 2 ? `${month}/${year}` : month
+                    expiry: value.length > 2 ? `${month}/${year}` : month,
                   }));
                 }
               }}
@@ -111,9 +111,9 @@ const CreditCart = () => {
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "");
                 if (value.length <= 3) {
-                  setState(prev => ({
+                  setState((prev) => ({
                     ...prev,
-                    cvc: value
+                    cvc: value,
                   }));
                 }
               }}

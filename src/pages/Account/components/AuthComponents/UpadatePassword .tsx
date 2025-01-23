@@ -1,5 +1,6 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Grid,
   IconButton,
@@ -81,118 +82,137 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
     hadlePasswordUpdate(e);
   };
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "10rem" }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sx={style}>
-          <TextField
-            id="old_password"
-            name="old_password"
-            label="Eski şifre"
-            type={showOldPassword ? "password" : "text"}
-            autoComplete="old_password"
-            required
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowOldPassword} edge="end">
-                    {showOldPassword ? (
-                      <VisibilityOff sx={{ fontSize: 17 }} />
-                    ) : (
-                      <Visibility sx={{ fontSize: 17 }} />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <form onSubmit={handleSubmit} style={{ marginBottom: "10rem" }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sx={style}>
+            <TextField
+              id="old_password"
+              name="old_password"
+              label="Eski şifre"
+              type={showOldPassword ? "password" : "text"}
+              autoComplete="old_password"
+              required
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowOldPassword} edge="end">
+                      {showOldPassword ? (
+                        <VisibilityOff sx={{ fontSize: 17 }} />
+                      ) : (
+                        <Visibility sx={{ fontSize: 17 }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sx={style}>
+            <TextField
+              id="password"
+              name="password"
+              label="Yeni Şifre"
+              type={showNewPassword ? "password" : "text"}
+              autoComplete="password"
+              required
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowNewPassword} edge="end">
+                      {showNewPassword ? (
+                        <VisibilityOff sx={{ fontSize: 17 }} />
+                      ) : (
+                        <Visibility sx={{ fontSize: 17 }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sx={style}>
+            <TextField
+              id="password2"
+              name="password2"
+              label="Yeni şifre tekrar"
+              type={showConfirmPassword ? "password" : "text"}
+              autoComplete="password2"
+              error={!!textError}
+              helperText={textError || " "}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setTextError("");
+                } else if (textError) {
+                  setTextError("");
+                }
+              }}
+              required
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowConfirmPassword} edge="end">
+                      {showConfirmPassword ? (
+                        <VisibilityOff sx={{ fontSize: 17 }} />
+                      ) : (
+                        <Visibility sx={{ fontSize: 17 }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 3,
             }}
-          />
-        </Grid>
-        <Grid item xs={12} sx={style}>
-          <TextField
-            id="password"
-            name="password"
-            label="Yeni Şifre"
-            type={showNewPassword ? "password" : "text"}
-            autoComplete="password"
-            required
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowNewPassword} edge="end">
-                    {showNewPassword ? (
-                      <VisibilityOff sx={{ fontSize: 17 }} />
-                    ) : (
-                      <Visibility sx={{ fontSize: 17 }} />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} sx={style}>
-          <TextField
-            id="password2"
-            name="password2"
-            label="Yeni şifre tekrar"
-            type={showConfirmPassword ? "password" : "text"}
-            autoComplete="password2"
-            error={!!textError}
-            helperText={textError || " "}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setTextError("");
-              } else if (textError) {
-                setTextError("");
-              }
-            }}
-            required
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowConfirmPassword} edge="end">
-                    {showConfirmPassword ? (
-                      <VisibilityOff sx={{ fontSize: 17 }} />
-                    ) : (
-                      <Visibility sx={{ fontSize: 17 }} />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sx={{
+          >
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "black",
+                width: "60%",
+              }}
+              type="submit"
+            >
+              Güncelle
+            </Button>
+          </Grid>
+          <Grid item xs={12}
+           sx={{
             display: "flex",
             justifyContent: "center",
             gap: 3,
           }}
-        >
-          <Button
-            sx={{
-              backgroundColor: "black",
-            }}
-            variant="contained"
-            onClick={() => update()}
-            href="/account"
           >
-            ⬅ Hesap
-          </Button>
           <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "black",
-            }}
-            type="submit"
-          >
-            Güncelle
-          </Button>
+              variant="contained"
+              sx={{
+                backgroundColor: "black",
+                width: "60%",
+              }}
+              href="/"
+            >
+              Ana Sayfa
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-      <SnackbarComponent />
-    </form>
+        <SnackbarComponent />
+      </form>
+    </Box>
   );
 };
 

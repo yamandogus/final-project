@@ -260,7 +260,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
         ) : (
           <Box>
             <strong>
-              <a href="SingUp">Üye Ol</a>
+              <a href="/account?value=2">Üye Ol</a>
             </strong>
           </Box>
         )}

@@ -84,12 +84,18 @@ const AddressForm: React.FC = () => {
         },
       });
       const responseJson = await response.json();
-      showSnackbar("Adres Kaydedildi", "success");
-      setAddresssNew((prev) => [...prev, responseJson.data]);
-      setFirstName(firstName);
-      setLastName(lastName);
-      resetForm();
-      setIsAddressSaved(true);
+      if (response.ok) {
+        showSnackbar("Adres Kaydedildi", "success");
+        setAddresssNew((prev) => [...prev, responseJson.data]);
+        setFirstName(firstName);
+        setLastName(lastName);
+        resetForm();
+        setIsAddressSaved(true);
+      } else if (phone === "+90 111 111 11 11") {
+        showSnackbar("Geçersiz telefon numarası", "error");
+      } else {
+        showSnackbar("Geçersiz telefon numarası", "error");
+      }
     } catch (error) {
       console.log(error);
       showSnackbar("Adres Eklenemedi", "error");

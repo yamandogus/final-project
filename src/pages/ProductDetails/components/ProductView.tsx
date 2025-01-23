@@ -191,7 +191,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
 
   return (
     <>
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 2 }}>
         <Container>
           <Grid container spacing={3}>
             <Grid item sm={12} md={6} key={product.id}>

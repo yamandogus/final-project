@@ -18,7 +18,7 @@ import PaymentExtra from "./PaymentExtra";
 import PaymentSecurity from "./PaymentSecurity";
 import PaymentControl from "./PaymentControl";
 import { AccountProps } from "../../Account/components/Informations/MyAccount";
-
+import useSnackbar from "../../../hooks/Alert";
 
 interface PaymentSectionProps {
   expanded: string | false;
@@ -38,11 +38,13 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   handlePaymentMethod,
   setPaymentMade,
   selectedAddressId,
+  selectedAddress,
   user,
 }) => {
   const [selectedPayment, setSelectedPayment] = useState("credit_cart");
-  const { basketItems, clearBasket} = usePaymentStore();
+  const { basketItems, clearBasket } = usePaymentStore();
   const { resetCount } = useStore();
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [paymentControl, setPaymentControl] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
 
@@ -94,24 +96,30 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
     }
   };
 
-
   const handlePaymentGuest = () => {
     setPaymentControl(true);
     setTimeout(() => {
-      if (basketItems.length > 0) {
+      if (basketItems.length > 0 && selectedAddress.length > 0) {
         console.log("guest ödeme");
         clearBasket();
         resetCount();
         localStorage.removeItem("basketItems-storage");
         setPaymentMade(true);
-        console.log("ife girdi");
-        ("if")
+        ("if");
       } else {
         setPaymentError(true);
         setPaymentMade(false);
-        console.log("elsegirdi");
+        showSnackbar("Lütfen teslimat adresini ekleyiniz", "error");
       }
     }, 7000);
+  };
+
+  const handlePaymentRetry = () => {
+    setPaymentControl(false);
+    setPaymentError(false);
+    setTimeout(() => {
+      handlePaymentGuest();
+    }, 100);
   };
 
   return (
@@ -154,7 +162,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                     value="credit_cart"
                     control={<Radio />}
                     label={
-                      <Typography variant='subtitle2'>Kredi Kartı</Typography>
+                      <Typography variant="subtitle2">Kredi Kartı</Typography>
                     }
                     sx={{
                       width: "100%",
@@ -165,10 +173,8 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                     }}
                   />
                 </Box>
-                {selectedPayment === "credit_cart" && (
-                  <CreditCart/>
-                )}
-                 <PaymentExtra/>
+                {selectedPayment === "credit_cart" && <CreditCart />}
+                <PaymentExtra />
               </RadioGroup>
             </FormControl>
             <Box
@@ -179,7 +185,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                 alignItems: "center",
               }}
             >
-              <PaymentSecurity/>
+              <PaymentSecurity />
             </Box>
             <Button
               type="submit"
@@ -199,9 +205,9 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           </form>
         ) : (
           <PaymentControl
-          paymentError={paymentError}
-          setPaymentControl={setPaymentControl}
-          paymentControl={paymentControl}
+            paymentError={paymentError}
+            setPaymentControl={handlePaymentRetry}
+            paymentControl={paymentControl}
           />
         )}
       </Box>
@@ -217,6 +223,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           Ödemeler güvenli ve şifrelidir.
         </Typography>
       </Box>
+      <SnackbarComponent />
     </CustomAccordion>
   );
 };

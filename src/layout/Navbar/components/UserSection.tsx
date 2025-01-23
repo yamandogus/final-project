@@ -31,8 +31,7 @@ function UserSection({ user }: UserSectionProps) {
       items: [],
       total_price: 0,
     });
-    window.location.reload();
-    navigate("/");
+    window.location.href = "/"; 
   };
 
   return (
