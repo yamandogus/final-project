@@ -230,7 +230,7 @@ const ProductsView = ({ product, tags, user }: Props) => {
                     <span>{product.comment_count} Yorum</span>
                   </Stack>
                   <Stack
-                    width="100%"
+                    width="90%"
                     mt={2}
                     direction={"row"}
                     spacing={2}

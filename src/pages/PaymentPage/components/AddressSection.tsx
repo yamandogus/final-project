@@ -89,7 +89,6 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       full_address: `${addres} ${city.split("Province")[0]}/${district.split("İlçesi")[0]}`,
       phone_number: data.phone,
     };
-
     try {
       const response = await fetch(base_url + "/users/addresses", {
         method: "POST",
@@ -99,10 +98,15 @@ const AddressSection: React.FC<AddressSectionProps> = ({
           "Content-Type": "application/json",
         },
       });
-      const responseJson = await response.json();
-      setAddresssNew((prev) => [...prev, responseJson.data]);
-      resetForm();
-      showSnackbar("Adres Eklendi", "success");
+      if (response.ok) {
+        const responseJson = await response.json();
+        setAddresssNew((prev) => [...prev, responseJson.data]);
+        resetForm();
+        showSnackbar("Adres Eklendi", "success");
+        handleClose();
+      }else {
+        showSnackbar("Geçersiz telefon numarası", "error");
+      }
     } catch (error) {
       console.log(error);
       showSnackbar("Adres eklenemedi", "error");

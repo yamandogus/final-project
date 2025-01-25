@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Footer from "./layout/Footer/footer";
 import Navbar from "./layout/Navbar/navbar";
 import { startTokenRefreshInterval } from "./pages/Account/components/Informations/MyAccount";
+import Loading from "./components/Loading";
 
 const Root = () => {
   const { pathname } = useLocation();
@@ -57,25 +58,7 @@ const Root = () => {
           {!isPagePayment && <Footer />}
         </>
       ) : (
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          gap: 2,
-          padding: 2,
-          textAlign: 'center'
-        }}>
-          <Typography variant="h2" sx={{ color: 'black', fontWeight: 'bolder' }}>
-            Hoşgeldiniz
-          </Typography>
-          <Typography variant="h4" sx={{ color: 'black', fontWeight: 'bolder' }}>
-            Bu site eğitim amacı ile yapılmıştır.
-            <br />
-            Kredi kartı ve gerçek adres bilgilerinizi girmemenizi rica ederim.
-          </Typography>
-        </Box>
+        <Loading/>
       )}
     </Box>
   );

@@ -23,6 +23,7 @@ const SignUp = ({ setValue }: ValueProps) => {
   const [showPassword, setShowPassword] = useState(true);
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [passwordError, setPasswordError] = useState("");
+  const [capsLockOn, setCapsLockOn] = useState(false);
 
   const handleShow = () => {
     setShowPassword((prev) => !prev);
@@ -56,6 +57,9 @@ const SignUp = ({ setValue }: ValueProps) => {
     } else {
       showSnackbar("Kullanıcı oluşturulamadı", "error");
     }
+  };
+  const handleCapsLock = (event: KeyboardEvent) => {
+    setCapsLockOn(event.getModifierState("CapsLock"));
   };
 
   return (
@@ -92,6 +96,7 @@ const SignUp = ({ setValue }: ValueProps) => {
               id="password"
               name="password"
               label="Şifre"
+              onKeyDown={(e) => handleCapsLock(e as unknown as KeyboardEvent)}
               onChange={(e) => {
                 if (e.target.value.length < 8) {
                   setPasswordError("Şifre 8 karakterden az olamaz");
@@ -105,7 +110,10 @@ const SignUp = ({ setValue }: ValueProps) => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={handleShow} edge="end">
+                    <IconButton
+                      onClick={handleShow}
+                      edge="end"
+                    >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
@@ -116,6 +124,11 @@ const SignUp = ({ setValue }: ValueProps) => {
           {passwordError && (
             <Typography variant="subtitle1" color="error">
               {passwordError}.
+            </Typography>
+          )}
+          {capsLockOn && (
+            <Typography color="warning" variant="caption" sx={{ mt: 1 }}>
+              Caps Lock açık!
             </Typography>
           )}
         </Grid>

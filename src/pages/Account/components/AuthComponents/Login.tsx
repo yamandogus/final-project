@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, MouseEvent as ReactMouseEvent, KeyboardEvent } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useSnackbar from "../../../../hooks/Alert";
@@ -21,10 +21,15 @@ interface LoginProps {
 const Login = ({ setChangePassword }: LoginProps) => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showPassword, setShowPassword] = useState(true);
+  const [capsLockOn, setCapsLockOn] = useState(false);
   const navigate = useNavigate();
 
-  const handleShow = () => {
+  const handleShow = (event: ReactMouseEvent<HTMLButtonElement>) => {
     setShowPassword((prev) => !prev);
+  };
+
+  const handleCapsLock = (event: KeyboardEvent) => {
+    setCapsLockOn(event.getModifierState('CapsLock'));
   };
 
   const handleLogin = async (e: FormEvent) => {
@@ -61,6 +66,7 @@ const Login = ({ setChangePassword }: LoginProps) => {
     }
   };
 
+
   return (
     <form onSubmit={handleLogin}>
       <Grid container spacing={2} mt={1}>
@@ -87,6 +93,7 @@ const Login = ({ setChangePassword }: LoginProps) => {
               type={showPassword ? "password" : "text"}
               autoComplete="password"
               required
+              onKeyDown={(e) => handleCapsLock(e as unknown as KeyboardEvent)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -97,6 +104,11 @@ const Login = ({ setChangePassword }: LoginProps) => {
                 ),
               }}
             />
+            {capsLockOn && (
+              <Typography color="warning" variant="caption" sx={{ mt: 1 }}>
+                Caps Lock açık!
+              </Typography>
+            )}
             <Typography variant="subtitle2" sx={{ mt: 2, textAlign: "end" }}>
               <Link onClick={() => setChangePassword(true)} to="">
                 Şifremi Unuttum?
