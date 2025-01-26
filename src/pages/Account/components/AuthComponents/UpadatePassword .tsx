@@ -95,6 +95,7 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} sx={style}>
             <TextField
+              size="small"
               id="old_password"
               name="old_password"
               label="Eski şifre"
@@ -118,6 +119,7 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
           </Grid>
           <Grid item xs={12} sx={style}>
             <TextField
+              size="small"
               id="password"
               name="password"
               label="Yeni Şifre"
@@ -141,6 +143,7 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
           </Grid>
           <Grid item xs={12} sx={style}>
             <TextField
+              size="small"
               id="password2"
               name="password2"
               label="Yeni şifre tekrar"
@@ -184,7 +187,6 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
               variant="contained"
               sx={{
                 backgroundColor: "black",
-                width: "60%",
               }}
               type="submit"
             >
@@ -202,7 +204,6 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
               variant="contained"
               sx={{
                 backgroundColor: "black",
-                width: "60%",
               }}
               href="/"
             >

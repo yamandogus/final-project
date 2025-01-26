@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -12,8 +12,8 @@ const Informations: React.FC = () => {
   const [phone, setPhone] = useState<string>(user?.phone_number || "");
   const [phoneError, setPhoneError] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
-  const [change, setChange] = useState(false)
-  const [userData, setUserData] = useState(user)
+  const [change, setChange] = useState(false);
+  const [userData, setUserData] = useState(user);
 
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,23 +26,22 @@ const Informations: React.FC = () => {
     }
   };
 
-  const handleSubmit = async(e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-   if(!change){
-    setChange(true)
-   }else{
-    const cleanPhone = phone.replace(/\D/g, "").replace(/^90|^0/, "");
-    const phone_number = `+90${cleanPhone}`;
-    if (phone_number.length !== 13) {
-      setPhoneError(true);
-      return;
+    if (!change) {
+      setChange(true);
+    } else {
+      const cleanPhone = phone.replace(/\D/g, "").replace(/^90|^0/, "");
+      const phone_number = `+90${cleanPhone}`;
+      if (phone_number.length !== 13) {
+        setPhoneError(true);
+        return;
+      }
+      const updateUser = await upadeteAccount(e, phone_number);
+      setUserData(updateUser);
+      setChange(false);
     }
-    const updateUser= await upadeteAccount(e, phone_number);
-    setUserData(updateUser)
-    setChange(false)
-   }
   };
-
 
   return (
     <>
@@ -104,14 +103,23 @@ const Informations: React.FC = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sx={{
-                display:'flex',
-                justifyContent:'space-between'
-              }}>
-                <Typography sx={{
-                  textDecoration:'underline',
-                  cursor:'pointer'
-                }} onClick={()=> setChangePassword(true)}>Şifre yenile</Typography>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography
+                  sx={{
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setChangePassword(true)}
+                >
+                  Şifre yenile
+                </Typography>
                 <Button
                   variant="contained"
                   type="submit"
@@ -121,16 +129,30 @@ const Informations: React.FC = () => {
                     "&:hover": { backgroundColor: "black" },
                   }}
                 >
-                  {!change ?"GÜNCELLE":"KAYDET"}
+                  {!change ? "GÜNCELLE" : "KAYDET"}
                 </Button>
               </Grid>
             </Grid>
           </form>
         </>
       ) : (
-        <>
+        <Box>
+          <Box>
+            <Button
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "black",
+                },
+              }}
+              onClick={() => setChangePassword(false)}
+            >
+              Geri
+            </Button>
+          </Box>
           <UpadatePasswordNew update={() => setChangePassword(false)} />
-        </>
+        </Box>
       )}
     </>
   );

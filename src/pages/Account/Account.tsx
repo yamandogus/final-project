@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Tab } from "@mui/material";
+import { Box, Button, Container, Tab } from "@mui/material";
 import { TabContext, TabList } from "@mui/lab";
 import useSnackbar from "../../hooks/Alert";
 import Login from "./components/AuthComponents/Login";
@@ -54,9 +54,22 @@ const Account = () => {
             </TabContext>
           </>
         ) : (
-          <>
+          <Box>
+            <Box>
+              <Button
+                sx={{
+                  color: "white",
+                  backgroundColor: "black",
+                  "&:hover": { backgroundColor: "black" },
+                  mb: 2,
+                }}
+                onClick={() => setChangePassword(false)}
+              >
+                Geri
+              </Button>
+            </Box>
             <UpadatePasswordNew update={() => setChangePassword(false)} />
-          </>
+          </Box>
         )}
       </Container>
 
