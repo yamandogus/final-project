@@ -55,24 +55,13 @@ const Account = () => {
           </>
         ) : (
           <Box>
-            <Box>
-              <Button
-                sx={{
-                  color: "white",
-                  backgroundColor: "black",
-                  "&:hover": { backgroundColor: "black" },
-                  mb: 2,
-                }}
-                onClick={() => setChangePassword(false)}
-              >
-                Geri
-              </Button>
-            </Box>
-            <UpadatePasswordNew update={() => setChangePassword(false)} />
+            <UpadatePasswordNew
+              returnPage={() => setChangePassword(false)}
+              update={() => setChangePassword(false)}
+            />
           </Box>
         )}
       </Container>
-
       <SnackbarComponent />
     </Box>
   );

@@ -22,7 +22,13 @@ interface PasswordUpdate {
   password2: string;
 }
 
-const UpadatePasswordNew = ({ update }: { update: () => void }) => {
+const UpadatePasswordNew = ({
+  update,
+  returnPage,
+}: {
+  update: () => void;
+  returnPage: () => void;
+}) => {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [showOldPassword, setShowOldPassword] = useState(true);
   const [showNewPassword, setShowNewPassword] = useState(true);
@@ -187,27 +193,20 @@ const UpadatePasswordNew = ({ update }: { update: () => void }) => {
               variant="contained"
               sx={{
                 backgroundColor: "black",
+                width: "90px",
               }}
-              type="submit"
+              onClick={returnPage}
             >
-              Güncelle
+              Geri
             </Button>
-          </Grid>
-          <Grid item xs={12}
-           sx={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 3,
-          }}
-          >
-          <Button
+            <Button
               variant="contained"
               sx={{
                 backgroundColor: "black",
               }}
-              href="/"
+              type="submit"
             >
-              Ana Sayfa
+              Güncelle
             </Button>
           </Grid>
         </Grid>

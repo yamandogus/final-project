@@ -138,20 +138,11 @@ const Informations: React.FC = () => {
       ) : (
         <Box>
           <Box>
-            <Button
-              sx={{
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "black",
-                },
-              }}
-              onClick={() => setChangePassword(false)}
-            >
-              Geri
-            </Button>
+            <UpadatePasswordNew
+              returnPage={() => setChangePassword(false)}
+              update={() => setChangePassword(false)}
+            />
           </Box>
-          <UpadatePasswordNew update={() => setChangePassword(false)} />
         </Box>
       )}
     </>

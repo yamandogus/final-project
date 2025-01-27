@@ -65,6 +65,13 @@ const AddressSection: React.FC<AddressSectionProps> = ({
   const [selectedAddressValue, setSelectedAddressValue] = useState<string>("");
   const [guestAddress, setGuestAddress] = useState<GuestAddress | undefined>();
 
+  useEffect(() => {
+    const savedGuestAddress = localStorage.getItem("guest-address");
+    if (savedGuestAddress) {
+      setGuestAddress(JSON.parse(savedGuestAddress));
+    }
+  }, []);
+
   const handlePhone = (
     value: string | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -115,7 +122,6 @@ const AddressSection: React.FC<AddressSectionProps> = ({
 
   const guestAddressSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
     const fullAddress = `${addres}, ${
       city.split("Province")[0]
     }/${district.split("İlçesi")[0]}`;
@@ -126,9 +132,9 @@ const AddressSection: React.FC<AddressSectionProps> = ({
       first_name: firstName,
       last_name: lastName,
     };
-
     localStorage.setItem("guest-address", JSON.stringify(newData));
-    setGuestAddress(newData);
+    const guestAddress = JSON.parse(localStorage.getItem("guest-address") || "");
+    setGuestAddress(guestAddress);
     handleClose();
     resetForm();
     showSnackbar("Adres başarıyla kaydedildi", "success");

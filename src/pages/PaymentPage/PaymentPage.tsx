@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid,Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { LoaderData } from "../../layout/Navbar/navbar";
@@ -17,7 +17,7 @@ const PaymentPage = () => {
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [paymentMade, setPaymentMade] = useState(false);
-  const { user, userCart} = useLoaderData() as LoaderData;
+  const { user, userCart } = useLoaderData() as LoaderData;
   const handleChangePanel =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -39,6 +39,10 @@ const PaymentPage = () => {
     }
   };
 
+  const hadleGuestLocalStorgaeRemove = () => {
+    localStorage.removeItem("guest-address");
+    localStorage.removeItem("basketItems-storage");
+  };
   return (
     <>
       {!paymentMade ? (
@@ -100,7 +104,6 @@ const PaymentPage = () => {
           }}
         >
           {user && user.first_name ? (
-
             //USER
             <Box
               sx={{
@@ -111,11 +114,11 @@ const PaymentPage = () => {
                 gap: 1,
               }}
             >
-             <DotLottieReact
-                  src="https://lottie.host/6b0b00db-8ae6-45e3-993a-52aad9f1d68e/5M1MexEXOy.lottie"
-                  loop
-                  autoplay
-                />
+              <DotLottieReact
+                src="https://lottie.host/6b0b00db-8ae6-45e3-993a-52aad9f1d68e/5M1MexEXOy.lottie"
+                loop
+                autoplay
+              />
               <Typography
                 sx={{ fontWeight: "bolder", color: "green" }}
                 variant="subtitle1"
@@ -131,24 +134,20 @@ const PaymentPage = () => {
               <Typography>
                 Şiparişlerinizi Hesabım sayfasından kontrol edebilirsiniz.
               </Typography>
-              <Box >
-              <Button
-                variant="contained"
-                color="success"
-                href={"/MyAccount?tab=olders"}
-                sx={{mr:2}}
-              >
-                {" "}
-                Hesabım{" "}
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                href={"/"}
-              >
-                {" "}
-                Anasayfa{" "}
-              </Button>
+              <Box>
+                <Button
+                  variant="contained"
+                  color="success"
+                  href={"/MyAccount?tab=olders"}
+                  sx={{ mr: 2 }}
+                >
+                  {" "}
+                  Hesabım{" "}
+                </Button>
+                <Button variant="contained" color="success" href={"/"}>
+                  {" "}
+                  Anasayfa{" "}
+                </Button>
               </Box>
             </Box>
           ) : (
@@ -177,7 +176,15 @@ const PaymentPage = () => {
                 <Typography variant="subtitle1" sx={{}}>
                   Sipariş özetiniz ve faturanız telefon numarasına gönderildi.
                 </Typography>
-                <Button variant="contained" color="success" href={"/"}>
+                <Typography>
+                  Şiparişleriş tutarı
+                </Typography>
+                <Button
+                  onClick={hadleGuestLocalStorgaeRemove}
+                  variant="contained"
+                  color="success"
+                  href={"/"}
+                >
                   {" "}
                   Anasayfa{" "}
                 </Button>{" "}

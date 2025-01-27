@@ -103,7 +103,6 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
         console.log("guest ödeme");
         clearBasket();
         resetCount();
-        localStorage.removeItem("basketItems-storage");
         setPaymentMade(true);
         ("if");
       } else {
