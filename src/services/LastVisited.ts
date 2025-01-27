@@ -1,6 +1,5 @@
 import { ProductProps } from "./Type";
 
-
 export const lastVisited =(product:ProductProps)=>{
   const visitProduct = JSON.parse(localStorage.getItem("last-visited") || "[]");
   const visitedFilter = visitProduct.filter((i:ProductProps)=> i.slug !== product.slug);

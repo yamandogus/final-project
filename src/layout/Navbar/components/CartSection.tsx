@@ -6,7 +6,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import ShoppingCart from "../../../pages/Shopping/ShoppingCart";
-import { useStore } from "../../../services/Count";
+import { useStore } from "../../../store/Count";
 import { LoaderData } from "../navbar";
 import { userCartStore } from "../../../store/cartStore";
 

@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { LoaderData } from "../../layout/Navbar/navbar";
-import { usePaymentStore } from "../../services/Payement";
+import { usePaymentStore } from "../../store/Payement";
 import AddressSection from "./components/AddressSection";
 import ShippingSection from "./components/ShippingSections";
 import PaymentSection from "./components/PaymentSection";

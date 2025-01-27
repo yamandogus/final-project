@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import HttpsIcon from "@mui/icons-material/Https";
-import { usePaymentStore } from "../../../services/Payement";
+import { usePaymentStore } from "../../../store/Payement";
 import { base_url } from "../../../components/Bestseller/BestsellerPage";
-import { useStore } from "../../../services/Count";
+import { useStore } from "../../../store/Count";
 import CustomAccordion from "./CustomAccordion";
 import CreditCart from "./CreditCart";
 import PaymentExtra from "./PaymentExtra";

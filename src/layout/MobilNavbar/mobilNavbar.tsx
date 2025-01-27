@@ -13,7 +13,7 @@ import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStore
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ShoppingCart from "../../pages/Shopping/ShoppingCart";
-import { useStore } from "../../services/Count";
+import { useStore } from "../../store/Count";
 import { userCartStore } from "../../store/cartStore";
 import { LinksProps } from "../../services/Type";
 import { LoaderData } from "../Navbar/navbar";

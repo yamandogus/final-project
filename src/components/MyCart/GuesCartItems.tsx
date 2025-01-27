@@ -1,4 +1,4 @@
-import { Payment } from "../../services/Payement";
+import { Payment } from "../../store/Payement";
 import { Box, Card, Stack, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { photo_url } from "../Bestseller/BestsellerPage";

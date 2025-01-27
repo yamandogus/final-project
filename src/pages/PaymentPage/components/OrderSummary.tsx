@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import { LoaderDataAccount } from "../../../services/Type";
-import { Payment } from "../../../services/Payement";
+import { Payment } from "../../../store/Payement";
 import { photo_url } from "../../../components/Bestseller/BestsellerPage";
 
 interface OrderSummaryProps {

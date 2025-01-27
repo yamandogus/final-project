@@ -1,11 +1,11 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import { usePaymentStore } from "../../services/Payement";
+import { usePaymentStore } from "../../store/Payement";
 import { LoaderData } from "../../layout/Navbar/navbar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { useStore } from "../../services/Count";
-import { useStoreUserCart } from "../../services/UserCount";
+import { useStore } from "../../store/Count";
+import { useStoreUserCart } from "../../store/UserCount";
 import UserCartItems from "../../components/MyCart/UserCart";
 import GuestCartItems from "../../components/MyCart/GuesCartItems";
 import { base_url } from "../../components/Bestseller/BestsellerPage";
