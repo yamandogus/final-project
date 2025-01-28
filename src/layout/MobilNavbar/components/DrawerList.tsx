@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData} from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { LinksProps } from "../../../services/Type";
 import { LoaderData } from "../../Navbar/navbar";
@@ -27,20 +27,16 @@ const DrawerListMenu = ({
 }: DrawerListProps) => {
   const { user } = useLoaderData() as LoaderData;
   const { updateCartData } = userCartStore();
-  const navigate = useNavigate();
 
   const handlelogout = () => {
-    // First clear all data
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     updateCartData({
       items: [],
       total_price: 0,
     });
-    
-    // Then close drawer and navigate
+    window.location.href = "/";
     toggleDrawer(false)();
-    navigate("/");
   };
 
   return (
