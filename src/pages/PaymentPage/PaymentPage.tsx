@@ -23,11 +23,6 @@ const PaymentPage = () => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const total: number = basketItems.reduce(
-    (tot, item) => tot + item.price * item.count,
-    0
-  );
-
   const handlePaymentMethod = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value);
     if (e.target.value === "Adreste nakit ödeme") {

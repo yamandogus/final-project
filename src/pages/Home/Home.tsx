@@ -1,4 +1,13 @@
-import { Box, Container, Grid, Popper, Rating, Stack, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Rating,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import GppGoodIcon from "@mui/icons-material/GppGood";
@@ -7,7 +16,6 @@ import { CategoryProps } from "../../services/Type";
 import CategoryProducts from "./components/HomeComp";
 import SliderComponent from "../../hooks/UseBlaze/SliderComponent";
 import BestSeller from "../../components/Bestseller/BestsellerPage";
-import { useState } from "react";
 
 const products = [
   {
@@ -66,6 +74,71 @@ const Home = () => {
   return (
     <>
       <Box component={"div"} className="sliderRek">
+        <Box
+          sx={{
+            position: "fixed",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: 2,
+            bottom: 20,
+            right: 20,
+            zIndex: 1000,
+          }}
+        >
+          <Tooltip title="Yapay Zeka Asistanı">
+            <IconButton
+              href="/AI"
+              sx={{
+                width: 75,
+                height: 75,
+                fontSize: 40,
+                background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+                color: "white",
+                boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
+                transition: "all 0.3s ease-in-out",
+                animation: "pulse 2s infinite",
+                "&:hover": {
+                  transform: "scale(1.1)",
+                  background: "linear-gradient(45deg, #21CBF3 30%, #2196F3 90%)",
+                  boxShadow: "0 6px 10px 4px rgba(33, 203, 243, .4)",
+                },
+                "@keyframes pulse": {
+                  "0%": {
+                    boxShadow: "0 0 0 0 rgba(33, 203, 243, 0.4)",
+                  },
+                  "70%": {
+                    boxShadow: "0 0 0 10px rgba(33, 203, 243, 0)",
+                  },
+                  "100%": {
+                    boxShadow: "0 0 0 0 rgba(33, 203, 243, 0)",
+                  },
+                },
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  animation: "float 3s ease-in-out infinite",
+                  "@keyframes float": {
+                    "0%": {
+                      transform: "translateY(0px)",
+                    },
+                    "50%": {
+                      transform: "translateY(-10px)",
+                    },
+                    "100%": {
+                      transform: "translateY(0px)",
+                    },
+                  },
+                }}
+              >
+                🤖
+              </Box>
+            </IconButton>
+          </Tooltip>
+        </Box>
         <Container>
           <Stack
             direction="row"

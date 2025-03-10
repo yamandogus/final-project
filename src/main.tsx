@@ -3,24 +3,25 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import Root from './Root'
-import Home from './pages/Home/Home'
 import "./styles/evryStyles.scss"
-import ProductsDetails, { ProductLoader } from './pages/ProductDetails/ProductDetails'
-import AccountHomePage from './pages/Account/AccountHomePage'
-import Categories, { CategoryLoader } from './pages/Categories/Categories'
 import { userAddressLoader } from './services/PaymentAddress'
 import { SearchPropsPt } from './services/Type'
-import ContactUs from './layout/Footer/components/ContactUs'
-import { loader } from './components/Bestseller/BestsellerPage'
 import { theme } from './theme/Themes'
+import { loader } from './Components/Bestseller/BestsellerPage'
 import { LinksLoader } from './layout/Navbar/navbar'
+import Home from './pages/Home/Home'
+import ProductsDetails, { ProductLoader } from './pages/ProductDetails/ProductDetails'
 import AllProducts, { AllProLoader } from './pages/AllProduct/AllProducts'
+import Categories, { CategoryLoader } from './pages/Categories/Categories'
 import { userProfileLoader } from './pages/Account/components/Informations/MyAccount'
+import AccountHomePage from './pages/Account/AccountHomePage'
 import Account from './pages/Account/Account'
 import AboutUs from './layout/Footer/components/AboutUs'
 import SSS from './layout/Footer/components/SSS'
+import ContactUs from './layout/Footer/components/ContactUs'
 import PaymentPage from './pages/PaymentPage/PaymentPage'
-
+import AI from './pages/AI/AI'
+import { AlLoader } from './pages/AI/ai/api'
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,11 @@ const router = createBrowserRouter([
         path: "PaymentPage",
         loader:userAddressLoader,
         element:<PaymentPage/>
+      },
+      {
+        path: "AI",
+        loader:AlLoader as ()=> Promise<{data: SearchPropsPt[]}>,
+        element:<AI/>
       }
     ]
   }

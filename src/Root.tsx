@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Footer from "./layout/Footer/footer";
 import Navbar from "./layout/Navbar/navbar";
 import { startTokenRefreshInterval } from "./pages/Account/components/Informations/MyAccount";
