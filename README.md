@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# 🍏 OJS Nutrition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[🚀 Canlı Görünüm](https://dogus-yaman-nutrition.vercel.app/) | [💻 GitHub Repo](https://github.com/yamandogus/final-project)
 
-Currently, two official plugins are available:
+OJS Nutrition, modern web teknolojileri kullanılarak geliştirilmiş bir kullanıcı odaklı alışveriş uygulamasıdır. Uygulama, kullanıcıların beslenme ürünlerini incelemesine, sepet oluşturmasına ve adres yönetimi yapmasına olanak tanır. Tamamen responsive tasarımı sayesinde mobil, tablet ve web üzerinde sorunsuz çalışır.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Özellikler
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* 🛒 **Dinamik Ürün Listesi:** Sonsuz kaydırma (infinite scroll) ile ürünleri API'den dinamik olarak yükler.
+* 📦 **Ürün Detay Sayfası:** Ürün bilgilerini görüntüleme, seçenekleri seçme ve sepete ekleme.
+* 🏠 **Adres Yönetimi:** Kullanıcılar adreslerini ekleyebilir, düzenleyebilir ve yönetebilir.
+* 📱 **Responsive Tasarım:** Mobil, tablet ve masaüstü cihazlarda kullanıcı dostu deneyim.
+* 🎨 **Kullanıcı Odaklı Arayüz:** Sade, işlevsel ve modern tasarım.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🛠 Teknolojiler
+
+* **Frontend:** React, TypeScript, Vite, SCSS
+* **Durum Yönetimi:** Zustand
+* **UI & Components:** Material UI, Blaze Slider
+* **Routing:** React Router DOM
+* **Diğer:** Responsive tasarım, Modern CSS teknikleri
+
+---
+
+## ⚡ Kurulum
+
+Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
+
+```bash
+# Depoyu klonlayın
+git clone https://github.com/yamandogus/final-project.git
+
+# Proje dizinine girin
+cd final-project
+
+# Gerekli paketleri yükleyin
+npm install  # veya pnpm install
+
+# Uygulamayı başlatın
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Tarayıcınızda `http://localhost:5173` adresini açın.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 👨‍💻 Yazar
+
+**Doğuş Yaman** – [LinkedIn](https://www.linkedin.com/in/dogusyaman) | [Portfolio](https://dogus-yaman-portfolio.vercel.app/) | [GitHub](https://github.com/yamandogus)
+
+Frontend geliştirici olarak kullanıcı odaklı, modern ve sürdürülebilir web uygulamaları geliştirmeye odaklanıyorum. React ve TypeScript ile dinamik, responsive ve erişilebilir arayüzler tasarlıyorum.
+
+---
+
+Bu README, projeyi hem teknik detaylarıyla hem de kullanıcı deneyimi odaklı olarak anlaşılır bir şekilde sunar. 🎯
