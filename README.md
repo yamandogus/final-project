@@ -1,4 +1,4 @@
-# 🍏 OJS Nutrition
+# OJS Nutrition
 
 [🚀 Canlı Görünüm](https://dogus-yaman-nutrition.vercel.app/) | [💻 GitHub Repo](https://github.com/yamandogus/final-project)
 
